@@ -77,7 +77,7 @@ $sheet->setCellValue('F6', 'Абон.плата за период');
 			}
 			$sheet->setCellValue('E'.($row_next + 1), "ИТОГО:");
 			$sheet->setCellValue('F'.($row_next + 1), $cash_abplata_month_1);
-			$sheet->getStyle('F'.($row_next + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+			$sheet->getStyle('F'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
 		}
 /*		
 $style_wrap = array(
@@ -147,7 +147,7 @@ $style_center = array(
 $sheet->getStyle('A6:F6')->applyFromArray($style_header);
 $sheet->getStyle('A7:D'.($row_next))->applyFromArray($style_left);
 $sheet->getStyle('E7:F'.($row_next))->applyFromArray($style_center);
-$sheet->getStyle('E7:F'.($row_next))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+$sheet->getStyle('E7:F'.($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle('E'.($row_next + 1).':F'.($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle('E'.($row_next + 1).':F'.($row_next + 1))->applyFromArray($style_wrap);

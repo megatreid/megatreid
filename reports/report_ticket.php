@@ -179,7 +179,7 @@ foreach($_POST['id_projects'] as $id_project)
 }
 $sheet->setCellValue($row[11 + $move].($row_next + 1), "ИТОГО:");
 $sheet->setCellValue($row[12 + $move].($row_next + 1), $all_cost_in_project);
-$sheet->getStyle($row[12 + $move].($row_next + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+$sheet->getStyle($row[12 + $move].($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
 $sheet->getStyle('A6:'.$row[12 + $move].'7')->applyFromArray($style_header);
 $sheet->getStyle('A7:'.$row[6 + $move].($row_next))->applyFromArray($style_left);
 $sheet->getStyle('A6:'.$row[12 + $move].'7')->applyFromArray($style_center);
@@ -188,5 +188,5 @@ $sheet->getStyle('A6:'.$row[12 + $move].($row_next))->applyFromArray($style_wrap
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_wrap);
-$sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+$sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
 ?>

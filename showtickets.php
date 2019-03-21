@@ -203,7 +203,7 @@ if( isset($data['ticket_status']))
 						<td class = "<?= $class?>"><?=$customers['customer_name'];?></td>
 						<td class = "<?= $class?>"><?=$projects['projectname'];?></td>
 						<td class = "<?= $class?>"><?=$city['name'];?></td>
-						<td class = "<?= $class?>"><?=$objects['shop_number']."<br>Адрес: ".$objects['address']?></td>
+						<td class = "<?= $class?>"><?=$objects['shop_number']."<br>".$objects['address']?></td>
 						<td class = "<?= $class?>"><?=$ticket_status_array[$ticket['ticket_status']]?></td>
 						<td class = "<?= $class?>"><?=$executor; ?></td>
 						<td class = "<?= $class?>"><?=$paymentstatus[$ticket['contr_payment_status']]?></td>

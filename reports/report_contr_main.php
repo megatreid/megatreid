@@ -93,13 +93,22 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	}
 	$rowplus++;
 }
+
+
 $sheet->setCellValue('A'.($row_next + 1),"ИТОГО:");
 $sheet->setCellValue('B'.($row_next + 1), $contr_cost_itog);
+
+$to_pay = $abon_plata_contr_itog + $contr_cost_itog;
+
+$sheet->setCellValue('A'.($row_next + 3),"К ОПЛАТЕ:");
+$sheet->setCellValue('B'.($row_next + 3), $to_pay);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
 $sheet->getStyle('A'.($row_start2+1).':B'.($row_next + 1))->applyFromArray($style_wrap);
 $sheet->getStyle('A'.($row_next + 1).':B'.($row_next + 1))->applyFromArray($style_header);
-$sheet->getStyle('A'.($row_next + 1))->applyFromArray($style_right);
-$sheet->getStyle('B7:B'.($row_next + 1))->applyFromArray($style_center);
+$sheet->getStyle('A'.($row_next + 1).':A'.($row_next + 3))->applyFromArray($style_right);
+$sheet->getStyle('A'.($row_next + 3).':B'.($row_next + 3))->applyFromArray($style_wrap);
+$sheet->getStyle('A'.($row_next + 3).':B'.($row_next + 3))->applyFromArray($style_header);
+$sheet->getStyle('B7:B'.($row_next + 3))->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
-$sheet->getStyle('B7:B'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle('B7:B'.($row_next + 3))->getNumberFormat()->setFormatCode('# ### ##0.00');
 ?>

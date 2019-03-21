@@ -174,6 +174,11 @@ if(isset($_POST['customer_report']))
 
 			$sheet->setCellValue('A'.($row_incident + $counter),'ИТОГО:');
 			$sheet->setCellValue('B'.($row_incident + $counter), $all_cost_in_project_summ);
+			
+			$to_pay = $cash_summ + $all_cost_in_project_summ;
+			$sheet->setCellValue('A'.($row_incident + $counter + 2),'К ОПЛАТЕ:');
+			$sheet->setCellValue('B'.($row_incident + $counter + 2), $to_pay);
+			
 			//echo "ИТОГО: ". $cash_summ. " рублей.";
 		}
 		$sheet->setCellValue('B2',$customer_sel['customer_name']);
@@ -208,11 +213,7 @@ $style_header = array(
  'name' => 'Times New Roman',
  'size' => 11
  ),
-//Выравнивание
- 'alignment' => array(
- 'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_RIGHT,
- 'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
- ),
+
 //Заполнение цветом
  'fill' => array(
  'type' => PHPExcel_STYLE_FILL::FILL_SOLID,
@@ -245,11 +246,16 @@ $style_center = array(
 $style_number_00 = array(
 	'code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00,
 );
-$sheet->getStyle('A'.($row_itog).':B'.($row_itog).'')->applyFromArray($style_header);
-$sheet->getStyle('A'.($row_incident + $counter).':B'.($row_incident + $counter).'')->applyFromArray($style_header);
-$sheet->getStyle('A'.($row_itog).':A'.($row_itog).'')->applyFromArray($style_right);
-$sheet->getStyle('A'.($row_incident + $counter).':A'.($row_incident + $counter).'')->applyFromArray($style_right);
-$sheet->getStyle('B1:B'.($row_incident + $counter).'')->applyFromArray($style_left);
+$sheet->getStyle('A'.($row_itog).':B'.($row_itog))->applyFromArray($style_header);
+$sheet->getStyle('A'.($row_incident + $counter).':B'.($row_incident + $counter))->applyFromArray($style_header);
+$sheet->getStyle('A'.($row_itog).':A'.($row_itog))->applyFromArray($style_right);
+$sheet->getStyle('A'.($row_incident + $counter).':A'.($row_incident + $counter))->applyFromArray($style_right);
+$sheet->getStyle('A'.($row_incident + $counter + 2).':A'.($row_incident + $counter + 2))->applyFromArray($style_right);
+$sheet->getStyle('B1:B'.($row_incident + $counter + 2))->applyFromArray($style_center);
+$sheet->getStyle('A'.($row_incident + $counter + 2).':B'.($row_incident + $counter + 2))->applyFromArray($style_header);
+$sheet->getStyle('A'.($row_incident + $counter + 2).':B'.($row_incident + $counter + 2))->applyFromArray($style_wrap);
+
+$sheet->getStyle('B6:B'.($row_incident + $counter + 2))->getNumberFormat()->setFormatCode('# ### ##0.00');
 require_once 'reports/report_abonent.php';
 require_once 'reports/report_ticket.php';
 $xls->setActiveSheetIndex(0);
