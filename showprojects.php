@@ -1,6 +1,6 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
+if(isset($_SESSION['userlevel']))
 {
 require_once '/blocks/header.php';
 if(isset($_GET['id_customer']))
@@ -19,11 +19,12 @@ if(isset($_GET['id_customer']))
 <body>
 	<div class="showcustomer">
 			<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Проекты (<?=$customers['customer_name'];?>):</p>
+			<?php if($_SESSION['userlevel']<3){ ?>
 				<div class="newcustomer">
 					<a href='/newproject.php?id_customer=<?=$data?>'><button class="button-new">Добавить новый проект</button></a>
 				</div>
-				<br>
-					<table border="1" cellspacing="0">
+			<?php }?>
+				<table border="1" cellspacing="0">
 					<thead>
 						<tr class="hdr">
 							<th width="1" rowspan="2">№</th>
@@ -32,7 +33,9 @@ if(isset($_GET['id_customer']))
 							<th  width="1" rowspan="2">Почасовой<br>тариф</th>
 							<th width="1" colspan="4">Стоимость инцидентов</th>
 							<!-- <th>Транспортные<br>расходы</th> -->
+							<?php if($_SESSION['userlevel']<3){ ?>
 							<th width="1" rowspan="2">Действие</th>
+							<?php }?>
 							<th width="1" rowspan="2">Объекты</th>
 						</tr>
 							<tr class="hdr">
@@ -69,8 +72,10 @@ if(isset($_GET['id_customer']))
 						<td  width="1" align="center"><?=$project['cost_incident_high']?></td>
 						<td  width="1" align="center"><?=$project['cost_incident_medium']?></td>
 						<td  width="1" align="center"><?=$project['cost_incident_low']?></td>
+						<?php if($_SESSION['userlevel']<3){ ?>
 						<td width="1" align="center"><a href='/editproject.php?edit_project=<?= $project['id_project'] ?>' title = 'Редактировать'>
 						<img src='/images/edit.png' width='20' height='20'></td>
+						<?php }?>
 						<td width="1" align="center"><a href='showobjects.php?id_project=<?= $project['id_project'] ?>' title = 'Объекты'>
 						<img src='/images/house1.png' width='20' height='20'></td>
 					</tr>

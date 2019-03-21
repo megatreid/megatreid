@@ -6,82 +6,7 @@ require_once 'blocks/header.php';
 require '/func/arrays.php';
 $currnetdatetime = date("Y-m-d H:i:s");
 $user_id = $_SESSION['user_id'];
-if(isset($_GET['id_ticket']))
-{
-	$get_data = $_GET['id_ticket'];
-	$tickets = Edit_Ticket($link, $get_data);
-	$objects = Edit_Object ($link, $tickets['id_object']);
-	$city = Get_Geo ($link, $objects['city_id'], "city", "city_id");
-	$projects = Edit_Project ($link, $objects['id_project']);
-	$customers = Edit_Customer ($link, $objects['id_customer']);
-	$contractor_select = Edit_Contr ($link, $tickets['id_contractor']);
-	
-	$id_object = $objects['id_object'];
-	$id_project = $projects['id_project'];
-	$object_full = "Объект: ".$objects['shop_number'].". Адрес: ".$objects['address'];
-	$city_name = $objects['city_name'];
-	$project_name = $projects['projectname'];
-	$customer_name = $customers['customer_name'];
-	$convertticketdate = strtotime($tickets['ticket_date']);
-	$ticketdate = date( 'd-m-Y H:i:s', $convertticketdate );
-	$convertlast_edit_datetime = strtotime($tickets['last_edit_datetime']);
-	$last_edit_datetime = date( 'd-m-Y H:i:s', $convertlast_edit_datetime );
-	$users = Edit_User($link, $tickets['last_edit_user_id']);
-	$user_edit_ticket = $users['surname']." ".$users['name'];
-	$work_type = $tickets['work_type'];
-	$ticket_sla = $tickets['ticket_sla'];
-	$hours = $tickets['hours'];
-	$cost_smeta = $tickets['cost_smeta'];
-	$cost_material = $tickets['cost_material'];
-	$cost_transport = $tickets['cost_transport'];
-	$contractors = Show_Contr_for_select ($link);
-	$summ_contr = $tickets['contr_cost_work'] + $tickets['contr_cost_smeta'] + $tickets['contr_cost_transport'] + $tickets['contr_cost_material'];
-	$summ_supplier = $tickets['supplier_cost_work'] + $tickets['supplier_cost_material'];
-	if($work_type == 0) //если выбран режим "Абонентская плата"
-		{
-			$cost_incident = 0;
-			$cost_hours = 0;
-			$cost_smeta = 0;
-		}
-	elseif($work_type == 1) //если выбран вид работы "Инцидентное обслуживание"
-	{
-
-		switch ($ticket_sla)
-		{
-			case 0:
-				$cost_incident = $projects['cost_incident_critical'];
-				break;
-			case 1:
-				$cost_incident = $projects['cost_incident_high'];
-				break;
-			case 2:
-				$cost_incident = $projects['cost_incident_medium'];
-				break;
-			case 3:
-				$cost_incident = $projects['cost_incident_low'];
-				break;
-		}
-		$cost_hours = $hours*$projects['cost_hour'];
-		$cost_smeta = 0;
-		
-	}
-	elseif ($work_type == 2) //если выбран вид работы "Почасовое обслуживание"
-	{
-		$projects = Edit_Project($link, $id_project);
-		$cost_incident = 0;
-		$cost_smeta = 0;
-		$cost_hours = $hours * $projects['cost_hour'];
-	}
-		
-	else  //если выбран вид работы "Дополнительные работы"
-	{ 
-		$cost_incident = 0;
-		$cost_hours = 0;
-	}
-	$summcostwork = $cost_incident + $cost_hours + $cost_smeta + $cost_material + $cost_transport;
-
-	
-}
+$get_data = $_GET['id_ticket'];
 
 $data = $_POST;
 $err=FALSE;
@@ -185,8 +110,9 @@ if( isset($data['edit_ticket']))
 		
 		if($ticket_status_edit==1 AND $implementer_edit == 0 AND $id_contractor_edit == 0)
 		{
-			$errors[] = 'Выберите исполнителя работ!';
+			$errors[] = 'Укажите исполнителя (подрядчика) работ!';
 		}
+
 		
 		//echo $contr_date_payment_edit;
 		
@@ -197,7 +123,7 @@ if( isset($data['edit_ticket']))
 			if($editticket){
 			?>
 				<script>
-					setTimeout(function() {window.location.href = '/showtickets.php#<?=$get_data?>';}, 0);
+					<!-- setTimeout(function() {window.location.href = '/showtickets.php#<?=$get_data?>';}, 0); -->
 				</script>
 			<?php	}
 		}
@@ -218,6 +144,82 @@ if( isset($data['edit_ticket']))
 			<?php		
 		}
 	}
+	if(isset($_GET['id_ticket']))
+{
+	$get_data = $_GET['id_ticket'];
+	$tickets = Edit_Ticket($link, $get_data);
+	$objects = Edit_Object ($link, $tickets['id_object']);
+	$city = Get_Geo ($link, $objects['city_id'], "city", "city_id");
+	$projects = Edit_Project ($link, $objects['id_project']);
+	$customers = Edit_Customer ($link, $objects['id_customer']);
+	$contractor_select = Edit_Contr ($link, $tickets['id_contractor']);
+	
+	$id_object = $objects['id_object'];
+	$id_project = $projects['id_project'];
+	$object_full = "Объект: ".$objects['shop_number'].". Адрес: ".$objects['address'];
+	$city_name = $objects['city_name'];
+	$project_name = $projects['projectname'];
+	$customer_name = $customers['customer_name'];
+	$convertticketdate = strtotime($tickets['ticket_date']);
+	$ticketdate = date( 'd-m-Y H:i:s', $convertticketdate );
+	$convertlast_edit_datetime = strtotime($tickets['last_edit_datetime']);
+	$last_edit_datetime = date( 'd-m-Y H:i:s', $convertlast_edit_datetime );
+	$users = Edit_User($link, $tickets['last_edit_user_id']);
+	$user_edit_ticket = $users['surname']." ".$users['name'];
+	$work_type = $tickets['work_type'];
+	$ticket_sla = $tickets['ticket_sla'];
+	$hours = $tickets['hours'];
+	$cost_smeta = $tickets['cost_smeta'];
+	$cost_material = $tickets['cost_material'];
+	$cost_transport = $tickets['cost_transport'];
+	$contractors = Show_Contr_for_select ($link);
+	$summ_contr = $tickets['contr_cost_work'] + $tickets['contr_cost_smeta'] + $tickets['contr_cost_transport'] + $tickets['contr_cost_material'];
+	$summ_supplier = $tickets['supplier_cost_work'] + $tickets['supplier_cost_material'];
+	if($work_type == 0) //если выбран режим "Абонентская плата"
+		{
+			$cost_incident = 0;
+			$cost_hours = 0;
+			$cost_smeta = 0;
+		}
+	elseif($work_type == 1) //если выбран вид работы "Инцидентное обслуживание"
+	{
+
+		switch ($ticket_sla)
+		{
+			case 0:
+				$cost_incident = $projects['cost_incident_critical'];
+				break;
+			case 1:
+				$cost_incident = $projects['cost_incident_high'];
+				break;
+			case 2:
+				$cost_incident = $projects['cost_incident_medium'];
+				break;
+			case 3:
+				$cost_incident = $projects['cost_incident_low'];
+				break;
+		}
+		$cost_hours = $hours*$projects['cost_hour'];
+		$cost_smeta = 0;
+		
+	}
+	elseif ($work_type == 2) //если выбран вид работы "Почасовое обслуживание"
+	{
+		$projects = Edit_Project($link, $id_project);
+		$cost_incident = 0;
+		$cost_smeta = 0;
+		$cost_hours = $hours * $projects['cost_hour'];
+	}
+		
+	else  //если выбран вид работы "Дополнительные работы"
+	{ 
+		$cost_incident = 0;
+		$cost_hours = 0;
+	}
+	$summcostwork = $cost_incident + $cost_hours + $cost_smeta + $cost_material + $cost_transport;
+
+	
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -432,13 +434,17 @@ if( isset($data['edit_ticket']))
 					<tr>
 					<td align="right">
 						<div>
-							<p><button name="edit_ticket" class="button">Сохранить</button>
-							<button class="button_back" onclick="history.go(-1); return false;">Назад</button></p>
+							<!-- <button name="edit_ticket" class="button">Сохранить</button> -->
+							<input class="button" value="Сохранить" name="edit_ticket" type="submit" />
+							<input class="button" value="Назад" type="button" onclick="location.href='showtickets.php'" />
 						</div>
 					</td>
+					<?php if($_SESSION['userlevel']<3){ ?>
 					<td align = "center">
-						<button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button>
+						<input class="button-delete" value="Удалить заявку" name="delete_ticket" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' />
+						<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
 					</td>
+					<?php }?>
 					</tr>
 					<tr>
 						<td class="reg_dohod_td_all">

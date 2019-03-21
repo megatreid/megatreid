@@ -1,6 +1,6 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
+if(isset($_SESSION['userlevel']))
 {
 require_once '/blocks/header.php';
 $geo_table = array("country", "region", "city", "3");
@@ -54,12 +54,16 @@ $contr = Show_Contr($link, $geo_table_search, $geo_row_search, $search_contr, $a
 <body>
 	<div class="showcontr">
 			<p class="breadcrumbs">Подрядчики:</p>
-			<br>
+			
+			<?php
+			if($_SESSION['userlevel'] < 3) { ?>
 				<div class="newcontr">
 					<a href='/newcontr.php' ><button class="button-new">Добавить нового подрядчика</button></a>
 				</div>
+			<?php }?>
+				<!--
 				<div class="searchcontr">
-				<!--<form action="showcontractor.php" method="POST">
+				<form action="showcontractor.php" method="POST">
 				Параметры поиска:
 				<select name="search_contr_select">
 					<option disabled selected>Выберите значение:</option>
@@ -76,8 +80,8 @@ $contr = Show_Contr($link, $geo_table_search, $geo_row_search, $search_contr, $a
 setTimeout(function(){
     location.reload();
 }, 15000);
-</script> -->
-				</div>
+</script> 
+				</div>-->
 					<table border="1" cellspacing="0">
 					<thead>
 						<tr class="hdr">
@@ -162,13 +166,16 @@ setTimeout(function(){
 						<!-- <td align="center"><?=$contrs['anketa']?></td> -->
 						<!-- <td align="center"><?=$contrs['status']?></td> -->
 						<!-- <td align="center"><?=$contrs['system_no']?></td> -->
-						<td align="center"><a href='/editcontr.php?edit=<?= $contrs['id_contractor'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a></td>
+						<?php
+							if($_SESSION['userlevel'] < 3) { ?>
+							<td align="center"><a href='/editcontr.php?edit=<?= $contrs['id_contractor'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a></td>
+						<?php	} ?>
 						<td align="center"><a href='/lookcontr.php?look=<?= $contrs['id_contractor'] ?>' title = 'Посмотреть'><img src='/images/lupa.png' width='20' height='20'></a></td>
 					</tr>
 			<?php }	}
 			?>
 				</table>
-		</div>
+	</div>
 		<script type="text/javascript" src='js/filter_showticket.js'></script>
 <script type="text/javascript" src='js/sideup.js'></script>	
 

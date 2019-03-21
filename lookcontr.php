@@ -1,6 +1,6 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2)
+if(isset($_SESSION['userlevel']))
 {
 require_once 'blocks/header.php'; 
 if(isset($_GET['look']))

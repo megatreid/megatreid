@@ -1,6 +1,6 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
+if(isset($_SESSION['userlevel']))
 {
 	require_once '/blocks/header.php';
 	if(isset($_GET['id_project']))
@@ -21,11 +21,12 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	<body>
 		<div class="showcustomer">
 			<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > <a href='showprojects.php?id_customer=<?= $customers['id_customer'] ?>'>Проекты (<?=$customers['customer_name'];?>)</a> > Объекты (<?=$projects['projectname'];?></a>):</p>
+			<?php if($_SESSION['userlevel']<3){ ?>	
 				<div class="newcustomer">
 					<a href='/newobject.php?id_project=<?=$data?>'><button class="button-new">Добавить новый объект</button></a>
 				</div>
-				<br>
-					<table border="1" cellspacing="0">
+			<?php }?>	
+				<table border="1" cellspacing="0">
 					<thead>
 						<tr class="hdr">
 							<th width="1">№</th>
@@ -35,7 +36,9 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 							<th width=10%>Объект</th>
 							<th>Адрес</th>
 							<th width="1">Абонентская<br>плата (руб.)</th>
+							<?php if($_SESSION['userlevel']<3){ ?>	
 							<th width="1">Действие</th>
+							<?php }?>
 						</tr>
 						<tr class='table-filters'>
 							<td>
@@ -78,8 +81,10 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 						<td align="center" width="1"><?=$object['shop_number']?></td>
 						<td align="center"><?=$object['address']?></td>
 						<td align="center"width="1"><?=$object['abon_plata']?></td>
+						<?php if($_SESSION['userlevel']<3){ ?>
 						<td align="center" width="1"><a href='/editobject.php?edit_object=<?= $object['id_object'] ?>' title = 'Редактировать'>
 						<img src='/images/edit.png' width='20' height='20'></td>
+						<?php }?>
 					</tr>
 				</tbody>
 				<?php }} else { ?>

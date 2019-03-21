@@ -220,10 +220,13 @@ if( isset($data['ticket_status']))
 					$class = "reg_text_show_tickets_red";
 				}
 
-				if ($diffdatechange > 1 && $ticket['ticket_status']!=1){
+				elseif ($diffdatechange > 1 && $ticket['ticket_status']!=1){
 					$class = "reg_text_show_tickets_red_bold";
 				}
-				if ($diffdatecreate < 2 && $diffdatechange < 1 && $ticket['ticket_status']!=1){
+				elseif ($diffdatecreate < 2 && $diffdatechange < 1 && $ticket['ticket_status']!=1){
+					$class = "";
+				}
+				elseif ($ticket['ticket_status']==1){
 					$class = "";
 				}
 				
@@ -240,13 +243,13 @@ if( isset($data['ticket_status']))
 						<td class = "<?= $class?>"><?=$objects['shop_number']."<br>".$objects['address']?></td>
 						<td class = "<?= $class?>"><?=$ticket_status_array[$ticket['ticket_status']];?></td>
 						<td class = "<?= $class?>"><?=$executor; ?></td>
-						<td class = "<?= $class?>"><?=$payment_status.$diffdatechange;?></td>
+						<td class = "<?= $class?>"><?=$payment_status;?></td>
 						<td class = "<?= $class?>"><?=$method_payment;?></td>
 						<td class = "<?= $class?>"><?= ""?></td>
 						<td class = "<?= $class?>"><?=$users['surname']." ".$users['name'];?></td>
 						<td class = "<?= $class?>"><?=$last_edit_datetime;?></td>
 						
-						<td width="1"><a href='/editticket.php?id_ticket=<?= $ticket['id_ticket']; ?>' title = 'Редактировать'>
+						<td  class = "<?= $class?>"width="1"><a href='/editticket.php?id_ticket=<?= $ticket['id_ticket']; ?>' title = 'Редактировать'>
 						<img src='/images/edit.png' width='20' height='20'></td>
 					</tr>
 				</tbody>

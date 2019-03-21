@@ -14,10 +14,11 @@ $customer = Show_Customer($link);
 <body>
 	<div class="showcustomer">
 		<p class="breadcrumbs">Заказчики:</p>
+		<?php if($_SESSION['userlevel']<3){ ?>
 			<div class="newcustomer">
 				<a href='/newcustomer.php'><button class="button-new">Добавить нового заказчика</button></a>
 			</div>
-			<br>
+		<?php }?>
 		<table border="1">
 			<thead>
 				<tr class="hdr">

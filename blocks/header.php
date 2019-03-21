@@ -47,14 +47,14 @@
 		<div class="auth-menu">
 			<?php if(isset($_SESSION['auch'])){
 			if($_SESSION['auch'] == 1) { ?>
-				<p><?= "Добрый день,<br>".$_SESSION["io"] ."!"?></p>
-				<a href='lk.php'><button class="button-new">Личный кабинет</button></a>
-				<a href='logout.php'><button class="button-new">Выйти</button></a>
+				<?= "Добрый день,<br>".$_SESSION["io"] ."!"?>
+				<!-- <a href='lk.php'><button class="button-new">Личный кабинет</button></a> -->
+				<div class='auth_menu_button'> <a href='logout.php'><button class="button-new">Выйти</button></a> </div>
 			<?php } 
 			if($_SESSION['auch'] == 2) {?>
-			<div><br><br> Неправильный логин или пароль! </div>
+			<div>Неправильный логин или пароль! </div>
 			<div  class="authmenu_reg">
-				<p>
+				
 				<form action="/auth.php" method="POST">
 					<label>Логин:</label>
 					<input type="text" name="login"/>
@@ -62,14 +62,14 @@
 					<input type="password" name="userpassword"/>
 					<button type="submit" name="do_login"  class="button-new">Войти</button>
 				</form>
-				</p>
+				
 				<?php } ?>
 			</div>
 			<?php } ?>
 			<?php if(!isset($_SESSION['auch'])){ ?>
-			<div><br><br> Пожалуйста, авторизуйтесь! </div>
-			<div class="authmenu_reg">
-				<p>
+			<div>Пожалуйста, авторизуйтесь! </div>
+			<span class="authmenu_reg">
+				
 					<form action="/auth.php" method="POST">
 						<label>Логин:</label>
 						<input type="text" name="login"/>
@@ -77,8 +77,8 @@
 						<input type="password" name="userpassword"/>
 						<button type="submit" name="do_login" class="button-new">Войти</button>
 					</form>
-				</p>
-			</div>
+				
+			</span>
 			<?php } ?>
 		</div>
 		<nav class="menu" role="navigation">
