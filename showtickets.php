@@ -101,6 +101,8 @@ if( isset($data['ticket_status']))
 							<th align="center" width=6% rowspan="2">Статус<br>заявки</th>
 							<th rowspan="2">Исполнитель</th>
 							<th rowspan="2">Статус<br>платежа</th>
+							<th rowspan="2">Форма<br>оплаты</th>
+							<th rowspan="2">Инженер</th>
 							<th width="1" colspan="2">Изменение заявки</th>
 							<th width="1" rowspan="2"></th>
 						</tr>
@@ -148,6 +150,12 @@ if( isset($data['ticket_status']))
 								<input class="reg_input_filter" type="text"/><!--Статус платежа-->
 							</td>							
 							<td>
+								<input class="reg_input_filter" type="text"/><!--Форма оплаты-->
+							</td>								
+							<td>
+								<input class="reg_input_filter" type="text"/><!--Инженер-->
+							</td>								
+							<td>
 								<input class="reg_input_filter" type="text"/><!--Сотрудник-->
 							</td>							
 							<td>
@@ -175,23 +183,49 @@ if( isset($data['ticket_status']))
 				if($implementer == 1)
 				{
 					$executor = 'Мега Трейд ООО';
+					$method_payment = "";
+					$payment_status = "";
 				}
-				else $executor =$contractor['org_name']." ".$contractor['status'];
+				else{
+					$executor =$contractor['org_name']." ".$contractor['status'];
+					if($contractor) {
+						$method_payment = $methodpaymentedit[$contractor['method_payment']];
+						$payment_status = $paymentstatus[$ticket['contr_payment_status']];
+					}
+					else{
+						$method_payment = "";
+						$payment_status = "";
+					}
+					
+					
+				} 
+
 				$convertticketdate = strtotime($ticket['ticket_date']);
+				
 				$currentdate = strtotime(date('d-m-Y H:i:s'));
 				$ticketdate = date( 'd-m-Y H:i:s', $convertticketdate );
 
-				$diffdate = ($currentdate - $convertticketdate)/(60*60*24); //Разница между текущей датой и датой заведения заявки
+				$diffdatecreate = ($currentdate - $convertticketdate)/(60*60*24); //Разница между текущей датой и датой заведения заявки
+				
 				
 				$convertlast_edit_datetime = strtotime($ticket['last_edit_datetime']);
 				$last_edit_datetime = date( 'd-m-Y H:i:s', $convertlast_edit_datetime );
+				$diffdatechange = ($currentdate - $convertlast_edit_datetime)/(60*60*24); //Разница между текущей датой и датой изменения заявки
 				?>
 				<tbody>
-				<?php if($diffdate>2 && $ticket['ticket_status']!=1)
+				<?php 
+				
+				if($diffdatecreate > 2 && $diffdatechange < 1 && $ticket['ticket_status']!=1)
 				{
 					$class = "reg_text_show_tickets_red";
-				} 
-				else {$class = "";}
+				}
+
+				if ($diffdatechange > 1 && $ticket['ticket_status']!=1){
+					$class = "reg_text_show_tickets_red_bold";
+				}
+				if ($diffdatecreate < 2 && $diffdatechange < 1 && $ticket['ticket_status']!=1){
+					$class = "";
+				}
 				
 				?>
 					<tr class="reg_text_show_tickets">
@@ -204,9 +238,11 @@ if( isset($data['ticket_status']))
 						<td class = "<?= $class?>"><?=$projects['projectname'];?></td>
 						<td class = "<?= $class?>"><?=$city['name'];?></td>
 						<td class = "<?= $class?>"><?=$objects['shop_number']."<br>".$objects['address']?></td>
-						<td class = "<?= $class?>"><?=$ticket_status_array[$ticket['ticket_status']]?></td>
+						<td class = "<?= $class?>"><?=$ticket_status_array[$ticket['ticket_status']];?></td>
 						<td class = "<?= $class?>"><?=$executor; ?></td>
-						<td class = "<?= $class?>"><?=$paymentstatus[$ticket['contr_payment_status']]?></td>
+						<td class = "<?= $class?>"><?=$payment_status.$diffdatechange;?></td>
+						<td class = "<?= $class?>"><?=$method_payment;?></td>
+						<td class = "<?= $class?>"><?= ""?></td>
 						<td class = "<?= $class?>"><?=$users['surname']." ".$users['name'];?></td>
 						<td class = "<?= $class?>"><?=$last_edit_datetime;?></td>
 						

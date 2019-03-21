@@ -753,6 +753,7 @@ display: block;
 	background:#ADD8E6;
 	font-family: Arial, Helvetica, sans-serif; 
 	border: 1px solid #A3A3A3;
+	font-size: 13px;
 	
 }
 
@@ -880,11 +881,27 @@ display: block;
 	color: #C10000;
 	//background: #FBABAB;
 }
-tbody tr:hover {
-	color: black;
-	background: #AFFFBF; 
+.reg_text_show_tickets_red_bold{
+	font-family: Arial, Helvetica, sans-serif; 
+	color: #A60000;
+	font-weight: bold;
+	
+	background: #E6CECE;
+}
+tbody tr:hover td{
+	//color: black;
+	background: #AFFFBF;
+
 
 }
+.reg_text_show_tickets_red_bold: hover{
+		color: black;
+	background: #AFFFBF;
+}
+
+
+
+
 .text_show{
 text-decoration: none;
 	font-size: 13px;
