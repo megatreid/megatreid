@@ -378,11 +378,25 @@ if( isset($data['new_ticket']))
 								</select>
 							</td>
 						</tr>
+						<tr id="contr_select">
+							<td class="reg_dohod_td"><label for="work_type">Инженер:</label></td>
+							<td>
+								<select class="reg_select" onchange="SelectOPT()" name="work_type" id="work_type">
+									<option disabled selected>Выберите значение:</option>
+									<option value="0">Абонентское обслуживание</option>
+									<option value="1">Инцидентное обслуживание</option>
+									<option value="2">Почасовое обслуживание</option>
+									<option value="3">Дополнительные работы</option>
+								</select>
+							</td>
+						</tr>
 					<tr>
 					<td colspan="2" align="center">
 						<div>
-							<p><button name="new_ticket" class="button">Добавить</button>
-							<button class="button_back" onclick="history.go(-1); return false;">Назад</button></p>
+
+							<!-- <button name="edit_ticket" class="button">Сохранить</button> -->
+							<input class="button" value="Сохранить" name="new_ticket" type="submit" />
+							<input class="button" value="Назад" type="button" onclick="location.href='showtickets.php'" />
 							
 						</div>
 
