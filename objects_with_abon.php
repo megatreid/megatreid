@@ -56,7 +56,7 @@ $objects_abon = Show_Objects_abon($link);
 			$contr_info = Edit_Contr($link, $object_abon['id_contractor']);
 			if($contr_info){
 				$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-				$contractor_info = $contr_info['org_name']." ".$contr_info['status']." (".$city_name['name'].")";
+				$contractor_info = $contr_info['org_name']." ".$contr_info['ownership']." (".$city_name['name'].")";
 			}
 			else
 			{

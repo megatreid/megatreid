@@ -2,6 +2,7 @@
 require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3){
 require_once '/blocks/header.php';
+require '/func/arrays.php';
 $customer = Show_Customer($link);
 ?>
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ $customer = Show_Customer($link);
 					<th>Контактное<br>лицо</th>
 					<th>Контактный<br>телефон</th>							
 					<th>E-Mail</th>
+					<th  width=1%>Статус</th>
 					<th width="1" <?php if($_SESSION['userlevel'] < 3){ ?> colspan="2"<?php }?>>Действие</th>
 					<th width="1">Проекты</th>
 				</tr>
@@ -46,7 +48,9 @@ $customer = Show_Customer($link);
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--E-Mail.-->
 					</td>							
-					
+					<td>
+						<input class="reg_input_filter" type="text" placeholder="..."/><!--Статус-->
+					</td>						
 					<td colspan="3">
 
 					</td>
@@ -99,6 +103,7 @@ $customer = Show_Customer($link);
 			
 					<?php }}?>
 				</td>
+				<td align="center"><?=$statusedit[$customers['status']];?></td>
 				<?php if($_SESSION['userlevel']<3){ ?>
 				<td align="center" width="1">
 					<a href='/editcustomer.php?edit=<?= $customers['id_customer'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a>

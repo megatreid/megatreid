@@ -2,7 +2,8 @@
 require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2)
 {
-require_once 'blocks/header.php'; 
+require_once 'blocks/header.php';
+require '/func/arrays.php';
 if(isset($_GET['edit']))
 {
 	$data = $_GET['edit'];
@@ -15,6 +16,7 @@ if(isset($_GET['edit']))
 	$inn_edit = $customers['inn'];
 	$kpp_edit = $customers['kpp'];
 	$dogovor_number_edit = $customers['dogovor_number'];
+	$status_edit = $customers['status'];
 	$bank_name_edit = $customers['bank_name'];
 	$bank_bik_edit = $customers['bank_bik'];
 	$korr_schet_edit = $customers['korr_schet'];
@@ -34,6 +36,7 @@ $ogrn = trim(filter_input(INPUT_POST, 'ogrn'));
 $inn = trim(filter_input(INPUT_POST, 'inn'));
 $kpp = trim(filter_input(INPUT_POST, 'kpp'));
 $dogovor_number = trim(filter_input(INPUT_POST, 'dogovor_number'));
+$status = trim(filter_input(INPUT_POST, 'status'));
 $bank_name = trim(filter_input(INPUT_POST, 'bank_name'));
 $bank_bik = trim(filter_input(INPUT_POST, 'bank_bik'));
 $korr_schet = trim(filter_input(INPUT_POST, 'korr_schet'));
@@ -206,7 +209,7 @@ if( isset($data_update['do_editcustomer']))
 <?php
 		$id_customer = $_SESSION['id_edit'];
 		
-		$update_customer = Update_Customer ($link, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment);
+		$update_customer = Update_Customer ($link, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment);
 
 		if($update_customer)
 		{
@@ -305,6 +308,17 @@ if( isset($data_update['do_editcustomer']))
 								<input id="dogovor_number" class="StyleSelectBox" name="dogovor_number" title="Номер договора должен содержать не менее 3 и не более 30 символов!" type="text" value="<?= @$dogovor_number_edit;?>"/>
 							</td>
 						</tr>
+						<tr class="status">
+							<td class="rowt">Статус заказчика: *</td>
+							<td>
+								<select name="status" class="StyleSelectBox">
+								<option disabled>Выберите значение:</option>
+								<?php for($i = 0; $i < 2; $i++) { ?>
+									<option  value="<?= $i ?>" <?= ($i == $status_edit) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
+								<?php } ?>
+								</select>
+							</td>
+						</tr>
 						<tr>
 							<td colspan="2" align="center">
 								РЕКВИЗИТЫ:
@@ -357,11 +371,12 @@ if( isset($data_update['do_editcustomer']))
 							<td class="rowt"><label for="comment">Примечание:</label></td>
 							<td><textarea class="reg_textarea" id="comment" name="comment" cols="32" rows="3" value="<?= @$email_edit;?>" title="Поле должно содержать не более 100 символов!" ></textarea></td>
 						</tr>
-						<tr>
+
 						</table>
-						<button class="button" name="do_editcustomer">Сохранить</button></td>
-						<button class="button_back" onclick="history.go(-1); return false;">Назад</button>
-						<td align = "center"><button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить этого заказчика?")' name="delete_customer">Удалить</button></td>
+
+						<input class="button" value="Сохранить" type="submit" name="do_editcustomer"/>
+						<input class="button" value="К списку заказчиков" type="button" onclick="location.href='showcustomer.php'"/>
+						<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_customer"/>
 					</form>
 					</div>
 				</div>

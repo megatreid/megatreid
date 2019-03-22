@@ -11,6 +11,7 @@ if(isset($_GET['id_customer']))
 	$projects = Show_Projects($link, $id_customer);
 	$err=FALSE;	
 	$projectname = trim(filter_input(INPUT_POST, 'projectname'));
+	$status = trim(filter_input(INPUT_POST, 'status'));
 	$cost_hour = trim(filter_input(INPUT_POST, 'cost_hour'));
 	$cost_incident_critical = trim(filter_input(INPUT_POST, 'cost_incident_critical'));
 	$cost_incident_high = trim(filter_input(INPUT_POST, 'cost_incident_high'));
@@ -56,7 +57,7 @@ if(isset($_GET['id_customer']))
 
 		if(empty($errors)){  
 			
-			$result = Add_Project ($link, $id_customer, $projectname, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
+			$result = Add_Project ($link, $id_customer, $projectname, $status, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
 			?>		
 			<script>
 				setTimeout(function() {window.location.href = 'showprojects.php?id_customer=<?=$id_customer;?>';}, 0);
@@ -100,11 +101,22 @@ if(isset($_GET['id_customer']))
 				<table>
 				<tr>
 					<td class="rowt"><label for="projectname">Наименование:*</label></td>
-					<td><input id="projectname" name="projectname" type="text" value="<?=@$data_post['projectname'];?>"/></td>
+					<td><input id="projectname" class="StyleSelectBox"  name="projectname" type="text" value="<?=@$data_post['projectname'];?>"/></td>
 				</tr>
+				<tr class="status">
+					<td class="rowt">Статус проекта:*</td>
+					<td>
+						<select name="status" class="StyleSelectBox" >
+
+							<option value="0">Неактивный</option>
+							<option value="1" selected>Активный</option>
+
+						</select>
+					</td>
+				</tr>				
 				<tr>
 					<td class="rowt"><label for="cost_hour">Почасовой тариф:</label></td>
-					<td><input id="cost_hour" name="cost_hour" type="number" min="0" value="<?=@$data_post['cost_hour'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_hour" name="cost_hour" type="number" min="0" value="<?=@$data_post['cost_hour'];?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -113,19 +125,19 @@ if(isset($_GET['id_customer']))
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_critical">Критический:</label></td>
-					<td><input id="cost_incident_critical" name="cost_incident_critical" type="number" min="0" value="<?=@$data_post['cost_incident_critical'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_critical" name="cost_incident_critical" type="number" min="0" value="<?=@$data_post['cost_incident_critical'];?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_high">Высокий:</label></td>
-					<td><input id="cost_incident_high" name="cost_incident_high" type="number" min="0" value="<?=@$data_post['cost_incident_high'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_high" name="cost_incident_high" type="number" min="0" value="<?=@$data_post['cost_incident_high'];?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_medium">Средний:</label></td>
-					<td><input id="cost_incident_medium" name="cost_incident_medium" type="number" min="0" value="<?=@$data_post['cost_incident_medium'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_medium" name="cost_incident_medium" type="number" min="0" value="<?=@$data_post['cost_incident_medium'];?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_low">Низкий:</label></td>
-					<td><input id="cost_incident_low" name="cost_incident_low" type="number" min="0" value="<?=@$data_post['cost_incident_low'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_low" name="cost_incident_low" type="number" min="0" value="<?=@$data_post['cost_incident_low'];?>"/> руб.</td>
 				</tr>
 				</table>
 				<div>

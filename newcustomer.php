@@ -1,7 +1,8 @@
 <?php
 require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2){
-require_once 'blocks/header.php'; 
+require_once 'blocks/header.php';
+require '/func/arrays.php'; 
 $data = $_POST;
 
 $err=0;
@@ -12,6 +13,7 @@ $ogrn = trim(filter_input(INPUT_POST, 'ogrn'));
 $inn = trim(filter_input(INPUT_POST, 'inn'));
 $kpp = trim(filter_input(INPUT_POST, 'kpp'));
 $dogovor_number = trim(filter_input(INPUT_POST, 'dogovor_number'));
+$status = trim(filter_input(INPUT_POST, 'status'));
 $bank_name = trim(filter_input(INPUT_POST, 'bank_name'));
 $bank_bik = trim(filter_input(INPUT_POST, 'bank_bik'));
 $korr_schet = trim(filter_input(INPUT_POST, 'korr_schet'));
@@ -179,7 +181,7 @@ if( isset($data['do_newcustomer']))
 /* ------------------------------------------------------------------------------------------------- */ 
 	if(empty($errors)){  
 
-		$result = Add_Customer ($link, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment); 
+		$result = Add_Customer ($link, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment); 
 		
 		if($result){
 		?>
@@ -260,6 +262,17 @@ if( isset($data['do_newcustomer']))
 							<input id="dogovor_number" class="StyleSelectBox" name="dogovor_number"  maxlength="30"  title="Номер договора должен содержать не менее 3 и не более 30 символов!" type="text" value="<?= @$data['dogovor_number'];?>"/>
 						</td>
 					</tr>
+					<tr class="status">
+						<td class="rowt">Статус заказчика:*</td>
+						<td>
+							<select name="status" class="StyleSelectBox" >
+
+								<option value="0">Неактивный</option>
+								<option value="1" selected>Активный</option>
+
+							</select>
+						</td>
+					</tr>
 					<tr>
 						<td colspan="2" align="center">
 							РЕКВИЗИТЫ:
@@ -314,7 +327,7 @@ if( isset($data['do_newcustomer']))
 					</tr>
 					</table>
 					<div>
-						<p><button name="do_newcustomer">Добавить</button></p>
+						<input class="button-new" type="submit" name="do_newcontr"/>
 					</div>
 				</form>
 		</div>

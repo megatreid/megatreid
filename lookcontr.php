@@ -2,7 +2,8 @@
 require '/connection/config.php';
 if(isset($_SESSION['userlevel']))
 {
-require_once 'blocks/header.php'; 
+require_once 'blocks/header.php';
+require '/func/arrays.php';
 if(isset($_GET['look']))
 {
 	$geo_table = array("country", "region", "city", "3");
@@ -12,12 +13,13 @@ if(isset($_GET['look']))
 	$region_id = $contractors['region_id'];
 	$city_id = $contractors['city_id'];
 	$org_name_edit = $contractors['org_name'];
+	$status = $contractors['status'];
 	$anketa_edit = $contractors['anketa'];
 	$contact_name_edit = $contractors['contact_name'];
 	$contact_name_exp = explode(";", $contact_name_edit);
 	$count_contact_name = count($contact_name_exp);
 	$passport = $contractors['passport'];
-	$status_edit = $contractors['status'];
+	$ownership_edit = $contractors['ownership'];
 	$system_no_edit = $contractors['system_no'];
 	$mobile_edit = $contractors['mobile'];
 	$mobile_exp = explode(";", $mobile_edit);
@@ -67,7 +69,9 @@ if(isset($_GET['look']))
 						<tr>
 							<td class="rowt">Организация / исполнитель:</td><td><?= $org_name_edit?></td>
 						</tr>
-
+						<tr>
+							<td class="rowt">Статус:</td><td><?=$statusedit[$status];?></td>
+						</tr>
 						<tr>
 							<td class="rowt">Наличие анкеты:</td>
 							<td>
@@ -75,9 +79,9 @@ if(isset($_GET['look']))
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt">Статус:</td>
+							<td class="rowt">Форма собственности:</td>
 							<td>
-								<?=$status_edit?>
+								<?=$ownership_edit;?>
 							</td>
 						</tr>
 						<tr>
@@ -154,6 +158,7 @@ if(isset($_GET['look']))
 							<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'" />
 						</div>
 						</div>
+						
 <div id="footer">&copy; ООО "МегаТрейд"</div>
 						</div>
 		

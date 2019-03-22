@@ -96,7 +96,7 @@ if( isset($data_update['do_editcontr']))
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($contact_name))
 		{
-			$errors[] = 'Выберите статус контрагента';
+			$errors[] = 'Укажите контактное лицо!';
 		}
 		if(mb_strlen($contact_name)>100 or mb_strlen($contact_name)<3)
 		{
@@ -110,7 +110,7 @@ if( isset($data_update['do_editcontr']))
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($mobile))
 		{
-			$errors[] = 'Выберите статус контрагента';
+			$errors[] = 'Укажите мобильный номер';
 		}
 		if(mb_strlen($mobile)>100 or mb_strlen($mobile)<3)
 		{

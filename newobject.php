@@ -3,6 +3,7 @@ require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 {
 		require_once '/blocks/header.php';
+		require '/func/arrays.php';
 		$contractors = Show_Contr_for_select ($link);
 		if(isset($_GET['id_project']))
 	{
@@ -18,7 +19,8 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 		$region_id = trim(filter_input(INPUT_POST, 'region_id'));
 		$city_id = trim(filter_input(INPUT_POST, 'city_id'));
 		$shop_number = trim(filter_input(INPUT_POST, 'shop_number'));
-		$address = trim(filter_input(INPUT_POST, 'address'));		
+		$address = trim(filter_input(INPUT_POST, 'address'));
+		$status = trim(filter_input(INPUT_POST, 'status'));
 		$abon_plata = trim(filter_input(INPUT_POST, 'abon_plata'));		
 		$id_contractor = trim(filter_input(INPUT_POST, 'id_contractor'));	
 		$abon_plata_contr = trim(filter_input(INPUT_POST, 'abon_plata_contr'));	
@@ -42,6 +44,15 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 			{
 				$errors[] = 'Выберите город!';
 			}
+	/* ------------------------------------------------------------------------------------------------- */
+			if(empty($shop_number))
+			{
+				$errors[] = 'Укажите название объекта!';
+			}
+			if( mb_strlen($shop_number)>20 or mb_strlen($shop_number)<2)
+			{
+				$errors[] = 'Название объекта должно содержать не менее 2 и не более 20 символов!';
+			}
 	/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */	
 			if(empty($address))
 			{
@@ -58,7 +69,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 
 			if(empty($errors)){  
 				
-				$result = Add_Object ($link, $data, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $abon_plata, $id_contractor, $abon_plata_contr); 
+				$result = Add_Object ($link, $data, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status, $abon_plata, $id_contractor, $abon_plata_contr); 
 				?>		
 				<script>
 					setTimeout(function() {window.location.href = '/showobjects.php?id_project=<?=$data?>';}, 0);
@@ -124,13 +135,24 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt"><label for="shop_number">Объект:</label></td>
+					<td class="rowt"><label for="shop_number">Объект:*</label></td>
 					<td><input class="StyleSelectBox" id="shop_number" name="shop_number" type="text" value="<?php echo @$data_post['shop_number'];?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="address">Адрес:*</label></td>
 					<td><input class="StyleSelectBox" id="address" name="address" size="40" type="text" value="<?php echo @$data_post['address'];?>"/></td>
 				</tr>
+				<tr class="status">
+					<td class="rowt">Статус объекта:*</td>
+					<td>
+						<select name="status" class="StyleSelectBox" >
+
+							<option value="0">Неактивный</option>
+							<option value="1" selected>Активный</option>
+
+						</select>
+					</td>
+				</tr>	
 				<tr>
 					<td class="rowt"><label for="abon_plata">Абонентская плата, руб.:</label></td>
 					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" size="11" value="0"/></td>

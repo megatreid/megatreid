@@ -3,6 +3,7 @@ require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2)
 {
 require_once 'blocks/header.php'; 
+require '/func/arrays.php';
 //require '/func/db.php';
 $data = $_POST;
 
@@ -14,8 +15,6 @@ $phone = "";
 $email = "";
 $web = "";
 $comment = "";
-
-
 
 $country_id = trim(filter_input(INPUT_POST, 'country_id'));
 $region_id = trim(filter_input(INPUT_POST, 'region_id'));
@@ -274,7 +273,7 @@ if( isset($data['do_newcontr']))
 
 						</table>
 						<div>
-							<p><button class="button-new" name="do_newcontr">Добавить</button></p>
+							<input class="button-new" type="submit" name="do_newcontr"/>
 						</div>
 					</form>
 				</div>

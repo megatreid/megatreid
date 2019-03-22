@@ -3,6 +3,7 @@ require '/connection/config.php';
 if(isset($_SESSION['userlevel']))
 {
 require_once '/blocks/header.php';
+require '/func/arrays.php';
 if(isset($_GET['id_customer']))
 {
 	$data = $_GET['id_customer'];
@@ -30,6 +31,7 @@ if(isset($_GET['id_customer']))
 							<th width="1" rowspan="2">№</th>
 							<th rowspan="2">Заказчик</th>
 							<th rowspan="2">Наименование проекта</th>
+							<th rowspan="2" width=1%>Статус</th>
 							<th  width="1" rowspan="2">Почасовой<br>тариф</th>
 							<th width="1" colspan="4">Стоимость инцидентов</th>
 							<!-- <th>Транспортные<br>расходы</th> -->
@@ -52,7 +54,10 @@ if(isset($_GET['id_customer']))
 							</td>
 							<td>
 								<input class="reg_input_filter" type="text" placeholder="..."/><!--Наименование проекта-->
-							</td>							
+							</td>
+							<td>
+								<input class="reg_input_filter" type="text" placeholder="..."/><!--Статус проекта-->
+							</td>								
 							<td colspan="7">
 
 							</td>
@@ -67,6 +72,7 @@ if(isset($_GET['id_customer']))
 						<td align="center" width="1"><?=$i+1?></td>
 						<td align="center"><?=$customers['customer_name'];?></td>
 						<td align="center"><?=$project['projectname']?></td>
+						<td align="center"><?=$statusedit[$project['status']]?></td>
 						<td  width="1" align="center"><?=$project['cost_hour']?></td>
 						<td  width="1" align="center"><?=$project['cost_incident_critical']?></td>
 						<td  width="1" align="center"><?=$project['cost_incident_high']?></td>

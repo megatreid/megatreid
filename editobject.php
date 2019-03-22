@@ -26,6 +26,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$contractor_select = Edit_Contr ($link, $objects['id_contractor']);
 	$shop_number = $objects['shop_number'];
 	$address = $objects['address'];
+	$status = $objects['status'];
 	$abon_plata = $objects['abon_plata'];
 	$abon_plata_contr = $objects['abon_plata_contr'];
 	/*********************************/
@@ -36,6 +37,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$city_id_edit = trim(filter_input(INPUT_POST, 'city_id'));
 	$shop_number_edit = trim(filter_input(INPUT_POST, 'shop_number'));
 	$address_edit = trim(filter_input(INPUT_POST, 'address'));
+	$status_edit = trim(filter_input(INPUT_POST, 'status'));
 	$abon_plata_edit = trim(filter_input(INPUT_POST, 'abon_plata'));
 	$id_contractor_edit = trim(filter_input(INPUT_POST, 'id_contractor'));	
 	$abon_plata_contr_edit = trim(filter_input(INPUT_POST, 'abon_plata_contr'));	
@@ -58,6 +60,15 @@ if( isset($data_post['edit_object']))
 			{
 				$errors[] = 'Выберите город!';
 			}
+	/* ------------------------------------------------------------------------------------------------- */
+			if(empty($shop_number_edit))
+			{
+				$errors[] = 'Укажите объект!';
+			}
+			if( mb_strlen($shop_number_edit)>20 or mb_strlen($shop_number_edit)<2)
+			{
+				$errors[] = 'Название объекта должно содержать не менее 2 и не более 20 символов!';
+			}	
 	/* ------------------------------------------------------------------------------------------------- */
 			if(empty($address_edit))
 			{

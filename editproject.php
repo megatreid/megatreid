@@ -3,6 +3,7 @@ require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 {
 	require_once '/blocks/header.php';
+	require '/func/arrays.php';
 	if(isset($_GET['edit_project']))
 {
 	$data = $_GET['edit_project'];
@@ -12,6 +13,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$id_customer = $projects['id_customer'];
 	$customers = Edit_Customer($link, $id_customer);
 	$projectname = $projects['projectname'];
+	$status = $projects['status'];
 	$cost_hour = $projects['cost_hour'];
 	$cost_incident_critical = $projects['cost_incident_critical'];
 	$cost_incident_high = $projects['cost_incident_high'];
@@ -19,6 +21,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$cost_incident_low = $projects['cost_incident_low'];
 	/*********************************/
 	$projectname_edit = trim(filter_input(INPUT_POST, 'projectname'));
+	$status_edit = trim(filter_input(INPUT_POST, 'status'));
 	$cost_hour_edit = trim(filter_input(INPUT_POST, 'cost_hour'));
 	$cost_incident_critical_edit = trim(filter_input(INPUT_POST, 'cost_incident_critical'));
 	$cost_incident_high_edit = trim(filter_input(INPUT_POST, 'cost_incident_high'));
@@ -68,7 +71,7 @@ if( isset($data_post['edit_project']))
 		}
 	if(empty($errors)){  
 		
-		$result = Update_Project ($link, $data, $id_customer, $projectname_edit, $cost_hour_edit, $cost_incident_critical_edit, $cost_incident_high_edit, $cost_incident_medium_edit, $cost_incident_low_edit);
+		$result = Update_Project ($link, $data, $id_customer, $projectname_edit, $status_edit, $cost_hour_edit, $cost_incident_critical_edit, $cost_incident_high_edit, $cost_incident_medium_edit, $cost_incident_low_edit);
 		if($result){
 		//unset($_SESSION['id_customer']);
 		?>		
@@ -127,6 +130,17 @@ if( isset($data_post['edit_project']))
 					<td class="rowt"><label for="projectname">Наименование:*</label></td>
 					<td><input id="projectname" name="projectname" type="text" value="<?=$projectname;?>"/></td>
 				</tr>
+				<tr class="status">
+					<td class="rowt">Статус проекта: *</td>
+					<td>
+						<select name="status" class="StyleSelectBox">
+						<option disabled>Выберите значение:</option>
+						<?php for($i = 0; $i < 2; $i++) { ?>
+							<option  value="<?= $i ?>" <?= ($i == $status) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
+						<?php } ?>
+						</select>
+					</td>
+				</tr>				
 				<tr>
 					<td class="rowt"><label for="cost_hour">Почасовой тариф:</label></td>
 					<td><input id="cost_hour" name="cost_hour" type="number" min="0" value="<?=$cost_hour;?>"/> руб.</td>

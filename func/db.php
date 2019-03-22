@@ -283,10 +283,10 @@ function Show_Customer($connection)
     }
     return $array; 
 }
-function Add_Customer($connection, $customer, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
+function Add_Customer($connection, $customer, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
 {
 
-		$add_query ="INSERT INTO customer VALUES(NULL, '$customer','$jur_address', '$post_address', '$ogrn', '$inn', '$kpp', '$dogovor_number', '$bank_name', '$bank_bik', '$korr_schet', '$rasch_schet', '$recipient', '$phone', '$email', '$contact_name', '$comment')";
+		$add_query ="INSERT INTO customer VALUES(NULL, '$customer','$jur_address', '$post_address', '$ogrn', '$inn', '$kpp', '$dogovor_number', '$status', '$bank_name', '$bank_bik', '$korr_schet', '$rasch_schet', '$recipient', '$phone', '$email', '$contact_name', '$comment')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -305,9 +305,9 @@ function Edit_Customer($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Customer ($connection, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
+function Update_Customer ($connection, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
 {
-	$update = "UPDATE `customer` SET `customer_name`='$customer_name',`jur_address`='$jur_address',`post_address`='$post_address',`ogrn`='$ogrn', `inn`='$inn', `kpp`='$kpp', `dogovor_number`='$dogovor_number',`bank_name`='$bank_name',`bank_bik`='$bank_bik',`korr_schet`='$korr_schet',`rasch_schet`='$rasch_schet',`recipient`='$recipient',`phone`='$phone',`email`='$email', `comment`='$comment' WHERE `id_customer`='$id_customer'";
+	$update = "UPDATE `customer` SET `customer_name`='$customer_name',`jur_address`='$jur_address',`post_address`='$post_address',`ogrn`='$ogrn', `inn`='$inn', `kpp`='$kpp', `dogovor_number`='$dogovor_number', `status`='$status',`bank_name`='$bank_name',`bank_bik`='$bank_bik',`korr_schet`='$korr_schet',`rasch_schet`='$rasch_schet',`recipient`='$recipient',`phone`='$phone',`email`='$email', `comment`='$comment' WHERE `id_customer`='$id_customer'";
 
     $result = $connection->query ($update);
     if ($result) return true;
@@ -363,10 +363,10 @@ function Show_Projects($connection, $var)
     }
     return $array; 
 }	
-function Add_Project($connection, $id_customer, $projectname, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
+function Add_Project($connection, $id_customer, $projectname, $status, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
 {
 
-		$add_query ="INSERT INTO projects VALUES(NULL, '$id_customer','$projectname', '$cost_hour', '$cost_incident_critical', '$cost_incident_high', '$cost_incident_medium', '$cost_incident_low')";
+		$add_query ="INSERT INTO projects VALUES(NULL, '$id_customer','$projectname', '$status', '$cost_hour', '$cost_incident_critical', '$cost_incident_high', '$cost_incident_medium', '$cost_incident_low')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -385,9 +385,9 @@ function Edit_Project($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Project($connection, $id_project, $id_customer, $projectname, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
+function Update_Project($connection, $id_project, $id_customer, $projectname, $status, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
 {
-    $update = "UPDATE projects SET id_customer='$id_customer', projectname='$projectname', cost_hour='$cost_hour', cost_incident_critical='$cost_incident_critical', cost_incident_high='$cost_incident_high', cost_incident_medium='$cost_incident_medium', cost_incident_low='$cost_incident_low' WHERE id_project='$id_project'";
+    $update = "UPDATE projects SET id_customer='$id_customer', projectname='$projectname', status='$status', cost_hour='$cost_hour', cost_incident_critical='$cost_incident_critical', cost_incident_high='$cost_incident_high', cost_incident_medium='$cost_incident_medium', cost_incident_low='$cost_incident_low' WHERE id_project='$id_project'";
     $result = $connection->query ($update);
     if ($result) return true;
     else
