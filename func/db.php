@@ -263,10 +263,28 @@ function Delete_Contr ($connection, $var)
 /***************************ЗАКАЗЧИКИ*****************************/
 function Show_Customer($connection) 
 {
-
 	$search = "SELECT * FROM customer ORDER BY customer_name ASC";
 
-    //$search = "SELECT * FROM Users";
+    $result = $connection->query ($search);
+    if (!$result) die ($connect->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
+function Show_Customer_Active($connection, $status) 
+{
+	$search = "SELECT * FROM customer WHERE status='$status' ORDER BY customer_name ASC";
+
     $result = $connection->query ($search);
     if (!$result) die ($connect->error);
     $rows = $result->num_rows;
@@ -305,7 +323,7 @@ function Edit_Customer($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Customer ($connection, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
+function Update_Customer($connection, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
 {
 	$update = "UPDATE `customer` SET `customer_name`='$customer_name',`jur_address`='$jur_address',`post_address`='$post_address',`ogrn`='$ogrn', `inn`='$inn', `kpp`='$kpp', `dogovor_number`='$dogovor_number', `status`='$status',`bank_name`='$bank_name',`bank_bik`='$bank_bik',`korr_schet`='$korr_schet',`rasch_schet`='$rasch_schet',`recipient`='$recipient',`phone`='$phone',`email`='$email', `comment`='$comment' WHERE `id_customer`='$id_customer'";
 
@@ -746,10 +764,30 @@ function Show_Contractor_Payment($connection, $method_payment)
     return $array; 
 }
 
+/******************************смена статуса *****************/
 
+function Update_Status_Customer($connection, $id_customer, $status)
+{
+	$update = "UPDATE `projects` SET `status`='$status' WHERE `id_customer`='$id_customer'";
+	$result = $connection->query ($update);
+	if ($result) {
+		$update = "UPDATE `object` SET `status`='$status' WHERE `id_customer`='$id_customer'";
+		if ($result) return true;
+		else
+		die ($connection->error);
+		mysqli_close($connection);	
+	};
+}
 
-
-
+function Update_Status_Project($connection, $id_project, $status)
+{
+	$update = "UPDATE `object` SET `status`='$status' WHERE `id_project`='$id_project'";
+	$result = $connection->query ($update);
+	if ($result) return true;
+	else
+	die ($connection->error);
+	mysqli_close($connection);	
+}
 
 
 

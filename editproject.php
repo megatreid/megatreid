@@ -73,6 +73,9 @@ if( isset($data_post['edit_project']))
 		
 		$result = Update_Project ($link, $data, $id_customer, $projectname_edit, $status_edit, $cost_hour_edit, $cost_incident_critical_edit, $cost_incident_high_edit, $cost_incident_medium_edit, $cost_incident_low_edit);
 		if($result){
+			if($status_edit==0){
+				$Update_Status_Project = Update_Status_Project($link, $data, $status_edit);
+			}
 		//unset($_SESSION['id_customer']);
 		?>		
 		<script>

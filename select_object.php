@@ -2,7 +2,7 @@
 require '/connection/config.php';
 require_once '/blocks/header.php';
 
-$customers = Show_Customer ($link);
+$customers = Show_Customer_Active($link, '1');
  
 ?>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ $customers = Show_Customer ($link);
 							<td>
 							<select name="id_customer" id="id_customer" class="StyleSelectBox">
 								<option value="0">- выберите заказчика -</option>
-								<?php foreach($customers as $i => $customer)  { ?>
+								<?php foreach($customers as $i => $customer)  {?>
 									<option  value="<?= $customer['id_customer']; ?>"><?= $customer['customer_name']; ?></option>
 								<?php } ?>
 							</select>
