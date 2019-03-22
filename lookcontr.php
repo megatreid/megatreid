@@ -16,6 +16,7 @@ if(isset($_GET['look']))
 	$contact_name_edit = $contractors['contact_name'];
 	$contact_name_exp = explode(";", $contact_name_edit);
 	$count_contact_name = count($contact_name_exp);
+	$passport = $contractors['passport'];
 	$status_edit = $contractors['status'];
 	$system_no_edit = $contractors['system_no'];
 	$mobile_edit = $contractors['mobile'];
@@ -46,6 +47,7 @@ if(isset($_GET['look']))
 <body>
 		<div class="showany">
 				<p class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Просмотр:</p>
+				<div class="for_look">
 					<table>
 
 						<tr>
@@ -85,41 +87,38 @@ if(isset($_GET['look']))
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt">Контактное лицо:</td><td>
-							
-							<?php if(!empty($contact_name_edit))  {?>
-									<?php
-									if($count_contact_name<2){
-										echo $contact_name_exp[0];
-									}
+							<td class="rowt">Контактное лицо:</td>
+							<td>
+								<?php if(!empty($contact_name_edit))  {?>
+										<?php
+										if($count_contact_name<2){
+											echo $contact_name_exp[0];
+										}
 										else {	
-							for($i = 0; $i < $count_contact_name; $i++)
-							{?>
-							
-								<?=($i+1).". ".$contact_name_exp[$i]."<br>"?>
-								
-							<?php }}}?>
-
-						</td>
+								for($i = 0; $i < $count_contact_name; $i++)
+								{?>
+									<?=($i+1).". ".$contact_name_exp[$i]."<br>"?>
+								<?php }}}?>
+							</td>
 						</tr>
 						<tr>
-							
+							<td class="rowt">Паспортные данные:</td>
+							<td>
+								<textarea readonly disabled rows="5" cols = "32" class="textarea"><?=$passport?></textarea>
+							</td>
+						</tr>						
+						<tr>
 							<td class="rowt">Мобильный телефон:</td><td>
-
 							<?php if(!empty($mobile_edit))  {?>
 									<?php
 									if($count_mobile<2){
 										echo $mobile_exp[0];
 									}
-										else {	
+									else {	
 							for($i = 0; $i < $count_mobile; $i++)
 							{?>
-							
 								<?=($i+1).". ".$mobile_exp[$i]."<br>"?>
-								
 							<?php }}}?>
-
-							
 							</td>
 						</tr>
 						<tr>
@@ -145,12 +144,15 @@ if(isset($_GET['look']))
 							<td class="rowt">WEB-сайт:</td><td><?=$web_edit;?></td>
 						</tr>
 						<tr>
-							<td class="rowt">Примечание:</td><td><textarea readonly disabled rows="5" cols = "32" class="textarea"><?=$comment_edit?></textarea></td>
+							<td class="rowt">Примечание:</td>
+							<td>
+								<textarea readonly disabled rows="5" cols = "32" class="textarea"><?=$comment_edit?></textarea>
+							</td>
 						</tr>
 						</table>
 						<div>
-
-							<a href="/showcontractor.php">К списку подрядчиков</a>
+							<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'" />
+						</div>
 						</div>
 <div id="footer">&copy; ООО "МегаТрейд"</div>
 						</div>

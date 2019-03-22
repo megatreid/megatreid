@@ -28,6 +28,7 @@ $anketa = trim(filter_input(INPUT_POST, 'anketa'));
 $status = trim(filter_input(INPUT_POST, 'status'));
 $system_no = trim(filter_input(INPUT_POST, 'system_no'));
 $contact_name = trim(filter_input(INPUT_POST, 'contact_name'));
+$passport = trim(filter_input(INPUT_POST, 'passport'));
 $mobile = trim(filter_input(INPUT_POST, 'mobile'));
 $phone = trim(filter_input(INPUT_POST, 'phone'));
 $email = trim(filter_input(INPUT_POST, 'email'));
@@ -94,6 +95,11 @@ if( isset($data['do_newcontr']))
 			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 100 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
+		if(mb_strlen($passport)>250 or mb_strlen($passport)<3)
+		{
+			$errors[] = 'Поле \"Паспортные данные\" должно содержать не менее 3 и не более 250 символов!';
+		}
+/* ------------------------------------------------------------------------------------------------- */
 		if(empty($mobile))
 		{
 			$errors[] = 'Укажите номер мобильного телефона';
@@ -106,7 +112,7 @@ if( isset($data['do_newcontr']))
  
 	if(empty($errors)){  
 
-		$result = Add_Contr ($link,  $country_id, $region_id, $city_id, $org_name, $dogovor, $method_payment, $card_number, $anketa, $status, $system_no, $contact_name, $mobile, $phone, $email, $web, $comment);
+		$result = Add_Contr ($link,  $country_id, $region_id, $city_id, $org_name, $status, $dogovor, $method_payment, $card_number, $anketa, $ownership, $system_no, $contact_name, $passport, $mobile, $phone, $email, $web, $comment);
 			if($result){
 		?>		
 		<script>
@@ -148,7 +154,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Страна:*</td>
 							<td>
-							<select name="country_id" id="country_id" class="StyleSelectBox" required>
+							<select name="country_id" id="country_id" class="StyleSelectBox">
 								<option value="0">- выберите страну -</option>
 								<option value="3159" <?=(@$data['country_id'] == 3159 ? 'selected' :'')?>>Россия</option>
 								
@@ -177,7 +183,18 @@ if( isset($data['do_newcontr']))
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt">Организация / исполнитель:*</td><td><input class="StyleSelectBox" name="org_name" type="text" value="<?= @$data['org_name'];?>"/></td>
+							<td class="rowt">Организация / исполнитель:*</td><td><input class="StyleSelectBox" name="org_name" required type="text" value="<?= @$data['org_name'];?>"/></td>
+						</tr>
+						<tr class="status">
+							<td class="rowt">Статус подрядчика:*</td>
+							<td>
+								<select name="status" class="StyleSelectBox" >
+
+									<option value="0">Неактивный</option>
+									<option value="1" selected>Активный</option>
+
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td class="rowt">Номер договора:</td>
@@ -235,7 +252,7 @@ if( isset($data['do_newcontr']))
 						</tr>
 						<tr>
 							<td class="rowt">Паспортные данные:</td>
-							<td><textarea class="reg_textarea" name="passport" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$data['contact_name'];?></textarea></td>
+							<td><textarea class="reg_textarea" name="passport" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=@$data['passport'];?></textarea></td>
 						</tr>						
 						<tr>
 							<td class="rowt">Мобильный телефон:*</td>
@@ -254,9 +271,10 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Примечание:</td><td><textarea class="reg_textarea" name="comment"></textarea></td>
 						</tr>
+
 						</table>
 						<div>
-							<p><button name="do_newcontr">Добавить</button></p>
+							<p><button class="button-new" name="do_newcontr">Добавить</button></p>
 						</div>
 					</form>
 				</div>

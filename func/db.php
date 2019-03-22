@@ -191,10 +191,10 @@ function Show_Contractor($connection)
 
 
 
-function Add_Contr($connection, $country_id, $region_id, $city_id, $org_name, $dogovor, $method_payment, $card_number, $anketa, $status, $system_no, $contact_name, $mobile, $phone, $email, $web, $comment)
+function Add_Contr($connection, $country_id, $region_id, $city_id, $org_name, $status, $dogovor, $method_payment, $card_number, $anketa, $ownership, $system_no, $contact_name, $passport, $mobile, $phone, $email, $web, $comment)
 {
 
-		$add_query ="INSERT INTO contractor VALUES(NULL, '$country_id', '$region_id', '$city_id', '$org_name', '$dogovor', '$method_payment', '$card_number', '$anketa', '$status', '$system_no', '$contact_name', '$mobile', '$phone', '$email', '$web', '$comment')";
+		$add_query ="INSERT INTO contractor VALUES(NULL, '$country_id', '$region_id', '$city_id', '$org_name', '$status', '$dogovor', '$method_payment', '$card_number', '$anketa', '$ownership', '$system_no', '$contact_name', '$passport', '$mobile', '$phone', '$email', '$web', '$comment')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -224,9 +224,9 @@ function Edit_Contr($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Contr($connection, $id_contractor, $country_id, $region_id, $city_id, $org_name, $dogovor, $method_payment, $card_number, $anketa, $status, $system_no, $contact_name, $mobile, $phone, $email, $web, $comment)
+function Update_Contr($connection, $id_contractor, $country_id, $region_id, $city_id, $org_name, $status, $dogovor, $method_payment, $card_number, $anketa, $ownership, $system_no, $contact_name, $passport, $mobile, $phone, $email, $web, $comment)
 {
-	$update = "UPDATE `contractor` SET `country_id`=$country_id,`region_id`=$region_id,`city_id`=$city_id,`org_name`='$org_name', `dogovor`='$dogovor', `method_payment`='$method_payment', `card_number`='$card_number', `anketa`='$anketa',`status`='$status',`system_no`='$system_no',`contact_name`='$contact_name',`mobile`='$mobile',`phone`='$phone',`email`='$email',`web`='$web',`comment`='$comment' WHERE `id_contractor`='$id_contractor'";
+	$update = "UPDATE `contractor` SET `country_id`=$country_id,`region_id`=$region_id,`city_id`=$city_id,`org_name`='$org_name', `status`='$status',`dogovor`='$dogovor', `method_payment`='$method_payment', `card_number`='$card_number', `anketa`='$anketa',`ownership`='$ownership',`system_no`='$system_no',`contact_name`='$contact_name', `passport`='$passport', `mobile`='$mobile',`phone`='$phone',`email`='$email',`web`='$web',`comment`='$comment' WHERE `id_contractor`='$id_contractor'";
 
     $result = $connection->query ($update);
     if ($result) return true;

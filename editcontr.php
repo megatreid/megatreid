@@ -15,12 +15,14 @@ if(isset($_GET['edit']))
 	$region_id_edit = $contractors['region_id'];
 	$city_id_edit = $contractors['city_id'];
 	$org_name_edit = $contractors['org_name'];
+	$status_edit = $contractors['status'];
 	$dogovor_edit = $contractors['dogovor'];
 	$card_number_edit = $contractors['card_number'];
 	$anketa_edit = $contractors['anketa'];
 	$contact_name_edit = $contractors['contact_name'];
+	$passport_edit = $contractors['passport'];
 	$methodpayment_edit = $contractors['method_payment'];
-	$status_edit = $contractors['status'];
+	$ownership_edit = $contractors['ownership'];
 	$system_no_edit = $contractors['system_no'];
 	$mobile_edit = $contractors['mobile'];
 	$phone_edit = $contractors['phone'];
@@ -31,17 +33,18 @@ if(isset($_GET['edit']))
 $data_update = $_POST;
 $err=FALSE;
 $country_id = trim(filter_input(INPUT_POST, 'country_id'));
-
 $region_id = trim(filter_input(INPUT_POST, 'region_id'));
 $city_id = trim(filter_input(INPUT_POST, 'city_id'));
 $org_name = trim(filter_input(INPUT_POST, 'org_name'));
+$status = trim(filter_input(INPUT_POST, 'status'));
 $dogovor = trim(filter_input(INPUT_POST, 'dogovor'));
 $method_payment = trim(filter_input(INPUT_POST, 'method_payment'));
 $card_number = trim(filter_input(INPUT_POST, 'card_number'));
 $anketa = trim(filter_input(INPUT_POST, 'anketa'));
-$status = trim(filter_input(INPUT_POST, 'status'));
+$ownership = trim(filter_input(INPUT_POST, 'ownership'));
 $system_no = trim(filter_input(INPUT_POST, 'system_no'));
 $contact_name = trim(filter_input(INPUT_POST, 'contact_name'));
+$passport = trim(filter_input(INPUT_POST, 'passport'));
 $mobile = trim(filter_input(INPUT_POST, 'mobile'));
 $phone = trim(filter_input(INPUT_POST, 'phone'));
 $email = trim(filter_input(INPUT_POST, 'email'));
@@ -81,9 +84,9 @@ if( isset($data_update['do_editcontr']))
 			$errors[] = 'Укажите наличие анкеты!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
-		if(empty($status))
+		if(empty($ownership))
 		{
-			$errors[] = 'Выберите статус подрядчика';
+			$errors[] = 'Выберите форму собственности подрядчика';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($system_no))
@@ -98,6 +101,11 @@ if( isset($data_update['do_editcontr']))
 		if(mb_strlen($contact_name)>100 or mb_strlen($contact_name)<3)
 		{
 			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 100 символов!';
+		}
+/* ------------------------------------------------------------------------------------------------- */
+		if(!empty($passport) AND (mb_strlen($passport)>250 or mb_strlen($passport)<3))
+		{
+			$errors[] = 'Поле \"Паспортные данные\" должно содержать не менее 3 и не более 250 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($mobile))
@@ -116,7 +124,7 @@ if( isset($data_update['do_editcontr']))
 <br><br>
 <?php
 		$id_contractor = $_SESSION['id_edit'];
-		$update_contr = Update_Contr ($link, $id_contractor, $country_id, $region_id, $city_id, $org_name, $dogovor, $method_payment, $card_number, $anketa, $status, $system_no, $contact_name, $mobile, $phone, $email, $web, $comment);
+		$update_contr = Update_Contr ($link, $id_contractor, $country_id, $region_id, $city_id, $org_name, $status, $dogovor, $method_payment, $card_number, $anketa, $ownership, $system_no, $contact_name, $passport, $mobile, $phone, $email, $web, $comment);
 
 		if($update_contr)
 		{
@@ -129,7 +137,6 @@ if( isset($data_update['do_editcontr']))
 	}
 	else
 		{
-
 			$err=TRUE;
 		}
 	}
@@ -207,6 +214,17 @@ if( isset($data_update['do_editcontr']))
 								<td class="rowt">Организация / исполнитель:*</td>
 								<td><input class="StyleSelectBox" name="org_name" type="text" value='<?= $org_name_edit ?>'/></td>
 							</tr>
+							<tr class="status">
+								<td class="rowt">Статус подрядчика:*</td>
+								<td>
+									<select name="status" class="StyleSelectBox">
+									<option disabled>Выберите значение:</option>
+									<?php for($i = 0; $i < 2; $i++) { ?>
+										<option  value="<?= $i ?>" <?= ($i == $status_edit) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
+									<?php } ?>
+									</select>
+								</td>
+							</tr>
 							<tr>
 								<td class="rowt">Номер договора:</td>
 								<td><input class="StyleSelectBox" name="dogovor" type="text" value="<?=$dogovor_edit?>"/></td>
@@ -240,10 +258,10 @@ if( isset($data_update['do_editcontr']))
 							<tr>
 								<td class="rowt">Форма собственности:*</td>
 								<td>
-									<select name="status" class="StyleSelectBox">
+									<select name="ownership" class="StyleSelectBox">
 									<option disabled>Выберите значение:</option>
 									<?php for($i = 1; $i < 4; $i++) { ?>
-										<option  value="<?= $statusedit[$i] ?>" <?= ($statusedit[$i] == $status_edit) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
+										<option  value="<?= $ownershipedit[$i] ?>" <?= ($ownershipedit[$i] == $ownership_edit) ? 'selected' : ''?>><?= $ownershipedit[$i] ?></option>
 									<?php } ?>
 
 									</select>
@@ -264,6 +282,9 @@ if( isset($data_update['do_editcontr']))
 								<td class="rowt">Контактное лицо:*</td><td><textarea name="contact_name" cols="32" rows="5" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=$contact_name_edit?></textarea></td>
 							</tr>
 							<tr>
+								<td class="rowt">Паспортные данные:</td><td><textarea name="passport" cols="32" rows="5"><?=$passport_edit?></textarea></td>
+							</tr>
+							<tr>
 								<td class="rowt">Мобильный телефон:*</td><td><textarea name="mobile" cols="32" rows="5" placeholder = "При вводе нескольких мобильных номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?=$mobile_edit?></textarea></td>
 							</tr>
 							<tr>
@@ -279,9 +300,10 @@ if( isset($data_update['do_editcontr']))
 								<td class="rowt">Примечание:</td><td><textarea name="comment" cols="32" rows="5"><?=$comment_edit?></textarea></td>
 							</tr>
 						</table>
-						<button class="button" name="do_editcontr">Сохранить</button>
-						<button class="button_back" onclick="history.go(-1); return false;">Назад</button>
-						<button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_contr">Удалить</button>
+						<input class="button" value="Сохранить" type="submit" name="do_editcontr"/>
+						<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'"/>
+						
+						<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_contr"/>
 					</form>
 
 					</div>

@@ -156,7 +156,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 				<td  class="rowt">Контрагент:</td>
 				<td>
 					<select name="id_contractor" id="id_contractor" disabled="disabled" class="StyleSelectBox">
-						<option value="0">- выберите контрагента -</option>
+						<option value="0">- выберите подрядчика -</option>
 					</select>
 				</td>				
 				<tr>

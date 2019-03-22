@@ -4,7 +4,7 @@ $city_id = @intval($_GET['city_id']);
 //$id_project = 5;
 
 
-$regs=mysql_query("SELECT id_contractor, org_name, status FROM contractor WHERE city_id = $city_id"); 
+$regs=mysql_query("SELECT id_contractor, org_name, ownership FROM contractor WHERE city_id = $city_id AND status = 1"); 
 
 if ($regs) {
     $num = mysql_num_rows($regs);      

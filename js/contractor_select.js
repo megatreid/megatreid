@@ -25,7 +25,7 @@ $(document).ready(function () {
 					var options = '';
 					
 					$(result.orgnames).each(function() {
-						options += '<option value="' + $(this).attr('id_contractor') + '">' +$(this).attr('org_name') + ' ' + $(this).attr('status') + '</option>';
+						options += '<option value="' + $(this).attr('id_contractor') + '">' +$(this).attr('org_name') + ' ' + $(this).attr('ownership') + '</option>';
 					});
 
 					$('#id_contractor').html('<option value="0">- выберите контрагента -</option>'+options);
