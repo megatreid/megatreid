@@ -452,7 +452,7 @@ function Show_Objects_for_search($connection, $var)
 }
 function Show_Objects_abon($connection)
 {
-	$search = "SELECT * FROM object WHERE abon_plata > '0' ORDER BY id_customer ASC" ;
+	$search = "SELECT * FROM object WHERE (abon_plata > '0') OR (abon_plata_contr > '0') ORDER BY id_customer ASC" ;
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;

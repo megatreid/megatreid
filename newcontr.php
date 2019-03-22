@@ -148,7 +148,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Страна:*</td>
 							<td>
-							<select name="country_id" id="country_id" class="StyleSelectBox">
+							<select name="country_id" id="country_id" class="StyleSelectBox" required>
 								<option value="0">- выберите страну -</option>
 								<option value="3159" <?=(@$data['country_id'] == 3159 ? 'selected' :'')?>>Россия</option>
 								
@@ -160,7 +160,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Регион:*</td>
 							<td>
-								<select name="region_id" id="region_id"  class="StyleSelectBox">
+								<select name="region_id" id="region_id"  class="StyleSelectBox" >
 									
 									<option value="<?= @$data['region_id'];?>" <?=(isset($data['region_id']) ? 'selected' :'')?>><?=$region_info['name'];?></option>
 									<option value="0" <?=(!isset($data['region_id']) ? 'selected' :'')?>>- выберите регион -</option>
@@ -170,7 +170,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Населенный пункт:*</td>
 							<td>
-								<select name="city_id" id="city_id" class="StyleSelectBox">
+								<select name="city_id" id="city_id" class="StyleSelectBox" >
 									<option value="<?= @$data['city_id'];?>" <?=(isset($data['city_id']) ? 'selected' :'')?>><?=$city_info['name'];?></option>
 									<option value="0" <?=(!isset($data['city_id']) ? 'selected' :'')?>>- выберите город -</option>
 								</select>
@@ -186,7 +186,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Форма расчета:*</td>
 							<td>								
-								<select name="method_payment" class="StyleSelectBox">
+								<select name="method_payment" class="StyleSelectBox" >
 									<option disabled selected>Выберите значение:</option>
 									<option value="1" <?=($method_payment == 1 ? 'selected' :'')?>>Наличный</option>
 									<option value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичный</option>
@@ -195,12 +195,12 @@ if( isset($data['do_newcontr']))
 						</tr>
 						<tr>
 							<td class="rowt">Номер карты для оплаты "наличкой":</td>
-							<td><input class="StyleSelectBox" name="card_number" type="number" value="<?php echo @$data['card_number'];?>"/></td>
+							<td><input class="StyleSelectBox" name="card_number"  type="number" value="<?php echo @$data['card_number'];?>"/></td>
 						</tr>
 						<tr>
 							<td class="rowt">Наличие анкеты:*</td>
 							<td>
-								<select name="anketa" class="StyleSelectBox">
+								<select name="anketa" class="StyleSelectBox" >
 									<option disabled selected>Выберите значение:</option>
 									<option value="Есть" <?=($anketa == 'Есть' ? 'selected' :'')?>>Есть</option>
 									<option value="Нет" <?=($anketa == 'Нет' ? 'selected' :'')?>>Нет</option>
@@ -210,7 +210,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Форма собственности:*</td>
 							<td>
-								<select name="status" class="StyleSelectBox">
+								<select name="status" class="StyleSelectBox" >
 									<option disabled selected>Выберите значение:</option>
 									<option value="ГПХ" <?=($status == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
 									<option value="ИП" <?=($status == 'ИП' ? 'selected' :'')?>>ИП</option>
@@ -221,7 +221,7 @@ if( isset($data['do_newcontr']))
 						<tr>
 							<td class="rowt">Система налогообложения:*</td>
 							<td>
-								<select name="system_no" class="StyleSelectBox">
+								<select name="system_no" class="StyleSelectBox" >
 									<option disabled selected>Выберите значение:</option>
 									<option value="Без НДС" <?=($system_no == 'Без НДС' ? 'selected' :'')?>>Без НДС</option>
 									<option value="ГПХ" <?=($system_no == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
@@ -231,11 +231,15 @@ if( isset($data['do_newcontr']))
 						</tr>
 						<tr>
 							<td class="rowt">Контактное лицо:*</td>
-							<td><textarea class="reg_textarea" name="contact_name" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$data['contact_name'];?></textarea></td>
+							<td><textarea class="reg_textarea" name="contact_name" required placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$data['contact_name'];?></textarea></td>
 						</tr>
 						<tr>
+							<td class="rowt">Паспортные данные:</td>
+							<td><textarea class="reg_textarea" name="passport" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$data['contact_name'];?></textarea></td>
+						</tr>						
+						<tr>
 							<td class="rowt">Мобильный телефон:*</td>
-							<td><textarea class="reg_textarea" name="mobile" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$data['mobile'];?></textarea></td>
+							<td><textarea class="reg_textarea" name="mobile" required placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$data['mobile'];?></textarea></td>
 						</tr>
 						<tr>
 							<td class="rowt">Рабочий телефон:</td>
