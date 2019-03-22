@@ -134,7 +134,6 @@ if( isset($data_post['edit_project']))
 					<td class="rowt">Статус проекта: *</td>
 					<td>
 						<select name="status" class="StyleSelectBox">
-						<option disabled>Выберите значение:</option>
 						<?php for($i = 0; $i < 2; $i++) { ?>
 							<option  value="<?= $i ?>" <?= ($i == $status) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
 						<?php } ?>
@@ -168,9 +167,9 @@ if( isset($data_post['edit_project']))
 				</tr>
 				</table>
 				<div>
-					<p><button name="edit_project" class="button">Сохранить</button>
-					<button class="button_back" onclick="history.go(-1); return false;">Назад</button>
-					<button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_project">Удалить</button></p>
+					<input class="button" value="Сохранить" type="submit" name="edit_project"/>
+					<input class="button" value="К списку проектов" type="button" onclick="location.href='showprojects.php?id_customer=<?=$id_customer;?>'"/>
+					<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_project"/>				
 				</div>
 			</form>
 		</div>	

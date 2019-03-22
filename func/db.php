@@ -470,11 +470,11 @@ function Show_Objects_abon($connection)
     }
 }
 	
-function Add_Object($connection, $id_project, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $abon_plata, $id_contractor, $abon_plata_contr)
+function Add_Object($connection, $id_project, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status, $abon_plata, $id_contractor, $abon_plata_contr)
 {
 		$city = Get_Geo ($connection, $city_id, "city", "city_id" );
 		$city_name = $city['name'];
-		$add_query ="INSERT INTO object VALUES(NULL, '$id_project', '$id_customer', '$country_id', '$region_id', '$city_id', '$shop_number', '$address', '$abon_plata', '$city_name', '$id_contractor', '$abon_plata_contr')";
+		$add_query ="INSERT INTO object VALUES(NULL, '$id_project', '$id_customer', '$country_id', '$region_id', '$city_id', '$shop_number', '$address', '$status', '$abon_plata', '$city_name', '$id_contractor', '$abon_plata_contr')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -493,11 +493,11 @@ function Edit_Object($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Object($connection, $id_object, $id_project, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $abon_plata, $id_contractor, $abon_plata_contr)
+function Update_Object($connection, $id_object, $id_project, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status, $abon_plata, $id_contractor, $abon_plata_contr)
 {
 	$city = Get_Geo ($connection, $city_id, "city", "city_id" );
 	$city_name = $city['name'];
-    $update = "UPDATE object SET id_project='$id_project', id_customer='$id_customer', country_id='$country_id', region_id='$region_id', city_id='$city_id', shop_number='$shop_number', address='$address', abon_plata='$abon_plata', city_name='$city_name', id_contractor=$id_contractor, abon_plata_contr=$abon_plata_contr  WHERE id_object='$id_object'";
+    $update = "UPDATE object SET id_project='$id_project', id_customer='$id_customer', country_id='$country_id', region_id='$region_id', city_id='$city_id', shop_number='$shop_number', address='$address', status='$status', abon_plata='$abon_plata', city_name='$city_name', id_contractor=$id_contractor, abon_plata_contr=$abon_plata_contr  WHERE id_object='$id_object'";
     $result = $connection->query ($update);
     if ($result) return true;
     else

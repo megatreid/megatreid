@@ -84,7 +84,7 @@ if( isset($data_post['edit_object']))
 			}
 	if(empty($errors)){  
 		
-		$result = Update_Object ($link, $data, $id_project, $id_customer, $country_id_edit, $region_id_edit, $city_id_edit, $shop_number_edit, $address_edit, $abon_plata_edit, $id_contractor_edit, $abon_plata_contr_edit);
+		$result = Update_Object ($link, $data, $id_project, $id_customer, $country_id_edit, $region_id_edit, $city_id_edit, $shop_number_edit, $address_edit, $status_edit, $abon_plata_edit, $id_contractor_edit, $abon_plata_contr_edit);
 		if($result){
 		//unset($_SESSION['id_customer']);
 		?>		
@@ -174,7 +174,7 @@ if( isset($data_post['edit_object']))
 					</td>
 				</tr>
 				<tr title="Номер магазина, офис" >
-					<td class="rowt"><label for="shop_number">Номер магазина:</label></td>
+					<td class="rowt"><label for="shop_number">Объект:*</label></td>
 					<td><input class="StyleSelectBox" id="shop_number" name="shop_number" type="text" value="<?= @$shop_number;?>"/></td>
 				</tr>
 				<tr title="Название улицы, номер дома, номе офиса в здании" >
@@ -184,6 +184,17 @@ if( isset($data_post['edit_object']))
 				<tr>
 					<td class="rowt"><label for="abon_plata">Абонентская плата, руб.:</label></td>
 					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" size="11" value="<?=$abon_plata;?>"/></td>
+				</tr>
+				<tr class="status">
+					<td class="rowt">Статус объекта: *</td>
+					<td>
+						<select name="status" class="StyleSelectBox">
+						<option disabled>Выберите значение:</option>
+						<?php for($i = 0; $i < 2; $i++) { ?>
+							<option  value="<?= $i ?>" <?= ($i == $status) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
+						<?php } ?>
+						</select>
+					</td>
 				</tr>
 				<!--------------------------------------------------------------------------------------------->		
 				<tr>
