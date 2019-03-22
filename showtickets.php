@@ -1,6 +1,7 @@
 <?php
 require '/connection/config.php';
 $data = $_POST;
+
 if( isset($data['delay']))
 	{	
 		$delay = trim(filter_input(INPUT_POST, 'delay'));
@@ -34,7 +35,11 @@ require '/func/arrays.php';
 		$_SESSION['ticket_status'] = 0;
 		$status = 0;
 	}
-	
+	if(!isset($pay_status) OR !isset($_SESSION['pay_status_select'])){
+		$pay_status = 2;
+		$_SESSION['pay_status_select'] = "";
+		
+	}
 
 	$status = ($_SESSION['ticket_status']==="") ? 3 : $_SESSION['ticket_status'];
 	//$ticket_count = 0; //количество заявок
@@ -59,7 +64,25 @@ if( isset($data['ticket_status']))
 		}
 		$_SESSION['ticket_status'] = $ticket_status;
 	}
-	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $current_month, $implementer);
+if( isset($data['pay_status']))
+	{	
+		$pay_status = trim(filter_input(INPUT_POST, 'pay_status'));
+		switch($pay_status)
+		{
+			case '0':	
+				$pay_status_select = "AND (id_contractor !='0' AND contr_payment_status = '0' )";
+			break;	
+			case '1':	
+				$pay_status_select = "AND (id_contractor !='0' AND contr_payment_status = '1' )";
+			break;	
+			case '2':	
+				$pay_status_select = "";
+			break;	
+	
+		}
+		$_SESSION['pay_status_select'] = $pay_status_select;
+	}	
+	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $_SESSION['pay_status_select'], $current_month, $implementer);
 	if($tickets){
 	$count_tickets = count($tickets);
 	}else {$count_tickets = 0;}
@@ -110,7 +133,6 @@ if( isset($data['ticket_status']))
 							<th>Сотрудник</th>
 							<th width=7%>Дата</th>
 						</tr>
-						
 						<tr class='table-filters'>
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Номер заявки-->
@@ -147,8 +169,12 @@ if( isset($data['ticket_status']))
 								<input class="reg_input_filter" type="text"/><!--подрядчик-->
 							</td>
 							<td>
-								<input class="reg_input_filter" type="text"/><!--Статус платежа-->
-							</td>							
+								<select class="reg_select_filter" name="pay_status" onchange="this.form.submit()">
+									<?php for($i = 0; $i < 3; $i++) { ?>
+									<option  value="<?= $i ?>" <?= ($i == $pay_status) ? 'selected' : ''?>><?= $paymentstatus[$i] ?></option>
+									<?php }?>
+								</select>
+							</td>								
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Форма оплаты-->
 							</td>								
@@ -187,7 +213,7 @@ if( isset($data['ticket_status']))
 					$payment_status = "";
 				}
 				else{
-					$executor =$contractor['org_name']." ".$contractor['status'];
+					$executor =$contractor['org_name']." ".$contractor['ownership'];
 					if($contractor) {
 						$method_payment = $methodpaymentedit[$contractor['method_payment']];
 						$payment_status = $paymentstatus[$ticket['contr_payment_status']];
@@ -196,30 +222,21 @@ if( isset($data['ticket_status']))
 						$method_payment = "";
 						$payment_status = "";
 					}
-					
-					
 				} 
-
 				$convertticketdate = strtotime($ticket['ticket_date']);
-				
 				$currentdate = strtotime(date('d-m-Y H:i:s'));
 				$ticketdate = date( 'd-m-Y H:i:s', $convertticketdate );
-
 				$diffdatecreate = ($currentdate - $convertticketdate)/(60*60*24); //Разница между текущей датой и датой заведения заявки
-				
-				
 				$convertlast_edit_datetime = strtotime($ticket['last_edit_datetime']);
 				$last_edit_datetime = date( 'd-m-Y H:i:s', $convertlast_edit_datetime );
 				$diffdatechange = ($currentdate - $convertlast_edit_datetime)/(60*60*24); //Разница между текущей датой и датой изменения заявки
 				?>
 				<tbody>
 				<?php 
-				
 				if($diffdatecreate > 2 && $diffdatechange < 1 && $ticket['ticket_status']!=1)
 				{
 					$class = "reg_text_show_tickets_red";
 				}
-
 				elseif ($diffdatechange > 1 && $ticket['ticket_status']!=1){
 					$class = "reg_text_show_tickets_red_bold";
 				}
@@ -229,10 +246,8 @@ if( isset($data['ticket_status']))
 				elseif ($ticket['ticket_status']==1){
 					$class = "";
 				}
-				
 				?>
 					<tr class="reg_text_show_tickets">
-						
 						<td class = "<?= $class?>"><a id="<?= $ticket['id_ticket']; ?>"><?=$ticket['ticket_number'];?></a></td>
 						<td class = "<?= $class?>"><?=$ticketdate;?></td>
 						<td class = "<?= $class?>"><?=$ticket['year'];?></td>
@@ -256,7 +271,7 @@ if( isset($data['ticket_status']))
 <?php }} else { ?>
 				<tbody>
 					<tr>
-						<td colspan="13" align="center" class="date">Не добавлено ни одной заявки</td>
+						<td colspan="15" align="center" class="date">Не добавлено ни одной заявки</td>
  					</tr>
 				</tbody>
 <?php } ?>

@@ -1,16 +1,16 @@
 <?php
 $current_month = date('n');
-$tickets_all = Show_Tickets($link, "", $current_month,"");
+$tickets_all = Show_Tickets($link, "", "", $current_month,"");
 if($tickets_all){
 $count_tickets_all = count($tickets_all);
 }else {$count_tickets_all = 0;}
 
-$tickets_inwork = Show_Tickets($link, "0", $current_month,"");
+$tickets_inwork = Show_Tickets($link, "0", "", $current_month,"");
 if($tickets_inwork){
 $count_tickets_work = count($tickets_inwork);
 }else{$count_tickets_work = 0;}
 
-$tickets_insogl = Show_Tickets($link, "2",$current_month,"");
+$tickets_insogl = Show_Tickets($link, "2", "", $current_month,"");
 if($tickets_insogl){
 $count_tickets_sogl = count($tickets_insogl);	
 }else{$count_tickets_sogl = 0;}

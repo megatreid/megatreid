@@ -3,6 +3,7 @@ require '/connection/config.php';
 if(isset($_SESSION['userlevel']))
 {
 	require_once '/blocks/header.php';
+	require '/func/arrays.php';
 	if(isset($_GET['id_project']))
 	{
 		$data = $_GET['id_project'];
@@ -29,26 +30,24 @@ if(isset($_SESSION['userlevel']))
 				<table border="1" cellspacing="0">
 					<thead>
 						<tr class="hdr">
-							<th width="1">№</th>
+							<th width=1%>№</th>
 							<th width=10%>Заказчик</th>
 							<th width=10%>Проект</th>
 							<th width=15%>Город</th>
 							<th width=10%>Объект</th>
 							<th>Адрес</th>
+							<th width=1%>Статус</th>
 							<th width="1">Абонентская<br>плата (руб.)</th>
 							<?php if($_SESSION['userlevel']<3){ ?>	
-							<th width="1">Действие</th>
+							<th width=1%>Действие</th>
 							<?php }?>
 						</tr>
 						<tr class='table-filters'>
 							<td>
-								
 							</td>
 							<td>
-								
 							</td>
 							<td>
-								
 							</td>							
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Город-->
@@ -58,11 +57,11 @@ if(isset($_SESSION['userlevel']))
 							</td>							
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Адрес-->
+							</td>
+							<td>
+								<input class="reg_input_filter" type="text"/><!--Статус-->
 							</td>							
-						
-						
 							<td colspan="2">
-
 							</td>
 						</tr>
 					</thead>
@@ -80,6 +79,7 @@ if(isset($_SESSION['userlevel']))
 						<td align="center" width="1"><?=$city['name'];?></td>
 						<td align="center" width="1"><?=$object['shop_number']?></td>
 						<td align="center"><?=$object['address']?></td>
+						<td align="center"><?=$statusedit[$object['status']];?></td>
 						<td align="center"width="1"><?=$object['abon_plata']?></td>
 						<?php if($_SESSION['userlevel']<3){ ?>
 						<td align="center" width="1"><a href='/editobject.php?edit_object=<?= $object['id_object'] ?>' title = 'Редактировать'>

@@ -10,6 +10,7 @@
 	unset($_SESSION['id_edit']);
 	unset($_SESSION['user_id']);
 	unset($_SESSION['ticket_status']);
+	unset($_SESSION['pay_status_select']);
 	//echo $wwwlink;
 	//header('location: '.$wwwlink.'');
 	header('location: /');
