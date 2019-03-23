@@ -118,7 +118,7 @@ if( isset($data['edit_ticket']))
 		
 		if(empty($errors))
 		{
-			$editticket = Update_Ticket ($link, $get_data, $ticket_number_edit, $year_edit, $month_edit, $ticket_task_edit, $ticket_solution_edit, $ticket_material_edit, $ticket_status_edit, $ticket_sla_edit, $work_type_edit, $hours_edit, $cost_smeta_edit, $cost_material_edit, $cost_transport_edit, $comment_edit, $currnetdatetime, $user_id , $implementer_edit, $id_contractor_edit, $contr_cost_work_edit, $contr_cost_smeta_edit, $contr_cost_transport_edit, $contr_material_edit, $contr_cost_material_edit, $contr_account_number_edit, $contr_date_payment_edit, $contr_payment_status_edit, $contr_comment_edit, $supplier_edit, $supplier_cost_work_edit, $supplier_contr_material_edit, $supplier_cost_material_edit, $supplier_account_number_edit, $supplier_date_payment_edit, $supplier_payment_status_edit, $supplier_comment_edit);
+			$editticket = Update_Ticket ($link, $get_data, $ticket_number_edit, $year_edit, $month_edit, $ticket_task_edit, $ticket_solution_edit, $ticket_material_edit, $ticket_status_edit, $ticket_sla_edit, $work_type_edit, $hours_edit, $cost_smeta_edit, $cost_material_edit, $cost_transport_edit, $comment_edit, $currnetdatetime, $user_id , $implementer_edit, $id_engineers_edit, $id_contractor_edit, $contr_cost_work_edit, $contr_cost_smeta_edit, $contr_cost_transport_edit, $contr_material_edit, $contr_cost_material_edit, $contr_account_number_edit, $contr_date_payment_edit, $contr_payment_status_edit, $contr_comment_edit, $supplier_edit, $supplier_cost_work_edit, $supplier_contr_material_edit, $supplier_cost_material_edit, $supplier_account_number_edit, $supplier_date_payment_edit, $supplier_payment_status_edit, $supplier_comment_edit);
 			
 			if($editticket){
 			?>
@@ -431,6 +431,27 @@ if( isset($data['edit_ticket']))
 								</select>
 							</td>
 						</tr>
+						<tr id="contr_select"> <!-- ВЫБОР ИНЖЕНЕРА-->
+							<td class="reg_dohod_td">
+								<label for="work_type">Инженер:</label></td>
+							<td>
+						<?php
+							$Users_Levels = Show_Users_Level($link, '4');
+						
+						?> 
+						<?php if($Users_Levels) { 
+							$Users_count = count($Users_Levels);?>
+							<select class="reg_select" name="id_engineers[]" id="id_engineers"  multiple size="<?=$Users_count?>">
+								<?php foreach($Users_Levels as $i => $Users_Level)  { 
+								?>
+									<option  value="<?= $Users_Level['id_users']; ?>"><?= $Users_Level['surname'].' '.$Users_Level['name'];?></option>
+								<?php  } ?>
+							</select>
+							<?php } else { ?>
+								<span class="rowt">У вас не добавлено ни одного подрядчика!</span>
+							<?php }?>
+							</td>
+						</tr>						
 					<tr>
 					<td align="right">
 						<div>

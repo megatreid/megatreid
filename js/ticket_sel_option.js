@@ -45,7 +45,7 @@ $(document).ready(function Select_ispolnitel(){
 
 		switch (spisok_isp.value) {
 		case '0':
-			text_isp[0].style.display = "";
+			text_isp[0].style.display = "none";
 			text_isp[1].style.display = "";
 			text_isp[2].style.display = "";
 			text_isp[3].style.display = "";
@@ -59,11 +59,11 @@ $(document).ready(function Select_ispolnitel(){
 			text_isp[11].style.display = "";
 			text_isp[12].style.display = "";
 			text_isp[13].style.display = "";
-
+			text_isp[14].style.display = "";
+			
 			break;
 		case '1':
-
-			text_isp[0].style.display = "none";
+			text_isp[0].style.display = "";
 			text_isp[1].style.display = "none";
 			text_isp[2].style.display = "none";
 			text_isp[3].style.display = "none";
@@ -77,10 +77,9 @@ $(document).ready(function Select_ispolnitel(){
 			text_isp[11].style.display = "none";
 			text_isp[12].style.display = "none";
 			text_isp[13].style.display = "none";
-
+			text_isp[14].style.display = "none";
 
 			break;
-
 	  }
 	}
 	   option();

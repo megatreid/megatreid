@@ -231,7 +231,7 @@ if($_SESSION['userlevel']==1)
 				<td>
 				<select name="userlevel" id="userlevel" >
 					<option disabled selected>Выберите значение:</option>
-					<?php for($i = 1; $i < 4; $i++) { ?>
+					<?php for($i = 1; $i < 5; $i++) { ?>
 						<option  value="<?= $i ?>" <?= ($i == $userlevel) ? 'selected' : ''?>><?= $user_level[$i-1] ?></option>
 					<?php } ?>
 

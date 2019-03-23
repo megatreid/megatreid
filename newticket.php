@@ -14,6 +14,7 @@ $customer_name="";
 $project_name="";
 $city_name="";
 $object_full="";
+$id_engineers_array = "";
 $summcostwork = 0;
 $cost_incident = 0;
 $cost_hours = 0;
@@ -64,6 +65,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment'));
 //$last_edit_datetime = trim(filter_input(INPUT_POST, 'last_edit_datetime'));
 $last_edit_user_id = trim(filter_input(INPUT_POST, 'last_edit_user_id'));
 $implementer = trim(filter_input(INPUT_POST, 'implementer'));
+//$id_engineers = trim(filter_input(INPUT_POST, 'id_engineers'));
 /*************************************************************************/
 $id_contractor = trim(filter_input(INPUT_POST, 'id_contractor'));
 $contr_cost_work = trim(filter_input(INPUT_POST, 'contr_cost_work'));
@@ -155,16 +157,19 @@ if( isset($data['new_ticket']))
 			$contr_payment_status = 0;
 			$contr_comment = "";
 		}
+		if(isset($_POST['id_engineers']) AND !empty($_POST['id_engineers']) AND $implementer == 1){
+			$id_engineers_array = serialize($_POST['id_engineers']);
+		}
+		else {$id_engineers_array = "";}
 		if($ticket_status==1 AND $implementer == 0 AND $id_contractor == 0)
 		{
 			$errors[] = 'Выберите исполнителя работ!';
 		}
 
-
-
 		if(empty($errors))
 		{
-			$newticket = Add_Ticket ($link, $ticket_number, $year, $month, $id_object, $currnetdatetime, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type,  $hours,  $cost_smeta, $cost_material, $cost_transport, $comment, $currnetdatetime, $user_id, $implementer, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment);
+			
+			$newticket = Add_Ticket ($link, $ticket_number, $year, $month, $id_object, $currnetdatetime, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type,  $hours,  $cost_smeta, $cost_material, $cost_transport, $comment, $currnetdatetime, $user_id, $implementer, $id_engineers_array, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment);
 			
 			if($newticket){
 			?>
@@ -381,13 +386,21 @@ if( isset($data['new_ticket']))
 						<tr id="contr_select">
 							<td class="reg_dohod_td"><label for="work_type">Инженер:</label></td>
 							<td>
-								<select class="reg_select" onchange="SelectOPT()" name="work_type" id="work_type">
-									<option disabled selected>Выберите значение:</option>
-									<option value="0">Абонентское обслуживание</option>
-									<option value="1">Инцидентное обслуживание</option>
-									<option value="2">Почасовое обслуживание</option>
-									<option value="3">Дополнительные работы</option>
-								</select>
+						<?php
+							$Users_Levels = Show_Users_Level($link, '4');
+						
+						?> 
+						<?php if($Users_Levels) { 
+							$Users_count = count($Users_Levels);?>
+							<select class="reg_select" name="id_engineers[]" id="id_engineers"  multiple size="<?=$Users_count?>">
+								<?php foreach($Users_Levels as $i => $Users_Level)  { 
+								?>
+									<option  value="<?= $Users_Level['id_users']; ?>"><?= $Users_Level['surname'].' '.$Users_Level['name'];?></option>
+								<?php  } ?>
+							</select>
+							<?php } else { ?>
+								<span class="rowt">У вас не добавлено ни одного подрядчика!</span>
+							<?php }?>
 							</td>
 						</tr>
 					<tr>

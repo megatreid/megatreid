@@ -62,7 +62,7 @@ function User_Exist($connection, $var)
 
 // Редактирование ПОЛЬЗОВАТЕЛЯ
 
-function Edit_User ($connection, $var) // Принимает подключение и id
+function Edit_User($connection, $var) // Принимает подключение и id
 {
     $search = "SELECT * FROM Users WHERE id_users = '$var'";
     $result = $connection->query ($search);
@@ -77,7 +77,7 @@ function Edit_User ($connection, $var) // Принимает подключен�
 function Show_Users($connection) // Принимает подключение и возвращает массив пользователей
 {
 
-	$search = "SELECT * FROM users ORDER BY id_users ASC";
+	$search = "SELECT * FROM users ORDER BY surname, name, th_name ASC";
 
     //$search = "SELECT * FROM Users";
     $result = $connection->query ($search);
@@ -95,6 +95,36 @@ function Show_Users($connection) // Принимает подключение и
         }   
     }
     return $array; 
+}
+
+function Show_Users_Level($connection, $var) // Принимает подключение и возвращает массив пользователей
+{
+	$search = "SELECT * FROM users WHERE userlevel='$var' ORDER BY surname, name, th_name ASC";
+    $result = $connection->query ($search);
+    if (!$search) die ($connect->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
+
+function Add_Tickets_User($connection, $id_ticket, $id_user)
+{
+		$add_query ="INSERT INTO ticketsingener VALUES(NULL, '$id_ticket', '$id_user')";
+		$result = $connection->query($add_query); 
+        if ($result) 
+            return true;
+        else
+            die ($connect->error);
 }
 
 function update_user($connection, $id_users, $login, $password, $surname, $name, $th_name, $email, $mobile, $userlevel)
@@ -533,10 +563,10 @@ function Delete_Object ($connection, $var)
 
 /********************************ЗАЯВКИ*****************************************/
 
-function Add_Ticket($connection, $ticket_number, $year, $month, $id_object, $ticket_date, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
+function Add_Ticket($connection, $ticket_number, $year, $month, $id_object, $ticket_date, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $engineer, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
 {
 
-		$add_query ="INSERT INTO tickets VALUES(NULL, '$ticket_number', '$year', '$month', '$id_object', '$ticket_date', '$ticket_task', '$ticket_solution', '$ticket_material', '$ticket_status', '$ticket_sla', '$work_type', '$hours', '$cost_smeta', '$cost_material', '$cost_transport', '$comment', '$last_edit_datetime', '$last_edit_user_id', '$implementer', '$id_contractor', '$contr_cost_work', '$contr_cost_smeta', '$contr_cost_transport', '$contr_material', '$contr_cost_material', '$contr_account_number', '$contr_date_payment', '$contr_payment_status', '$contr_comment', '$supplier', '$supplier_cost_work', '$supplier_contr_material', '$supplier_cost_material', '$supplier_account_number', '$supplier_date_payment', '$supplier_payment_status', '$supplier_comment')";
+		$add_query ="INSERT INTO tickets VALUES(NULL, '$ticket_number', '$year', '$month', '$id_object', '$ticket_date', '$ticket_task', '$ticket_solution', '$ticket_material', '$ticket_status', '$ticket_sla', '$work_type', '$hours', '$cost_smeta', '$cost_material', '$cost_transport', '$comment', '$last_edit_datetime', '$last_edit_user_id', '$implementer', '$engineer', '$id_contractor', '$contr_cost_work', '$contr_cost_smeta', '$contr_cost_transport', '$contr_material', '$contr_cost_material', '$contr_account_number', '$contr_date_payment', '$contr_payment_status', '$contr_comment', '$supplier', '$supplier_cost_work', '$supplier_contr_material', '$supplier_cost_material', '$supplier_account_number', '$supplier_date_payment', '$supplier_payment_status', '$supplier_comment')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -547,7 +577,7 @@ function Add_Ticket($connection, $ticket_number, $year, $month, $id_object, $tic
 
 function Show_Tickets($connection, $ticket_status, $pay_status_select, $current_month, $implementer)
 {
-	$search = "SELECT id_ticket, ticket_number, ticket_date, year, month, id_object, ticket_status, implementer, id_contractor, contr_payment_status, last_edit_datetime, last_edit_user_id FROM tickets WHERE (`ticket_status` LIKE '%$ticket_status%') $pay_status_select AND (`month` LIKE '%$current_month%') AND (`implementer` LIKE '%$implementer%') ORDER BY id_ticket DESC";
+	$search = "SELECT id_ticket, ticket_number, ticket_date, year, month, id_object, ticket_status, implementer, id_engineers, id_contractor, contr_payment_status, last_edit_datetime, last_edit_user_id FROM tickets WHERE (`ticket_status` LIKE '%$ticket_status%') $pay_status_select AND (`month` LIKE '%$current_month%') AND (`implementer` LIKE '%$implementer%') ORDER BY id_ticket DESC";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;

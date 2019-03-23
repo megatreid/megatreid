@@ -200,6 +200,7 @@ if( isset($data['do_singup']))
 							<option value="1">Администратор</option>
 							<option value="2">Руководитель проекта</option>
 							<option value="3">Менеджер</option>
+							<option value="4">Инженер</option>
 						</select>
 					</td>
 						<tr>

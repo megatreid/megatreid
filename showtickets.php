@@ -199,7 +199,7 @@ if( isset($data['pay_status']))
 				
 				$users = Edit_User($link, $ticket['last_edit_user_id']);
 				$implementer = $ticket['implementer'];
-
+				
 				//if($ticket['id_contractor'] == 0){ $ticket['id_contractor']="";}
 				$objects = Edit_Object ($link, $ticket['id_object']);
 				$city = Get_Geo ($link, $objects['city_id'], "city", "city_id");
@@ -246,6 +246,11 @@ if( isset($data['pay_status']))
 				elseif ($ticket['ticket_status']==1){
 					$class = "";
 				}
+				if(!empty($ticket['id_engineers'])){
+					$id_engineers_array = unserialize($ticket['id_engineers']);
+				}
+				else $id_engineers_array = "";
+				
 				?>
 					<tr class="reg_text_show_tickets">
 						<td class = "<?= $class?>"><a id="<?= $ticket['id_ticket']; ?>"><?=$ticket['ticket_number'];?></a></td>
@@ -260,7 +265,17 @@ if( isset($data['pay_status']))
 						<td class = "<?= $class?>"><?=$executor; ?></td>
 						<td class = "<?= $class?>"><?=$payment_status;?></td>
 						<td class = "<?= $class?>"><?=$method_payment;?></td>
-						<td class = "<?= $class?>"><?= ""?></td>
+
+						<td class = "<?= $class?>"><?php
+						if(!empty($id_engineers_array)){
+							foreach($id_engineers_array as $i => $id_engineers)
+							{
+								$user_info = edit_user($link,$id_engineers);
+								echo ($i+1).".".$user_info['surname']." ".$user_info['name']."<br>";
+							}
+						}
+						?>
+						</td>
 						<td class = "<?= $class?>"><?=$users['surname']." ".$users['name'];?></td>
 						<td class = "<?= $class?>"><?=$last_edit_datetime;?></td>
 						
