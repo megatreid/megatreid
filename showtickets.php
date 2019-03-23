@@ -148,7 +148,7 @@ if( isset($data['ticket_status']))
 							<th rowspan="2">Форма<br>оплаты</th>
 							<th rowspan="2">Инженер</th>
 							<th width="1" colspan="2">Изменение заявки</th>
-							<th width="1" rowspan="2"></th>
+							<!-- <th width="1" rowspan="2"></th> -->
 						</tr>
 						<tr class="hdr">
 							<th>Сотрудник</th>
@@ -208,9 +208,9 @@ if( isset($data['ticket_status']))
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Дата-->
 							</td>							
-							<td colspan="2">
+							<!-- <td colspan="2">
 							<!--	<button class="reg_select_filter" name="do_filter">Применить</button> -->
-							</td>
+						<!--	</td> -->
 						</tr>
 							</form>
 					</thead>
@@ -274,7 +274,7 @@ if( isset($data['ticket_status']))
 				
 				?>
 					<tr class="reg_text_show_tickets">
-						<td class = "<?= $class?>"><a id="<?= $ticket['id_ticket']; ?>"><?=$ticket['ticket_number'];?></a></td>
+						<td class = "<?= $class?>"><a href='/editticket.php?id_ticket=<?= $ticket['id_ticket']; ?>' title = 'Редактировать'><?=$ticket['ticket_number'];?></a></td>
 						<td class = "<?= $class?>"><?=$ticketdate;?></td>
 						<td class = "<?= $class?>"><?=$ticket['year'];?></td>
 						<td class = "<?= $class?>"><?=$months[$ticket['month']-1];?></td>
@@ -303,8 +303,8 @@ if( isset($data['ticket_status']))
 						<td class = "<?= $class?>"><?=$users['surname']." ".$users['name'];?></td>
 						<td class = "<?= $class?>"><?=$last_edit_datetime;?></td>
 						
-						<td  class = "<?= $class?>"width="1"><a href='/editticket.php?id_ticket=<?= $ticket['id_ticket']; ?>' title = 'Редактировать'>
-						<img src='/images/edit.png' width='20' height='20'></td>
+						<!-- <td  class = "<?= $class?>"width="1"><a href='/editticket.php?id_ticket=<?= $ticket['id_ticket']; ?>' title = 'Редактировать'>
+						<img src='/images/edit.png' width='20' height='20'></td> -->
 					</tr>
 				</tbody>
 <?php }} else { ?>

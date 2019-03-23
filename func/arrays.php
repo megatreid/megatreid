@@ -14,7 +14,7 @@ $geo_row = array("country_id", "region_id", "city_id", "3");
 $methodpaymentedit = array(NULL, "Наличная", "Безналичная");
 $user_level = array('Администратор', 'Руководитель проекта', 'Менеджер', 'Инженер');
 $row = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
-$paymentstatus = array('Неоплачено','Оплачено', 'Без статуса');
+$paymentstatus = array('Неоплачено','Оплачено', 'Любой');
 /*
 A0
 B1
