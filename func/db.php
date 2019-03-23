@@ -607,7 +607,7 @@ function Edit_Ticket($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
+function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $id_engineers_array, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
 {
 	$update = "UPDATE `tickets` SET 
 	`ticket_number`='$ticket_number',
@@ -627,6 +627,7 @@ function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $
 	`last_edit_datetime`='$last_edit_datetime',
 	`last_edit_user_id`='$last_edit_user_id',
 	`implementer`='$implementer',
+	`id_engineers`='$id_engineers_array',
 	`id_contractor`='$id_contractor',
 	`contr_cost_work`='$contr_cost_work',
 	`contr_cost_smeta`='$contr_cost_smeta',

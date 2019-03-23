@@ -108,7 +108,10 @@ if( isset($data['edit_ticket']))
 			$contr_payment_status_edit = 0;
 			$contr_comment_edit = "";
 		}
-		
+		if(isset($_POST['id_engineers']) AND !empty($_POST['id_engineers']) AND $implementer_edit == 1){
+			$id_engineers_array = serialize($_POST['id_engineers']);
+		}
+		else {$id_engineers_array = "";}
 		if($ticket_status_edit==1 AND $implementer_edit == 0 AND $id_contractor_edit == 0)
 		{
 			$errors[] = 'Укажите исполнителя (подрядчика) работ!';
@@ -119,7 +122,7 @@ if( isset($data['edit_ticket']))
 		
 		if(empty($errors))
 		{
-			$editticket = Update_Ticket ($link, $get_data, $ticket_number_edit, $year_edit, $month_edit, $ticket_task_edit, $ticket_solution_edit, $ticket_material_edit, $ticket_status_edit, $ticket_sla_edit, $work_type_edit, $hours_edit, $cost_smeta_edit, $cost_material_edit, $cost_transport_edit, $comment_edit, $currnetdatetime, $user_id , $implementer_edit, $id_engineers_edit, $id_contractor_edit, $contr_cost_work_edit, $contr_cost_smeta_edit, $contr_cost_transport_edit, $contr_material_edit, $contr_cost_material_edit, $contr_account_number_edit, $contr_date_payment_edit, $contr_payment_status_edit, $contr_comment_edit, $supplier_edit, $supplier_cost_work_edit, $supplier_contr_material_edit, $supplier_cost_material_edit, $supplier_account_number_edit, $supplier_date_payment_edit, $supplier_payment_status_edit, $supplier_comment_edit);
+			$editticket = Update_Ticket ($link, $get_data, $ticket_number_edit, $year_edit, $month_edit, $ticket_task_edit, $ticket_solution_edit, $ticket_material_edit, $ticket_status_edit, $ticket_sla_edit, $work_type_edit, $hours_edit, $cost_smeta_edit, $cost_material_edit, $cost_transport_edit, $comment_edit, $currnetdatetime, $user_id , $implementer_edit, $id_engineers_array, $id_contractor_edit, $contr_cost_work_edit, $contr_cost_smeta_edit, $contr_cost_transport_edit, $contr_material_edit, $contr_cost_material_edit, $contr_account_number_edit, $contr_date_payment_edit, $contr_payment_status_edit, $contr_comment_edit, $supplier_edit, $supplier_cost_work_edit, $supplier_contr_material_edit, $supplier_cost_material_edit, $supplier_account_number_edit, $supplier_date_payment_edit, $supplier_payment_status_edit, $supplier_comment_edit);
 			
 			if($editticket){
 			?>
@@ -449,8 +452,9 @@ if( isset($data['edit_ticket']))
 								}
 								foreach($Users_Levels as $i => $Users_Level)
 								{ 
-									$key = in_array($Users_Level['id_users'], $id_engineers_array);
-									if($key!==false)
+								$selected = "";
+									if(in_array($Users_Level['id_users'], $id_engineers_array))
+									
 									{
 										$selected = 'selected';
 										
@@ -459,8 +463,8 @@ if( isset($data['edit_ticket']))
 									//$selected = (array_search($Users_Level['id_users'], $id_engineers_array) ? 'selected' : '');
 									
 									?>
-									<!-- <option  value="<?=$Users_Level['id_users'];?>" <?=$selected;?> ><?= $Users_Level['surname'].' '.$Users_Level['name'];?></option> -->
-									<option  value="<?=$Users_Level['id_users'];?>" <?=$selected;?> ><?= $Users_Level['id_users']." ".$selected ;?></option>
+									<option  value="<?=$Users_Level['id_users'];?>" <?=$selected;?> ><?= $Users_Level['surname'].' '.$Users_Level['name'];?></option>
+								
 									
 							<?php } ?>
 							</select>
