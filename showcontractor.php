@@ -3,6 +3,7 @@ require '/connection/config.php';
 if(isset($_SESSION['userlevel']))
 {
 require_once '/blocks/header.php';
+require '/func/arrays.php';
 $geo_table = array("country", "region", "city", "3");
 $geo_row = array("country_id", "region_id", "city_id", "3");
 $data = $_POST;
@@ -10,6 +11,26 @@ $search_contr = trim(filter_input(INPUT_POST, 'search_contr'));
 $search_contr_select = trim(filter_input(INPUT_POST, 'search_contr_select'));
 $geo_table_search = $geo_table[1];
 $geo_row_search = $geo_row[1];
+$status = 1;
+$condition = "WHERE status = '1'";
+if( isset($data['contractor_status']))
+	{	
+		$status = trim(filter_input(INPUT_POST, 'contractor_status'));
+		switch($status)
+		{
+			case '0':	
+				$condition = "WHERE status = '0' ";
+			break;	
+			case '1':	
+				$condition = "WHERE status = '1' ";
+			break;	
+			case '2':	
+				$condition = "";
+			break;	
+		}
+		$_SESSION['condition'] = $condition;
+	}
+/*
 if (isset($_GET['page'])){
 		$page = $_GET['page'];
 	}else $page = 1;
@@ -19,7 +40,8 @@ if (isset($_GET['page'])){
 	$count_contr = Contr_Count($link, $geo_table_search, $geo_row_search, $search_contr);
 	// Количество страниц для пагинации
 	$str_pag = ceil($count_contr / $kol);
-if( isset($data['do_search'])){
+
+	if( isset($data['do_search'])){
 	if($search_contr_select == $geo_table[1])
 	{
 		$geo_table_search = $geo_table[1];
@@ -38,8 +60,9 @@ if( isset($data['do_search'])){
 	}
 
 }
-$contr = Show_Contr($link, $geo_table_search, $geo_row_search, $search_contr, $art, $kol);
-
+*/
+//$contr = Show_Contr($link, $geo_table_search, $geo_row_search, $search_contr, $art, $kol);
+$contrs = Show_Contractor($link, $condition);
 
 
 
@@ -92,6 +115,7 @@ setTimeout(function(){
 							<th>Организация /<br>Исполнитель</th>
 							<th>Контактное<br>лицо</th>
 							<th>Мобильный<br>телефон</th>
+							<th>Статус</th>
 							<!--<th>Наличие<br>анкеты</th>
 							<th>Статус</th>
 							<th>Система<br>НО</th> -->
@@ -114,28 +138,37 @@ setTimeout(function(){
 							</td>							
 							<td>
 								<input class="reg_input_filter" type="text" placeholder="..."/><!--Мобильный телефон-->
-							</td>							
+							</td>
+							<form action="" method="POST">
+							<td>
+								<select class="reg_select_filter" name="contractor_status" onchange="this.form.submit()">
+									<?php for($i = 0; $i < 3; $i++) { ?>
+									<option  value="<?= $i ?>" <?= ($i == $status) ? 'selected' : ''?>><?= $statusedit[$i] ?></option>
+									<?php }?>
+								</select>
+							</td>
+							</form>
 							<td colspan="2">
 
 							</td>
 						</tr>						
 					</thead>	
-			<?php if($contr){
+			<?php if($contrs){
 
-				foreach($contr as $i => $contrs) { 
+				foreach($contrs as $i => $contr) { 
 				?>
 					<tr class="reg_text_show_tickets">
-						<td align="center"><?=$art + $i + 1?></td>
+						<td align="center"><?=$i + 1?></td>
 						<?php /* $geo = Get_Geo($link, $contrs['country'], $geo_table[0],  $geo_row[0]);*/?>
 						<!-- <td align="center"><?= $geo['name'] ?></td> -->
-						<?php $geo = Get_Geo($link, $contrs['region_id'], $geo_table[1],  $geo_row[1]);?>
+						<?php $geo = Get_Geo($link, $contr['region_id'], $geo_table[1],  $geo_row[1]);?>
 						<td align="center"><?= $geo['name'] ?></td>
-						<?php $geo = Get_Geo($link, $contrs['city_id'], $geo_table[2],  $geo_row[2]);?>
+						<?php $geo = Get_Geo($link, $contr['city_id'], $geo_table[2],  $geo_row[2]);?>
 						<td align="center"><?= $geo['name'] ?></td>
-						<td align="center"><?=$contrs['org_name']?></td>
+						<td align="center"><?=$contr['org_name']?></td>
 						<td align="center">
 						<?php
-							$contact_name_exp = explode(";", $contrs['contact_name']);
+							$contact_name_exp = explode(";", $contr['contact_name']);
 							$count_contact_name = count($contact_name_exp);
 							if($count_contact_name<2){
 								echo $contact_name_exp[0];
@@ -151,7 +184,7 @@ setTimeout(function(){
 						</td>
 						<td align="center">
 						<?php
-							$mobile_exp = explode(";", $contrs['mobile']);
+							$mobile_exp = explode(";", $contr['mobile']);
 							$count_mobile = count($mobile_exp);
 							if($count_mobile<2){
 								echo $mobile_exp[0];
@@ -164,13 +197,13 @@ setTimeout(function(){
 							<?php }}?>
 						</td>
 						<!-- <td align="center"><?=$contrs['anketa']?></td> -->
-						<!-- <td align="center"><?=$contrs['status']?></td> -->
+						<td><?=$statusedit[$contr['status']];?></td>
 						<!-- <td align="center"><?=$contrs['system_no']?></td> -->
 						<?php
 							if($_SESSION['userlevel'] < 3) { ?>
-							<td align="center"><a href='/editcontr.php?edit=<?= $contrs['id_contractor'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a></td>
+							<td align="center"><a href='/editcontr.php?edit=<?= $contr['id_contractor'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a></td>
 						<?php	} ?>
-						<td align="center"><a href='/lookcontr.php?look=<?= $contrs['id_contractor'] ?>' title = 'Посмотреть'><img src='/images/lupa.png' width='20' height='20'></a></td>
+						<td align="center"><a href='/lookcontr.php?look=<?= $contr['id_contractor'] ?>' title = 'Посмотреть'><img src='/images/lupa.png' width='20' height='20'></a></td>
 					</tr>
 			<?php }	}
 			?>

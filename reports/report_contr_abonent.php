@@ -55,7 +55,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$address = $object['address'];
 			$abon_plata_contr = intval($object['abon_plata_contr']);
 			$abon_plata_contr_period = $abon_plata_contr * $month_period;
-			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['status'].' ('.$city_name['name'].')');
+			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name['name'].')');
 			$sheet->setCellValue('B'.($row_next), $customer_info['customer_name']);
 			$sheet->setCellValue('C'.($row_next), $project_info['projectname']);
 			$sheet->setCellValue('D'.($row_next), $object_city_name);

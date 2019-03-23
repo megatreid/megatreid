@@ -155,9 +155,9 @@ foreach($_POST['id_projects'] as $id_project)
 							$implementer_new = "Мега Трейд ООО (Нижний Новгород)";
 						}
 						elseif ($implementer==0){
-							if($contr_info['org_name'] AND $contr_info['status'] AND $city_name['name']){
+							if($contr_info['org_name'] AND $contr_info['ownership'] AND $city_name['name']){
 								//$implementer_new = ($contr_info['org_name'].' '.$contr_info['status'].' ('.$city_name['name'].')');
-								$implementer_new = $contr_info['org_name'].' '.$contr_info['status'].' ('.$city_name_contr['name'].')';
+								$implementer_new = $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name_contr['name'].')';
 							}
 						}
 						$sheet->setCellValue('H'.$row_next, $implementer_new);

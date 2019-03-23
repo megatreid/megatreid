@@ -90,7 +90,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$contr_cost_transport = intval($ticket['contr_cost_transport']);
 			$contr_cost_material = intval($ticket['contr_cost_material']);
 			$contr_cost_summ = ($contr_cost_work + $contr_cost_smeta + $contr_cost_transport + $contr_cost_material);			
-			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['status'].' ('.$city_name['name'].')');
+			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name['name'].')');
 			$sheet->setCellValue('B'.($row_next), $customer_info['customer_name']);
 			$sheet->setCellValue('C'.($row_next), $project_info['projectname']);			
 

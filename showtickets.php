@@ -35,18 +35,40 @@ require '/func/arrays.php';
 		$_SESSION['ticket_status'] = 0;
 		$status = 0;
 	}
-	if(!isset($pay_status) OR !isset($_SESSION['pay_status_select'])){
+	if(!isset($_SESSION['pay_status_select'])){
 		$pay_status = 2;
-		$_SESSION['pay_status_select'] = "";
+
 		
 	}
-
+	if(!isset($pay_status) AND !isset($_SESSION['pay_status'])){
+		
+		$pay_status = 2;
+		
+	}
+	if(!isset($_SESSION['pay_status'])){
+		$pay_status = 2;
+	}
+	if(!isset($pay_status))
+	{
+		$pay_status = $_SESSION['pay_status'];
+	}
 	$status = ($_SESSION['ticket_status']==="") ? 3 : $_SESSION['ticket_status'];
 	//$ticket_count = 0; //количество заявок
 	$current_month = "";
+if( isset($data['pay_status']))
+	{		
+		$pay_status = trim(filter_input(INPUT_POST, 'pay_status'));
+		$_SESSION['pay_status'] = $pay_status;
+		if(!isset($pay_status))
+		{
+			$pay_status = $_SESSION['pay_status'];
+			}
+	}
+
 if( isset($data['ticket_status']))
 	{	
 		$status = trim(filter_input(INPUT_POST, 'ticket_status'));
+		
 		switch($status)
 		{
 			case '0':	
@@ -64,24 +86,23 @@ if( isset($data['ticket_status']))
 		}
 		$_SESSION['ticket_status'] = $ticket_status;
 	}
-if( isset($data['pay_status']))
-	{	
-		$pay_status = trim(filter_input(INPUT_POST, 'pay_status'));
-		switch($pay_status)
-		{
-			case '0':	
-				$pay_status_select = "AND (id_contractor !='0' AND contr_payment_status = '0' )";
-			break;	
-			case '1':	
-				$pay_status_select = "AND (id_contractor !='0' AND contr_payment_status = '1' )";
-			break;	
-			case '2':	
-				$pay_status_select = "";
-			break;	
-	
-		}
-		$_SESSION['pay_status_select'] = $pay_status_select;
-	}	
+
+	switch($pay_status)
+	{
+		case '0':	
+			$pay_status_select = "AND (id_contractor !='0' AND contr_payment_status = '0' )";
+		break;	
+		case '1':	
+			$pay_status_select = "AND (id_contractor !='0' AND contr_payment_status = '1' )";
+		break;	
+		case '2':	
+			$pay_status_select = "";
+		break;
+		default:		
+			$pay_status_select = "";	
+	}
+	$_SESSION['pay_status_select'] = $pay_status_select;
+
 	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $_SESSION['pay_status_select'], $current_month, $implementer);
 	if($tickets){
 	$count_tickets = count($tickets);
@@ -266,15 +287,18 @@ if( isset($data['pay_status']))
 						<td class = "<?= $class?>"><?=$payment_status;?></td>
 						<td class = "<?= $class?>"><?=$method_payment;?></td>
 
-						<td class = "<?= $class?>"><?php
+						<td class = "<?= $class?>">
+						
+						<?php
 						if(!empty($id_engineers_array)){
 							foreach($id_engineers_array as $i => $id_engineers)
 							{
 								$user_info = edit_user($link,$id_engineers);
-								echo ($i+1).".".$user_info['surname']." ".$user_info['name']."<br>";
+								echo $user_info['surname']." ".$user_info['name']."<br>";
 							}
 						}
 						?>
+						
 						</td>
 						<td class = "<?= $class?>"><?=$users['surname']." ".$users['name'];?></td>
 						<td class = "<?= $class?>"><?=$last_edit_datetime;?></td>

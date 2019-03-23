@@ -147,6 +147,7 @@ function Delete_User ($connection, $var) // Принимает подключе�
         die ($connect->error); // TODO: Каскадное удаление сообщений из личного форума
 }
 /****************************** ПОДРЯДЧИКИ **************************/
+/*
 function Show_Contr($connection, $geo_table, $geo_row, $geo_search, $art, $kol) 
 {
 	if(isset($geo_search) AND $geo_table!="3" AND $geo_row!="3"){
@@ -175,6 +176,7 @@ function Show_Contr($connection, $geo_table, $geo_row, $geo_search, $art, $kol)
     }
     return $array; 
 }
+*/
 function Show_Contr_for_select($connection) 
 {
 
@@ -196,10 +198,10 @@ function Show_Contr_for_select($connection)
     }
     return $array; 
 }
-function Show_Contractor($connection) 
+function Show_Contractor($connection, $var) 
 {
 
-	$search = "SELECT *  FROM contractor ORDER BY org_name ASC";
+	$search = "SELECT *  FROM contractor $var ORDER BY org_name ASC";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
