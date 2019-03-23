@@ -399,7 +399,7 @@ if( isset($data['new_ticket']))
 								<?php  } ?>
 							</select>
 							<?php } else { ?>
-								<span class="rowt">У вас не добавлено ни одного подрядчика!</span>
+								<span class="rowt">У вас не добавлено ни одного инженера!</span>
 							<?php }?>
 							</td>
 						</tr>

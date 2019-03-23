@@ -7,7 +7,8 @@ require '/func/arrays.php';
 $currnetdatetime = date("Y-m-d H:i:s");
 $user_id = $_SESSION['user_id'];
 $get_data = $_GET['id_ticket'];
-
+$id_engineers_array = "";
+$selected = "";
 $data = $_POST;
 $err=FALSE;
 
@@ -442,13 +443,29 @@ if( isset($data['edit_ticket']))
 						<?php if($Users_Levels) { 
 							$Users_count = count($Users_Levels);?>
 							<select class="reg_select" name="id_engineers[]" id="id_engineers"  multiple size="<?=$Users_count?>">
-								<?php foreach($Users_Levels as $i => $Users_Level)  { 
-								?>
-									<option  value="<?= $Users_Level['id_users']; ?>"><?= $Users_Level['surname'].' '.$Users_Level['name'];?></option>
-								<?php  } ?>
+								<?php 
+								if(!empty($tickets['id_engineers'])){
+									$id_engineers_array = unserialize($tickets['id_engineers']);
+								}
+								foreach($Users_Levels as $i => $Users_Level)
+								{ 
+									$key = in_array($Users_Level['id_users'], $id_engineers_array);
+									if($key!==false)
+									{
+										$selected = 'selected';
+										
+									}
+									
+									//$selected = (array_search($Users_Level['id_users'], $id_engineers_array) ? 'selected' : '');
+									
+									?>
+									<!-- <option  value="<?=$Users_Level['id_users'];?>" <?=$selected;?> ><?= $Users_Level['surname'].' '.$Users_Level['name'];?></option> -->
+									<option  value="<?=$Users_Level['id_users'];?>" <?=$selected;?> ><?= $Users_Level['id_users']." ".$selected ;?></option>
+									
+							<?php } ?>
 							</select>
-							<?php } else { ?>
-								<span class="rowt">У вас не добавлено ни одного подрядчика!</span>
+						<?php } else { ?>
+								<span class="rowt">У вас не добавлено ни одного инженера!</span>
 							<?php }?>
 							</td>
 						</tr>						
@@ -526,7 +543,7 @@ if( isset($data['edit_ticket']))
 			</tr>
 			<tr id="contr_select">
 				<td colspan="2" align="center">
-					<span class="reg_link" id=link_contractor></span>
+					<span class="reg_link" id="link_contractor"></span>
 				</td>
 			</tr>
 			<tr id="contr_select">
