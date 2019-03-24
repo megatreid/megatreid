@@ -139,12 +139,12 @@ if(empty($errors))
 
 
 				<td colspan="2">
-						<select name="method_payment" id="method_payment" class="StyleSelectBox" onchange="this.form.submit()">
-							<option  value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичный</option>
-							<option  value="1"<?=($method_payment == 1 ? 'selected' :'')?>>Наличный</option>
-						</select>
-					</td>
-					</tr>
+					<select name="method_payment" id="method_payment" class="StyleSelectBox" onchange="this.form.submit()">
+						<option  value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичный</option>
+						<option  value="1"<?=($method_payment == 1 ? 'selected' :'')?>>Наличный</option>
+					</select>
+				</td>
+				</tr>
 				<tr>
 					<td class="rowt">Выберите подрядчика:</td>
 

@@ -201,7 +201,7 @@ function Show_Contr_for_select($connection)
 function Show_Contractor($connection, $var) 
 {
 
-	$search = "SELECT *  FROM contractor $var ORDER BY org_name ASC";
+	$search = "SELECT *  FROM contractor $var ORDER BY country_id, region_id, city_id, status ASC";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
