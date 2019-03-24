@@ -33,15 +33,15 @@
 		</script>
 	</head>
 <BODY onload="digitalWatch()">
-	<p id="digital_watch" class="watch"></p>
+	
 		<div class="header">
 			<a name="top"></a>
 			<div class="logo">
-				<a href="/"><img src="images/megatreid.png" align="middle" alt="ООО МЕГАТРЕЙД" width="100" height="101"></a>
+				<a href="/"><img src="images/megatreid.png" align="middle" alt="ООО МЕГАТРЕЙД" width="55" height="56"></a>
 			</div>
 		</div>
 			<div class="systemname">
-				<h2>Управление проектами ООО "Мега Трейд"</h2>
+				Управление проектами ООО "Мега Трейд"
 			</div>
 			<div id="clock"></div>
 		<div class="auth-menu">
@@ -52,7 +52,7 @@
 				<div class='auth_menu_button'> <a href='logout.php'><button class="button-new">Выйти</button></a> </div>
 			<?php } 
 			if($_SESSION['auch'] == 2) {?>
-			<div>Неправильный логин или пароль! </div>
+			<div class = 'auth_error'>Неправильный логин или пароль! </div>
 			<div  class="authmenu_reg">
 				
 				<form action="/auth.php" method="POST">
@@ -82,6 +82,7 @@
 			<?php } ?>
 		</div>
 		<nav class="menu" role="navigation">
+		<span id="digital_watch" class="watch"></span>
 			<ul>
 				<li><a href="/">Главная</a></li>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=3) {?>
@@ -110,7 +111,7 @@
 					<ul>
 						<li><a href="showusers.php">Пользователи</a></li>
 						<li><a href="geo_update.php">Редактирование географических объектов</a></li>
-						<li><a href="screen_update.php">Настройка обновления экрана</a></li>
+						<li><a href="screen_update.php#openModal">Настройка обновления экрана</a></li>
 					</ul>
 				</li>
 					<?php }?>

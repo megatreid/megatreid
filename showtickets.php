@@ -103,7 +103,48 @@ if( isset($data['ticket_status']))
 	}
 	$_SESSION['pay_status_select'] = $pay_status_select;
 
-	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $_SESSION['pay_status_select'], $current_month, $implementer);
+	$method_payment_select = "";
+	$method_payment_table = 2;
+if( isset($data['method_payment']))
+	{		
+		$method_payment_table = trim(filter_input(INPUT_POST, 'method_payment'));
+		$_SESSION['method_payment'] = $method_payment_table;
+		if(!isset($method_payment_table))
+		{
+			$method_payment_table = $_SESSION['method_payment'];
+		}
+	}	
+
+switch($method_payment_table)
+	{
+		case '0':	
+			$method_payment_select = "AND id_contractor IN(SELECT id_contractor FROM contractor WHERE method_payment=1)";
+		break;	
+		case '1':	
+			$method_payment_select = "AND id_contractor IN(SELECT id_contractor FROM contractor WHERE method_payment=2)";
+		break;	
+		case '2':	
+			$method_payment_select = "";
+		break;
+		default:		
+			$method_payment_select = "";	
+	}
+	$_SESSION['method_payment_select'] = $method_payment_select;
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $_SESSION['pay_status_select'], $_SESSION['method_payment_select'] , $current_month, $implementer);
 	if($tickets){
 	$count_tickets = count($tickets);
 	}else {$count_tickets = 0;}
@@ -197,7 +238,11 @@ if( isset($data['ticket_status']))
 								</select>
 							</td>								
 							<td>
-								<input class="reg_input_filter" type="text"/><!--Форма оплаты-->
+								<select class="reg_select_filter" name="method_payment" onchange="this.form.submit()">
+									<?php for($i = 0; $i < 3; $i++) { ?>
+									<option  value="<?= $i ?>" <?= ($i == $method_payment_table) ? 'selected' : ''?>><?= $methodpaymentstatus[$i] ?></option>
+									<?php }?>
+								</select>
 							</td>								
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Инженер-->

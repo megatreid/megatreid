@@ -18,7 +18,7 @@ background: -o-linear-gradient(90deg, rgba(219,247,215,1) 0%, rgba(140,144,255,1
 background: -ms-linear-gradient(90deg, rgba(219,247,215,1) 0%, rgba(140,144,255,1) 100%); /* ie10+ */
 background: linear-gradient(0deg, rgba(219,247,215,1) 0%, rgba(140,144,255,1) 100%); /* w3c */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8C90FF', endColorstr='#DBF7D7',GradientType=0 ); /* ie6-9 */ 
-height: 101px;
+height: 56px;
 //background: url(../images/horse.png) repeat-x;
 }
 
@@ -30,12 +30,13 @@ height: 101px;
 	//width: 90%;
 	left: 5px;
 	right: 5px;
-	top: 20px;
+	top: 15px;
 	min-width: 600px;
-	font-size: 120%;
+	font-size: 20px;
+	font-weight: bold;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif; 
-	text-shadow: 1px 1px 1px #E3E5EC, 0.2em 0.2em 0.2em #E3E5EC;
+	text-shadow: 1px 1px 1px #E3E5EC, 0.3em 0.3em 0.3em #E3E5EC;
 	color: #000000; 
 	}
 
@@ -50,7 +51,7 @@ height: 101px;
 font-size: 9pt;
 	position: absolute;
 	right: 10px;
-	top: 70px;
+	top: 25px;
 	font-family: Arial, Helvetica, sans-serif; 
 	text-align: right;
 	font-weight: bold;
@@ -69,7 +70,7 @@ font-size: 9pt;
 .authmenu_reg{
 	display: block;
 	position: absolute;
-	width:310px;
+	width:300px;
 	right: 0px;
 	top: 34px;
 	font-family: Arial, Helvetica, sans-serif; 
@@ -102,7 +103,12 @@ font-size: 9pt;
 	left: 0;
 	top: 0;
 }	
+.auth_error{
+	color: red;
+	font-size: 14px;
+	font-family: cursive;
 	
+}	
 
 
 #footer {
@@ -721,7 +727,7 @@ display: block;
 	display: block;
 	position: absolute;
 
-	margin: 105 0;
+	top: 60px;
 	//font-family: Arial, Helvetica, sans-serif; 
 	font:14px Arial, Tahoma, Helvetica, Verdana;
 	text-align: left;
@@ -1087,6 +1093,61 @@ border-radius: 2px;
 }
 
 }
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	display: none;
+	pointer-events: none;
+}
+.modalDialog:target {
+	display: block;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #00d9ff; }
+
+
+
+/*****************************************************************************************************/
 @media print {
 	.header {
 		display: none;

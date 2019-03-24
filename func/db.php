@@ -577,9 +577,9 @@ function Add_Ticket($connection, $ticket_number, $year, $month, $id_object, $tic
     
 }
 
-function Show_Tickets($connection, $ticket_status, $pay_status_select, $current_month, $implementer)
+function Show_Tickets($connection, $ticket_status, $pay_status_select, $method_payment, $current_month, $implementer)
 {
-	$search = "SELECT id_ticket, ticket_number, ticket_date, year, month, id_object, ticket_status, implementer, id_engineers, id_contractor, contr_payment_status, last_edit_datetime, last_edit_user_id FROM tickets WHERE (`ticket_status` LIKE '%$ticket_status%') $pay_status_select AND (`month` LIKE '%$current_month%') AND (`implementer` LIKE '%$implementer%') ORDER BY id_ticket DESC";
+	$search = "SELECT id_ticket, ticket_number, ticket_date, year, month, id_object, ticket_status, implementer, id_engineers, id_contractor, contr_payment_status, last_edit_datetime, last_edit_user_id FROM tickets WHERE (`ticket_status` LIKE '%$ticket_status%') $pay_status_select AND (`month` LIKE '%$current_month%') AND (`implementer` LIKE '%$implementer%') $method_payment ORDER BY id_ticket DESC";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;
