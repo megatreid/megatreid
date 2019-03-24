@@ -170,9 +170,22 @@ if( isset($data_post['edit_project']))
 				</tr>
 				</table>
 				<div>
+				
 					<input class="button" value="Сохранить" type="submit" name="edit_project"/>
 					<input class="button" value="К списку проектов" type="button" onclick="location.href='showprojects.php?id_customer=<?=$id_customer;?>'"/>
-					<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_project"/>				
+				<a href="#delete_project" class="button-delete">Удалить проект</a>
+					<div id="delete_project" class="modalDialog">
+						<div>
+							<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
+						<h2>Удаление проекта <?=$projectname;?></h2>
+						<p>Вы уверены, что хотите удалить этот проект?</p>
+						<p>Это может привести к потери данных в других разделах системы!</p>
+						<input class="button-delete" value="Да" name="delete_project" type="submit"/>
+						<a href="#close"  title="Отменить" class="button">Нет</a>
+						<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
+						</div>
+					</div>
+		
 				</div>
 			</form>
 		</div>	

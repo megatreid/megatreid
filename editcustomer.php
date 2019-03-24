@@ -380,7 +380,19 @@ if( isset($data_update['do_editcustomer']))
 
 						<input class="button" value="Сохранить" type="submit" name="do_editcustomer"/>
 						<input class="button" value="К списку заказчиков" type="button" onclick="location.href='showcustomer.php'"/>
-						<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_customer"/>
+						<a href="#delete_customer" class="button-delete">Удалить заказчика</a>
+						<div id="delete_customer" class="modalDialog">
+							<div>
+								<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
+							<h2>Удаление заказчика "<?= $customer_name_edit;?>"</h2>
+							<p>Вы уверены, что хотите удалить этого заказчика?</p>
+							<p>Это может привести к потери данных в других разделах системы!</p>
+							<input class="button-delete" value="Да" name="delete_customer" type="submit"/>
+							<a href="#close"  title="Отменить" class="button">Нет</a>
+
+							</div>
+						</div>				
+						
 					</form>
 					</div>
 				</div>

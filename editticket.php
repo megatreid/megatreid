@@ -485,8 +485,8 @@ if( isset($data['edit_ticket']))
 					<?php if($_SESSION['userlevel']<3){ ?>
 					<td align = "center">
 						
-					<a href="#openModal" class="button-delete">Удалить заявку</a>
-					<div id="openModal" class="modalDialog">
+					<a href="#delete_ticket" class="button-delete">Удалить заявку</a>
+					<div id="delete_ticket" class="modalDialog">
 						<div>
 							<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
 						<h2>Удаление заявки</h2>

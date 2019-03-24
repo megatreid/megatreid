@@ -557,8 +557,7 @@ display: block;
 	text-shadow: rgba(0,0,0,.4) 0 1px 0;
 	color: #000000;
 	display: inline;
-	min-width:35px;
-	max-width: 85px;
+
 	font-size: 14px;
 	font-family: Georgia, Serif;
 	text-decoration: none;
@@ -621,7 +620,7 @@ display: block;
    padding: 1px 4px;
    -webkit-border-radius: 0px;
    -moz-border-radius: 0px;
-   border-radius: 10px;
+   border-radius: 5px;
    -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
    -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
    box-shadow: rgba(0,0,0,1) 0 1px 0;

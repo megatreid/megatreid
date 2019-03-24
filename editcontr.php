@@ -302,8 +302,19 @@ if( isset($data_update['do_editcontr']))
 						</table>
 						<input class="button" value="Сохранить" type="submit" name="do_editcontr"/>
 						<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'"/>
-						
-						<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_contr"/>
+					<a href="#delete_contr" class="button-delete">Удалить подрядчика</a>
+					<div id="delete_contr" class="modalDialog">
+						<div>
+							<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
+						<h2>Удаление подрядчика</h2>
+						<p>Вы уверены, что хотите удалить этого подрядчика?</p>
+						<p>Это может привести к потери данных в других разделах системы!</p>
+						<input class="button-delete" value="Да" name="delete_contr" type="submit"/>
+						<a href="#close"  title="Отменить" class="button">Нет</a>
+						<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
+						</div>
+					</div>
+
 					</form>
 
 					</div>
