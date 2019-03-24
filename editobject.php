@@ -30,7 +30,6 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$abon_plata = $objects['abon_plata'];
 	$abon_plata_contr = $objects['abon_plata_contr'];
 	/*********************************/
-	
 	$data_post = $_POST;
 	$country_id_edit = trim(filter_input(INPUT_POST, 'country_id'));
 	$region_id_edit = trim(filter_input(INPUT_POST, 'region_id'));
