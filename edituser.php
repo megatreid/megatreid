@@ -184,12 +184,14 @@ if($_SESSION['userlevel']==1)
 <body>
 	<div class="showany">
 		<h2>Редактирование данных пользователя:</h2>
+		<div class="reg_sel_object">
 		<?php if($err==1){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
 		<?php }?>
 		<form action="/edituser.php?edit=<?= $_SESSION['id_edit'];?>" method="POST">
 			<p style = "font-size: 8pt">Все поля являются обязательными</p>
 				<!--<input type="hidden" name="user_id" value="<?= $data ?>"> -->
+			
 			<table class="add-edit-user-table">
 				<tr>
 					<td class="rowt"><label for="surname">Фамилия:</label></td>
@@ -228,6 +230,7 @@ if($_SESSION['userlevel']==1)
 				</tr>
 				<tr>
 				<td class="rowt"><label for="userlevel">Уровень пользователя:</label></td>
+				
 				<td>
 				<select name="userlevel" id="userlevel" >
 					<option disabled selected>Выберите значение:</option>
@@ -237,21 +240,38 @@ if($_SESSION['userlevel']==1)
 
 				</select>
 				</td>
-				<tr>
 				
-				<td align = "center"><button class="button" name="edit_user">Изменить данные</button>
-				<button class="button_back" onclick="history.go(-1); return false;">Назад</button></td>
+				</tr>
+				</table>
+			
+			<input class="button" value="Сохранить" type="submit" name="edit_user"/>
+				<input class="button" value="К списку пользователей" type="button" onclick="location.href='showusers.php'"/>
 				
-				<td align = "center">
+	
 				<?php
 				if($_SESSION['user_id'] != $id_edit)
 				{ ?>	
-				<button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить этого пользователя?")' name="delete_user">Удалить пользователя</button>
+			
+
+				<a href="#delete_user" class="button-delete">Удалить пользователя</a>
+					<div id="delete_user" class="modalDialog">
+						<div>
+							<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
+						<h2>Удаление пользователя</h2>
+						<p>Вы уверены, что хотите удалить этого пользователя?</p>
+						<p>Это может привести к потери данных в других разделах системы!</p>
+						<input class="button-delete" value="Да" name="delete_user" type="submit"/>
+						<a href="#close"  title="Отменить" class="button">Нет</a>
+
+						</div>
+					</div>
+			
+
 				<?php }?>
-				</td>
-			</table>
-		</form>
 		
+			
+		</form>
+		</div>
 	</div>
 <div id="footer">&copy; ООО "МегаТрейд"</div>	
 </body>
