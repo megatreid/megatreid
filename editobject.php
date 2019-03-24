@@ -224,10 +224,11 @@ if( isset($data_post['edit_object']))
 				</tr>				
 				</table>
 				<div>
-					<p><button name="edit_object" class="button">Изменить</button>
-					<button class="button_back" onclick="history.go(-1); return false;">Назад</button>
-					<button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_object">Удалить</button>
-					</p>
+					
+					<input class="button" value="Сохранить" type="submit" name="edit_object"/>
+					<input class="button" value="К списку объектов" type="button" onclick="location.href='showobjects.php?id_project=<?=$id_project;?>'"/>
+					<input class="button-delete" value="Удалить" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эти данные?")' name="delete_object"/>						
+
 				</div>
 			</form>
 		</div>	
