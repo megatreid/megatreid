@@ -19,10 +19,10 @@ $sheet->getColumnDimension('C')->setAutoSize(true);
 $sheet->getColumnDimension('D')->setAutoSize(true);
 $sheet->getColumnDimension('E')->setWidth(20);
 $sheet->getColumnDimension('F')->setWidth(15);
-$sheet->getColumnDimension('G')->setWidth(15);
-$sheet->getColumnDimension('H')->setWidth(15);
+$sheet->getColumnDimension('G')->setWidth(13);
+$sheet->getColumnDimension('H')->setWidth(13);
 $sheet->getColumnDimension('I')->setWidth(20);
-$sheet->getColumnDimension('J')->setWidth(15);
+$sheet->getColumnDimension('J')->setWidth(12);
 $sheet->getColumnDimension('K')->setWidth(20);
 $sheet->getColumnDimension('L')->setWidth(30);
 $sheet->getColumnDimension('M')->setWidth(30);
@@ -56,7 +56,7 @@ $sheet->setCellValue('P3','E-mail');
 $sheet->setCellValue('Q3','WEB-сайт');
 $sheet->setCellValue('R3','Примечание');
 $sheet->setCellValue('S3','');
-$sheet->getStyle('A3:R3')->getAlignment()->setWrapText(true);
+
 
 
 $next=4;
@@ -93,7 +93,8 @@ foreach($contractors as $i => $contractor)
 $sheet->getStyle('A3:R'.($next-1))->applyFromArray($style_wrap);
 $sheet->getStyle('A3:R3')->applyFromArray($style_header);
 $sheet->getStyle('A3:R3')->applyFromArray($style_center);
-
+$sheet->getStyle('A4:R'.($next-1))->applyFromArray($style_left);
+$sheet->getStyle('A3:R'.($next-1))->getAlignment()->setWrapText(true);
 
 
 
