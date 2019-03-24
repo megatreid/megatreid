@@ -478,13 +478,24 @@ if( isset($data['edit_ticket']))
 						<div>
 							<!-- <button name="edit_ticket" class="button">Сохранить</button> -->
 							<input class="button" value="Сохранить" name="edit_ticket" type="submit" />
-							<input class="button" value="Назад" type="button" onclick="location.href='showtickets.php'" />
+							<a href="showtickets.php#<?=$get_data?>" class="button"> Назад</a>
+							<!-- <input class="button" value="Назад" type="button" onclick="location.href='showtickets.php#'.<?=$get_data?>.'" /> -->
 						</div>
 					</td>
 					<?php if($_SESSION['userlevel']<3){ ?>
 					<td align = "center">
-						<input class="button-delete" value="Удалить заявку" name="delete_ticket" type="submit" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' />
+						
+					<a href="#openModal" class="button-delete">Удалить заявку</a>
+					<div id="openModal" class="modalDialog">
+						<div>
+							<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
+						<h2>Удаление заявки</h2>
+						<p>Вы уверены, что хотите удалить заявку?</p>
+						<input class="button-delete" value="Да" name="delete_ticket" type="submit"/>
+						<a href="#close"  title="Отменить" class="button">Нет</a>
 						<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
+						</div>
+					</div>
 					</td>
 					<?php }?>
 					</tr>

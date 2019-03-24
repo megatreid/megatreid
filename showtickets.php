@@ -318,7 +318,7 @@ switch($method_payment_table)
 				else $id_engineers_array = "";
 				
 				?>
-					<tr class="reg_text_show_tickets">
+					<tr class="reg_text_show_tickets" id=<?=$ticket['id_ticket'];?>>
 						<td class = "<?= $class?>"><a href='/editticket.php?id_ticket=<?= $ticket['id_ticket']; ?>' title = 'Редактировать'><?=$ticket['ticket_number'];?></a></td>
 						<td class = "<?= $class?>"><?=$ticketdate;?></td>
 						<td class = "<?= $class?>"><?=$ticket['year'];?></td>

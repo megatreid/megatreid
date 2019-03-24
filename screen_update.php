@@ -45,17 +45,6 @@ unset($_SESSION['implementer']);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <div id="footer">&copy; ООО "МегаТрейд"</div>
 </body>
 </html>

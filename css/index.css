@@ -539,7 +539,7 @@ display: block;
    
  
 }
-.button {
+.button{
 	border-top: 1px solid #b8b8b8;
 	background: #678C61;
 	background: -webkit-gradient(linear, left top, left bottom, from(#cfcfcf), to(#678C61));
@@ -556,6 +556,9 @@ display: block;
 	box-shadow: rgba(0,0,0,1) 0 1px 0;
 	text-shadow: rgba(0,0,0,.4) 0 1px 0;
 	color: #000000;
+	display: inline;
+	min-width:35px;
+	max-width: 85px;
 	font-size: 14px;
 	font-family: Georgia, Serif;
 	text-decoration: none;
@@ -901,20 +904,27 @@ display: block;
 	font-weight: normal;
 	width: 250px;
 	//color: #FF0000;
+
 }
 
 
 .reg_text_show_tickets_red{
 	color: #C10000;
 	//background: #FBABAB;
+
 }
 .reg_text_show_tickets_red_bold{
 	font-family: Arial, Helvetica, sans-serif; 
 	color: #A60000;
 	font-weight: bold;
-	
 	background: #E6CECE;
+
 }
+
+
+
+
+
 tbody tr:hover td{
 	//color: black;
 	background: #AFFFBF;
@@ -924,12 +934,20 @@ tbody tr:hover td{
 .transition {
   transition: 0.3s;
 }
-.reg_text_show_tickets_red_bold: hover{
-		color: black;
-	background: #AFFFBF;
+
+
+.reg_text_show_tickets:target{
+	transition: background 5s ease;
+	border: 1px solid black;
+	    -webkit-transition-property: background;
+    -moz-transition-property: background;
+    -o-transition-property: background;
+    transition-property: background;
+    -webkit-transition-duration: 2s;
+    -moz-transition-duration: 2s;
+    -o-transition-duration: 2s;
+    transition-duration: 2s;
 }
-
-
 
 
 .text_show{
@@ -1116,9 +1134,10 @@ border-radius: 2px;
 .modalDialog > div {
 	width: 400px;
 	position: relative;
-	margin: 10% auto;
+	margin: 20% auto;
 	padding: 5px 20px 13px 20px;
 	border-radius: 10px;
+	border: 1px solid black;
 	background: #fff;
 	background: -moz-linear-gradient(#fff, #999);
 	background: -webkit-linear-gradient(#fff, #999);
@@ -1144,6 +1163,9 @@ border-radius: 2px;
 }
 
 .close:hover { background: #00d9ff; }
+
+
+
 
 
 
