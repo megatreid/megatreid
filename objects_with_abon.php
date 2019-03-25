@@ -8,7 +8,7 @@ $objects_abon = Show_Objects_abon($link);
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title>Заказчики</title>
+	<title>Объекты с абонентской платой</title>
 	<script type="text/javascript" src='js/jquery.js'></script>
 </head>
 <body>

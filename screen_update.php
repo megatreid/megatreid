@@ -13,34 +13,24 @@ unset($_SESSION['implementer']);
 	<script type="text/javascript" src='js/jquery.js'></script>
 </head>
 <body>
-<!--
+
 <div class="showcustomer">
 	<div class="breadcrumbs">Настройка обновления экрана</div>
 	<form action="showtickets.php" method="post">
 		<p>Автообновление через: <input type="number" value="0" name="delay" /> секунд</p>
 		<p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</p>
 		<p>
-		<input type="submit" name="send" value="Сохранить" />
+		<input type="submit" name="send" class="button" value="Сохранить" />
 		</p>
 	</form>
-</div>
-<a href="#openModal">Открыть модальное окно</a>
--->
-<div id="openModal" class="modalDialog">
-	<div>
-		<a href="#close" title="Закрыть" class="close">X</a>
-<div class="showcustomer">
-	<div class="breadcrumbs">Настройка обновления экрана</div>
-	<form action="showtickets.php" method="post">
-		<p>Автообновление через: <input type="number" value="0" name="delay" /> секунд</p>
-		<p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</p>
-		<p>
-		<input type="submit" name="send" value="Сохранить" />
-		</p>
-	</form>
-</div>
+	<div class="help1">
+
+		<li>После нажатия на кнопку "Сохранить" вы перейдете на страницу "Заявки", на которой будет включено обновление экрана с задержкой в N-секунд.</li>
+		<li>Если выбрано '0'секунд, автообновление будет выключено.</li>
+		<li>Если выбрано поле "Исполнитель только ООО "Мега Трейд" ", будут отображаться только заявки, в которых только этот исполнитель.</li>
 	</div>
 </div>
+
 
 
 

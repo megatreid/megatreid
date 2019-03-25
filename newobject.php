@@ -89,7 +89,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Регистрация нового пользователя</title>
+		<title>Добавление нового объекта</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 		<link rel="shortcut icon" href="images/favicon.ico" type="image/ico">
 		<link rel="stylesheet" href="css/index.css">
