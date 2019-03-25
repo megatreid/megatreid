@@ -371,7 +371,7 @@ $xls->setActiveSheetIndex(0);
 					<td colspan="2">
 					<?php if($projects) { 
 						$project_count = count($projects);?>
-						<select name="id_projects[]" id="id_projects"  multiple size="<?=$project_count?>">
+						<select name="id_projects[]" id="id_projects" class="reg_select"  multiple size="<?=$project_count?>">
 							<?php foreach($projects as $i => $project)  { ?>
 								<option  value="<?= $project['id_project']; ?>"><?= $project['projectname']; ?></option>
 							<?php  } ?>

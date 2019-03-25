@@ -183,7 +183,7 @@ $sheet->getStyle($row[12 + $move].($row_next + 1))->getNumberFormat()->setFormat
 $sheet->getStyle('A6:'.$row[12 + $move].'7')->applyFromArray($style_header);
 $sheet->getStyle('A7:'.$row[6 + $move].($row_next))->applyFromArray($style_left);
 $sheet->getStyle('A6:'.$row[12 + $move].'7')->applyFromArray($style_center);
-$sheet->getStyle($row[7 + $move].'8:M'.($row_next))->applyFromArray($style_center);
+$sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->applyFromArray($style_center);
 $sheet->getStyle('A6:'.$row[12 + $move].($row_next))->applyFromArray($style_wrap);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_header);
