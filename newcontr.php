@@ -16,23 +16,23 @@ $email = "";
 $web = "";
 $comment = "";
 
-$country_id = trim(filter_input(INPUT_POST, 'country_id'));
-$region_id = trim(filter_input(INPUT_POST, 'region_id'));
-$city_id = trim(filter_input(INPUT_POST, 'city_id'));
-$org_name = trim(filter_input(INPUT_POST, 'org_name'));
-$dogovor = trim(filter_input(INPUT_POST, 'dogovor'));
-$method_payment = trim(filter_input(INPUT_POST, 'method_payment'));
-$card_number = trim(filter_input(INPUT_POST, 'card_number'));
-$anketa = trim(filter_input(INPUT_POST, 'anketa'));
-$status = trim(filter_input(INPUT_POST, 'status'));
-$system_no = trim(filter_input(INPUT_POST, 'system_no'));
-$contact_name = trim(filter_input(INPUT_POST, 'contact_name'));
-$passport = trim(filter_input(INPUT_POST, 'passport'));
-$mobile = trim(filter_input(INPUT_POST, 'mobile'));
-$phone = trim(filter_input(INPUT_POST, 'phone'));
-$email = trim(filter_input(INPUT_POST, 'email'));
-$web = trim(filter_input(INPUT_POST, 'web'));
-$comment = trim(filter_input(INPUT_POST, 'comment'));
+$country_id = trim(filter_input(INPUT_POST, 'country_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$region_id = trim(filter_input(INPUT_POST, 'region_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$city_id = trim(filter_input(INPUT_POST, 'city_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$org_name = trim(filter_input(INPUT_POST, 'org_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$dogovor = trim(filter_input(INPUT_POST, 'dogovor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$method_payment = trim(filter_input(INPUT_POST, 'method_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$card_number = trim(filter_input(INPUT_POST, 'card_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$anketa = trim(filter_input(INPUT_POST, 'anketa', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$system_no = trim(filter_input(INPUT_POST, 'system_no', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contact_name = trim(filter_input(INPUT_POST, 'contact_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$passport = trim(filter_input(INPUT_POST, 'passport', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$mobile = trim(filter_input(INPUT_POST, 'mobile', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$web = trim(filter_input(INPUT_POST, 'web', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $region_info = Get_Geo($link, $region_id, 'region', 'region_id');
 $city_info = Get_Geo($link, $city_id, 'city', 'city_id');
 if( isset($data['do_newcontr']))
@@ -58,9 +58,9 @@ if( isset($data['do_newcontr']))
 		{
 			$errors[] = 'Введите НАЗВАНИЕ или ИМЯ подрядчика!';
 		}
-		if(mb_strlen($org_name)>50 or mb_strlen($org_name)<3)
+		if(mb_strlen($org_name)>80 or mb_strlen($org_name)<3)
 		{
-			$errors[] = 'НАЗВАНИЕ или ИМЯ подрядчика должно содержать не менее 3 и не более 50 символов!';
+			$errors[] = 'НАЗВАНИЕ или ИМЯ подрядчика должно содержать не менее 3 и не более 80 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		//if(isset($method_payment) && $method_payment=="")
@@ -89,9 +89,9 @@ if( isset($data['do_newcontr']))
 		{
 			$errors[] = 'Укажите контактное лицо';
 		}
-		if(mb_strlen($contact_name)>100 or mb_strlen($contact_name)<3)
+		if(mb_strlen($contact_name)>150 or mb_strlen($contact_name)<3)
 		{
-			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 150 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		if(mb_strlen($passport)>250 or mb_strlen($passport)<3)
@@ -108,7 +108,28 @@ if( isset($data['do_newcontr']))
 			$errors[] = 'Поле \"Мобильный телефон\" должно содержать не менее 3 и не более 100 символов!';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
- 
+ 		if(mb_strlen($phone)>100 or mb_strlen($phone)<3)
+		{
+			$errors[] = 'Поле \"Рабочий телефон\" должно содержать не менее 3 и не более 100 символов!';
+		}		
+/* ------------------------------------------------------------------------------------------------- */
+
+ 		if(mb_strlen($email)>100 or mb_strlen($email)<3)
+		{
+			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 100 символов!';
+		}		
+/* ------------------------------------------------------------------------------------------------- */
+
+ 		if(mb_strlen($web)>100 or mb_strlen($web)<3)
+		{
+			$errors[] = 'Поле \"WEB\" должно содержать не менее 3 и не более 100 символов!';
+		}		
+/* ------------------------------------------------------------------------------------------------- */
+ 		if(mb_strlen($comment)>100 or mb_strlen($comment)<3)
+		{
+			$errors[] = 'Поле \"Примечание\" должно содержать не менее 3 и не более 100 символов!';
+		}		
+/* ------------------------------------------------------------------------------------------------- */
 	if(empty($errors)){  
 
 		$result = Add_Contr ($link,  $country_id, $region_id, $city_id, $org_name, $status, $dogovor, $method_payment, $card_number, $anketa, $ownership, $system_no, $contact_name, $passport, $mobile, $phone, $email, $web, $comment);
@@ -155,7 +176,7 @@ if( isset($data['do_newcontr']))
 							<td>
 							<select name="country_id" id="country_id" class="StyleSelectBox">
 								<option value="0">- выберите страну -</option>
-								<option value="3159" <?=(@$data['country_id'] == 3159 ? 'selected' :'')?>>Россия</option>
+								<option value="3159" <?=($country_id == 3159 ? 'selected' :'')?>>Россия</option>
 								
 								<!--<option value="9908">Украина</option>
 								<option value="248">Беларусь</option> -->
@@ -168,7 +189,7 @@ if( isset($data['do_newcontr']))
 								<select name="region_id" id="region_id"  class="StyleSelectBox" >
 									
 									<option value="<?= @$data['region_id'];?>" <?=(isset($data['region_id']) ? 'selected' :'')?>><?=$region_info['name'];?></option>
-									<option value="0" <?=(!isset($data['region_id']) ? 'selected' :'')?>>- выберите регион -</option>
+									<option value="0" <?=(!isset($region_id) ? 'selected' :'')?>>- выберите регион -</option>
 								</select>
 							</td>
 						</tr>
@@ -247,7 +268,7 @@ if( isset($data['do_newcontr']))
 						</tr>
 						<tr>
 							<td class="rowt">Контактное лицо:*</td>
-							<td><textarea class="reg_textarea" name="contact_name" required placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$data['contact_name'];?></textarea></td>
+							<td><textarea class="reg_textarea" name="contact_name" required placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$contact_name;?></textarea></td>
 						</tr>
 						<tr>
 							<td class="rowt">Паспортные данные:</td>
@@ -255,20 +276,20 @@ if( isset($data['do_newcontr']))
 						</tr>						
 						<tr>
 							<td class="rowt">Мобильный телефон:*</td>
-							<td><textarea class="reg_textarea" name="mobile" required placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$data['mobile'];?></textarea></td>
+							<td><textarea class="reg_textarea" name="mobile" required placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$mobile;?></textarea></td>
 						</tr>
 						<tr>
 							<td class="rowt">Рабочий телефон:</td>
-							<td><textarea class="reg_textarea" name="phone" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?php echo @$data['phone'];?></textarea></td>
+							<td><textarea class="reg_textarea" name="phone" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?php echo @$phone;?></textarea></td>
 						</tr>						
 						<tr>
-							<td class="rowt">Email:</td><td><input class="StyleSelectBox" name="email"  title = "При вводе нескольких адресов используйте разделитель ';'" type="text" value="<?php echo @$data['email'];?>"/></td>
+							<td class="rowt">Email:</td><td><input class="StyleSelectBox" name="email"  title = "При вводе нескольких адресов используйте разделитель ';'" type="text" value="<?php echo @$email;?>"/></td>
 						</tr>
 						<tr>
-							<td class="rowt">WEB-сайт:</td><td><input class="StyleSelectBox" name="web" type="text" value="<?php echo @$data['web'];?>"/></td>
+							<td class="rowt">WEB-сайт:</td><td><input class="StyleSelectBox" name="web" type="text" value="<?php echo @$web;?>"/></td>
 						</tr>
 						<tr>
-							<td class="rowt">Примечание:</td><td><textarea class="reg_textarea" name="comment"></textarea></td>
+							<td class="rowt">Примечание:</td><td><textarea class="reg_textarea" name="comment"><?=$comment?></textarea></td>
 						</tr>
 
 						</table>

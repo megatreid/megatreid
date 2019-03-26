@@ -10,7 +10,7 @@
 		<script type="text/javascript" src='/index.js'></script>
 		<script type="text/javascript" src='jquery.js'></script>
 		<script type="text/javascript" src='selects.js'></script>
-		<script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
+		<script type="text/javascript" src="js/jquery.maskedinput.js"></script>
 		<link rel="stylesheet" href="../css/index.css">
 		<link rel='shortcut icon' href='/images/favicon.ico' type='image/x-icon'>
 		<script type="text/javascript">

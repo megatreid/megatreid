@@ -18,7 +18,7 @@ $loginuser = trim(filter_input(INPUT_POST, 'login'));
 $password = trim(filter_input(INPUT_POST, 'password'));
 $password_2 = trim(filter_input(INPUT_POST, 'password_2'));
 $level = trim(filter_input(INPUT_POST, 'level'));
-if( isset($data['do_singup']))
+if( isset($data['new_user']))
 	{
 		$errors=array();//массив сообшений ошибок
 		if(empty($surname))//проверка на пустое значение поля ввода gender
@@ -145,7 +145,7 @@ if( isset($data['do_singup']))
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/ico">
 	<link rel="stylesheet" href="css/index.css">
 	<script>
-		$(".phone_mask").mask("+7(999)999-99-99");
+		//$(".phone_mask").mask("+7(999)999-99-99");
 	</script>
 </head>
 <body>
@@ -206,7 +206,7 @@ if( isset($data['do_singup']))
 						<tr>
 						</table>
 						<div>
-							<p><button name="do_singup">Зарегистрировать</button></p>
+							<p><button name="new_user">Зарегистрировать</button></p>
 					</div>
 				</form>
 		<a href="/showusers.php">К списку пользователей</a>

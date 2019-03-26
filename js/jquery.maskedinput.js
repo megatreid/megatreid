@@ -16,7 +16,7 @@
         },
         autoclear: !0,
         dataName: "rawMaskFn",
-        placeholder: "_"
+        placeholder: "-"
     }, $.fn.extend({
         caret: function(begin, end) {
             var range;

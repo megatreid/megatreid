@@ -27,29 +27,41 @@ if(isset($_GET['edit']))
 	$email_edit = $customers['email'];
 	$comment_edit = $customers['comment'];
 }
-$data_update = $_POST;
 $err=FALSE;
-$customer_name = trim(filter_input(INPUT_POST, 'customer_name'));
-$jur_address = trim(filter_input(INPUT_POST, 'jur_address'));
-$post_address = trim(filter_input(INPUT_POST, 'post_address'));
-$ogrn = trim(filter_input(INPUT_POST, 'ogrn'));
-$inn = trim(filter_input(INPUT_POST, 'inn'));
-$kpp = trim(filter_input(INPUT_POST, 'kpp'));
-$dogovor_number = trim(filter_input(INPUT_POST, 'dogovor_number'));
-$status = trim(filter_input(INPUT_POST, 'status'));
-$bank_name = trim(filter_input(INPUT_POST, 'bank_name'));
-$bank_bik = trim(filter_input(INPUT_POST, 'bank_bik'));
-$korr_schet = trim(filter_input(INPUT_POST, 'korr_schet'));
-$rasch_schet = trim(filter_input(INPUT_POST, 'rasch_schet'));
-$recipient = trim(filter_input(INPUT_POST, 'recipient'));
-$contact_name = trim(filter_input(INPUT_POST, 'contact_name'));
-$phone = trim(filter_input(INPUT_POST, 'phone'));
-$email = trim(filter_input(INPUT_POST, 'email'));
-$comment = trim(filter_input(INPUT_POST, 'comment'));
+$data_update = $_POST;
 
 if( isset($data_update['do_editcustomer']))
 	{
 		$errors=array();//массив сообшений ошибок
+		
+$customer_name = trim(filter_input(INPUT_POST, 'customer_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$jur_address = trim(filter_input(INPUT_POST, 'jur_address', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$post_address = trim(filter_input(INPUT_POST, 'post_address', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$ogrn = trim(filter_input(INPUT_POST, 'ogrn', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$inn = trim(filter_input(INPUT_POST, 'inn', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$kpp = trim(filter_input(INPUT_POST, 'kpp', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$dogovor_number = trim(filter_input(INPUT_POST, 'dogovor_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$bank_name = trim(filter_input(INPUT_POST, 'bank_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$bank_bik = trim(filter_input(INPUT_POST, 'bank_bik', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$korr_schet = trim(filter_input(INPUT_POST, 'korr_schet', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$rasch_schet = trim(filter_input(INPUT_POST, 'rasch_schet', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$recipient = trim(filter_input(INPUT_POST, 'recipient', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contact_name = trim(filter_input(INPUT_POST, 'contact_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+
+
+
+
+
+
+
+
+
+
 		
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($customer_name))

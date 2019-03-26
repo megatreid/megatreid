@@ -341,7 +341,7 @@ function Add_Customer($connection, $customer, $jur_address, $post_address, $ogrn
         if ($result) 
             return true;
         else
-            die ($connect->error);
+            die ($connection->error);
     
 }
 function Edit_Customer($connection, $var)
