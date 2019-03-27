@@ -11,8 +11,8 @@ $regions = Show_Region ($link, $country_id);
 $data = $_POST;
 $err=FALSE;
 
-$region_id = trim(filter_input(INPUT_POST, 'region_id'));
-$city_name = trim(filter_input(INPUT_POST, 'city_name'));
+$region_id = trim(filter_input(INPUT_POST, 'region_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$city_name = trim(filter_input(INPUT_POST, 'city_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 if( isset($data['new_city']))
 	{
 		$errors=array();//массив сообшений ошибок

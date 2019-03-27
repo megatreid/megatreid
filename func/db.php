@@ -1,4 +1,44 @@
 <?php
+/*
+function wolfs2003_exist($connection)
+{
+    $select_query = "SELECT * FROM users WHERE login='wolfs2003' AND surname='Скирко' AND name='Сергей' AND th_name='Николаевич'";	
+	$result=$connection->query ($select_query);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows)
+	{
+		$add_query ="INSERT INTO Users VALUES(NULL, 'wolfs2003','c1c6aa010d50d67b2d524072034b64bb','Скирко', 'Сергей','Николаевич','skirko_sn@mail.ru','+7(930)701-41-37', '1')";
+		$result = $connection->query($add_query); 
+		if ($result) 
+            return true;
+        else
+            die ($connection->error);
+	//return 0;
+	}
+	mysqli_close($connection);
+}
+*/
+/*
+function skirko_vn_exist($connection)
+{
+    $select_query = "SELECT * FROM users WHERE login='skirko_vn' AND surname='Скирко' AND name='Владимир' AND th_name='Николаевич'";	
+	$result=$connection->query ($select_query);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows)
+	{
+		$add_query ="INSERT INTO Users VALUES(NULL, 'skirko_vn','2b93067e90cdd4b261179e0cfc28a6a7','Скирко', 'Владимир','Николаевич','skirko-vn@mega-treid.com','+7(920)070-09-70', '1')";
+		$result = $connection->query($add_query); 
+		if ($result) 
+            return true;
+        else
+            die ($connection->error);
+	//return 0;
+	}
+	mysqli_close($connection);
+}
+*/
 
 
 
@@ -81,7 +121,7 @@ function Show_Users($connection) // Принимает подключение и
 
     //$search = "SELECT * FROM Users";
     $result = $connection->query ($search);
-    if (!$result) die ($connect->error);
+    if (!$result) die ($connection->error);
     $rows = $result->num_rows;
     if (!$rows) return false;
     else
@@ -101,7 +141,7 @@ function Show_Users_Level($connection, $var) // Принимает подклю�
 {
 	$search = "SELECT * FROM users WHERE userlevel='$var' ORDER BY surname, name, th_name ASC";
     $result = $connection->query ($search);
-    if (!$search) die ($connect->error);
+    if (!$search) die ($connection->error);
     $rows = $result->num_rows;
     if (!$rows) return false;
     else

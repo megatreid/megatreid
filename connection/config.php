@@ -23,5 +23,7 @@ else
 	//$user = "admin";
 	//$userpassword = "qwerty";
 	include 'func/db.php';
+
+	
 }
 ?>

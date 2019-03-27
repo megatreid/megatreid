@@ -1221,8 +1221,9 @@ border-radius: 2px;
 	//box-shadow: -10px 0px 28px rgba(0,0,0,0.2), 10px 0px 28px rgba(0,0,0,0.2);
 	}
 	
-	
-	
+.header-left-top, .a-right-bottom, .time-right-bottom {
+display: none;	
+}	
 	
 	
 }

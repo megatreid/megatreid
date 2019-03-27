@@ -35,57 +35,57 @@ if(isset($_POST['select_object'])){
 $contractors = Show_Contr_for_select ($link);
 $data = $_POST;
 $err=FALSE;
-$ticket_number = trim(filter_input(INPUT_POST, 'ticket_number'));
+$ticket_number = trim(filter_input(INPUT_POST, 'ticket_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $ticket_exist = Ticket_Exist($link, $ticket_number);
-$year = trim(filter_input(INPUT_POST, 'year'));
-$month = trim(filter_input(INPUT_POST, 'month'));
+$year = trim(filter_input(INPUT_POST, 'year', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$month = trim(filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 if(empty($id_object))
 {
-	$id_object = trim(filter_input(INPUT_POST, 'id_object'));
-	$customer_name = trim(filter_input(INPUT_POST, 'customer_name'));
-	$id_project = trim(filter_input(INPUT_POST, 'id_project'));
-	$project_name = trim(filter_input(INPUT_POST, 'project_name'));
-	$city_name = trim(filter_input(INPUT_POST, 'city_name'));
-	$object_full = trim(filter_input(INPUT_POST, 'object_full'));
+	$id_object = trim(filter_input(INPUT_POST, 'id_object', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$customer_name = trim(filter_input(INPUT_POST, 'customer_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$id_project = trim(filter_input(INPUT_POST, 'id_project', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$project_name = trim(filter_input(INPUT_POST, 'project_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$city_name = trim(filter_input(INPUT_POST, 'city_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$object_full = trim(filter_input(INPUT_POST, 'object_full', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	
 }
 //$ticket_date = trim(filter_input(INPUT_POST, 'ticket_date'));
-$ticket_task = trim(filter_input(INPUT_POST, 'ticket_task'));
-$ticket_solution = trim(filter_input(INPUT_POST, 'ticket_solution'));
-$ticket_material = trim(filter_input(INPUT_POST, 'ticket_material'));
-$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
-$ticket_sla = trim(filter_input(INPUT_POST, 'ticket_sla'));
-$work_type = trim(filter_input(INPUT_POST, 'work_type'));
+$ticket_task = trim(filter_input(INPUT_POST, 'ticket_task', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$ticket_solution = trim(filter_input(INPUT_POST, 'ticket_solution', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$ticket_material = trim(filter_input(INPUT_POST, 'ticket_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$ticket_sla = trim(filter_input(INPUT_POST, 'ticket_sla', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$work_type = trim(filter_input(INPUT_POST, 'work_type', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 //$cost_incident = trim(filter_input(INPUT_POST, 'cost_incident'));
-$hours = trim(filter_input(INPUT_POST, 'hours'));
-$cost_smeta = trim(filter_input(INPUT_POST, 'cost_smeta'));
-$cost_material = trim(filter_input(INPUT_POST, 'cost_material'));
-$cost_transport = trim(filter_input(INPUT_POST, 'cost_transport'));
-$comment = trim(filter_input(INPUT_POST, 'comment'));
+$hours = trim(filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$cost_smeta = trim(filter_input(INPUT_POST, 'cost_smeta', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$cost_material = trim(filter_input(INPUT_POST, 'cost_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$cost_transport = trim(filter_input(INPUT_POST, 'cost_transport', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 //$last_edit_datetime = trim(filter_input(INPUT_POST, 'last_edit_datetime'));
-$last_edit_user_id = trim(filter_input(INPUT_POST, 'last_edit_user_id'));
-$implementer = trim(filter_input(INPUT_POST, 'implementer'));
+$last_edit_user_id = trim(filter_input(INPUT_POST, 'last_edit_user_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$implementer = trim(filter_input(INPUT_POST, 'implementer', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 //$id_engineers = trim(filter_input(INPUT_POST, 'id_engineers'));
 /*************************************************************************/
-$id_contractor = trim(filter_input(INPUT_POST, 'id_contractor'));
-$contr_cost_work = trim(filter_input(INPUT_POST, 'contr_cost_work'));
-$contr_cost_smeta = trim(filter_input(INPUT_POST, 'contr_cost_smeta'));
-$contr_cost_transport = trim(filter_input(INPUT_POST, 'contr_cost_transport'));
-$contr_material = trim(filter_input(INPUT_POST, 'contr_material'));
-$contr_cost_material = trim(filter_input(INPUT_POST, 'contr_cost_material'));
-$contr_account_number = trim(filter_input(INPUT_POST, 'contr_account_number'));
-$contr_date_payment = trim(filter_input(INPUT_POST, 'contr_date_payment'));
-$contr_payment_status = trim(filter_input(INPUT_POST, 'contr_payment_status'));
-$contr_comment = trim(filter_input(INPUT_POST, 'contr_comment'));
+$id_contractor = trim(filter_input(INPUT_POST, 'id_contractor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_cost_work = trim(filter_input(INPUT_POST, 'contr_cost_work', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_cost_smeta = trim(filter_input(INPUT_POST, 'contr_cost_smeta', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_cost_transport = trim(filter_input(INPUT_POST, 'contr_cost_transport', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_material = trim(filter_input(INPUT_POST, 'contr_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_cost_material = trim(filter_input(INPUT_POST, 'contr_cost_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_account_number = trim(filter_input(INPUT_POST, 'contr_account_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_date_payment = trim(filter_input(INPUT_POST, 'contr_date_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_payment_status = trim(filter_input(INPUT_POST, 'contr_payment_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$contr_comment = trim(filter_input(INPUT_POST, 'contr_comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 /***************************************************************************/
-$supplier = trim(filter_input(INPUT_POST, 'supplier'));
-$supplier_cost_work = trim(filter_input(INPUT_POST, 'supplier_cost_work'));
-$supplier_contr_material = trim(filter_input(INPUT_POST, 'supplier_contr_material'));
-$supplier_cost_material = trim(filter_input(INPUT_POST, 'supplier_cost_material'));
-$supplier_account_number = trim(filter_input(INPUT_POST, 'supplier_account_number'));
-$supplier_date_payment = trim(filter_input(INPUT_POST, 'supplier_date_payment'));
-$supplier_payment_status = trim(filter_input(INPUT_POST, 'supplier_payment_status'));
-$supplier_comment = trim(filter_input(INPUT_POST, 'supplier_comment'));
+$supplier = trim(filter_input(INPUT_POST, 'supplier', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_cost_work = trim(filter_input(INPUT_POST, 'supplier_cost_work', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_contr_material = trim(filter_input(INPUT_POST, 'supplier_contr_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_cost_material = trim(filter_input(INPUT_POST, 'supplier_cost_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_account_number = trim(filter_input(INPUT_POST, 'supplier_account_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_date_payment = trim(filter_input(INPUT_POST, 'supplier_date_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_payment_status = trim(filter_input(INPUT_POST, 'supplier_payment_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$supplier_comment = trim(filter_input(INPUT_POST, 'supplier_comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 if( isset($data['new_ticket']))
 	{
 		$errors=array();//массив сообшений ошибок

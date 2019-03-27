@@ -7,7 +7,7 @@ require '/func/arrays.php';
 $currnetdatetime = date("Y-m-d H:i:s");
 $user_id = $_SESSION['user_id'];
 //$get_data = $_GET['id_ticket'];
-//$get_data = trim(filter_input(INPUT_GET, 'id_ticket', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$get_data = trim(filter_input(INPUT_GET, 'id_ticket', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $id_engineers_array = "";
 $selected = "";
 $data = $_POST;
