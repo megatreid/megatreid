@@ -6,7 +6,8 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	require '/func/arrays.php';
 	if(isset($_GET['edit_project']))
 {
-	$data = $_GET['edit_project'];
+	//$data = $_GET['edit_project'];
+	$data = trim(filter_input(INPUT_GET, 'edit_project', FILTER_SANITIZE_NUMBER_INT));
 	$data_post = $_POST;
 	$_SESSION['edit_project'] = $data;
 	$projects = Edit_Project($link, $data);
@@ -20,13 +21,13 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$cost_incident_medium = $projects['cost_incident_medium'];
 	$cost_incident_low = $projects['cost_incident_low'];
 	/*********************************/
-	$projectname_edit = trim(filter_input(INPUT_POST, 'projectname'));
-	$status_edit = trim(filter_input(INPUT_POST, 'status'));
-	$cost_hour_edit = trim(filter_input(INPUT_POST, 'cost_hour'));
-	$cost_incident_critical_edit = trim(filter_input(INPUT_POST, 'cost_incident_critical'));
-	$cost_incident_high_edit = trim(filter_input(INPUT_POST, 'cost_incident_high'));
-	$cost_incident_medium_edit = trim(filter_input(INPUT_POST, 'cost_incident_medium'));
-	$cost_incident_low_edit = trim(filter_input(INPUT_POST, 'cost_incident_low'));
+	$projectname_edit = trim(filter_input(INPUT_POST, 'projectname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$status_edit = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_hour_edit = trim(filter_input(INPUT_POST, 'cost_hour', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_critical_edit = trim(filter_input(INPUT_POST, 'cost_incident_critical', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_high_edit = trim(filter_input(INPUT_POST, 'cost_incident_high', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_medium_edit = trim(filter_input(INPUT_POST, 'cost_incident_medium', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_low_edit = trim(filter_input(INPUT_POST, 'cost_incident_low', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
 
 
@@ -40,9 +41,9 @@ if( isset($data_post['edit_project']))
 		{
 			$errors[] = 'Введите название проекта!';
 		}
-		if( mb_strlen($projectname)>20 or mb_strlen($projectname)<2)
+		if( mb_strlen($projectname)>50 or mb_strlen($projectname)<2)
 		{
-			$errors[] = 'Название проекта должно содержать не менее 2 и не более 20 символов!';
+			$errors[] = 'Название проекта должно содержать не менее 2 и не более 50 символов!';
 		}	
 /* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */	
 		if(empty($cost_hour))
@@ -131,7 +132,7 @@ if( isset($data_post['edit_project']))
 				<table>
 				<tr>
 					<td class="rowt"><label for="projectname">Наименование:*</label></td>
-					<td><input id="projectname" name="projectname" type="text" value="<?=$projectname;?>"/></td>
+					<td><input id="projectname" name="projectname" maxlength="50" type="text" value="<?=$projectname;?>"/></td>
 				</tr>
 				<tr class="status">
 					<td class="rowt">Статус проекта: *</td>

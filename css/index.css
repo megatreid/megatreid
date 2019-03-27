@@ -112,11 +112,14 @@ font-size: 9pt;
 
 
 #footer {
-
+		display:block;
+		position: relative;
+		bottom:0;
     background: #8fa09b; /* Цвет фона подвала */
     color: #fff; /* Цвет текста */
     padding: 5px; /* Отступы вокруг текста */
     clear: left; /* Отменяем действие float */
+	//width: 99%;
 	text-align: left;
 }
 
@@ -179,7 +182,6 @@ font-size: 9pt;
 /* отображаем выпадающий список при наведении */
 .menu ul li:hover > ul {
 		display:block;
-		
 		z-index: 4;
 	}
 /* первый уровень выпадающего списка */

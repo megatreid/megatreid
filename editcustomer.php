@@ -6,7 +6,8 @@ require_once 'blocks/header.php';
 require '/func/arrays.php';
 if(isset($_GET['edit']))
 {
-	$data = $_GET['edit'];
+	//$data = $_GET['edit'];
+	$data = trim(filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_NUMBER_INT));
 	$_SESSION['id_edit'] = $data;
 	$customers = Edit_Customer($link, $data);
 	$customer_name_edit = $customers['customer_name'];

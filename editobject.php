@@ -7,7 +7,8 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	require '/func/arrays.php';
 	if(isset($_GET['edit_object']))
 {
-	$data = $_GET['edit_object'];
+	//$data = $_GET['edit_object'];
+	$data = trim(filter_input(INPUT_GET, 'edit_object', FILTER_SANITIZE_NUMBER_INT));
 	$_SESSION['edit_object'] = $data;
 	$objects = Edit_Object($link, $data); //массив по объекту
 	$id_project = $objects['id_project'];
@@ -31,15 +32,15 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 	$abon_plata_contr = $objects['abon_plata_contr'];
 	/*********************************/
 	$data_post = $_POST;
-	$country_id_edit = trim(filter_input(INPUT_POST, 'country_id'));
-	$region_id_edit = trim(filter_input(INPUT_POST, 'region_id'));
-	$city_id_edit = trim(filter_input(INPUT_POST, 'city_id'));
-	$shop_number_edit = trim(filter_input(INPUT_POST, 'shop_number'));
-	$address_edit = trim(filter_input(INPUT_POST, 'address'));
-	$status_edit = trim(filter_input(INPUT_POST, 'status'));
-	$abon_plata_edit = trim(filter_input(INPUT_POST, 'abon_plata'));
-	$id_contractor_edit = trim(filter_input(INPUT_POST, 'id_contractor'));	
-	$abon_plata_contr_edit = trim(filter_input(INPUT_POST, 'abon_plata_contr'));	
+	$country_id_edit = trim(filter_input(INPUT_POST, 'country_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$region_id_edit = trim(filter_input(INPUT_POST, 'region_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$city_id_edit = trim(filter_input(INPUT_POST, 'city_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$shop_number_edit = trim(filter_input(INPUT_POST, 'shop_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$address_edit = trim(filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$status_edit = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$abon_plata_edit = trim(filter_input(INPUT_POST, 'abon_plata', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$id_contractor_edit = trim(filter_input(INPUT_POST, 'id_contractor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
+	$abon_plata_contr_edit = trim(filter_input(INPUT_POST, 'abon_plata_contr', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
 	$err=FALSE;	
 
 if( isset($data_post['edit_object']))
@@ -64,18 +65,18 @@ if( isset($data_post['edit_object']))
 			{
 				$errors[] = 'Укажите объект!';
 			}
-			if( mb_strlen($shop_number_edit)>20 or mb_strlen($shop_number_edit)<2)
+			if( mb_strlen($shop_number_edit)>50 or mb_strlen($shop_number_edit)<2)
 			{
-				$errors[] = 'Название объекта должно содержать не менее 2 и не более 20 символов!';
+				$errors[] = 'Название объекта должно содержать не менее 2 и не более 50 символов!';
 			}	
 	/* ------------------------------------------------------------------------------------------------- */
 			if(empty($address_edit))
 			{
 				$errors[] = 'Укажите адрес объекта!';
 			}
-			if( mb_strlen($address_edit)>40 or mb_strlen($address_edit)<2)
+			if( mb_strlen($address_edit)>200 or mb_strlen($address_edit)<2)
 			{
-				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 40 символов!';
+				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 200 символов!';
 			}
 			if(empty($abon_plata_edit))
 			{
@@ -174,15 +175,15 @@ if( isset($data_post['edit_object']))
 				</tr>
 				<tr title="Номер магазина, офис" >
 					<td class="rowt"><label for="shop_number">Объект:*</label></td>
-					<td><input class="StyleSelectBox" id="shop_number" name="shop_number" type="text" value="<?= @$shop_number;?>"/></td>
+					<td><input class="StyleSelectBox" id="shop_number" maxlength="20" name="shop_number" type="text" value="<?= @$shop_number;?>"/></td>
 				</tr>
 				<tr title="Название улицы, номер дома, номе офиса в здании" >
 					<td class="rowt"><label for="address">Адрес:*</label></td>
-					<td><input class="StyleSelectBox" id="address" name="address" size="40" type="text" value="<?= @$address;?>"/></td>
+					<td><input class="StyleSelectBox" id="address" name="address" maxlength="200" type="text" value="<?= @$address;?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="abon_plata">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" size="11" value="<?=$abon_plata;?>"/></td>
+					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" value="<?=$abon_plata;?>"/></td>
 				</tr>
 				<tr class="status">
 					<td class="rowt">Статус объекта: *</td>
@@ -220,7 +221,7 @@ if( isset($data_post['edit_object']))
 				</td>				
 				<tr>
 					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" size="11" value="<?=$abon_plata_contr;?>"/></td>
+					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" value="<?=$abon_plata_contr;?>"/></td>
 				</tr>				
 				</table>
 				<div>

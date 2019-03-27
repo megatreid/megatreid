@@ -15,15 +15,15 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 		$project_name = $projects['projectname'];
 		$customers = Edit_Customer($link, $id_customer);
 		/*********************************/
-		$country_id = trim(filter_input(INPUT_POST, 'country_id'));
-		$region_id = trim(filter_input(INPUT_POST, 'region_id'));
-		$city_id = trim(filter_input(INPUT_POST, 'city_id'));
-		$shop_number = trim(filter_input(INPUT_POST, 'shop_number'));
-		$address = trim(filter_input(INPUT_POST, 'address'));
-		$status = trim(filter_input(INPUT_POST, 'status'));
-		$abon_plata = trim(filter_input(INPUT_POST, 'abon_plata'));		
-		$id_contractor = trim(filter_input(INPUT_POST, 'id_contractor'));	
-		$abon_plata_contr = trim(filter_input(INPUT_POST, 'abon_plata_contr'));	
+		$country_id = trim(filter_input(INPUT_POST, 'country_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$region_id = trim(filter_input(INPUT_POST, 'region_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$city_id = trim(filter_input(INPUT_POST, 'city_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$shop_number = trim(filter_input(INPUT_POST, 'shop_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$address = trim(filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$abon_plata = trim(filter_input(INPUT_POST, 'abon_plata', FILTER_SANITIZE_FULL_SPECIAL_CHARS));		
+		$id_contractor = trim(filter_input(INPUT_POST, 'id_contractor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
+		$abon_plata_contr = trim(filter_input(INPUT_POST, 'abon_plata_contr', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
 		
 		$err=FALSE;	
 
@@ -58,9 +58,9 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 			{
 				$errors[] = 'Укажите адрес объекта!';
 			}
-			if( mb_strlen($address)>40 or mb_strlen($address)<2)
+			if( mb_strlen($address)>200 or mb_strlen($address)<2)
 			{
-				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 40 символов!';
+				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 200 символов!';
 			}	
 	/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */		
 
@@ -136,11 +136,11 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 				</tr>
 				<tr>
 					<td class="rowt"><label for="shop_number">Объект:*</label></td>
-					<td><input class="StyleSelectBox" id="shop_number" name="shop_number" type="text" value="<?php echo @$data_post['shop_number'];?>"/></td>
+					<td><input class="StyleSelectBox" id="shop_number" name="shop_number" maxlength="20" type="text" value="<?php echo @$shop_number;?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="address">Адрес:*</label></td>
-					<td><input class="StyleSelectBox" id="address" name="address" size="40" type="text" value="<?php echo @$data_post['address'];?>"/></td>
+					<td><input class="StyleSelectBox" id="address" name="address" maxlength="200" size="40" type="text" value="<?php echo @$address;?>"/></td>
 				</tr>
 				<tr class="status">
 					<td class="rowt">Статус объекта:*</td>
@@ -183,12 +183,8 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 				</td>				
 				<tr>
 					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" size="11" value="0"/></td>
+					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" size="11" value="<?php echo @$abon_plata_contr;?>"/></td>
 				</tr>				
-				
-				
-				
-				
 				</table>
 				<div>
 					<p><button name="new_object" class="button-new">Добавить</button></p>

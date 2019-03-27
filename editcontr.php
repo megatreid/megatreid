@@ -8,7 +8,8 @@ require '/func/arrays.php';
 
 if(isset($_GET['edit']))
 {
-	$data = $_GET['edit'];
+	//$data = $_GET['edit'];
+	$data = trim(filter_input(INPUT_GET, 'edit', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	$_SESSION['id_edit'] = $data;
 	$contractors = Edit_Contr($link, $data);
 	$country_id_edit = $contractors['country_id'];

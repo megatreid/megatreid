@@ -2,7 +2,7 @@
 require '/connection/config.php';
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 {
-	require_once '/blocks/header.php';
+require_once '/blocks/header.php';
 if(isset($_GET['id_customer']))
 {
 	$id_customer = $_GET['id_customer'];
@@ -10,13 +10,13 @@ if(isset($_GET['id_customer']))
 	$customers = Edit_Customer($link, $id_customer);
 	$projects = Show_Projects($link, $id_customer);
 	$err=FALSE;	
-	$projectname = trim(filter_input(INPUT_POST, 'projectname'));
-	$status = trim(filter_input(INPUT_POST, 'status'));
-	$cost_hour = trim(filter_input(INPUT_POST, 'cost_hour'));
-	$cost_incident_critical = trim(filter_input(INPUT_POST, 'cost_incident_critical'));
-	$cost_incident_high = trim(filter_input(INPUT_POST, 'cost_incident_high'));
-	$cost_incident_medium = trim(filter_input(INPUT_POST, 'cost_incident_medium'));
-	$cost_incident_low = trim(filter_input(INPUT_POST, 'cost_incident_low'));
+	$projectname = trim(filter_input(INPUT_POST, 'projectname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_hour = trim(filter_input(INPUT_POST, 'cost_hour', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_critical = trim(filter_input(INPUT_POST, 'cost_incident_critical', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_high = trim(filter_input(INPUT_POST, 'cost_incident_high', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_medium = trim(filter_input(INPUT_POST, 'cost_incident_medium', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$cost_incident_low = trim(filter_input(INPUT_POST, 'cost_incident_low', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	
 	if( isset($data_post['new_project']))
 		{
@@ -25,9 +25,9 @@ if(isset($_GET['id_customer']))
 		{
 			$errors[] = 'Введите название проекта!';
 		}
-		if( mb_strlen($projectname)>20 or mb_strlen($projectname)<2)
+		if( mb_strlen($projectname)>50 or mb_strlen($projectname)<2)
 		{
-			$errors[] = 'Название проекта должно содержать не менее 2 и не более 20 символов!';
+			$errors[] = 'Название проекта должно содержать не менее 2 и не более 50 символов!';
 		}	
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */	
 		if(empty($cost_hour))
@@ -73,9 +73,7 @@ if(isset($_GET['id_customer']))
 	
 	
 }
-	
-	
-	
+
 	
 ?>
 <!DOCTYPE html>
@@ -97,11 +95,10 @@ if(isset($_GET['id_customer']))
 		<?php }?>
 			<form action="newproject.php?id_customer=<?=$id_customer;?>" method="POST">
 			<p style = "font-size: 8pt">Поля, отмеченные звездочкой, являются обязательными</p>
-			
 				<table>
 				<tr>
 					<td class="rowt"><label for="projectname">Наименование:*</label></td>
-					<td><input id="projectname" class="StyleSelectBox"  name="projectname" type="text" value="<?=@$data_post['projectname'];?>"/></td>
+					<td><input id="projectname" class="StyleSelectBox" maxlength="50"  name="projectname" type="text" value="<?=@$projectname;?>"/></td>
 				</tr>
 				<tr class="status">
 					<td class="rowt">Статус проекта:*</td>
@@ -116,7 +113,7 @@ if(isset($_GET['id_customer']))
 				</tr>				
 				<tr>
 					<td class="rowt"><label for="cost_hour">Почасовой тариф:</label></td>
-					<td><input class="StyleSelectBox"  id="cost_hour" name="cost_hour" type="number" min="0" value="<?=@$data_post['cost_hour'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_hour" name="cost_hour" type="number" min="0" value="<?=@$cost_hour;?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -125,23 +122,24 @@ if(isset($_GET['id_customer']))
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_critical">Критический:</label></td>
-					<td><input class="StyleSelectBox"  id="cost_incident_critical" name="cost_incident_critical" type="number" min="0" value="<?=@$data_post['cost_incident_critical'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_critical" name="cost_incident_critical" type="number" min="0" value="<?=@$cost_incident_critical;?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_high">Высокий:</label></td>
-					<td><input class="StyleSelectBox"  id="cost_incident_high" name="cost_incident_high" type="number" min="0" value="<?=@$data_post['cost_incident_high'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_high" name="cost_incident_high" type="number" min="0" value="<?=@$cost_incident_high;?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_medium">Средний:</label></td>
-					<td><input class="StyleSelectBox"  id="cost_incident_medium" name="cost_incident_medium" type="number" min="0" value="<?=@$data_post['cost_incident_medium'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_medium" name="cost_incident_medium" type="number" min="0" value="<?=@$cost_incident_medium;?>"/> руб.</td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="cost_incident_low">Низкий:</label></td>
-					<td><input class="StyleSelectBox"  id="cost_incident_low" name="cost_incident_low" type="number" min="0" value="<?=@$data_post['cost_incident_low'];?>"/> руб.</td>
+					<td><input class="StyleSelectBox"  id="cost_incident_low" name="cost_incident_low" type="number" min="0" value="<?=@$cost_incident_low;?>"/> руб.</td>
 				</tr>
 				</table>
 				<div>
-					<p><button name="new_project" class="button">Сохранить</button>
+					<p>
+						<button name="new_project" class="button">Сохранить</button>
 					</p>
 				</div>
 			</form>

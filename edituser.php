@@ -24,15 +24,15 @@ if($_SESSION['userlevel']==1)
 
 	$err=0;
 	//$id_user = trim(filter_input(INPUT_POST, 'id_users'));
-	$surname_update = trim(filter_input(INPUT_POST, 'surname'));
-	$name_update = trim(filter_input(INPUT_POST, 'name'));
-	$th_name_update = trim(filter_input(INPUT_POST, 'th_name'));
-	$email_update = trim(filter_input(INPUT_POST, 'email'));
-	$mobile_update = trim(filter_input(INPUT_POST, 'mobile'));
-	$loginuser_update = trim(filter_input(INPUT_POST, 'login'));
-	$password_update = trim(filter_input(INPUT_POST, 'password'));
-	$password_2_update = trim(filter_input(INPUT_POST, 'password_2'));
-	$userlevel_update = trim(filter_input(INPUT_POST, 'userlevel'));
+	$surname_update = trim(filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$name_update = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$th_name_update = trim(filter_input(INPUT_POST, 'th_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$email_update = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$mobile_update = trim(filter_input(INPUT_POST, 'mobile', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$loginuser_update = trim(filter_input(INPUT_POST, 'login', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$password_update = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$password_2_update = trim(filter_input(INPUT_POST, 'password_2', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+	$userlevel_update = trim(filter_input(INPUT_POST, 'userlevel', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	if(isset($data_update['edit_user']))
 		{
 			
@@ -42,29 +42,29 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите фамилию!';
 				}
-				if( mb_strlen($surname_update)>20 or mb_strlen($surname_update)<2)
+				if( mb_strlen($surname_update)>50 or mb_strlen($surname_update)<2)
 				{
-					$errors[] = 'Фамилия должна содержать не менее 2 и не более 20 символов!';
+					$errors[] = 'Фамилия должна содержать не менее 2 и не более 50 символов!';
 				}	
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */	
 				if(empty($name_update))//проверка на пустое значение поля ввода имени
 				{
 					$errors[] = 'Введите имя!';
 				}
-				if( mb_strlen($name_update)>20 or mb_strlen($name_update)<3)
+				if( mb_strlen($name_update)>50 or mb_strlen($name_update)<3)
 				{
 					echo mb_strlen($name_update);
-					$errors[] = 'Имя должно содержать не менее 3 и не более 20 символов!';
+					$errors[] = 'Имя должно содержать не менее 3 и не более 50 символов!';
 				}
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */		
 				if(empty($th_name_update))//проверка на пустое значение поля ввода имени
 				{
 					$errors[] = 'Введите отчество!';
 				}
-				if( mb_strlen($th_name_update)>25 or mb_strlen($th_name_update)<3)
+				if( mb_strlen($th_name_update)>50 or mb_strlen($th_name_update)<3)
 				{
 					echo mb_strlen($th_name_update);
-					$errors[] = 'Имя должно содержать не менее 3 и не более 25 символов!';
+					$errors[] = 'Имя должно содержать не менее 3 и не более 50 символов!';
 				}		
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */
 				if( empty($email_update))//проверка на пустое значение поля ввода email
@@ -80,18 +80,18 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите номер мобильного телефона!';
 				}
-				if( mb_strlen($mobile_update)>20 or mb_strlen($mobile_update)<10)
+				if( mb_strlen($mobile_update)>50 or mb_strlen($mobile_update)<10)
 				{
-					$errors[] = 'Номер мобильного телефона должен содержать не менее 10 и не более 20 символов!';
+					$errors[] = 'Номер мобильного телефона должен содержать не менее 10 и не более 50 символов!';
 				}		
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */		
 				if(empty($loginuser_update)) //проверка на пустое значение поля ввода логина
 				{
 					$errors[] = 'Введите логин!';
 				}
-					if(mb_strlen($loginuser_update)>15 or mb_strlen($loginuser_update)<3)
+					if(mb_strlen($loginuser_update)>50 or mb_strlen($loginuser_update)<3)
 				{
-					$errors[] = 'Логин должен содержать не менее 3 и не более 15 символов! ';
+					$errors[] = 'Логин должен содержать не менее 3 и не более 50 символов! ';
 				}
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */
 				if(!empty($password_update))//проверка на пустое значение поля ввода пароля
@@ -183,8 +183,9 @@ if($_SESSION['userlevel']==1)
 </head>
 <body>
 	<div class="showany">
-		<h2>Редактирование данных пользователя:</h2>
+		
 		<div class="reg_sel_object">
+		<h2>Редактирование данных пользователя:</h2>
 		<?php if($err==1){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
 		<?php }?>
@@ -195,30 +196,30 @@ if($_SESSION['userlevel']==1)
 			<table class="add-edit-user-table">
 				<tr>
 					<td class="rowt"><label for="surname">Фамилия:</label></td>
-					<td><input id="surname" name="surname" placeholder="Фамилия" type="text" value="<?php echo @$surname;?>"/></td>
+					<td><input id="surname" name="surname" placeholder="Фамилия" required type="text" value="<?php echo @$surname;?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="name">Имя:</label></td>
-					<td><input id="name" name="name" placeholder="Имя" type="text" value="<?php echo @$name;?>"/></td>
+					<td><input id="name" name="name" placeholder="Имя" type="text" required value="<?php echo @$name;?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="th_name">Отчество:</label></td>
-					<td><input id="th_name" name="th_name" placeholder="Отчество" type="text" value="<?php echo @$th_name;?>"/></td>
+					<td><input id="th_name" name="th_name" placeholder="Отчество" required type="text" value="<?php echo @$th_name;?>"/></td>
 				</tr>						
 				<tr>
 					<td class="rowt"><label for="email">Email:</label></td>
-					<td><input id="email" name="email" placeholder="abc@domain.com" type="text" pattern = "^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$" value="<?php echo @$email;?>"/></td>
+					<td><input id="email" name="email" placeholder="abc@domain.com" required type="text" pattern = "^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$" value="<?php echo @$email;?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="mobile">Мобильный:</label></td>
-					<td><input name="mobile" id="phone_mask" placeholder="7(901)234-56-78" type="text" value="<?php echo @$mobile;?>"/></td>
+					<td><input name="mobile" id="phone_mask" placeholder="7(901)234-56-78" required type="text" value="<?php echo @$mobile;?>"/></td>
 				</tr>
 				<script>
 					$("#phone_mask").mask("+7(999)999-99-99");
 				</script>
 				<tr>
 					<td class="rowt"><label for="login">Логин:</label></td>
-					<td><input id="login" name="login" placeholder="Логин" type="text" value="<?php echo @$login;?>"/></td>
+					<td><input id="login" name="login" placeholder="Логин" type="text" required value="<?php echo @$login;?>"/></td>
 				</tr>
 				<tr>
 					<td class="rowt"><label for="password">Пароль:</label></td>
@@ -273,7 +274,8 @@ if($_SESSION['userlevel']==1)
 		</form>
 		</div>
 	</div>
-<div id="footer">&copy; ООО "МегаТрейд"</div>	
+	<br>
+<div id="footer">&copy; ООО "МегаТрейд"</div>
 </body>
 <?php
 }
