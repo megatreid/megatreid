@@ -68,7 +68,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите название организации!';
 		}
-		if(mb_strlen($customer_name)>60 or mb_strlen($customer_name)<3)
+		if(mb_strlen($customer_name)>100 or mb_strlen($customer_name)<3)
 		{
 			$errors[] = 'Название организации должно содержать не менее 3 и не более 60 символов!';
 		}
@@ -77,18 +77,18 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите юридический адрес организации!';
 		}
-		if(mb_strlen($jur_address)>100 or mb_strlen($jur_address)<3)
+		if(mb_strlen($jur_address)>250 or mb_strlen($jur_address)<3)
 		{
-			$errors[] = 'Юридический адрес организации должен содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Юридический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($post_address))
 		{
 			$errors[] = 'Укажите почтовый (фактический) адрес организации!';
 		}
-		if(mb_strlen($post_address)>100 or mb_strlen($post_address)<3)
+		if(mb_strlen($post_address)>250 or mb_strlen($post_address)<3)
 		{
-			$errors[] = 'Фактический адрес организации должен содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Фактический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}	
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($ogrn))
@@ -104,19 +104,11 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите ИНН организации!';
 		}
-		if(mb_strlen($inn)!=12)
+		if(mb_strlen($inn)>12 or mb_strlen($inn)<10)
 		{
-			$errors[] = 'ИНН организации должен содержать 12 символов!';
+			$errors[] = 'ИНН организации должен содержать не менее 10 и не более 12 цифр!';
 		}
-/* ------------------------------------------------------------------------------------------------- */
-		if(empty($inn))
-		{
-			$errors[] = 'Введите ИНН организации!';
-		}
-		if(mb_strlen($inn)!=12)
-		{
-			$errors[] = 'ИНН организации должен содержать 12 символов!';
-		}
+
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($kpp))
 		{
@@ -131,18 +123,18 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите номер договора!';
 		}
-		if(mb_strlen($dogovor_number)>30 or mb_strlen($dogovor_number)<3)
+		if(mb_strlen($dogovor_number)>50 or mb_strlen($dogovor_number)<3)
 		{
-			$errors[] = 'Номер договора должен содержать не менее 3 и не более 30 символов!';
+			$errors[] = 'Номер договора должен содержать не менее 3 и не более 50 символов!';
 		}	
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($bank_name))
 		{
 			$errors[] = 'Укажите наименование банка получателя!';
 		}
-		if(mb_strlen($bank_name)>100 or mb_strlen($bank_name)<3)
+		if(mb_strlen($bank_name)>200 or mb_strlen($bank_name)<3)
 		{
-			$errors[] = 'Наименование банка получателя должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Наименование банка получателя должно содержать не менее 3 и не более 200 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($bank_bik))
@@ -176,36 +168,36 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите имя получателя!';
 		}
-		if(mb_strlen($recipient)>100 or mb_strlen($recipient)<3)
+		if(mb_strlen($recipient)>150 or mb_strlen($recipient)<3)
 		{
-			$errors[] = 'Поле \"Получатель\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле \"Получатель\" должно содержать не менее 3 и не более 150 символов!';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($contact_name))
 		{
 			$errors[] = 'Укажите контактное лицо';
 		}
-		if(mb_strlen($contact_name)>100 or mb_strlen($contact_name)<3)
+		if(mb_strlen($contact_name)>200 or mb_strlen($contact_name)<3)
 		{
-			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 200 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($phone))
 		{
 			$errors[] = 'Укажите контактный телефон';
 		}
-		if(mb_strlen($phone)>60 or mb_strlen($phone)<3)
+		if(mb_strlen($phone)>100 or mb_strlen($phone)<3)
 		{
-			$errors[] = 'Поле \"Мобильный телефон\" должно содержать не менее 3 и не более 60 символов!';
+			$errors[] = 'Поле \"Мобильный телефон\" должно содержать не менее 3 и не более 100 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */		
 		if(empty($email))
 		{
 			$errors[] = 'Укажите E-Mail';
 		}
-		if(mb_strlen($email)>60 or mb_strlen($email)<3)
+		if(mb_strlen($email)>100 or mb_strlen($email)<3)
 		{
-			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 60 символов!';
+			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 100 символов!';
 		}			
 /* ------------------------------------------------------------------------------------------------- */
 		if(mb_strlen($comment)>100)
@@ -285,7 +277,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 						<tr>
 							<td class="rowt"><label for="customer_name">Название организации: *</label></td>
 							<td>
-								<input id="customer_name" class="StyleSelectBox" name="customer_name" type="text" title="Название организации должно содержать не менее 3 и не более 60 символов!" value="<?= $customer_name_edit;?>"/>
+								<input id="customer_name" class="StyleSelectBox" name="customer_name" maxlength="100" type="text" title="Название организации должно содержать не менее 3 и не более 100 символов!" value="<?= $customer_name_edit;?>"/>
 							</td>
 						</tr>
 						<tr>

@@ -1,13 +1,13 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2)
+if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']<3))
 {
-require_once 'blocks/header.php'; 
+require_once '/blocks/header.php'; 
 require '/func/arrays.php';
-//require '/func/db.php';
+
 $data = $_POST;
 
-$err=0;
+$err=false;
 $card_number = "";
 $contact_name = "";
 $mobile = "";
@@ -63,6 +63,15 @@ if( isset($data['do_newcontr']))
 			$errors[] = 'НАЗВАНИЕ или ИМЯ подрядчика должно содержать не менее 3 и не более 80 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
+		if(empty($dogovor))
+		{
+			$errors[] = 'Введите номер договора!';
+		}
+		if(mb_strlen($dogovor)>60 or mb_strlen($dogovor)<3)
+		{
+			$errors[] = 'Номер договора должен содержать не менее 3 и не более 60 символов!';
+		}
+/* ------------------------------------------------------------------------------------------------- */		
 		//if(isset($method_payment) && $method_payment=="")
 		if(empty($method_payment))
 		{
@@ -91,43 +100,43 @@ if( isset($data['do_newcontr']))
 		}
 		if(mb_strlen($contact_name)>150 or mb_strlen($contact_name)<3)
 		{
-			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 150 символов!';
+			$errors[] = 'Поле "КОНТАКТНОЕ ЛИЦО" должно содержать не менее 3 и не более 150 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
-		if(mb_strlen($passport)>250 or mb_strlen($passport)<3)
+		if(mb_strlen($passport)>250)
 		{
-			$errors[] = 'Поле \"Паспортные данные\" должно содержать не менее 3 и не более 250 символов!';
+			$errors[] = 'Поле "Паспортные данные" должно содержать не более 250 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($mobile))
 		{
 			$errors[] = 'Укажите номер мобильного телефона';
 		}
-		if(mb_strlen($mobile)>100 or mb_strlen($mobile)<3)
+		if(mb_strlen($mobile)>100)
 		{
-			$errors[] = 'Поле \"Мобильный телефон\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле "Мобильный телефон" должно содержать не более 100 символов!';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
- 		if(mb_strlen($phone)>100 or mb_strlen($phone)<3)
+ 		if(mb_strlen($phone)>100)
 		{
-			$errors[] = 'Поле \"Рабочий телефон\" должно содержать не менее 3 и не более 100 символов!';
-		}		
-/* ------------------------------------------------------------------------------------------------- */
-
- 		if(mb_strlen($email)>100 or mb_strlen($email)<3)
-		{
-			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле "Рабочий телефон" должно содержать не более 100 символов!';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
 
- 		if(mb_strlen($web)>100 or mb_strlen($web)<3)
+ 		if(mb_strlen($email)>100)
 		{
-			$errors[] = 'Поле \"WEB\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле "E-Mail" должно содержать не более 100 символов!';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
- 		if(mb_strlen($comment)>100 or mb_strlen($comment)<3)
+
+ 		if(mb_strlen($web)>100)
 		{
-			$errors[] = 'Поле \"Примечание\" должно содержать не менее 3 и не более 100 символов!';
+			$errors[] = 'Поле "WEB" должно содержать не более 100 символов!';
+		}		
+/* ------------------------------------------------------------------------------------------------- */
+ 		if(mb_strlen($comment)>100)
+		{
+			$errors[] = 'Поле "Примечание" должно содержать не более 100 символов!';
 		}		
 /* ------------------------------------------------------------------------------------------------- */
 	if(empty($errors)){  
@@ -142,7 +151,7 @@ if( isset($data['do_newcontr']))
     }
 	else
 		{
-			$err=1;
+			$err=true;
 			//echo '<div style="color: red;">'.array_shift($errors).'</div><hr>';
 		}
 	}
@@ -164,141 +173,144 @@ if( isset($data['do_newcontr']))
 	<div class="showany">
 	<p class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Новый подрядчик:</p>
 	<div class="reg_sel_object">
-	<?php if($err==1){?>
-			<div class="error-message"><?=array_shift($errors)?></div>
-			<?php }?>
+	<?php if($err==true){?>
+	<div class="error-message"><?=array_shift($errors)?></div>
+	<?php }?>
 				
-					<form action="/newcontr.php" method="POST">
-					<p style = "font-size: 8pt">Поля, отмеченные звездочкой, являются обязательными</p>
-						<table>
-						<tr>
-							<td class="rowt">Страна:*</td>
-							<td>
-							<select name="country_id" id="country_id" class="StyleSelectBox">
-								<option value="0">- выберите страну -</option>
-								<option value="3159" <?=($country_id == 3159 ? 'selected' :'')?>>Россия</option>
-								
-								<!--<option value="9908">Украина</option>
-								<option value="248">Беларусь</option> -->
-							</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Регион:*</td>
-							<td>
-								<select name="region_id" id="region_id"  class="StyleSelectBox" >
-									
-									<option value="<?= @$data['region_id'];?>" <?=(isset($data['region_id']) ? 'selected' :'')?>><?=$region_info['name'];?></option>
-									<option value="0" <?=(!isset($region_id) ? 'selected' :'')?>>- выберите регион -</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Населенный пункт:*</td>
-							<td>
-								<select name="city_id" id="city_id" class="StyleSelectBox" >
-									<option value="<?= @$data['city_id'];?>" <?=(isset($data['city_id']) ? 'selected' :'')?>><?=$city_info['name'];?></option>
-									<option value="0" <?=(!isset($data['city_id']) ? 'selected' :'')?>>- выберите город -</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Организация / исполнитель:*</td><td><input class="StyleSelectBox" name="org_name" required type="text" value="<?= @$data['org_name'];?>"/></td>
-						</tr>
-						<tr class="status">
-							<td class="rowt">Статус подрядчика:*</td>
-							<td>
-								<select name="status" class="StyleSelectBox" >
+		<form action="/newcontr.php" method="POST">
+		<p style = "font-size: 8pt">Поля, отмеченные звездочкой, являются обязательными</p>
+			<table>
+			<tr>
+				<td class="rowt">Страна:*</td>
+				<td>
+				<select name="country_id" id="country_id" class="StyleSelectBox" required="">
+					<option value="0">- выберите страну -</option>
+					<option value="3159" <?=($country_id == 3159 ? 'selected' :'')?>>Россия</option>
+					
+					<!--<option value="9908">Украина</option>
+					<option value="248">Беларусь</option> -->
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Регион:*</td>
+				<td>
+					<select name="region_id" id="region_id"  class="StyleSelectBox" >
+						<option value="0" <?=(!isset($region_id) ? 'selected' :'')?>>- выберите регион -</option>
+						<option value="<?= @$region_id;?>" <?=(isset($data['region_id']) ? 'selected' :'')?>><?=$region_info['name'];?></option>
+						
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Населенный пункт:*</td>
+				<td>
+					<select name="city_id" id="city_id" class="StyleSelectBox" >
+						<option value="<?= @$city_id;?>" <?=(isset($data['city_id']) ? 'selected' :'')?>><?=$city_info['name'];?></option>
+						<option value="0" <?=(!isset($data['city_id']) ? 'selected' :'')?>>- выберите город -</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Организация / исполнитель:*</td>
+				<td>
+				<input class="StyleSelectBox" maxlength="80" name="org_name" required type="text" value="<?= @$org_name;?>"/>
+			</td>
+			</tr>
+			<tr class="status">
+				<td class="rowt">Статус подрядчика:*</td>
+				<td>
+					<select name="status" class="StyleSelectBox" >
 
-									<option value="0">Неактивный</option>
-									<option value="1" selected>Активный</option>
+						<option value="0">Неактивный</option>
+						<option value="1" selected>Активный</option>
 
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Номер договора:</td>
-							<td><input class="StyleSelectBox" name="dogovor" type="text" value="<?php echo @$data['dogovor'];?>"/></td>
-						</tr>
-						<tr>
-							<td class="rowt">Форма расчета:*</td>
-							<td>								
-								<select name="method_payment" class="StyleSelectBox" >
-									<option disabled selected>Выберите значение:</option>
-									<option value="1" <?=($method_payment == 1 ? 'selected' :'')?>>Наличный</option>
-									<option value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичный</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Номер карты для оплаты "наличкой":</td>
-							<td><input class="StyleSelectBox" name="card_number"  type="number" value="<?php echo @$data['card_number'];?>"/></td>
-						</tr>
-						<tr>
-							<td class="rowt">Наличие анкеты:*</td>
-							<td>
-								<select name="anketa" class="StyleSelectBox" >
-									<option disabled selected>Выберите значение:</option>
-									<option value="Есть" <?=($anketa == 'Есть' ? 'selected' :'')?>>Есть</option>
-									<option value="Нет" <?=($anketa == 'Нет' ? 'selected' :'')?>>Нет</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Форма собственности:*</td>
-							<td>
-								<select name="status" class="StyleSelectBox" >
-									<option disabled selected>Выберите значение:</option>
-									<option value="ГПХ" <?=($status == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
-									<option value="ИП" <?=($status == 'ИП' ? 'selected' :'')?>>ИП</option>
-									<option value="ООО" <?=($status == 'ООО' ? 'selected' :'')?>>ООО</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Система налогообложения:*</td>
-							<td>
-								<select name="system_no" class="StyleSelectBox" >
-									<option disabled selected>Выберите значение:</option>
-									<option value="Без НДС" <?=($system_no == 'Без НДС' ? 'selected' :'')?>>Без НДС</option>
-									<option value="ГПХ" <?=($system_no == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
-									<option value="С НДС" <?=($system_no == 'С НДС' ? 'selected' :'')?>>С НДС</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td class="rowt">Контактное лицо:*</td>
-							<td><textarea class="reg_textarea" name="contact_name" required placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$contact_name;?></textarea></td>
-						</tr>
-						<tr>
-							<td class="rowt">Паспортные данные:</td>
-							<td><textarea class="reg_textarea" name="passport" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=@$data['passport'];?></textarea></td>
-						</tr>						
-						<tr>
-							<td class="rowt">Мобильный телефон:*</td>
-							<td><textarea class="reg_textarea" name="mobile" required placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$mobile;?></textarea></td>
-						</tr>
-						<tr>
-							<td class="rowt">Рабочий телефон:</td>
-							<td><textarea class="reg_textarea" name="phone" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?php echo @$phone;?></textarea></td>
-						</tr>						
-						<tr>
-							<td class="rowt">Email:</td><td><input class="StyleSelectBox" name="email"  title = "При вводе нескольких адресов используйте разделитель ';'" type="text" value="<?php echo @$email;?>"/></td>
-						</tr>
-						<tr>
-							<td class="rowt">WEB-сайт:</td><td><input class="StyleSelectBox" name="web" type="text" value="<?php echo @$web;?>"/></td>
-						</tr>
-						<tr>
-							<td class="rowt">Примечание:</td><td><textarea class="reg_textarea" name="comment"><?=$comment?></textarea></td>
-						</tr>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Номер договора:</td>
+				<td><input class="StyleSelectBox" name="dogovor" maxlength="60" type="text" value="<?php echo @$dogovor;?>"/></td>
+			</tr>
+			<tr>
+				<td class="rowt">Форма расчета:*</td>
+				<td>								
+					<select name="method_payment" class="StyleSelectBox" >
+						<option disabled selected>Выберите значение:</option>
+						<option value="1" <?=($method_payment == 1 ? 'selected' :'')?>>Наличный</option>
+						<option value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичный</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Номер карты для оплаты "наличкой":</td>
+				<td><input class="StyleSelectBox" name="card_number" maxlength="18" pattern="[0-9]{16,18}" type="number" title="Это поле должно содержать не более 18 цифр" value="<?php echo @$card_number;?>"/></td>
+			</tr>
+			<tr>
+				<td class="rowt">Наличие анкеты:*</td>
+				<td>
+					<select name="anketa" class="StyleSelectBox" >
+						<option disabled selected>Выберите значение:</option>
+						<option value="Есть" <?=($anketa == 'Есть' ? 'selected' :'')?>>Есть</option>
+						<option value="Нет" <?=($anketa == 'Нет' ? 'selected' :'')?>>Нет</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Форма собственности:*</td>
+				<td>
+					<select name="status" class="StyleSelectBox" >
+						<option disabled selected>Выберите значение:</option>
+						<option value="ГПХ" <?=($status == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
+						<option value="ИП" <?=($status == 'ИП' ? 'selected' :'')?>>ИП</option>
+						<option value="ООО" <?=($status == 'ООО' ? 'selected' :'')?>>ООО</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Система налогообложения:*</td>
+				<td>
+					<select name="system_no" class="StyleSelectBox" >
+						<option disabled selected>Выберите значение:</option>
+						<option value="Без НДС" <?=($system_no == 'Без НДС' ? 'selected' :'')?>>Без НДС</option>
+						<option value="ГПХ" <?=($system_no == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
+						<option value="С НДС" <?=($system_no == 'С НДС' ? 'selected' :'')?>>С НДС</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="rowt">Контактное лицо:*</td>
+				<td><textarea class="reg_textarea" name="contact_name" required maxlength="150" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$contact_name;?></textarea></td>
+			</tr>
+			<tr>
+				<td class="rowt">Паспортные данные:</td>
+				<td><textarea class="reg_textarea" name="passport" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=@$passport;?></textarea></td>
+			</tr>						
+			<tr>
+				<td class="rowt">Мобильный телефон:*</td>
+				<td><textarea class="reg_textarea" name="mobile" required maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$mobile;?></textarea></td>
+			</tr>
+			<tr>
+				<td class="rowt">Рабочий телефон:</td>
+				<td><textarea class="reg_textarea" name="phone" maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?php echo @$phone;?></textarea></td>
+			</tr>						
+			<tr>
+				<td class="rowt">Email:</td><td><input class="StyleSelectBox" maxlength="100" name="email"  title = "При вводе нескольких адресов используйте разделитель ';'" type="text" value="<?php echo @$email;?>"/></td>
+			</tr>
+			<tr>
+				<td class="rowt">WEB-сайт:</td><td><input class="StyleSelectBox" maxlength="100" name="web" type="text" value="<?php echo @$web;?>"/></td>
+			</tr>
+			<tr>
+				<td class="rowt">Примечание:</td><td><textarea class="reg_textarea" maxlength="100" name="comment"><?=$comment?></textarea></td>
+			</tr>
 
-						</table>
-						<div>
-							<input class="button-new" type="submit" name="do_newcontr"/>
-						</div>
-					</form>
-				</div>
+			</table>
+			<div>
+				<input class="button-new" type="submit" name="do_newcontr"/>
 			</div>
+		</form>
+	</div>
+</div>
 </body>
 </html>
 <?php
