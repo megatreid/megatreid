@@ -19,7 +19,7 @@ unset($_SESSION['implementer']);
 	<div class="breadcrumbs">Настройка обновления экрана</div>
 	<form action="showtickets.php" method="post">
 		<p>Автообновление через: <input type="number" value="0" name="delay" /> секунд</p>
-		<p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</p>
+		<p><input type="checkbox" name="megatreid" min="10" value="1">Исполнитель только ООО "Мега Трейд"</p>
 		<p>
 		<input type="submit" name="send" class="button" value="Сохранить" />
 		</p>
