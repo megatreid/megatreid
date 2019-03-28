@@ -209,8 +209,7 @@ setTimeout(function(){
 				<tr>
 					<td colspan="8" align="center" class="date">Не добавлено ни одного подрядчика</td>
  				</tr>
-<?php } ?>
-
+			<?php } ?>
 				</table>
 	</div>
 		<script type="text/javascript" src='js/filter_showticket.js'></script>
