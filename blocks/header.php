@@ -85,7 +85,7 @@
 		<span id="digital_watch" class="watch"></span>
 			<ul>
 				<li><a href="/">Главная</a></li>
-				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=3) {?>
+				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=4) {?>
 				<li><a href="showtickets.php">Заявки</a>
 					<ul>
 						<li><a href="newticket.php">Создать заявку</a></li>
