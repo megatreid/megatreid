@@ -19,9 +19,9 @@ unset($_SESSION['implementer']);
 	<div class="breadcrumbs">Настройка обновления экрана</div>
 	<form action="showtickets.php" method="post">
 		<p>Автообновление через:
-		<span><input type="radio" name="delay" value="0"/> Отключить</span>
-		<span><input type="radio" name="delay" value="20"/> 20 секунд</span>
-		<span><input type="radio" name="delay" value="60"/> 60 секунд</span>
+		<span><input type="radio" name="delay" value="0"<?=(!isset($_SESSION['delay']) OR isset($_SESSION['delay'])  AND $_SESSION['delay']==0)?'checked':''?> /> Отключить</span>
+		<span><input type="radio" name="delay" value="20"<?=(isset($_SESSION['delay']) AND $_SESSION['delay']==20)?'checked':''?>/> 20 секунд</span>
+		<span><input type="radio" name="delay" value="60"<?=(isset($_SESSION['delay']) AND $_SESSION['delay']==60)?'checked':''?>/> 60 секунд</span>
 		</p>
 		
 		<p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</p>
