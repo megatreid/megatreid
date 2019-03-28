@@ -93,6 +93,8 @@
 				</li>
 				<li><a href="showcustomer.php">Заказчики</a></li>
 				<li><a href="showcontractor.php">Подрядчики</a></li>
+				<?php }?>
+				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] == 1) {?>
 				<li><a href="">Отчеты</a>
 					<ul>
 						<li><a href="report_by_customer.php">Отчет по заказчикам</a></li> 
@@ -105,8 +107,8 @@
 						<li><a href="objects_with_abon.php">Объекты с абонентской платой</a></li>
 					</ul>
 				</li>
-					<?php }?>
-					<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] == 1) {?>
+					
+					
 				<li><a href="">Администрирование</a>
 					<ul>
 						<li><a href="showusers.php">Пользователи</a></li>
