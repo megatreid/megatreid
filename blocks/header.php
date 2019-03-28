@@ -84,36 +84,35 @@
 		<nav class="menu" role="navigation">
 		<span id="digital_watch" class="watch"></span>
 			<ul>
-				<li><a href="/">Главная</a></li>
+				<li><a href="/">Главная</a>
+					<ul>
+						<li><a href="screen_update.php#openModal">Настройка обновления экрана</a></li>
+					</ul>
+				</li>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=4) {?>
 				<li><a href="showtickets.php">Заявки</a>
-					<ul>
+				<ul>
 						<li><a href="newticket.php">Создать заявку</a></li>
 					</ul>
 				</li>
-				<li><a href="showcustomer.php">Заказчики</a></li>
-				<li><a href="showcontractor.php">Подрядчики</a></li>
 				<?php }?>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] == 1) {?>
+				<li><a href="showcustomer.php">Заказчики</a></li>
+				<li><a href="showcontractor.php">Подрядчики</a></li>
 				<li><a href="">Отчеты</a>
 					<ul>
 						<li><a href="report_by_customer.php">Отчет по заказчикам</a></li> 
 						<li><a href="report_by_contractor.php">Отчет по подрядчикам</a>
 						<ul>
 							<li><a href="report_partner_from_base.php">Партнерская сеть</a>
-							
 						</ul>
 						</li>
-						<li><a href="objects_with_abon.php">Объекты с абонентской платой</a></li>
 					</ul>
 				</li>
-					
-					
 				<li><a href="">Администрирование</a>
 					<ul>
 						<li><a href="showusers.php">Пользователи</a></li>
 						<li><a href="geo_update.php">Редактирование географических объектов</a></li>
-						<li><a href="screen_update.php#openModal">Настройка обновления экрана</a></li>
 					</ul>
 				</li>
 					<?php }?>
