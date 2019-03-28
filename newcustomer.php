@@ -45,7 +45,7 @@ $errors=array();//массив сообшений ошибок
 		{
 			$errors[] = 'Укажите юридический адрес организации!';
 		}
-		if(mb_strlen($jur_address)>250 or mb_strlen($jur_address)<3)
+		if(mb_strlen($jur_address)>400 or mb_strlen($jur_address)<3)
 		{
 			$errors[] = 'Юридический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}
@@ -54,7 +54,7 @@ $errors=array();//массив сообшений ошибок
 		{
 			$errors[] = 'Укажите почтовый (фактический) адрес организации!';
 		}
-		if(mb_strlen($post_address)>250 or mb_strlen($post_address)<3)
+		if(mb_strlen($post_address)>400 or mb_strlen($post_address)<3)
 		{
 			$errors[] = 'Фактический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}	
@@ -91,7 +91,7 @@ $errors=array();//массив сообшений ошибок
 		{
 			$errors[] = 'Укажите номер договора!';
 		}
-		if(mb_strlen($dogovor_number)>50 or mb_strlen($dogovor_number)<3)
+		if(mb_strlen($dogovor_number)>50)
 		{
 			$errors[] = 'Номер договора должен содержать не менее 3 и не более 50 символов!';
 		}	
@@ -168,9 +168,9 @@ $errors=array();//массив сообшений ошибок
 			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 100 символов!';
 		}			
 /* ------------------------------------------------------------------------------------------------- */
-		if(mb_strlen($comment)>100)
+		if(mb_strlen($comment)>400)
 		{
-			$errors[] = 'Поле \"Примечание\" должно содержать не более 100 символов!';
+			$errors[] = 'Поле \"Примечание\" должно содержать не более 400 символов!';
 		}			
 /* ------------------------------------------------------------------------------------------------- */ 
 	if(empty($errors)){  
@@ -221,8 +221,9 @@ $errors=array();//массив сообшений ошибок
 </head>
 <body>
 	<div class="showany">
+		<div class="contr_registr">	
 		<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Новый заказчик:</p>
-		<div class="reg_up_table">
+
 			<?php if($err==1){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
 			<?php }?>
@@ -231,44 +232,44 @@ $errors=array();//массив сообшений ошибок
 				<p style = "font-size: 8pt">Все поля, отмеченные звездочкой, являются обязательными</p>
 					<table>
 					<tr>
-						<td class="rowt"><label for="customer_name">Название организации: *</label></td>
+						<td class="rowt"><label for="customer_name">Название организации:*</label></td>
 						<td>
 							<input id="customer_name" class="StyleSelectBox" name="customer_name" maxlength="100" type="text" title="Название организации должно содержать не менее 3 и не более 100 символов!" value="<?= @$customer_name;?>"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="jur_address">Юридический адрес: *</label></td>
+						<td class="rowt"><label for="jur_address">Юридический адрес:*</label></td>
 						<td>
 							<input id="jur_address" class="StyleSelectBox" name="jur_address" maxlength="250" type="text" title="Юридический адрес организации должен содержать не менее 3 и не более 250 символов!" value="<?= $jur_address;?>"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="post_address">Почтовый (фактический) адрес: *</label></td>
+						<td class="rowt"><label for="post_address">Почтовый (фактический) адрес:*</label></td>
 						<td>
 							<input id="post_address" class="StyleSelectBox" name="post_address" maxlength="250" title="Фактический адрес организации должен содержать не менее 3 и не более 250 символов!" type="text" value="<?= $post_address;?>"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="mask-ogrn">ОГРН: *</label></td>
+						<td class="rowt"><label for="mask-ogrn">ОГРН:*</label></td>
 						<td>
 							<input id="mask-ogrn" class="StyleSelectBox" name="ogrn" type="text" maxlength="15" pattern="[0-9]{13,15}" title="ОГРН организации должен содержать не менее 13 и не более 15 цифр!" value="<?=$ogrn;?>"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="mask-inn-organization">ИНН: *</label></td>
+						<td class="rowt"><label for="mask-inn-organization">ИНН:*</label></td>
 						<td>
 							<input id="mask-inn-organization" class="StyleSelectBox" name="inn" pattern="[0-9]{10,12}" maxlength="12" type="text" title="'ИНН организации должен содержать не менее 10 и не более 12 цифр!" value="<?=$inn;?>"/>
 						</td>
 					</tr>
 
 					<tr>
-						<td class="rowt"><label for="mask-kpp">КПП: *</label></td>
+						<td class="rowt"><label for="mask-kpp">КПП:</label></td>
 						<td>
 							<input id="mask-kpp" class="StyleSelectBox" name="kpp" type="text" pattern="[0-9]{9}"  maxlength="9"  title="КПП организации должен содержать не более 9 цифр!" value="<?=$kpp;?>"/>
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="dogovor_number">Номер договора: *</label></td>
+						<td class="rowt"><label for="dogovor_number">Номер договора:*</label></td>
 						<td>
 							<input id="dogovor_number" class="StyleSelectBox" name="dogovor_number"  maxlength="50"  title="Номер договора должен содержать не менее 3 и не более 50 символов!" type="text" value="<?= $dogovor_number;?>"/>
 						</td>
@@ -328,7 +329,7 @@ $errors=array();//массив сообшений ошибок
 					</tr>					
 					<tr>
 						<td class="rowt"><label for="phone">Контактный телефон: *</label></td>
-						<td><textarea class="reg_textarea" id="phone" name="phone" maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';' Поле 'Контактный телефон' должно содержать не менее 3 и не более 60 символов!"><?= $phone;?></textarea></td>
+						<td><textarea class="reg_textarea" id="phone" name="phone" maxlength="200" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';' Поле 'Контактный телефон' должно содержать не менее 3 и не более 60 символов!"><?= $phone;?></textarea></td>
 					</tr>						
 					<tr>
 						<td class="rowt"><label for="email">Email: *</label></td>
@@ -336,7 +337,7 @@ $errors=array();//массив сообшений ошибок
 					</tr>
 					<tr>
 						<td class="rowt"><label for="comment">Примечание:</label></td>
-						<td><textarea class="reg_textarea" id="comment" name="comment" maxlength="100" title="Поле должно содержать не более 100 символов!" ><?=$comment;?></textarea></td>
+						<td><textarea class="reg_textarea" id="comment" name="comment" maxlength="400" title="Поле должно содержать не более 100 символов!" ><?=$comment;?></textarea></td>
 					</tr>
 					</table>
 					<div>

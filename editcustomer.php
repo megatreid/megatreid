@@ -52,17 +52,6 @@ $contact_name = trim(filter_input(INPUT_POST, 'contact_name', FILTER_SANITIZE_FU
 $phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
-
-
-
-
-
-
-
-
-
-
 		
 /* ------------------------------------------------------------------------------------------------- */
 		if(empty($customer_name))
@@ -78,7 +67,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите юридический адрес организации!';
 		}
-		if(mb_strlen($jur_address)>250 or mb_strlen($jur_address)<3)
+		if(mb_strlen($jur_address)>400 or mb_strlen($jur_address)<3)
 		{
 			$errors[] = 'Юридический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}
@@ -87,7 +76,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите почтовый (фактический) адрес организации!';
 		}
-		if(mb_strlen($post_address)>250 or mb_strlen($post_address)<3)
+		if(mb_strlen($post_address)>400 or mb_strlen($post_address)<3)
 		{
 			$errors[] = 'Фактический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}	
@@ -201,7 +190,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 100 символов!';
 		}			
 /* ------------------------------------------------------------------------------------------------- */
-		if(mb_strlen($comment)>100)
+		if(mb_strlen($comment)>400)
 		{
 			$errors[] = 'Поле \"Примечание\" должно содержать не более 100 символов!';
 		}			
@@ -266,9 +255,9 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 </head>
 <body>
 	<div class="showany">
-
+	<div class="contr_registr">
 	<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Редактирование:</p>
-	<div class="reg_up_table">
+	
 			<?php if($err == TRUE){?>
 				<div class="error-message"><?=array_shift($errors)?></div>
 				<?php }?>

@@ -815,6 +815,19 @@ display: block;
 	box-shadow: -10px 0px 28px rgba(0,0,0,0.3), 10px 0px 28px rgba(0,0,0,0.3);
 	clear: inherit;
 }
+.contr_registr{
+	display: inline-block;/*Задаем обтекание*/
+	position: relative;
+	border: 2px double #B0E0E6;
+	top: -10px;
+	vertical-align: top;
+	background: #E5EEF0;
+	//min-height:950px;
+	width: 500px;
+	margin: 0px 5px;
+	box-shadow: -10px 0px 28px rgba(0,0,0,0.3), 10px 0px 28px rgba(0,0,0,0.3);
+	clear: inherit;
+}
 .for_look{
 	display: inline-block;/*Задаем обтекание*/
 	position: relative;

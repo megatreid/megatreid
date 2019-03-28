@@ -119,11 +119,15 @@ if( isset($data_update['do_editcontr']))
 			$errors[] = 'Поле "КОНТАКТНОЕ ЛИЦО" должно содержать не менее 3 и не более 150 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
-		if(!empty($passport) AND (mb_strlen($passport)>400))
+		if(mb_strlen($passport)>400)
 		{
 			$errors[] = 'Поле "Паспортные данные" должно содержать не более 400 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
+		if(empty($mobile))
+		{
+			$errors[] = 'Укажите номер мобильного телефона';
+		}
 		if(mb_strlen($mobile)>200)
 		{
 			$errors[] = 'Поле "Мобильный телефон" должно содержать не более 200 символов!';
@@ -203,9 +207,9 @@ if( isset($data_update['do_editcontr']))
 </head>
 <body>
 	<div class="showany">
-	
+	<div class="contr_registr">
 	<p class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Редактирование:</p>
-	<div class="reg_up_table">
+
 	<?php if($err == TRUE){?>
 	<div class="error-message"><?=array_shift($errors)?></div>
 	<?php }?>
@@ -246,7 +250,7 @@ if( isset($data_update['do_editcontr']))
 				</tr>
 				<tr>
 					<td class="rowt">Организация / исполнитель:*</td>
-					<td><input class="StyleSelectBox" name="org_name" maxlength="80" type="text" value='<?= $org_name_edit ?>'/></td>
+					<td><input class="StyleSelectBox" name="org_name" required maxlength="80" type="text" value='<?= $org_name_edit ?>'/></td>
 				</tr>
 				<tr class="status">
 					<td class="rowt">Статус подрядчика:*</td>
@@ -313,21 +317,21 @@ if( isset($data_update['do_editcontr']))
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Контактное лицо:*</td><td><textarea name="contact_name" cols="32" rows="5" required maxlength="150" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=$contact_name_edit?></textarea></td>
+					<td class="rowt">Контактное лицо:*</td><td><textarea class="reg_textarea" name="contact_name"  required maxlength="250" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=$contact_name_edit?></textarea></td>
 				</tr>
 				<tr>
-					<td class="rowt">Паспортные данные:</td><td><textarea name="passport" maxlength="250" cols="32" rows="5"><?=$passport_edit?></textarea></td>
+					<td class="rowt">Паспортные данные:</td><td><textarea class="reg_textarea" name="passport" maxlength="400" ><?=$passport_edit?></textarea></td>
 				</tr>
 				<tr>
 					<td class="rowt">Мобильный телефон:*</td>
 					<td>
-					<textarea name="mobile" required maxlength="150" cols="32" rows="5" placeholder = "При вводе нескольких мобильных номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?=$mobile_edit?></textarea>
+					<textarea class="reg_textarea" name="mobile"  maxlength="200" required placeholder = "При вводе нескольких мобильных номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?=$mobile_edit?></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td class="rowt">Рабочий телефон:</td>
 					<td>
-					<textarea name="phone" cols="32" rows="5" maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?=$phone_edit?></textarea>
+					<textarea class="reg_textarea" name="phone" maxlength="200" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?=$phone_edit?></textarea>
 					</td>
 				</tr>						
 				<tr>
@@ -345,7 +349,7 @@ if( isset($data_update['do_editcontr']))
 				<tr>
 					<td class="rowt">Примечание:</td>
 					<td>
-					<textarea name="comment" maxlength="400" cols="32" title = "Максимальное количество символов 400" rows="5"><?=$comment_edit?></textarea>
+					<textarea class="reg_textarea" name="comment" maxlength="400" title = "Максимальное количество символов 400" ><?=$comment_edit?></textarea>
 					</td>
 				</tr>
 			</table>
@@ -365,6 +369,7 @@ if( isset($data_update['do_editcontr']))
 			</div>
 		</form>
 	</div>
+<div id="footer">&copy; ООО "МегаТрейд"</div>			
 	</div>
 </body>
 </html>

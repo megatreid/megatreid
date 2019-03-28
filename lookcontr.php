@@ -48,8 +48,9 @@ if(isset($_GET['look']))
 </head>
 <body>
 		<div class="showany">
+			<div class="contr_registr">
 				<p class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Просмотр:</p>
-				<div class="for_look">
+
 					<table>
 
 						<tr>
@@ -154,14 +155,15 @@ if(isset($_GET['look']))
 							</td>
 						</tr>
 						</table>
+												
 						<div>
-							<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'" />
+<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'" /><br>
 						</div>
 						</div>
 						
-<div id="footer">&copy; ООО "МегаТрейд"</div>
+
 						</div>
-		
+
 </body>
 </html>
 <?php

@@ -20,11 +20,12 @@ $country_id = trim(filter_input(INPUT_POST, 'country_id', FILTER_SANITIZE_FULL_S
 $region_id = trim(filter_input(INPUT_POST, 'region_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $city_id = trim(filter_input(INPUT_POST, 'city_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $org_name = trim(filter_input(INPUT_POST, 'org_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $dogovor = trim(filter_input(INPUT_POST, 'dogovor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $method_payment = trim(filter_input(INPUT_POST, 'method_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $card_number = trim(filter_input(INPUT_POST, 'card_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $anketa = trim(filter_input(INPUT_POST, 'anketa', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$ownership = trim(filter_input(INPUT_POST, 'ownership', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $system_no = trim(filter_input(INPUT_POST, 'system_no', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $contact_name = trim(filter_input(INPUT_POST, 'contact_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $passport = trim(filter_input(INPUT_POST, 'passport', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -172,8 +173,8 @@ if( isset($data['do_newcontr']))
 </head>
 <body>
 	<div class="showany">
+	<div class="contr_registr">
 	<p class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Новый подрядчик:</p>
-	<div class="reg_sel_object">
 	<?php if($err==true){?>
 	<div class="error-message"><?=array_shift($errors)?></div>
 	<?php }?>
@@ -260,11 +261,11 @@ if( isset($data['do_newcontr']))
 			<tr>
 				<td class="rowt">Форма собственности:*</td>
 				<td>
-					<select name="status" class="StyleSelectBox" >
+					<select name="ownership" class="StyleSelectBox">
 						<option disabled selected>Выберите значение:</option>
-						<option value="ГПХ" <?=($status == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
-						<option value="ИП" <?=($status == 'ИП' ? 'selected' :'')?>>ИП</option>
-						<option value="ООО" <?=($status == 'ООО' ? 'selected' :'')?>>ООО</option>
+						<?php for($i = 1; $i < 4; $i++) { ?>
+							<option  value="<?= $ownershipedit[$i] ?>" <?= ($ownershipedit[$i] == $ownership) ? 'selected' : ''?>><?= $ownershipedit[$i] ?></option>
+						<?php } ?>
 					</select>
 				</td>
 			</tr>
@@ -273,27 +274,27 @@ if( isset($data['do_newcontr']))
 				<td>
 					<select name="system_no" class="StyleSelectBox" >
 						<option disabled selected>Выберите значение:</option>
-						<option value="Без НДС" <?=($system_no == 'Без НДС' ? 'selected' :'')?>>Без НДС</option>
-						<option value="ГПХ" <?=($system_no == 'ГПХ' ? 'selected' :'')?>>ГПХ</option>
-						<option value="С НДС" <?=($system_no == 'С НДС' ? 'selected' :'')?>>С НДС</option>
+						<?php for($i = 1; $i < 4; $i++) { ?>
+							<option  value="<?= $systemnoedit[$i] ?>" <?= ($systemnoedit[$i] == $system_no) ? 'selected' : ''?>><?= $systemnoedit[$i] ?></option>
+						<?php } ?>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td class="rowt">Контактное лицо:*</td>
-				<td><textarea class="reg_textarea" name="contact_name" required maxlength="150" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$contact_name;?></textarea></td>
+				<td><textarea class="reg_textarea" name="contact_name" required maxlength="250" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?php echo @$contact_name;?></textarea></td>
 			</tr>
 			<tr>
 				<td class="rowt">Паспортные данные:</td>
-				<td><textarea class="reg_textarea" name="passport" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=@$passport;?></textarea></td>
+				<td><textarea class="reg_textarea" name="passport" maxlength="400" title="При вводе нескольких имен (ФИО) используйте разделитель ';'"><?=@$passport;?></textarea></td>
 			</tr>						
 			<tr>
 				<td class="rowt">Мобильный телефон:*</td>
-				<td><textarea class="reg_textarea" name="mobile" required maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$mobile;?></textarea></td>
+				<td><textarea class="reg_textarea" name="mobile" required maxlength="200" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких мобильных номеров используйте разделитель ';'"><?php echo @$mobile;?></textarea></td>
 			</tr>
 			<tr>
 				<td class="rowt">Рабочий телефон:</td>
-				<td><textarea class="reg_textarea" name="phone" maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?php echo @$phone;?></textarea></td>
+				<td><textarea class="reg_textarea" name="phone" maxlength="200" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';'"><?php echo @$phone;?></textarea></td>
 			</tr>						
 			<tr>
 				<td class="rowt">Email:</td><td><input class="StyleSelectBox" maxlength="100" name="email"  title = "При вводе нескольких адресов используйте разделитель ';'" type="text" value="<?php echo @$email;?>"/></td>
@@ -314,7 +315,9 @@ if( isset($data['do_newcontr']))
 			</div>
 		</form>
 	</div>
+<div id="footer">&copy; ООО "МегаТрейд"</div>			
 </div>
+
 </body>
 </html>
 <?php
