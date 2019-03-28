@@ -18,8 +18,13 @@ unset($_SESSION['implementer']);
 <div class="showcustomer">
 	<div class="breadcrumbs">Настройка обновления экрана</div>
 	<form action="showtickets.php" method="post">
-		<p>Автообновление через: <input type="number" value="0" name="delay" /> секунд</p>
-		<p><input type="checkbox" name="megatreid" min="10" value="1">Исполнитель только ООО "Мега Трейд"</p>
+		<p>Автообновление через:
+		<span><input type="radio" name="delay" value="0"/> Отключить</span>
+		<span><input type="radio" name="delay" value="20"/> 20 секунд</span>
+		<span><input type="radio" name="delay" value="60"/> 60 секунд</span>
+		</p>
+		
+		<p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</p>
 		<p>
 		<input type="submit" name="send" class="button" value="Сохранить" />
 		</p>
@@ -27,8 +32,7 @@ unset($_SESSION['implementer']);
 	<div class="help1">
 
 		<li>После нажатия на кнопку "Сохранить" вы перейдете на страницу "Заявки", на которой будет включено обновление экрана с задержкой в N-секунд.</li>
-		<li>Если выбрано '0'секунд, автообновление будет выключено.</li>
-		<li>Если выбрано поле "Исполнитель только ООО "Мега Трейд" ", будут отображаться только те заявки, в которых участвует этот исполнитель.</li>
+		<li>Если выбрано поле "Исполнитель только ООО "Мега Трейд", будут отображаться только те заявки, в которых участвует этот исполнитель.</li>
 	</div>
 </div>
 
