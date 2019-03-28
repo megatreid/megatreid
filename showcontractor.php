@@ -205,8 +205,12 @@ setTimeout(function(){
 						<?php	} ?>
 						<td align="center"><a href='/lookcontr.php?look=<?= $contr['id_contractor'] ?>' title = 'Посмотреть'><img src='/images/lupa.png' width='20' height='20'></a></td>
 					</tr>
-			<?php }	}
-			?>
+			<?php }	}else { ?>
+				<tr>
+					<td colspan="8" align="center" class="date">Не добавлено ни одного подрядчика</td>
+ 				</tr>
+<?php } ?>
+
 				</table>
 	</div>
 		<script type="text/javascript" src='js/filter_showticket.js'></script>

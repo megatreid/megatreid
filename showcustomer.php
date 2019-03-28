@@ -119,7 +119,7 @@ $customer = Show_Customer($link);
 			</tr>
 <?php }} else { ?>
 				<tr>
-					<td colspan="8" align="center" class="date">Не добавлено ни одного заказчика</td>
+					<td colspan="9" align="center" class="date">Не добавлено ни одного заказчика</td>
  				</tr>
 <?php } ?>
 		</table>
