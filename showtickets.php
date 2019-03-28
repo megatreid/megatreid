@@ -25,7 +25,7 @@ header('Refresh: '.$_SESSION['delay'].'; url=' .$_SERVER['PHP_SELF']);
 else {
 	$_SESSION['delay'] = 0;
 }
-if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
+if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=4)
 {
 require_once '/blocks/header.php';
 require '/func/arrays.php';
