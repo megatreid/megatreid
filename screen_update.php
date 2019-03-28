@@ -1,18 +1,9 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']==1)
+if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=4)
 {
 require_once '/blocks/header.php';
 unset($_SESSION['implementer']);
-
-
-
-
-
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -41,23 +32,9 @@ unset($_SESSION['implementer']);
 	</div>
 </div>
 
-
-
-
-
 <div id="footer">&copy; ООО "МегаТрейд"</div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
 
 <?php
 	}
