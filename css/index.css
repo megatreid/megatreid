@@ -1182,6 +1182,10 @@ border-radius: 2px;
 	.header {
 		display: none;
 	}
+ @page {
+  size: auto;
+  margin: 0;
+       }
 	.logo {display: none;}
 	.systemname{display: none;}
 	.auth-menu{display: none;}
