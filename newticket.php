@@ -29,7 +29,7 @@ if(isset($_POST['select_object'])){
 	$id_object = trim(filter_input(INPUT_POST, 'id_object'));
 	$objects = Edit_Object($link, $id_object);
 	$city_name = $objects['city_name'];
-	$object_full = "Объект: ".$objects['shop_number'].". Адрес: ".$objects['address'];
+	$object_full = $objects['shop_number'].". Адрес: ".$objects['address'];
 }
 
 $contractors = Show_Contr_for_select ($link);
