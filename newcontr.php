@@ -316,6 +316,7 @@ if( isset($data['do_newcontr']))
 		</form>
 	</div>
 <div id="footer">&copy; ООО "МегаТрейд"</div>			
+
 </div>
 
 </body>
