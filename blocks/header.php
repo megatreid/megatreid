@@ -37,7 +37,7 @@
 		<div class="header">
 			<a name="top"></a>
 			<div class="logo">
-				<a href="/"><img src="images/megatreid.png" align="middle" alt="ООО МЕГАТРЕЙД" width="55" height="56"></a>
+				<a href="/"><img src="images/megatreid.png"  alt="ООО МЕГАТРЕЙД" width="55" height="56"></a>
 			</div>
 		</div>
 			<div class="systemname">

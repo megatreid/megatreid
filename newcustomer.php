@@ -78,19 +78,13 @@ $errors=array();//массив сообшений ошибок
 		}
 
 /* ------------------------------------------------------------------------------------------------- */
-		if(empty($kpp))
-		{
-			$errors[] = 'Введите КПП организации!';
-		}
+
 		if(mb_strlen($kpp)>9)
 		{
 			$errors[] = 'КПП организации не должен содержать более 9 цифр!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
-		if(empty($dogovor_number))
-		{
-			$errors[] = 'Укажите номер договора!';
-		}
+
 		if(mb_strlen($dogovor_number)>50)
 		{
 			$errors[] = 'Номер договора должен содержать не менее 3 и не более 50 символов!';
@@ -240,13 +234,13 @@ $errors=array();//массив сообшений ошибок
 					<tr>
 						<td class="rowt"><label for="jur_address">Юридический адрес:*</label></td>
 						<td>
-							<input id="jur_address" class="StyleSelectBox" name="jur_address" maxlength="250" type="text" title="Юридический адрес организации должен содержать не менее 3 и не более 250 символов!" value="<?= $jur_address;?>"/>
+							<input id="jur_address" class="StyleSelectBox" name="jur_address" maxlength="250" type="text" title="Юридический адрес организации должен содержать не менее 3 и не более 400 символов!" value="<?= $jur_address;?>"/>
 						</td>
 					</tr>
 					<tr>
 						<td class="rowt"><label for="post_address">Почтовый (фактический) адрес:*</label></td>
 						<td>
-							<input id="post_address" class="StyleSelectBox" name="post_address" maxlength="250" title="Фактический адрес организации должен содержать не менее 3 и не более 250 символов!" type="text" value="<?= $post_address;?>"/>
+							<input id="post_address" class="StyleSelectBox" name="post_address" maxlength="250" title="Фактический адрес организации должен содержать не менее 3 и не более 400 символов!" type="text" value="<?= $post_address;?>"/>
 						</td>
 					</tr>
 					<tr>
@@ -291,13 +285,13 @@ $errors=array();//массив сообшений ошибок
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="bank_name">Банк получателя: *</label></td>
+						<td class="rowt"><label for="bank_name">Банк получателя:*</label></td>
 						<td>
 							<input class="StyleSelectBox" id="bank_name" name="bank_name" maxlength="200" title="Наименование банка получателя должно содержать не менее 3 и не более 200 символов!" value= '<?= $bank_name;?>'/>
 						</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="mask-bik">"БИК" банка получателя: *</label></td>
+						<td class="rowt"><label for="mask-bik">"БИК" банка получателя:*</label></td>
 						<td>
 							<input id="mask-bik" class="StyleSelectBox" name="bank_bik" type="text" maxlength="9" pattern="[0-9]{9}" title="БИК банка получателя должен содержать 9 цифр!" value='<?=$bank_bik;?>'/>
 						</td>
@@ -315,7 +309,7 @@ $errors=array();//массив сообшений ошибок
 						</td>
 					</tr>						
 					<tr>
-						<td class="rowt"><label for="recipient">Получатель: *</label></td>
+						<td class="rowt"><label for="recipient">Получатель:*</label></td>
 						<td>
 							<input class="StyleSelectBox" id="recipient" maxlength="150" name="recipient" title="" value="<?= $recipient;?>"/>
 						</td>
@@ -324,20 +318,20 @@ $errors=array();//массив сообшений ошибок
 						<td colspan="2" align="center">КОНТАКТЫ:</td>
 					</tr>
 					<tr>
-						<td class="rowt"><label for="contact_name">Контактное лицо: *</label></td>
+						<td class="rowt"><label for="contact_name">Контактное лицо:*</label></td>
 						<td><textarea class="reg_textarea" id="contact_name" name="contact_name" maxlength="200" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';' Поле 'Получатель' должно содержать не менее 3 и не более 100 символов!"><?= $contact_name;?></textarea></td>
 					</tr>					
 					<tr>
-						<td class="rowt"><label for="phone">Контактный телефон: *</label></td>
-						<td><textarea class="reg_textarea" id="phone" name="phone" maxlength="200" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';' Поле 'Контактный телефон' должно содержать не менее 3 и не более 60 символов!"><?= $phone;?></textarea></td>
+						<td class="rowt"><label for="phone">Контактный телефон:*</label></td>
+						<td><textarea class="reg_textarea" id="phone" name="phone" maxlength="100" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';' Поле 'Контактный телефон' должно содержать не менее 3 и не более 60 символов!"><?= $phone;?></textarea></td>
 					</tr>						
 					<tr>
-						<td class="rowt"><label for="email">Email: *</label></td>
-						<td><input id="email" class="StyleSelectBox" name="email" maxlength="100" title = "При вводе нескольких адресов используйте разделитель ';' Поле 'E-Mail' должно содержать не менее 3 и не более 60 символов!" type="text" value="<?=$email;?>"/></td>
+						<td class="rowt"><label for="email">Email:*</label></td>
+						<td><input id="email" class="StyleSelectBox" name="email" maxlength="100" title = "При вводе нескольких адресов используйте разделитель ';' Поле 'E-Mail' должно содержать не менее 3 и не более 100 символов!" type="text" value="<?=$email;?>"/></td>
 					</tr>
 					<tr>
 						<td class="rowt"><label for="comment">Примечание:</label></td>
-						<td><textarea class="reg_textarea" id="comment" name="comment" maxlength="400" title="Поле должно содержать не более 100 символов!" ><?=$comment;?></textarea></td>
+						<td><textarea class="reg_textarea" id="comment" name="comment" maxlength="400" title="Поле должно содержать не более 400 символов!" ><?=$comment;?></textarea></td>
 					</tr>
 					</table>
 					<div>
