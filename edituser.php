@@ -42,7 +42,7 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите фамилию!';
 				}
-				if( mb_strlen($surname_update)>50 or mb_strlen($surname_update)<2)
+				if( mb_strlen($surname_update,'UTF-8')>50 or mb_strlen($surname_update,'UTF-8')<2)
 				{
 					$errors[] = 'Фамилия должна содержать не менее 2 и не более 50 символов!';
 				}	
@@ -51,7 +51,7 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите имя!';
 				}
-				if( mb_strlen($name_update)>50 or mb_strlen($name_update)<3)
+				if( mb_strlen($name_update,'UTF-8')>50 or mb_strlen($name_update,'UTF-8')<3)
 				{
 					echo mb_strlen($name_update);
 					$errors[] = 'Имя должно содержать не менее 3 и не более 50 символов!';
@@ -61,7 +61,7 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите отчество!';
 				}
-				if( mb_strlen($th_name_update)>50 or mb_strlen($th_name_update)<3)
+				if( mb_strlen($th_name_update,'UTF-8')>50 or mb_strlen($th_name_update,'UTF-8')<3)
 				{
 					echo mb_strlen($th_name_update);
 					$errors[] = 'Имя должно содержать не менее 3 и не более 50 символов!';
@@ -71,7 +71,7 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите email!';
 				}
-				if( mb_strlen($email_update)>50 or mb_strlen($email_update)<5)
+				if( mb_strlen($email_update,'UTF-8')>50 or mb_strlen($email_update,'UTF-8')<5)
 				{
 					$errors[] = 'Адрес почты должен содержать не менее 5 и не более 50 символов!';
 				}
@@ -80,7 +80,7 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите номер мобильного телефона!';
 				}
-				if( mb_strlen($mobile_update)>50 or mb_strlen($mobile_update)<10)
+				if( mb_strlen($mobile_update,'UTF-8')>50 or mb_strlen($mobile_update,'UTF-8')<10)
 				{
 					$errors[] = 'Номер мобильного телефона должен содержать не менее 10 и не более 50 символов!';
 				}		
@@ -89,14 +89,14 @@ if($_SESSION['userlevel']==1)
 				{
 					$errors[] = 'Введите логин!';
 				}
-					if(mb_strlen($loginuser_update)>50 or mb_strlen($loginuser_update)<3)
+					if(mb_strlen($loginuser_update,'UTF-8')>50 or mb_strlen($loginuser_update,'UTF-8')<3)
 				{
 					$errors[] = 'Логин должен содержать не менее 3 и не более 50 символов! ';
 				}
 		/* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # */
 				if(!empty($password_update))//проверка на пустое значение поля ввода пароля
 				{
-					if( mb_strlen($password_update)>25 or mb_strlen($password_update)<6)
+					if( mb_strlen($password_update,'UTF-8')>25 or mb_strlen($password_update,'UTF-8')<6)
 						{
 							$errors[] = 'Пароль должен содержать не менее 6 и не более 25 символов!';
 						}

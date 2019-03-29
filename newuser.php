@@ -25,7 +25,7 @@ if( isset($data['new_user']))
 		{
 			$errors[] = 'Введите фамилию!';
 		}
-		if( mb_strlen($surname)>50 or mb_strlen($surname)<2)
+		if( mb_strlen($surname,'UTF-8')>50 or mb_strlen($surname,'UTF-8')<2)
 		{
 			$errors[] = 'Фамилия должна содержать не менее 2 и не более 50 символов!';
 		}	
@@ -34,7 +34,7 @@ if( isset($data['new_user']))
 		{
 			$errors[] = 'Введите имя!';
 		}
-		if( mb_strlen($name)>50 or mb_strlen($name)<3)
+		if( mb_strlen($name,'UTF-8')>50 or mb_strlen($name,'UTF-8')<3)
 		{
 
 			$errors[] = 'Имя должно содержать не менее 3 и не более 50 символов!';
@@ -44,7 +44,7 @@ if( isset($data['new_user']))
 		{
 			$errors[] = 'Введите отчество!';
 		}
-		if( mb_strlen($th_name)>50 or mb_strlen($th_name)<3)
+		if( mb_strlen($th_name,'UTF-8')>50 or mb_strlen($th_name,'UTF-8')<3)
 		{
 
 			$errors[] = 'Имя должно содержать не менее 3 и не более 50 символов!';
@@ -54,7 +54,7 @@ if( isset($data['new_user']))
 		{
 			$errors[] = 'Введите email!';
 		}
-		if( mb_strlen($email)>50 or mb_strlen($email)<5)
+		if( mb_strlen($email,'UTF-8')>50 or mb_strlen($email,'UTF-8')<5)
 		{
 			$errors[] = 'Адрес почты должен содержать не менее 5 и не более 50 символов!';
 		}
@@ -63,7 +63,7 @@ if( isset($data['new_user']))
 		{
 			$errors[] = 'Введите номер мобильного телефона!';
 		}
-		if( mb_strlen($mobile)>50 or mb_strlen($mobile)<10)
+		if( mb_strlen($mobile,'UTF-8')>50 or mb_strlen($mobile,'UTF-8')<10)
 		{
 			$errors[] = 'Номер мобильного телефона должен содержать не менее 10 и не более 50 символов!';
 		}		
@@ -72,7 +72,7 @@ if( isset($data['new_user']))
 		{
 			$errors[] = 'Введите логин!';
 		}
-			if(mb_strlen($loginuser)>50 or mb_strlen($loginuser)<3)
+			if(mb_strlen($loginuser,'UTF-8')>50 or mb_strlen($loginuser,'UTF-8')<3)
 		{
 			$errors[] = 'Логин должен содержать не менее 3 и не более 50 символов! ';
 		}
@@ -82,7 +82,7 @@ if( isset($data['new_user']))
 			$errors[] = 'Введите пароль!';
 		}
 		
-		if( mb_strlen($password)>25 or mb_strlen($password)<6)
+		if( mb_strlen($password,'UTF-8')>25 or mb_strlen($password,'UTF-8')<6)
 		{
 			$errors[] = 'Пароль должен содержать не менее 6 и не более 25 символов!';
 		}

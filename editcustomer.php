@@ -58,7 +58,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите название организации!';
 		}
-		if(mb_strlen($customer_name)>100 or mb_strlen($customer_name)<3)
+		if(mb_strlen($customer_name,'UTF-8')>100 or mb_strlen($customer_name,'UTF-8')<3)
 		{
 			$errors[] = 'Название организации должно содержать не менее 3 и не более 60 символов!';
 		}
@@ -67,7 +67,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите юридический адрес организации!';
 		}
-		if(mb_strlen($jur_address)>400 or mb_strlen($jur_address)<3)
+		if(mb_strlen($jur_address,'UTF-8')>400 or mb_strlen($jur_address,'UTF-8')<3)
 		{
 			$errors[] = 'Юридический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}
@@ -76,7 +76,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите почтовый (фактический) адрес организации!';
 		}
-		if(mb_strlen($post_address)>400 or mb_strlen($post_address)<3)
+		if(mb_strlen($post_address,'UTF-8')>400 or mb_strlen($post_address,'UTF-8')<3)
 		{
 			$errors[] = 'Фактический адрес организации должен содержать не менее 3 и не более 250 символов!';
 		}	
@@ -85,7 +85,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите ОГРН организации!';
 		}
-		if(mb_strlen($ogrn)>15 or mb_strlen($ogrn)<13)
+		if(mb_strlen($ogrn,'UTF-8')>15 or mb_strlen($ogrn,'UTF-8')<13)
 		{
 			$errors[] = 'ОГРН организации должен содержать не менее 13 и не более 15 символов!';
 		}	
@@ -94,20 +94,20 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите ИНН организации!';
 		}
-		if(mb_strlen($inn)>12 or mb_strlen($inn)<10)
+		if(mb_strlen($inn,'UTF-8')>12 or mb_strlen($inn,'UTF-8')<10)
 		{
 			$errors[] = 'ИНН организации должен содержать не менее 10 и не более 12 цифр!';
 		}
 
 /* ------------------------------------------------------------------------------------------------- */
 
-		if(mb_strlen($kpp)>9)
+		if(mb_strlen($kpp,'UTF-8')>9)
 		{
 			$errors[] = 'КПП организации не должен содержать более 9 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
 
-		if(mb_strlen($dogovor_number)>50 )
+		if(mb_strlen($dogovor_number,'UTF-8')>50 )
 		{
 			$errors[] = 'Номер договора должен содержать не менее 3 и не более 50 символов!';
 		}	
@@ -116,7 +116,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите наименование банка получателя!';
 		}
-		if(mb_strlen($bank_name)>200 or mb_strlen($bank_name)<3)
+		if(mb_strlen($bank_name,'UTF-8')>200 or mb_strlen($bank_name,'UTF-8')<3)
 		{
 			$errors[] = 'Наименование банка получателя должно содержать не менее 3 и не более 200 символов!';
 		}
@@ -125,7 +125,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите БИК банка получателя!';
 		}
-		if(mb_strlen($bank_bik)!=9)
+		if(mb_strlen($bank_bik,'UTF-8')!=9)
 		{
 			$errors[] = 'БИК банка получателя должен содержать 9 символов!';
 		}
@@ -134,7 +134,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите корреспондентский счёт!';
 		}
-		if(mb_strlen($korr_schet)!=20)
+		if(mb_strlen($korr_schet,'UTF-8')!=20)
 		{
 			$errors[] = 'Корреспондентский счёт организации должен содержать 20 символов!';
 		}
@@ -143,7 +143,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите расчетный счет!';
 		}
-		if(mb_strlen($rasch_schet)!=20)
+		if(mb_strlen($rasch_schet,'UTF-8')!=20)
 		{
 			$errors[] = 'Расчетный счет организации должен содержать 20 символов!';
 		}
@@ -152,7 +152,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Введите имя получателя!';
 		}
-		if(mb_strlen($recipient)>150 or mb_strlen($recipient)<3)
+		if(mb_strlen($recipient,'UTF-8')>150 or mb_strlen($recipient,'UTF-8')<3)
 		{
 			$errors[] = 'Поле \"Получатель\" должно содержать не менее 3 и не более 150 символов!';
 		}		
@@ -161,7 +161,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите контактное лицо';
 		}
-		if(mb_strlen($contact_name)>200 or mb_strlen($contact_name)<3)
+		if(mb_strlen($contact_name,'UTF-8')>200 or mb_strlen($contact_name,'UTF-8')<3)
 		{
 			$errors[] = 'Поле \"КОНТАКТНОЕ ЛИЦО\" должно содержать не менее 3 и не более 200 символов!';
 		}
@@ -170,7 +170,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите контактный телефон';
 		}
-		if(mb_strlen($phone)>100 or mb_strlen($phone)<3)
+		if(mb_strlen($phone,'UTF-8')>100 or mb_strlen($phone,'UTF-8')<3)
 		{
 			$errors[] = 'Поле \"Мобильный телефон\" должно содержать не менее 3 и не более 100 символов!';
 		}
@@ -179,12 +179,12 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		{
 			$errors[] = 'Укажите E-Mail';
 		}
-		if(mb_strlen($email)>100 or mb_strlen($email)<3)
+		if(mb_strlen($email,'UTF-8')>100 or mb_strlen($email,'UTF-8')<3)
 		{
 			$errors[] = 'Поле \"E-Mail\" должно содержать не менее 3 и не более 100 символов!';
 		}			
 /* ------------------------------------------------------------------------------------------------- */
-		if(mb_strlen($comment)>400)
+		if(mb_strlen($comment,'UTF-8')>400)
 		{
 			$errors[] = 'Поле \"Примечание\" должно содержать не более 100 символов!';
 		}			

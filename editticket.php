@@ -61,7 +61,7 @@ if( isset($data['edit_ticket']))
 		{
 			$errors[] = 'Укажите номер заявки!';
 		}
-				if(mb_strlen($ticket_number_edit)>20 or mb_strlen($ticket_number_edit)<3)
+				if(mb_strlen($ticket_number_edit,'UTF-8')>20 or mb_strlen($ticket_number_edit,'UTF-8')<3)
 		{
 			$errors[] = 'Номер заявки должен содержать не менее 3 и не более 20 символов!';
 		}
@@ -71,7 +71,7 @@ if( isset($data['edit_ticket']))
 		{
 			$errors[] = 'Укажите задачу по заявке!';
 		}
-			if(mb_strlen($ticket_task_edit)>200 or mb_strlen($ticket_task_edit)<3)
+			if(mb_strlen($ticket_task_edit,'UTF-8')>200 or mb_strlen($ticket_task_edit,'UTF-8')<3)
 		{
 			$errors[] = 'Текст задачи должен содержать не менее 3 и не более 200 символов!';
 		}	
@@ -408,19 +408,19 @@ if( isset($data['edit_ticket']))
 						<div>							
 							<tr id="work_type_select">
 								<td class="reg_dohod_td"><label for="cost_smeta">Сметная стоимость, руб.:</label></td>
-								<td><input id="cost_smeta" class="StyleSelectBox" name="cost_smeta" type="number" value="<?= @$tickets['cost_smeta'];?>"/></td>
+								<td><input id="cost_smeta" class="StyleSelectBox" name="cost_smeta" type="number" step="any" value="<?= @$tickets['cost_smeta'];?>"/></td>
 							</tr>
 						</div>
 						<div>							
 							<tr>
 								<td class="reg_dohod_td"><label for="cost_material">Стоимость материалов, руб.:</label></td>
-								<td><input id="cost_material" class="StyleSelectBox" name="cost_material" type="number" value="<?= @$tickets['cost_material'];?>"/></td>
+								<td><input id="cost_material" class="StyleSelectBox" name="cost_material" type="number" step="any" value="<?= @$tickets['cost_material'];?>"/></td>
 							</tr>							
 						</div>
 						<div>
 							<tr>
 								<td class="reg_dohod_td"><label for="cost_transport">Транспортные расходы, руб:</label></td>
-								<td><input id="cost_transport" class="StyleSelectBox" name="cost_transport" type="number" value="<?= @$tickets['cost_transport'];?>"/></td>
+								<td><input id="cost_transport" class="StyleSelectBox" name="cost_transport" type="number" step="any" value="<?= @$tickets['cost_transport'];?>"/></td>
 							</tr>
 						</div>
 						<tr>
@@ -566,19 +566,19 @@ if( isset($data['edit_ticket']))
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_cost_work">Стоимость работ, руб:</label></td>
 				<td>
-					<input id="contr_cost_work" class="StyleSelectBox" name="contr_cost_work"type="number" value="<?= @$tickets['contr_cost_work'];?>"/>
+					<input id="contr_cost_work" class="StyleSelectBox" name="contr_cost_work"type="number" step="any" value="<?= @$tickets['contr_cost_work'];?>"/>
 				</td>
 			</tr>
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_cost_smeta">Сметная стоимость, руб:</label></td>
 				<td>
-					<input id="contr_cost_smeta" class="StyleSelectBox" name="contr_cost_smeta"type="number" value="<?= @$tickets['contr_cost_smeta'];?>"/>
+					<input id="contr_cost_smeta" class="StyleSelectBox" name="contr_cost_smeta"type="number" step="any" value="<?= @$tickets['contr_cost_smeta'];?>"/>
 				</td>
 			</tr>
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_cost_transport">Транспортные расходы, руб.:</label></td>
 				<td>
-					<input id="contr_cost_transport" class="StyleSelectBox" name="contr_cost_transport"type="number" value="<?= @$tickets['contr_cost_transport'];?>"/>
+					<input id="contr_cost_transport" class="StyleSelectBox" name="contr_cost_transport"type="number" step="any" value="<?= @$tickets['contr_cost_transport'];?>"/>
 				</td>
 			</tr>
 			<tr id="contr_select">
@@ -590,13 +590,13 @@ if( isset($data['edit_ticket']))
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_cost_material">Стоимость материалов, руб.:</label></td>
 				<td>
-					<input id="contr_cost_material" class="StyleSelectBox" name="contr_cost_material"type="number" value="<?= @$tickets['contr_cost_material'];?>"/>
+					<input id="contr_cost_material" class="StyleSelectBox" name="contr_cost_material"type="number" step="any" value="<?= @$tickets['contr_cost_material'];?>"/>
 				</td>
 			</tr>
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_account_number">Номер счета:</label></td>
 				<td>
-					<input id="contr_account_number" class="StyleSelectBox" name="contr_account_number"  type="number" value="<?= @$tickets['contr_account_number'];?>"/>
+					<input id="contr_account_number" class="StyleSelectBox" name="contr_account_number"  type="text" value="<?= @$tickets['contr_account_number'];?>"/>
 				</td>
 			</tr>
 			<tr id="contr_select">
@@ -641,7 +641,7 @@ if( isset($data['edit_ticket']))
 			<tr>
 				<td class="reg_post_td"><label for="supplier_cost_work">Стоимость услуг, руб.:</label></td>
 				<td>
-					<input id="supplier_cost_work" class="StyleSelectBox" name="supplier_cost_work" type="number" value="<?= @$tickets['supplier_cost_work'];?>"/>
+					<input id="supplier_cost_work" class="StyleSelectBox" name="supplier_cost_work" type="number" step="any" value="<?= @$tickets['supplier_cost_work'];?>"/>
 				</td>
 			</tr>
 			<tr>
@@ -653,13 +653,13 @@ if( isset($data['edit_ticket']))
 			<tr>
 				<td class="reg_post_td"><label for="supplier_cost_material">Стоимость материалов:</label></td>
 				<td>
-					<input id="supplier_cost_material" class="StyleSelectBox" name="supplier_cost_material"type="number" value="<?= @$tickets['supplier_cost_material'];?>"/>
+					<input id="supplier_cost_material" class="StyleSelectBox" name="supplier_cost_material"type="number" step="any" value="<?= @$tickets['supplier_cost_material'];?>"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="reg_post_td"><label for="supplier_account_number">Номер счета:</label></td>
 				<td>
-					<input id="supplier_account_number" class="StyleSelectBox" name="supplier_account_number"  type="number" value="<?= @$tickets['supplier_account_number'];?>"/>
+					<input id="supplier_account_number" class="StyleSelectBox" name="supplier_account_number"  type="text" value="<?= @$tickets['supplier_account_number'];?>"/>
 				</td>
 			</tr>
 			<tr>
