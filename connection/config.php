@@ -1,6 +1,6 @@
 <?php
 session_start();
-$host = "192.168.70.32"; // ЗДЕСТЬ сменить megatreid на ip-адрес сервера без номера порта!
+$host = "megatreid"; // ЗДЕСТЬ сменить megatreid на ip-адрес сервера без номера порта!
 $db_name = "megatreid";
 $login = "baseuser";
 $pswrd = "qazwsxedc";
