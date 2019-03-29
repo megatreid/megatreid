@@ -162,7 +162,7 @@ if( isset($data['edit_ticket']))
 	
 	$id_object = $objects['id_object'];
 	$id_project = $projects['id_project'];
-	$object_full = "Объект: ".$objects['shop_number'].". Адрес: ".$objects['address'];
+	$object_full = $objects['shop_number'].". Адрес: ".$objects['address'];
 	$city_name = $objects['city_name'];
 	$project_name = $projects['projectname'];
 	$customer_name = $customers['customer_name'];
@@ -285,7 +285,7 @@ if( isset($data['edit_ticket']))
 						<tr>
 							<td class="reg_dohod_td"><label for="object">Объект:</label></td>
 							<td>
-								<div class="reg_text"><?= $object_full;?></div>
+								<div class="reg_text"><textarea readonly><?= $object_full;?></textarea></div>
 								<input id="object" class="StyleSelectBox" name="object" readonly type="hidden" value="<?= @$id_object;?>"/>
 								<input id="object" class="StyleSelectBox" name="object_full" readonly type="hidden" value="<?= @$object_full;?>"/>
 							</td>
