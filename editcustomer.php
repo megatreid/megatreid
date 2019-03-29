@@ -100,20 +100,14 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 		}
 
 /* ------------------------------------------------------------------------------------------------- */
-		if(empty($kpp))
-		{
-			$errors[] = 'Введите КПП организации!';
-		}
+
 		if(mb_strlen($kpp)>9)
 		{
 			$errors[] = 'КПП организации не должен содержать более 9 символов!';
 		}
 /* ------------------------------------------------------------------------------------------------- */
-		if(empty($dogovor_number))
-		{
-			$errors[] = 'Укажите номер договора!';
-		}
-		if(mb_strlen($dogovor_number)>50 or mb_strlen($dogovor_number)<3)
+
+		if(mb_strlen($dogovor_number)>50 )
 		{
 			$errors[] = 'Номер договора должен содержать не менее 3 и не более 50 символов!';
 		}	
@@ -273,13 +267,13 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 						<tr>
 							<td class="rowt"><label for="jur_address">Юридический адрес: *</label></td>
 							<td>
-								<input id="jur_address" class="StyleSelectBox" name="jur_address" type="text" title="Юридический адрес организации должен содержать не менее 3 и не более 100 символов!" value="<?= $jur_address_edit;?>"/>
+								<input id="jur_address" class="StyleSelectBox" name="jur_address" type="text" title="Юридический адрес организации должен содержать не менее 3 и не более 400 символов!" value="<?= $jur_address_edit;?>"/>
 							</td>
 						</tr>
 						<tr>
 							<td class="rowt"><label for="post_address">Почтовый (фактический) адрес: *</label></td>
 							<td>
-								<input id="post_address" class="StyleSelectBox" name="post_address" title="Фактический адрес организации должен содержать не менее 3 и не более 100 символов!" type="text" value="<?= $post_address_edit;?>"/>
+								<input id="post_address" class="StyleSelectBox" name="post_address" title="Фактический адрес организации должен содержать не менее 3 и не более 400 символов!" type="text" value="<?= $post_address_edit;?>"/>
 							</td>
 						</tr>
 						<tr>
@@ -291,19 +285,19 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 						<tr>
 							<td class="rowt"><label for="inn">ИНН: *</label></td>
 							<td>
-								<input id="inn" class="StyleSelectBox" name="inn" type="text" title="'ИНН организации должен содержать 12 символов!" value="<?= @$inn_edit;?>"/>
+								<input id="inn" class="StyleSelectBox" name="inn" type="text" title="'ИНН организации должен содержать не более 12 символов!" value="<?= @$inn_edit;?>"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt"><label for="kpp">КПП: *</label></td>
+							<td class="rowt"><label for="kpp">КПП: </label></td>
 							<td>
 								<input id="kpp" class="StyleSelectBox" name="kpp" type="text" title="КПП организации не должен содержать более 9 символов!" value="<?= @$kpp_edit;?>"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt"><label for="dogovor_number">Номер договора: *</label></td>
+							<td class="rowt"><label for="dogovor_number">Номер договора: </label></td>
 							<td>
-								<input id="dogovor_number" class="StyleSelectBox" name="dogovor_number" title="Номер договора должен содержать не менее 3 и не более 30 символов!" type="text" value="<?= @$dogovor_number_edit;?>"/>
+								<input id="dogovor_number" class="StyleSelectBox" name="dogovor_number" title="Номер договора должен содержать не более 30 символов!" type="text" value="<?= @$dogovor_number_edit;?>"/>
 							</td>
 						</tr>
 						<tr class="status">
@@ -323,51 +317,51 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt"><label for="bank_name">Банк получателя: *</label></td>
+							<td class="rowt"><label for="bank_name">Банк получателя:*</label></td>
 							<td>
 								<textarea class="reg_textarea" id="bank_name" name="bank_name" cols="32" rows="3" title="Наименование банка получателя должно содержать не менее 3 и не более 100 символов!"><?= @$bank_name_edit;?></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt"><label for="bank_bik">"БИК" банка получателя: *</label></td>
+							<td class="rowt"><label for="bank_bik">"БИК" банка получателя:*</label></td>
 							<td>
 								<input id="bank_bik" class="StyleSelectBox" name="bank_bik" type="text" title="БИК банка получателя должен содержать 9 символов!" value="<?= @$bank_bik_edit;?>"/>
 							</td>
 						</tr>						
 						<tr>
-							<td class="rowt"><label for="korr_schet">Корр/счет: *</label></td>
+							<td class="rowt"><label for="korr_schet">Корр/счет:*</label></td>
 							<td>
 								<input id="korr_schet" class="StyleSelectBox" name="korr_schet" type="text" title="Корреспондентский счёт организации должен содержать 20 символов!" value="<?= @$korr_schet_edit;?>"/>
 							</td>
 						</tr>
 						<tr>
-							<td class="rowt"><label for="rasch_schet">Расчетный счет: *</label></td>
+							<td class="rowt"><label for="rasch_schet">Расчетный счет:*</label></td>
 							<td>
 								<input id="rasch_schet" class="StyleSelectBox" name="rasch_schet" type="text" title="Расчетный счет организации должен содержать 20 символов!" value="<?= @$rasch_schet_edit;?>"/>
 							</td>
 						</tr>						
 						<tr>
-							<td class="rowt"><label for="recipient">Получатель: *</label></td>
-							<td><textarea class="reg_textarea" id="recipient" name="recipient" cols="32" title="" rows="3"><?= @$recipient_edit?></textarea></td>
+							<td class="rowt"><label for="recipient">Получатель:*</label></td>
+							<td><textarea class="reg_textarea" id="recipient" name="recipient"  title="" ><?= @$recipient_edit?></textarea></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center">КОНТАКТЫ:</td>
 						</tr>
 						<tr>
-							<td class="rowt"><label for="contact_name">Контактное лицо: *</label></td>
-							<td><textarea class="reg_textarea" id="contact_name" name="contact_name" cols="32" rows="3" placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';' Поле 'Получатель' должно содержать не менее 3 и не более 100 символов!"><?= @$contact_name_edit?></textarea></td>
+							<td class="rowt"><label for="contact_name">Контактное лицо:*</label></td>
+							<td><textarea class="reg_textarea" id="contact_name" name="contact_name"  placeholder = "При вводе нескольких имен (ФИО) используйте разделитель ';'" title="При вводе нескольких имен (ФИО) используйте разделитель ';' Поле 'Получатель' должно содержать не менее 3 и не более 100 символов!"><?= @$contact_name_edit?></textarea></td>
 						</tr>					
 						<tr>
-							<td class="rowt"><label for="phone">Контактный телефон: *</label></td>
-							<td><textarea class="reg_textarea" id="phone" name="phone" cols="32" rows="3" placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';' Поле 'Контактный телефон' должно содержать не менее 3 и не более 60 символов!"><?= @$phone_edit;?></textarea></td>
+							<td class="rowt"><label for="phone">Контактный телефон:*</label></td>
+							<td><textarea class="reg_textarea" id="phone" name="phone"  placeholder = "При вводе нескольких номеров используйте разделитель ';'" title="При вводе нескольких номеров используйте разделитель ';' Поле 'Контактный телефон' должно содержать не менее 3 и не более 60 символов!"><?= @$phone_edit;?></textarea></td>
 						</tr>						
 						<tr>
-							<td class="rowt"><label for="email">Email: *</label></td>
+							<td class="rowt"><label for="email">Email:*</label></td>
 							<td><input id="email" class="StyleSelectBox" name="email"  title = "При вводе нескольких адресов используйте разделитель ';' Поле 'E-Mail' должно содержать не менее 3 и не более 60 символов!" type="text" value="<?= @$email_edit;?>"/></td>
 						</tr>
 						<tr>
 							<td class="rowt"><label for="comment">Примечание:</label></td>
-							<td><textarea class="reg_textarea" id="comment" name="comment" cols="32" rows="3" value="<?= @$email_edit;?>" title="Поле должно содержать не более 100 символов!" ></textarea></td>
+							<td><textarea class="reg_textarea" id="comment" name="comment"  value="<?= @$email_edit;?>" title="Поле должно содержать не более 100 символов!" ></textarea></td>
 						</tr>
 
 						</table>
