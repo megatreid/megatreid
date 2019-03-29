@@ -145,7 +145,7 @@ if( isset($data['new_ticket']))
 		}
 		
 		
-		if($implementer == 0){
+		if($implementer == 1){
 			$id_contractor = 0;
 			$contr_cost_work = 0;
 			$contr_cost_smeta = 0;
@@ -250,7 +250,7 @@ if( isset($data['new_ticket']))
 						<tr>
 							<td class="reg_dohod_td"><label for="object">Объект:</label></td>
 							<td>
-								<div class="reg_text"><?= $object_full;?></div>
+								<div class="reg_text"><textarea readonly><?= $object_full;?></textarea></div>
 								<input id="object" class="StyleSelectBox" name="object" readonly type="hidden" value="<?= @$id_object;?>"/>
 								<input id="object" class="StyleSelectBox" name="object_full" readonly type="hidden" value="<?= @$object_full;?>"/>
 							</td>
