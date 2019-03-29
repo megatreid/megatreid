@@ -182,7 +182,7 @@ switch($method_payment_table)
 							<th rowspan="2">Заказчик<br></th>
 							<th width="100" rowspan="2">Проект</th>
 							<th width="170" rowspan="2">Город</th>
-							<th rowspan="2">Объект</th>
+							<th  width=1% rowspan="2">Объект</th>
 							<th align="center" width=6% rowspan="2">Статус<br>заявки</th>
 							<th rowspan="2">Исполнитель</th>
 							<th rowspan="2">Статус<br>платежа</th>
