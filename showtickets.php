@@ -180,8 +180,8 @@ switch($method_payment_table)
 							<th width=1% rowspan="2">Отчетный<br>год</th>
 							<th width="1" rowspan="2">Отчетный<br>месяц</th>
 							<th rowspan="2">Заказчик<br></th>
-							<th width="100" rowspan="2">Проект</th>
-							<th width="170" rowspan="2">Город</th>
+							<th  rowspan="2">Проект</th>
+							<th  rowspan="2">Город</th>
 							<th  width=1% rowspan="2">Объект</th>
 							<th align="center" width=6% rowspan="2">Статус<br>заявки</th>
 							<th rowspan="2">Исполнитель</th>
@@ -326,7 +326,7 @@ switch($method_payment_table)
 						<td class = "<?= $class?>"><?=$customers['customer_name'];?></td>
 						<td class = "<?= $class?>"><?=$projects['projectname'];?></td>
 						<td class = "<?= $class?>"><?=$city['name'];?></td>
-						<td class = "<?= $class?>"><?=$objects['shop_number']."<br>".$objects['address']?></td>
+						<td class = "<?= $class?>"><div><?=$objects['shop_number']."<br>".$objects['address']?></div></td>
 						<td class = "<?= $class?>"><?=$ticket_status_array[$ticket['ticket_status']];?></td>
 						<td class = "<?= $class?>"><?=$executor; ?></td>
 						<td class = "<?= $class?>"><?=$payment_status;?></td>
