@@ -919,21 +919,21 @@ display: block;
 	font-weight: normal;
 	width: 250px;
 	//color: #FF0000;
-
+	word-wrap: break-word;
 }
 
 
 .reg_text_show_tickets_red{
 	color: #C10000;
 	//background: #FBABAB;
-
+	word-wrap: break-word;
 }
 .reg_text_show_tickets_red_bold{
 	font-family: Arial, Helvetica, sans-serif; 
 	color: #A60000;
 	font-weight: bold;
 	background: #E6CECE;
-
+	word-wrap: break-word;
 }
 
 
@@ -962,6 +962,7 @@ tbody tr:hover td{
     -moz-transition-duration: 2s;
     -o-transition-duration: 2s;
     transition-duration: 2s;
+	word-wrap: break-word;
 }
 
 
