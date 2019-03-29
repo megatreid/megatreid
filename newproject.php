@@ -25,7 +25,7 @@ if(isset($_GET['id_customer']))
 		{
 			$errors[] = 'Введите название проекта!';
 		}
-		if( mb_strlen($projectname)>50 or mb_strlen($projectname)<2)
+		if( mb_strlen($projectname,'UTF-8')>50 or mb_strlen($projectname,'UTF-8')<2)
 		{
 			$errors[] = 'Название проекта должно содержать не менее 2 и не более 50 символов!';
 		}	

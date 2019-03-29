@@ -65,7 +65,7 @@ if( isset($data_post['edit_object']))
 			{
 				$errors[] = 'Укажите объект!';
 			}
-			if( mb_strlen($shop_number_edit)>50 or mb_strlen($shop_number_edit)<2)
+			if( mb_strlen($shop_number_edit,'UTF-8')>20 or mb_strlen($shop_number_edit,'UTF-8')<2)
 			{
 				$errors[] = 'Название объекта должно содержать не менее 2 и не более 50 символов!';
 			}	
@@ -74,7 +74,7 @@ if( isset($data_post['edit_object']))
 			{
 				$errors[] = 'Укажите адрес объекта!';
 			}
-			if( mb_strlen($address_edit)>200 or mb_strlen($address_edit)<2)
+			if( mb_strlen($address_edit,'UTF-8')>200 or mb_strlen($address_edit,'UTF-8')<2)
 			{
 				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 200 символов!';
 			}

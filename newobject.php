@@ -49,7 +49,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 			{
 				$errors[] = 'Укажите название объекта!';
 			}
-			if( mb_strlen($shop_number)>20 or mb_strlen($shop_number)<2)
+			if( mb_strlen($shop_number,'UTF-8')>20 or mb_strlen($shop_number,'UTF-8')<2)
 			{
 				$errors[] = 'Название объекта должно содержать не менее 2 и не более 20 символов!';
 			}
@@ -58,7 +58,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
 			{
 				$errors[] = 'Укажите адрес объекта!';
 			}
-			if( mb_strlen($address)>200 or mb_strlen($address)<2)
+			if( mb_strlen($address,'UTF-8')>200 or mb_strlen($address,'UTF-8')<2)
 			{
 				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 200 символов!';
 			}	
