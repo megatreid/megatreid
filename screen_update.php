@@ -36,7 +36,7 @@ unset($_SESSION['implementer']);
 		</tr>
 
 		<tr>
-			<td colspan="2"><p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</td>
+			<td colspan="2" align="center"><p><input type="checkbox" name="megatreid" value="1">Исполнитель только ООО "Мега Трейд"</td>
 		</tr>
 
 		<tr><td align="center" colspan="2"><input type="submit" name="send" class="button" value="Сохранить" /></td></tr>
