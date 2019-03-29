@@ -905,7 +905,8 @@ display: block;
 	vertical-align: middle;
 	text-align: left;
 	font-weight: normal;
-	width: 200px;
+	width: 250px;
+	word-wrap: break-word;
 	//color: #FF0000;
 }
 .reg_text_show_tickets{
