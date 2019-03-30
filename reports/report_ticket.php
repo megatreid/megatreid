@@ -40,7 +40,7 @@ $sheet->setCellValue('A5','Кол-во месяцев:');
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
-$sheet->setCellValue('B2',$customer_sel['customer_name']);
+$sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT_QUOTES));
 $sheet->setCellValue('B3',$year);
 $sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
 $sheet->setCellValue('B5',($month_period));
@@ -93,8 +93,8 @@ foreach($_POST['id_projects'] as $id_project)
 		foreach($objects as $object)
 		{
 			$id_odject = $object['id_object'];
-			$shop_number = $object['shop_number'];
-			$address = $object['address'];
+			$shop_number = html_entity_decode($object['shop_number'], ENT_QUOTES);
+			$address = html_entity_decode($object['address'], ENT_QUOTES);
 			$abon_plata = $object['abon_plata'];
 			$cash_abplata_month = $abon_plata * $month_period;
 			$cash_abplata_month_summ += intval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
@@ -105,7 +105,7 @@ foreach($_POST['id_projects'] as $id_project)
 				{
 					
 					$implementer_new = "";					
-					$implementer = $rep_ticket['implementer'];
+					$implementer = html_entity_decode($rep_ticket['implementer']);
 					$contr_info = edit_contr($link, $rep_ticket['id_contractor']);
 					$city_name_contr = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
 					$row_next = $row_start + $rowplus;
@@ -131,8 +131,8 @@ foreach($_POST['id_projects'] as $id_project)
 						$cost_incident = 0;
 					}
 					$ticket_number = $rep_ticket['ticket_number'];
-					$ticket_task = $rep_ticket['ticket_task'];
-					$ticket_solution = $rep_ticket['ticket_solution'];
+					$ticket_task = html_entity_decode($rep_ticket['ticket_task'], ENT_QUOTES);
+					$ticket_solution = html_entity_decode($rep_ticket['ticket_solution'], ENT_QUOTES);
 					$city_name = $object['city_name'];
 					$hours = intval($rep_ticket['hours']);
 					$sla = intval($rep_ticket['ticket_sla']);

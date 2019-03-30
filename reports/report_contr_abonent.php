@@ -51,13 +51,13 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$project_info = Edit_Project ($link, $object['id_project']);
 			$row_next = $row_start + $rowplus;
 			$object_city_name = $object['city_name'];
-			$shop_number = $object['shop_number'];
-			$address = $object['address'];
+			$shop_number = html_entity_decode($object['shop_number'], ENT_QUOTES);
+			$address = html_entity_decode($object['address'], ENT_QUOTES);
 			$abon_plata_contr = intval($object['abon_plata_contr']);
 			$abon_plata_contr_period = $abon_plata_contr * $month_period;
 			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name['name'].')');
-			$sheet->setCellValue('B'.($row_next), $customer_info['customer_name']);
-			$sheet->setCellValue('C'.($row_next), $project_info['projectname']);
+			$sheet->setCellValue('B'.($row_next), html_entity_decode($customer_info['customer_name'], ENT_QUOTES));
+			$sheet->setCellValue('C'.($row_next), html_entity_decode($project_info['projectname'], ENT_QUOTES));
 			$sheet->setCellValue('D'.($row_next), $object_city_name);
 			$sheet->setCellValue('E'.($row_next), $shop_number);
 			$sheet->setCellValue('F'.($row_next), $address);

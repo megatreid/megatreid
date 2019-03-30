@@ -83,24 +83,24 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$customer_info = Edit_Customer ($link, $object_info['id_customer']);
 			$project_info = Edit_Project ($link, $object_info['id_project']);
 			$object_city_name = $object_info['city_name'];
-			$shop_number = $object_info['shop_number'];
-			$address = $object_info['address'];
+			$shop_number = html_entity_decode($object_info['shop_number'], ENT_QUOTES);
+			$address = html_entity_decode($object_info['address'], ENT_QUOTES);
 			$contr_cost_work = intval($ticket['contr_cost_work']);
 			$contr_cost_smeta = intval($ticket['contr_cost_smeta']);
 			$contr_cost_transport = intval($ticket['contr_cost_transport']);
 			$contr_cost_material = intval($ticket['contr_cost_material']);
 			$contr_cost_summ = ($contr_cost_work + $contr_cost_smeta + $contr_cost_transport + $contr_cost_material);			
-			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name['name'].')');
-			$sheet->setCellValue('B'.($row_next), $customer_info['customer_name']);
-			$sheet->setCellValue('C'.($row_next), $project_info['projectname']);			
+			$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' '.$contr_info['ownership'].' ('.$city_name['name'].')');
+			$sheet->setCellValue('B'.($row_next), html_entity_decode($customer_info['customer_name'], ENT_QUOTES));
+			$sheet->setCellValue('C'.($row_next), html_entity_decode($project_info['projectname'], ENT_QUOTES));			
 
 			$sheet->setCellValue('D'.($row_next), $shop_number);
 			
 			$sheet->setCellValue('E'.($row_next), $ticket['ticket_number']);
 			$sheet->setCellValue('F'.($row_next), $object_city_name);
 			$sheet->setCellValue('G'.($row_next), $address);
-			$sheet->setCellValue('H'.($row_next), $ticket['ticket_task']);
-			$sheet->setCellValue('I'.($row_next), $ticket['ticket_solution']);
+			$sheet->setCellValue('H'.($row_next), html_entity_decode($ticket['ticket_task'], ENT_QUOTES));
+			$sheet->setCellValue('I'.($row_next), html_entity_decode($ticket['ticket_solution'], ENT_QUOTES));
 			$sheet->setCellValue('J'.($row_next), $contr_cost_work);
 			$sheet->setCellValue('K'.($row_next), $contr_cost_smeta);
 			$sheet->setCellValue('L'.($row_next), $contr_cost_transport);

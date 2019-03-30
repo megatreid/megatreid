@@ -152,14 +152,14 @@ if(isset($_POST['customer_report']))
 				
 					$all_cost_in_project_summ += $all_cost_in_project;
 					//echo "ИТОГО: ".$all_cost_in_project_summ;
-					$sheet->setCellValue('A'.($row_incident + $counter), '2. '.$counter.' '.$projects['projectname']);
+					$sheet->setCellValue('A'.($row_incident + $counter), '2. '.$counter.' '.html_entity_decode($projects['projectname'], ENT_QUOTES));
 					$sheet->setCellValue('B'.($row_incident + $counter), $all_cost_in_project);
 					$counter++;	
 					
 					$cash_summ += $cash_abplata_month_summ;
 				}
 										
-				$sheet->setCellValue('A'.$row_next, "1.".($rowplus + 1)." ".$projects['projectname']);
+				$sheet->setCellValue('A'.$row_next, "1.".($rowplus + 1)." ".html_entity_decode($projects['projectname'], ENT_QUOTES));
 				$sheet->setCellValue('B'.$row_next, $cash_abplata_month_summ);
 				$rowplus++;
 				
@@ -181,7 +181,7 @@ if(isset($_POST['customer_report']))
 			
 			//echo "ИТОГО: ". $cash_summ. " рублей.";
 		}
-		$sheet->setCellValue('B2',$customer_sel['customer_name']);
+		$sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT_QUOTES));
 		$sheet->setCellValue('B3',$year);
 		$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
 		$sheet->setCellValue('B5',($month_period));
@@ -259,14 +259,15 @@ $sheet->getStyle('B6:B'.($row_incident + $counter + 2))->getNumberFormat()->setF
 require_once 'reports/report_abonent.php';
 require_once 'reports/report_ticket.php';
 $xls->setActiveSheetIndex(0);
-
+		
 		ob_end_clean();
 		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
 		header ("Cache-Control: no-cache, must-revalidate");
 		header ("Pragma: no-cache");
 		header("Content-Type:application/vnd.ms-excel");
-		header("Content-Disposition:attachment;filename=Отчет_заказчик_".$customer_sel['customer_name']."_".$date.".xlsx");
-
+		//header("Content-Disposition:attachment;filename=Отчет_заказчик_".$customer_sel['customer_name']."_".$date.".xlsx");
+		header("Content-Disposition:attachment;filename=Отчет_по_заказчикам_".$date.".xlsx");
+	
 		//Сохраняем файл с помощью PHPExcel_IOFactory и указываем тип Excel
 		$objWriter = PHPExcel_IOFactory::createWriter($xls, 'Excel2007');
 
