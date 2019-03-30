@@ -69,23 +69,23 @@ foreach($contractors as $i => $contractor)
 	$city_info = Get_Geo ($link, $contractor['city_id'], "city", "city_id");	
 	
 	$sheet->setCellValue('A'.($next), ($i+1));
-	$sheet->setCellValueByColumnAndRow(1, $next, $country_info['name']);
-	$sheet->setCellValueByColumnAndRow(2, $next, $region_info['name']);
+	$sheet->setCellValueByColumnAndRow(1, $next, html_entity_decode($country_info['name'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(2, $next, html_entity_decode($region_info['name'], ENT_QUOTES));
 	$sheet->setCellValueByColumnAndRow(3, $next, $city_info['name']);
-	$sheet->setCellValueByColumnAndRow(4, $next, $contractor['org_name'].' '.$contractor['ownership']);
+	$sheet->setCellValueByColumnAndRow(4, $next, html_entity_decode($contractor['org_name'], ENT_QUOTES).' '.$contractor['ownership']);
 	$sheet->setCellValueByColumnAndRow(5, $next, $statusedit[$contractor['status']]);
-	$sheet->setCellValueByColumnAndRow(6, $next, $contractor['dogovor']);
+	$sheet->setCellValueByColumnAndRow(6, $next, html_entity_decode($contractor['dogovor'], ENT_QUOTES));
 	$sheet->setCellValueByColumnAndRow(7, $next, $methodpaymentedit[$contractor['method_payment']]);
 	$sheet->setCellValueByColumnAndRow(8, $next, $contractor['card_number']);
 	$sheet->setCellValueByColumnAndRow(9, $next, $contractor['anketa']);
 	$sheet->setCellValueByColumnAndRow(10, $next, $contractor['system_no']);
-	$sheet->setCellValueByColumnAndRow(11, $next, $contractor['contact_name']);
-	$sheet->setCellValueByColumnAndRow(12, $next, $contractor['passport']);
-	$sheet->setCellValueByColumnAndRow(13, $next, $contractor['mobile']);
-	$sheet->setCellValueByColumnAndRow(14, $next, $contractor['phone']);
-	$sheet->setCellValueByColumnAndRow(15, $next, $contractor['email']);
-	$sheet->setCellValueByColumnAndRow(16, $next, $contractor['web']);
-	$sheet->setCellValueByColumnAndRow(17, $next, $contractor['comment']);
+	$sheet->setCellValueByColumnAndRow(11, $next, html_entity_decode($contractor['contact_name'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(12, $next, html_entity_decode($contractor['passport'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(13, $next, html_entity_decode($contractor['mobile'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(14, $next, html_entity_decode($contractor['phone'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(15, $next, html_entity_decode($contractor['email'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(16, $next, html_entity_decode($contractor['web'], ENT_QUOTES));
+	$sheet->setCellValueByColumnAndRow(17, $next, html_entity_decode($contractor['comment'], ENT_QUOTES));
 	
 	$next++;
 }
