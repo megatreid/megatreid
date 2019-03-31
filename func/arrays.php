@@ -16,21 +16,4 @@ $user_level = array('Администратор', 'Руководитель пр
 $row = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O');
 $paymentstatus = array('Неоплачено','Оплачено', 'Любой');
 $methodpaymentstatus = array('Наличная','Безналичная', 'Любая');
-/*
-A0
-B1
-C2
-D3
-E4
-F5
-G6
-H7
-I8
-J9
-K10
-L11
-M12
-N13
-O14
-*/
 ?>
