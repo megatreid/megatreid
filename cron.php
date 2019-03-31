@@ -1,4 +1,5 @@
 <?php
+/*
 $date = date("Y-m-d H-i-s");
 $filename = 'data'.$date.'.txt';
 $text = 'Этот текст будет добавлен в файл' . PHP_EOL; // Перенос строки лучше делать константой PHP_EOL
@@ -15,5 +16,5 @@ fwrite($f_hdl, $text2);
 
 // Закрывает открытый файл
 fclose($f_hdl);
-
+*/
 ?>
