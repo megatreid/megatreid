@@ -1019,7 +1019,7 @@ text-decoration: none;
 	color: #FF0000;
 }
 .reg_select{
-	width: 250px;
+	min-width: 250px;
 	background:#FCFDF0;
 }
 
@@ -1237,7 +1237,7 @@ border-radius: 2px;
 	//float: 50%;
 	//background: #E5EEF0;
 	//min-height:200px;
-	width: 500px;
+	min-width: 500px;
 	margin: 0px 10px;
 	//box-shadow: -10px 0px 28px rgba(0,0,0,0.2), 10px 0px 28px rgba(0,0,0,0.2);
 	}

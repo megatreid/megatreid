@@ -213,6 +213,6 @@ if(empty($errors))
 			</form>
 			</table>
 		</div>
-	
+	</div>
 	</body>
 </html>
