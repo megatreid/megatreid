@@ -79,10 +79,10 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	if($tickets){
 		foreach($tickets as $ticket)
 		{
-			$contr_cost_work = intval($ticket['contr_cost_work']);
-			$contr_cost_smeta = intval($ticket['contr_cost_smeta']);
-			$contr_cost_transport = intval($ticket['contr_cost_transport']);
-			$contr_cost_material = intval($ticket['contr_cost_material']);
+			$contr_cost_work = floatval($ticket['contr_cost_work']);
+			$contr_cost_smeta = floatval($ticket['contr_cost_smeta']);
+			$contr_cost_transport = floatval($ticket['contr_cost_transport']);
+			$contr_cost_material = floatval($ticket['contr_cost_material']);
 			$contr_cost_summ += ($contr_cost_work + $contr_cost_smeta + $contr_cost_transport + $contr_cost_material);
 		}
 		$sheet->setCellValue('B'.($row_next), $contr_cost_summ);
