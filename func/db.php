@@ -818,7 +818,7 @@ function Show_Rep_Contr_Tickets($connection, $var, $year, $ticket_status, $month
 function Show_Contractor_Payment($connection, $method_payment) 
 {
 
-	$search = "SELECT * FROM contractor WHERE method_payment='$method_payment' ORDER BY org_name ASC";
+	$search = "SELECT * FROM contractor WHERE method_payment='$method_payment' AND status='1' ORDER BY org_name ASC";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
