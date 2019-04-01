@@ -746,7 +746,7 @@ display: block;
 	color: #000000;
 	//width: 1024px; /* Ширина слоя */
     //margin-top: 5%; /* Значение отступов */
-    padding: 10px; /* Поля вокруг текста */
+    padding: 0px; /* Поля вокруг текста */
     //border: 2px solid black; /* Параметры границы */
     //background: #C5D1D7; /* Цвет фона */
 	//background: #D7E1E6;
@@ -771,21 +771,21 @@ display: block;
 	background:#ADD8E6;
 	font-family: Arial, Helvetica, sans-serif; 
 	border: 1px solid #A3A3A3;
-	font-size: 13px;
+	font-size: 11px;
 	
 }
 
 .newcustomer {
 	position: absolute;
 	//position: relative;
-	top: 40px;
-	left: 10px;
+	top: 15px;
+	left: 0px;
 }
 .newticket {
 	position: absolute;
 	//position: relative;
 	top: 20px;
-	left: 10px;
+	left: 0px;
 }
 
 .rowt{
@@ -912,7 +912,7 @@ display: block;
 .reg_text_show_tickets{
 	//background: green;
 	//font-size: calc(0.2vw + 0.2vh + 1vmin);
-	font-size: 13px;
+	font-size: 11px;
 	font-family: Arial, Helvetica, sans-serif; 
 	vertical-align: middle;
 	text-align: center;
@@ -927,6 +927,7 @@ display: block;
 	color: #C10000;
 	//background: #FBABAB;
 	word-wrap: break-word;
+	font-size: 11px;
 }
 .reg_text_show_tickets_red_bold{
 	font-family: Arial, Helvetica, sans-serif; 
@@ -934,6 +935,7 @@ display: block;
 	font-weight: bold;
 	background: #E6CECE;
 	word-wrap: break-word;
+	font-size: 11px;
 }
 
 
@@ -1101,7 +1103,7 @@ border-radius: 2px;
 	font-family: Arial, Helvetica, sans-serif;
 
 	cursor: pointer;
-	border: 1px outset #ADD8E6;
+	//border: 1px outset #ADD8E6;
 }
  #upbutton {
     background: url("/images/up.png") no-repeat top left;

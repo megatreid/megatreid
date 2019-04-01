@@ -45,7 +45,7 @@ $objects_abon = Show_Objects_abon($link);
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Подрядчик-->
 					</td>
 					<td>
-						<input class="reg_input_filter" type="text" placeholder="..."/><!--Абонентская плата для подрядчика-->
+						
 					</td>
 				</tr>
 			</thead>	

@@ -163,12 +163,12 @@ switch($method_payment_table)
 						<tr class="hdr">
 							<th rowspan="2" width=1%>Номер<br>заявки</th>
 							<th rowspan="2" width=7%>Дата<br>заведения</th>
-							<th width=1% rowspan="2">Отчетный<br>год</th>
+							<th width="1" rowspan="2">Отчетный<br>год</th>
 							<th width="1" rowspan="2">Отчетный<br>месяц</th>
 							<th rowspan="2">Заказчик<br></th>
 							<th  rowspan="2">Проект</th>
 							<th  rowspan="2">Город</th>
-							<th  width=1% rowspan="2">Объект</th>
+							<th width="230" rowspan="2">Объект</th>
 							<th align="center" width=6% rowspan="2">Статус<br>заявки</th>
 							<th rowspan="2">Исполнитель</th>
 							<th rowspan="2">Статус<br>платежа</th>
