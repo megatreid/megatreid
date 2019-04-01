@@ -135,13 +135,13 @@ if(empty($errors))
 			<table>
 			<form action="" method="POST" enctype="multipart/form-data">
 				<tr>		
-				<td class="rowt">Выберите способ оплаты:</td>
+				<td class="rowt">Выберите форму оплаты:</td>
 
 
 				<td colspan="2">
 					<select name="method_payment" id="method_payment" class="StyleSelectBox" onchange="this.form.submit()">
-						<option  value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичный</option>
-						<option  value="1"<?=($method_payment == 1 ? 'selected' :'')?>>Наличный</option>
+						<option  value="2" <?=($method_payment == 2 ? 'selected' :'')?>>Безналичная</option>
+						<option  value="1"<?=($method_payment == 1 ? 'selected' :'')?>>Наличная</option>
 					</select>
 				</td>
 				</tr>

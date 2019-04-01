@@ -130,20 +130,7 @@ switch($method_payment_table)
 			$method_payment_select = "";	
 	}
 	$_SESSION['method_payment_select'] = $method_payment_select;
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $_SESSION['pay_status_select'], $_SESSION['method_payment_select'] , $current_month, $implementer);
 	if($tickets){
 	$count_tickets = count($tickets);
@@ -151,7 +138,6 @@ switch($method_payment_table)
 	$executor = "";
 
 	$delay = isset($_POST["delay"])? $_POST["delay"]:30;
-
 
 	//$customers = Edit_Customer($link, $data);
 ?>
