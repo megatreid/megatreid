@@ -82,11 +82,15 @@ if( isset($data_post['edit_object']))
 			{
 				$abon_plata_edit = 0;
 			}
+			if(empty($id_contractor_edit))
+			{
+				$id_contractor_edit="0";
+			}
 	if(empty($errors)){  
 		
 		$result = Update_Object ($link, $data, $id_project, $id_customer, $country_id_edit, $region_id_edit, $city_id_edit, $shop_number_edit, $address_edit, $status_edit, $abon_plata_edit, $id_contractor_edit, $abon_plata_contr_edit);
-		if($result){
-		//unset($_SESSION['id_customer']);
+		if(isset($result)){
+		unset($_SESSION['id_customer']);
 		?>		
 		<script>
 			setTimeout(function() {window.location.href = '/showobjects.php?id_project=<?=$id_project;?>';}, 0);
@@ -214,9 +218,11 @@ if( isset($data_post['edit_object']))
 			<tr>
 				<td  class="rowt">Контрагент:</td>
 				<td>
-					<select name="id_contractor" id="id_contractor" class="StyleSelectBox">
-						<option value="0">- выберите контрагента -</option>
-						<option value="<?=$objects['id_contractor'];?>" selected><?=$contractor_select['org_name'];?></option>
+					<select name='id_contractor' id="id_contractor" class="StyleSelectBox">
+						<option value='0'>- выберите контрагента -</option>
+						<?php if($objects['id_contractor']){ ?>
+						<option value='<?=$objects['id_contractor'];?>' selected><?=$contractor_select['org_name'];?></option>
+						<?php }?>
 					</select>
 				</td>				
 				<tr>
