@@ -85,6 +85,7 @@ if( isset($data_post['edit_object']))
 			if(empty($id_contractor_edit))
 			{
 				$id_contractor_edit="0";
+				$abon_plata_contr_edit="0";
 			}
 	if(empty($errors)){  
 		
