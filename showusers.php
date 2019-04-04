@@ -16,9 +16,10 @@ require '/func/arrays.php';
 <?php
 	$users = Show_Users($link);
 ?>
-		<div class="showusers">
+<div class="newuser"><a href='/newuser.php' ><button class="button-new">Добавить нового пользователя</button></a></div>
+	<div class="showusers">
 			<p class="breadcrumbs">Пользователи системы:</p>
-				<div class="newuser"><a href='/newuser.php' ><button class="button-new">Добавить нового пользователя</button></a></div>
+				
 				<table border="1" cellspacing="0">
 					<thead>
 						<tr class="hdr">

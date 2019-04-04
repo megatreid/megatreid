@@ -151,11 +151,12 @@ switch($method_payment_table)
 
 </head>
 <body>
+	<div class="newticket">
+		<a href='newticket.php'><button class="button-new">Создать новую заявку</button></a>
+	</div>
 	<div class="showcustomer">
 			<div class="breadcrumbs">Заявки (количество <?=$count_tickets?>):</div>
-				<div class="newticket">
-					<a href='newticket.php'><button class="button-new">Создать новую заявку</button></a>
-				</div>
+
 				<br>
 					<table border="1" cellspacing="0" id="filter-table">
 					<form action="" method="POST">

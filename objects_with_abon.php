@@ -17,13 +17,13 @@ $objects_abon = Show_Objects_abon($link);
 		<table border="1">
 			<thead>
 				<tr class="hdr">
-					<th width=1% >Заказчик</th>
+					<th>Заказчик</th>
 					<th>Проект</th>
 					<th>Город</th>
 					<th>Объект</th>	
-					<th width=1% >Абонентская плата<br>от заказчика</th>
+					<th>Абонентская плата<br>от заказчика</th>
 					<th>Подрядчик</th>							
-					<th width=1% >Абонентская плата<br>для подрядчика</th>
+					<th>Абонентская плата<br>для подрядчика</th>
 				</tr>
 				<tr class='table-filters'>
 					<td>
@@ -60,7 +60,7 @@ $objects_abon = Show_Objects_abon($link);
 			}
 			else
 			{
-				$contractor_info = "Подрядчик<br>не выбран";
+				$contractor_info = "Подрядчик не выбран";
 			}
 		?>
 			<tr class="text_show">

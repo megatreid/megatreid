@@ -380,7 +380,7 @@ text-decoration: underline
 	color: #000000;
 	//width: 1024px; /* Ширина слоя */
     //margin-top: 5%; /* Значение отступов */
-    padding: 10px; /* Поля вокруг текста */
+    //padding: 10px; /* Поля вокруг текста */
     //border: 2px solid black; /* Параметры границы */
     //background: #C5D1D7; /* Цвет фона */
 	//background: #D7E1E6;
@@ -419,8 +419,8 @@ text-decoration: underline
 .newuser {
 	display: block;
 	position: absolute;
-	top: 40px;
-	left: 10px;
+	top: 115px;
+	//left: 10px;
 
 }
 
@@ -437,7 +437,7 @@ text-decoration: underline
 	//background: #D7E1E6;
 	//background: linear-gradient(90deg, rgba(121,58,180,0) 0%, #C6D3DA 5%, #C6D3DA 95%, rgba(131,58,180,0) 100%);
 	text-align: center;
-	margin: 0 auto; /* Отступ справа */
+	//margin: 0 auto; /* Отступ справа */
 	//margin-top: 1%;
 	
 	//border-radius: 20px;
@@ -784,7 +784,7 @@ display: block;
 .newticket {
 	position: absolute;
 	//position: relative;
-	top: 20px;
+	top: 95px;
 	left: 0px;
 }
 
@@ -1105,12 +1105,12 @@ border-radius: 2px;
 	cursor: pointer;
 	//border: 1px outset #ADD8E6;
 }
- #upbutton {
+#upbutton {
     background: url("/images/up.png") no-repeat top left;
     height: 90px;
     width: 20px;
-    top: 50px;
-    left: 0px;
+    bottom: 50px;
+    right: 0px;
 	cursor: pointer;
     display: none;
     position: fixed;
