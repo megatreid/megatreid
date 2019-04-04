@@ -28,6 +28,10 @@ $hours_edit = trim(filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_FULL_SPECIA
 $cost_smeta_edit = trim(filter_input(INPUT_POST, 'cost_smeta', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $cost_material_edit = trim(filter_input(INPUT_POST, 'cost_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $cost_transport_edit = trim(filter_input(INPUT_POST, 'cost_transport', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+//**************************************************
+$customer_account_number_edit = trim(filter_input(INPUT_POST, 'customer_account_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$customer_date_payment_edit = trim(filter_input(INPUT_POST, 'customer_date_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$customer_payment_status_edit = trim(filter_input(INPUT_POST, 'customer_payment_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $comment_edit = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 //$last_edit_datetime = trim(filter_input(INPUT_POST, 'last_edit_datetime'));
 $last_edit_user_id_edit = trim(filter_input(INPUT_POST, 'last_edit_user_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -117,13 +121,16 @@ if( isset($data['edit_ticket']))
 		{
 			$errors[] = 'Укажите исполнителя (подрядчика) работ!';
 		}
-
+		if(empty($id_contractor_edit))
+		{
+			$id_contractor_edit = 0;
+		}
 		
 		//echo $contr_date_payment_edit;
 		
 		if(empty($errors))
 		{
-			$editticket = Update_Ticket ($link, $get_data, $ticket_number_edit, $year_edit, $month_edit, $ticket_task_edit, $ticket_solution_edit, $ticket_material_edit, $ticket_status_edit, $ticket_sla_edit, $work_type_edit, $hours_edit, $cost_smeta_edit, $cost_material_edit, $cost_transport_edit, $comment_edit, $currnetdatetime, $user_id , $implementer_edit, $id_engineers_array, $id_contractor_edit, $contr_cost_work_edit, $contr_cost_smeta_edit, $contr_cost_transport_edit, $contr_material_edit, $contr_cost_material_edit, $contr_account_number_edit, $contr_date_payment_edit, $contr_payment_status_edit, $contr_comment_edit, $supplier_edit, $supplier_cost_work_edit, $supplier_contr_material_edit, $supplier_cost_material_edit, $supplier_account_number_edit, $supplier_date_payment_edit, $supplier_payment_status_edit, $supplier_comment_edit);
+			$editticket = Update_Ticket ($link, $get_data, $ticket_number_edit, $year_edit, $month_edit, $ticket_task_edit, $ticket_solution_edit, $ticket_material_edit, $ticket_status_edit, $ticket_sla_edit, $work_type_edit, $hours_edit, $cost_smeta_edit, $cost_material_edit, $cost_transport_edit, $customer_account_number_edit, $customer_date_payment_edit, $customer_payment_status_edit, $comment_edit, $currnetdatetime, $user_id , $implementer_edit, $id_engineers_array, $id_contractor_edit, $contr_cost_work_edit, $contr_cost_smeta_edit, $contr_cost_transport_edit, $contr_material_edit, $contr_cost_material_edit, $contr_account_number_edit, $contr_date_payment_edit, $contr_payment_status_edit, $contr_comment_edit, $supplier_edit, $supplier_cost_work_edit, $supplier_contr_material_edit, $supplier_cost_material_edit, $supplier_account_number_edit, $supplier_date_payment_edit, $supplier_payment_status_edit, $supplier_comment_edit);
 			
 			if($editticket){
 			?>
@@ -336,13 +343,6 @@ if( isset($data['edit_ticket']))
 								</select>
 							</td>
 						</tr>						
-					<!--	<tr>
-							<td class="reg_dohod_td"><label for="ticket_date">Дата заведения заявки:</label></td>
-							<td class="reg_text">
-								<?= $currnetdatetime; ?>
-								<input id="ticket_date" class="StyleSelectBox" name="ticket_date" type="date" value="<?= date('Y-m-d'); ?>"/>
-							</td>
-						</tr>  -->
 						<tr>
 							<td class="reg_dohod_td"><label for="ticket_task">Задача по заявке:</label></td>
 							<td>
@@ -423,6 +423,30 @@ if( isset($data['edit_ticket']))
 								<td><input id="cost_transport" class="StyleSelectBox" name="cost_transport" type="number" step="any" value="<?= @$tickets['cost_transport'];?>"/></td>
 							</tr>
 						</div>
+						<!-- НОМЕР СЧЕТА --> 
+						<tr>
+							<td class="reg_dohod_td"><label for="customer_account_number">Номер счета:</label></td>
+							<td>
+								<input id="customer_account_number" class="StyleSelectBox" name="customer_account_number"  type="text" value="<?= @$tickets['customer_account_number'];?>"/>
+							</td>
+						</tr>
+						<!-- ДАТА ПЛАТЕЖА -->
+						<tr>
+							<td class="reg_dohod_td"><label for="customer_date_payment">Дата платежа:</label></td>
+							<td>
+								<input id="customer_date_payment" class="StyleSelectBox" name="customer_date_payment" type="date" value="<?= @$tickets['customer_date_payment']; ?>"/>
+							</td>
+						</tr>
+						<!-- СТАТУС ПЛАТЕЖА -->
+						<tr>
+							<td class="reg_dohod_td"><label for="customer_payment_status">Статус платежа:</label></td>
+							<td>
+								<select class="reg_select" name="customer_payment_status" id="customer_payment_status">
+									<option value="0" <?= @$tickets['customer_payment_status'] == 0 ? 'selected':''?>>Неоплачено</option>
+									<option value="1" <?= @$tickets['customer_payment_status'] == 1 ? 'selected':''?>>Оплачено</option>
+								</select>
+							</td>
+						</tr>							
 						<tr>
 							<td class="reg_dohod_td"><label for="comment">Примечание:</label></td>
 							<td><textarea class="reg_textarea" id="comment" name="comment" title="Поле должно содержать не более 100 символов!" ><?= @$tickets['comment'];?></textarea></td>

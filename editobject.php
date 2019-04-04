@@ -209,10 +209,11 @@ if( isset($data_post['edit_object']))
 				<td>
 					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox" >
 						<option value="0">- выберите город -</option>
-						<?php foreach($contractors as $i => $contractor)  { 
+						<?php foreach($contractors as $i => $contractor)  {
+							if($contractor['status'] ==1) {
 							$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );?>
 							<option  value="<?= $contractor['city_id'];?>" <?= ($contractor['city_id'] == $contractor_select['city_id']) ? 'selected' : ''?>><?= $citys['name']; ?></option>
-						<?php } ?>
+						<?php }} ?>
 					</select>
 				</td>
 			</tr>

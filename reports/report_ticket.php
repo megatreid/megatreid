@@ -1,6 +1,6 @@
 <?php
 $move = 0;
-
+$movepay = 0;
 // Устанавливаем индекс активного листа
 $xls->setActiveSheetIndex(2);
 require '/func/arrays.php';
@@ -72,6 +72,37 @@ $sheet->setCellValue($row[11+$move].'7', 'Транспорт');
 $sheet->mergeCells($row[12 + $move].'6:'.$row[12 + $move].'7');
 $sheet->setCellValue($row[12+$move].'6', 'Сумма');
 
+if(isset($paystatus) AND $paystatus=="yes"){
+	$movepay = 3;
+	$sheet->mergeCells($row[13 + $move].'6:'.$row[13 + $move].'7');
+	$sheet->setCellValue($row[13+$move].'6', 'Номер счета');
+	$sheet->mergeCells($row[14 + $move].'6:'.$row[14 + $move].'7');
+	$sheet->setCellValue($row[14+$move].'6', 'Дата платежа');	
+	$sheet->mergeCells($row[15 + $move].'6:'.$row[15 + $move].'7');
+	$sheet->setCellValue($row[15+$move].'6', 'Статус платежа');
+	$sheet->getColumnDimension($row[13+$move])->setWidth(15);
+	$sheet->getColumnDimension($row[14+$move])->setWidth(15);
+	$sheet->getColumnDimension($row[15+$move])->setWidth(15);
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	$sheet->getStyle('A6:'.$row[12 + $move].'7')->getAlignment()->setWrapText(true);
+}
+
+
+
+
+
+
 $all_cost_in_project = 0;
 $row_start = 8;
 $rowplus = 0;
@@ -88,8 +119,7 @@ foreach($_POST['id_projects'] as $id_project)
 	if($objects)
 	{
 		$cash_abplata_month = 0; //Месячная абонплата
-		
-		
+
 		foreach($objects as $object)
 		{
 			$id_odject = $object['id_object'];
@@ -170,7 +200,20 @@ foreach($_POST['id_projects'] as $id_project)
 					$sheet->setCellValue($row[12 + $move].$row_next, $summ);
 					$rowplus++;
 					$all_cost_in_project += $summ;
-					
+					if(isset($paystatus) AND $paystatus=="yes"){
+						$sheet->setCellValue($row[13 + $move].$row_next, $rep_ticket['customer_account_number']);
+						if($rep_ticket['customer_date_payment'] != 0){
+							$convertticketdate = strtotime($rep_ticket['customer_date_payment']);
+							$ticketdate = date( 'd-m-Y', $convertticketdate );
+						}
+						else{
+							$ticketdate = '';
+						}
+						
+						$sheet->setCellValue($row[14 + $move].$row_next, $ticketdate);
+						$sheet->setCellValue($row[15 + $move].$row_next, $paymentstatus_array[$rep_ticket['customer_payment_status']]);
+						
+					}
 				
 				}
 			}
@@ -180,13 +223,17 @@ foreach($_POST['id_projects'] as $id_project)
 $sheet->setCellValue($row[11 + $move].($row_next + 1), "ИТОГО:");
 $sheet->setCellValue($row[12 + $move].($row_next + 1), $all_cost_in_project);
 $sheet->getStyle($row[12 + $move].($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
-$sheet->getStyle('A6:'.$row[12 + $move].'7')->applyFromArray($style_header);
+$sheet->getStyle('A6:'.$row[12 + $move + $movepay].'7')->applyFromArray($style_header);
 $sheet->getStyle('A7:'.$row[6 + $move].($row_next))->applyFromArray($style_left);
-$sheet->getStyle('A6:'.$row[12 + $move].'7')->applyFromArray($style_center);
+$sheet->getStyle('A6:'.$row[12 + $move + $movepay].'7')->applyFromArray($style_center);
 $sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->applyFromArray($style_center);
-$sheet->getStyle('A6:'.$row[12 + $move].($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:'.$row[12 + $move + $movepay].($row_next))->applyFromArray($style_wrap);
+
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:'.$row[12 + $move + $movepay].'7')->getAlignment()->setWrapText(true);
 $sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
+
+$sheet->getStyle($row[14 + $move].'8:'.$row[14 + $move].($row_next))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
 ?>

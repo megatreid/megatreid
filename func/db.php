@@ -220,7 +220,7 @@ function Show_Contr($connection, $geo_table, $geo_row, $geo_search, $art, $kol)
 function Show_Contr_for_select($connection) 
 {
 
-	$search = "SELECT DISTINCT city_id  FROM contractor ORDER BY city_id ASC";
+	$search = "SELECT DISTINCT city_id, status  FROM contractor ORDER BY city_id ASC";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
@@ -605,10 +605,10 @@ function Delete_Object ($connection, $var)
 
 /********************************ЗАЯВКИ*****************************************/
 
-function Add_Ticket($connection, $ticket_number, $year, $month, $id_object, $ticket_date, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $engineer, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
+function Add_Ticket($connection, $ticket_number, $year, $month, $id_object, $ticket_date, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $customer_account_number, $customer_date_payment, $customer_payment_status, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $engineer, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
 {
 
-		$add_query ="INSERT INTO tickets VALUES(NULL, '$ticket_number', '$year', '$month', '$id_object', '$ticket_date', '$ticket_task', '$ticket_solution', '$ticket_material', '$ticket_status', '$ticket_sla', '$work_type', '$hours', '$cost_smeta', '$cost_material', '$cost_transport', '$comment', '$last_edit_datetime', '$last_edit_user_id', '$implementer', '$engineer', '$id_contractor', '$contr_cost_work', '$contr_cost_smeta', '$contr_cost_transport', '$contr_material', '$contr_cost_material', '$contr_account_number', '$contr_date_payment', '$contr_payment_status', '$contr_comment', '$supplier', '$supplier_cost_work', '$supplier_contr_material', '$supplier_cost_material', '$supplier_account_number', '$supplier_date_payment', '$supplier_payment_status', '$supplier_comment')";
+		$add_query ="INSERT INTO tickets VALUES(NULL, '$ticket_number', '$year', '$month', '$id_object', '$ticket_date', '$ticket_task', '$ticket_solution', '$ticket_material', '$ticket_status', '$ticket_sla', '$work_type', '$hours', '$cost_smeta', '$cost_material', '$cost_transport', '$customer_account_number', '$customer_date_payment', '$customer_payment_status', '$comment', '$last_edit_datetime', '$last_edit_user_id', '$implementer', '$engineer', '$id_contractor', '$contr_cost_work', '$contr_cost_smeta', '$contr_cost_transport', '$contr_material', '$contr_cost_material', '$contr_account_number', '$contr_date_payment', '$contr_payment_status', '$contr_comment', '$supplier', '$supplier_cost_work', '$supplier_contr_material', '$supplier_cost_material', '$supplier_account_number', '$supplier_date_payment', '$supplier_payment_status', '$supplier_comment')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -649,7 +649,7 @@ function Edit_Ticket($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $id_engineers_array, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
+function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type, $hours, $cost_smeta, $cost_material, $cost_transport, $customer_account_number, $customer_date_payment, $customer_payment_status, $comment, $last_edit_datetime, $last_edit_user_id, $implementer, $id_engineers_array, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment)
 {
 	$update = "UPDATE `tickets` SET 
 	`ticket_number`='$ticket_number',
@@ -665,6 +665,9 @@ function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $
 	`cost_smeta`='$cost_smeta',
 	`cost_material`='$cost_material',
 	`cost_transport`='$cost_transport',
+	`customer_account_number`='$customer_account_number',
+	`customer_date_payment`='$customer_date_payment', 
+	`customer_payment_status`='$customer_payment_status',
 	`comment`='$comment',
 	`last_edit_datetime`='$last_edit_datetime',
 	`last_edit_user_id`='$last_edit_user_id',

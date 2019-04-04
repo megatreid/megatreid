@@ -57,7 +57,7 @@ if(isset($_POST['customer_report']))
 	$month_end_name = $months[$month_end-1];
 	$month_period = ($month_end - $month_start) + 1;
 	$ispolnitel = trim(filter_input(INPUT_POST, 'ispolnitel'));
-	
+	$paystatus = trim(filter_input(INPUT_POST, 'paystatus'));
 	$errors=array();//массив сообшений ошибок
 	if($month_start > $month_end)
 		{
@@ -350,14 +350,14 @@ $xls->setActiveSheetIndex(0);
 				</tr>
 				<tr>
 					<td class="rowt">Отчетный период:</td> <!-- **********************ВЫБОР МЕСЯЦА***********************-->
-					<td> с
+					<td colspan='2'> с
 					<select name="month_start" id="month" >
 						<?php for($i = 1; $i < 13; $i++) { ?>
 							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
 						<?php } ?>
 					</select>
-					</td>
-					<td>по
+					
+					по
 					<select name="month_end" id="month">
 						<?php for($i = 1; $i < 13; $i++) { ?>
 							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
@@ -387,7 +387,12 @@ $xls->setActiveSheetIndex(0);
 				
 				<tr>
 				<td><p><button name="customer_report" class="button-new">Создать отчет</button></p></td>
-				<td colspan="2"><p class="rowt_left"><input type="checkbox" name="ispolnitel" value="yes">Добавить исполнителей в отчет по заявкам</p></td>
+				<td colspan="2"><p class="rowt_left"><input type="checkbox" name="ispolnitel" value="yes">Добавить исполнителей в отчет по заявкам</p>
+				<p class="rowt_left"><input type="checkbox" name="paystatus" value="yes">Добавить статус платежа в отчет по заявкам</p>
+				
+				
+				</td>
+				
 				</tr>
 				<?php }?>
 			</form>

@@ -61,6 +61,10 @@ $hours = trim(filter_input(INPUT_POST, 'hours', FILTER_SANITIZE_FULL_SPECIAL_CHA
 $cost_smeta = trim(filter_input(INPUT_POST, 'cost_smeta', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $cost_material = trim(filter_input(INPUT_POST, 'cost_material', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $cost_transport = trim(filter_input(INPUT_POST, 'cost_transport', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+//**************************************************
+$customer_account_number = trim(filter_input(INPUT_POST, 'customer_account_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$customer_date_payment = trim(filter_input(INPUT_POST, 'customer_date_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$customer_payment_status = trim(filter_input(INPUT_POST, 'customer_payment_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 //$last_edit_datetime = trim(filter_input(INPUT_POST, 'last_edit_datetime'));
 $last_edit_user_id = trim(filter_input(INPUT_POST, 'last_edit_user_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -169,7 +173,7 @@ if( isset($data['new_ticket']))
 		if(empty($errors))
 		{
 			
-			$newticket = Add_Ticket ($link, $ticket_number, $year, $month, $id_object, $currnetdatetime, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type,  $hours,  $cost_smeta, $cost_material, $cost_transport, $comment, $currnetdatetime, $user_id, $implementer, $id_engineers_array, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment);
+			$newticket = Add_Ticket ($link, $ticket_number, $year, $month, $id_object, $currnetdatetime, $ticket_task, $ticket_solution, $ticket_material, $ticket_status, $ticket_sla, $work_type,  $hours,  $cost_smeta, $cost_material, $cost_transport, $customer_account_number, $customer_date_payment, $customer_payment_status, $comment, $currnetdatetime, $user_id, $implementer, $id_engineers_array, $id_contractor, $contr_cost_work, $contr_cost_smeta, $contr_cost_transport, $contr_material, $contr_cost_material, $contr_account_number, $contr_date_payment, $contr_payment_status, $contr_comment, $supplier, $supplier_cost_work, $supplier_contr_material, $supplier_cost_material, $supplier_account_number, $supplier_date_payment, $supplier_payment_status, $supplier_comment);
 			
 			if($newticket){
 			?>
@@ -370,6 +374,30 @@ if( isset($data['new_ticket']))
 								<td><input id="cost_transport" class="StyleSelectBox" name="cost_transport" type="number" step="any" value="<?= @$data['cost_transport'];?>"/></td>
 							</tr>
 						</div>
+						<!-- НОМЕР СЧЕТА --> 
+						<tr>
+							<td class="reg_dohod_td"><label for="customer_account_number">Номер счета:</label></td>
+							<td>
+								<input id="customer_account_number" class="StyleSelectBox" name="customer_account_number"  type="text" value="<?= @$data['customer_account_number'];?>"/>
+							</td>
+						</tr>
+						<!-- ДАТА ПЛАТЕЖА -->
+						<tr>
+							<td class="reg_dohod_td"><label for="customer_date_payment">Дата платежа:</label></td>
+							<td>
+								<input id="customer_date_payment" class="StyleSelectBox" name="customer_date_payment" type="date" value="<?= @$data['customer_date_payment']; ?>"/>
+							</td>
+						</tr>
+						<!-- СТАТУС ПЛАТЕЖА -->
+						<tr>
+							<td class="reg_dohod_td"><label for="customer_payment_status">Статус платежа:</label></td>
+							<td>
+								<select class="reg_select" name="customer_payment_status" id="customer_payment_status">
+									<option selected value="0">Неоплачено</option>
+									<option value="1">Оплачено</option>
+								</select>
+							</td>
+						</tr>						
 						<tr>
 							<td class="reg_dohod_td"><label for="comment">Примечание:</label></td>
 							<td><textarea class="reg_textarea" id="comment" name="comment" title="Поле должно содержать не более 100 символов!" ><?= @$data['comment'];?></textarea></td>
@@ -416,9 +444,7 @@ if( isset($data['new_ticket']))
 					</td>
 						
 					</tr>
-					<tr>
 
-					</tr>
 				</table>
 
 	</div>
