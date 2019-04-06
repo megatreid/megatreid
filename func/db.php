@@ -865,7 +865,26 @@ function Update_Status_Project($connection, $id_project, $status)
 	mysqli_close($connection);	
 }
 
+function ToMail_Tickets($connection, $days) 
+{
+	$search = "SELECT ticket_number, id_object, ticket_status FROM tickets WHERE (ticket_status = '0' OR ticket_status = '2') AND (DATEDIFF(NOW(),`ticket_date`)) > '$days'";
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        } 
+    return $array; 		
+    }
 
+}
 
 
 
