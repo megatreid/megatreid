@@ -44,9 +44,7 @@ $objects_abon = Show_Objects_abon($link);
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Подрядчик-->
 					</td>
-					<td>
-						
-					</td>
+					<td></td>
 				</tr>
 			</thead>	
 <?php if($objects_abon){
@@ -63,7 +61,7 @@ $objects_abon = Show_Objects_abon($link);
 				$contractor_info = "Подрядчик не выбран";
 			}
 		?>
-			<tr class="text_show">
+			<tr class="reg_text_show_tickets">
 			
 				<td align="center"><a href="editcustomer.php?edit=<?=$object_abon['id_customer'];?>"><?=$customer_info['customer_name'];?></a></td>
 				<td align="center"><a href="editproject.php?edit_project=<?=$object_abon['id_project'];?>"><?=$project_info['projectname']?></a></td>
