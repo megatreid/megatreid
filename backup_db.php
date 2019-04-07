@@ -38,7 +38,29 @@ if( isset($data['backup']))
 	 * @param string $dir
 	 * @param string $maxFilesCount
 	 */
-
+	function cleanDirectory($dir, $maxFilesCount)
+	{
+		$filenames = [];
+	 
+		foreach(scandir($dir) as $file) {
+			$filename = "$dir/$file";
+			if (is_file($filename)) {
+				$filenames[] = $filename;
+			}
+		}
+	 
+		if (count($filenames) <= $maxFilesCount) {
+			return;
+		}
+	 
+		$freshFilenames = array_reverse($filenames);
+		array_splice($freshFilenames, $maxFilesCount);
+		$oldFilenames = array_diff($filenames, $freshFilenames);
+	 
+		foreach ($oldFilenames as $filename) {
+			unlink($filename);
+		}
+	}
 }
 ?>
 <!DOCTYPE html>
