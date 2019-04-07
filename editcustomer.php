@@ -249,8 +249,9 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 </head>
 <body>
 	<div class="showany">
+	
 	<div class="contr_registr">
-	<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Редактирование:</p>
+	<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Редактирование:</div>
 	
 			<?php if($err == TRUE){?>
 				<div class="error-message"><?=array_shift($errors)?></div>

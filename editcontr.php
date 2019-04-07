@@ -207,8 +207,9 @@ if( isset($data_update['do_editcontr']))
 </head>
 <body>
 	<div class="showany">
+	<div class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Редактирование:</div>
 	<div class="contr_registr">
-	<p class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Редактирование:</p>
+	
 
 	<?php if($err == TRUE){?>
 	<div class="error-message"><?=array_shift($errors)?></div>
