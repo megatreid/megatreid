@@ -216,7 +216,7 @@ $errors=array();//массив сообшений ошибок
 <body>
 	<div class="showany">
 		<div class="contr_registr">	
-		<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Новый заказчик:</p>
+		<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Новый заказчик:</div>
 
 			<?php if($err==1){?>
 			<div class="error-message"><?=array_shift($errors)?></div>

@@ -16,14 +16,14 @@ require '/func/arrays.php';
 <?php
 	$users = Show_Users($link);
 ?>
-<div class="newuser"><a href='/newuser.php' ><button class="button-new">Добавить нового пользователя</button></a></div>
-	<div class="showusers">
-			<p class="breadcrumbs">Пользователи системы:</p>
-				
+
+	<div class="showcustomer">
+			<div class="breadcrumbs">Пользователи системы:</div>
+			<div class="newticket"><a href='/newuser.php' ><button class="button-new">Добавить нового пользователя</button></a></div>				
 				<table border="1" cellspacing="0">
 					<thead>
 						<tr class="hdr">
-							<th>№</th>
+							<th width=1%>№</th>
 							<th>Фамилия</th>
 							<th>Имя</th>
 							<th>Отчество</th>
@@ -31,12 +31,12 @@ require '/func/arrays.php';
 							<th>Мобильный</th>
 							<th>Логин</th>
 							<th>Уровень</th>
-							<th>Действие</th>
+							<th width=1%>Действие</th>
 						</tr>
 					</thead>
 					<tbody>
 				<?php foreach($users as $i => $users) { ?>
-					<tr>
+					<tr class="reg_text_show_tickets">
 						<td align="center"><?=$i+1?></td>
 						<td align="center"><?=$users['surname']?></td>
 						<td align="center"><?=$users['name']?></td>

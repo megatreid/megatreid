@@ -35,8 +35,9 @@ if(isset($_GET['look']))
 </head>
 <body>
 	<div class="showany">
-	<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Просмотр:</p>
+	
 	<div class="for_look">
+	<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Просмотр:</div>
 		<table>
 		<tr>
 			<td class="rowt">Название организации:</td>

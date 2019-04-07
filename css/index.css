@@ -302,8 +302,8 @@ text-decoration: underline
 	//-webkit-border-radius: 20px;
 }
 .showany{
-	//display: block;
-	//position: relative;
+	display: block;
+	position: relative;
 	font-family: Arial, Helvetica, sans-serif; 
 	//width: 100%;
 	
@@ -316,8 +316,8 @@ text-decoration: underline
 	//background: #D7E1E6;
 	//background: linear-gradient(90deg, rgba(121,58,180,0) 0%, #C6D3DA 50%, #C6D3DA 50%, rgba(131,58,180,0) 100%);
 	text-align: center;
-	//margin: 0 auto; /* Отступ справа */
-	margin-top: 25px;
+	margin: 0 auto; /* Отступ справа */
+	//margin-top: 5px;
 	//border-radius: 20px;
 	//-moz-border-radius: 20px;
 	//-webkit-border-radius: 20px;
@@ -765,7 +765,7 @@ display: block;
 	border-collapse: collapse; 
 	//background:#F0FFFF;
 	border: 0px solid #A8A8A8;
-	padding: 10px;
+	//padding: 10px;
 }
 .hdr {
 	background:#ADD8E6;
@@ -776,16 +776,18 @@ display: block;
 }
 
 .newcustomer {
-	position: absolute;
-	//position: relative;
-	top: 15px;
+	display: block;
+	//position: absolute;
+	position: relative;
+	//top: 15px;
 	left: 0px;
 }
 .newticket {
+	display: block;
 	position: absolute;
 	//position: relative;
-	top: 95px;
-	left: 0px;
+	top: 10px;
+	right: 0px;
 }
 
 .rowt{
@@ -806,7 +808,7 @@ display: block;
 	display: inline-block;/*Задаем обтекание*/
 	position: relative;
 	border: 2px double #B0E0E6;
-	top: -10px;
+	//top: 10px;
 	vertical-align: top;
 	background: #E5EEF0;
 	min-height:950px;
@@ -816,28 +818,28 @@ display: block;
 	clear: inherit;
 }
 .contr_registr{
-	display: inline-block;/*Задаем обтекание*/
+	display: block;/*Задаем обтекание*/
 	position: relative;
 	border: 2px double #B0E0E6;
-	top: -10px;
-	vertical-align: top;
+	//top: 10px;
+	//vertical-align: top;
 	background: #E5EEF0;
 	//min-height:950px;
 	width: 500px;
-	margin: 0px 5px;
+	margin: 20px auto;
 	box-shadow: -10px 0px 28px rgba(0,0,0,0.3), 10px 0px 28px rgba(0,0,0,0.3);
 	clear: inherit;
 }
 .for_look{
-	display: inline-block;/*Задаем обтекание*/
+	display: block;/*Задаем обтекание*/
 	position: relative;
 	border: 2px double #B0E0E6;
-	top: -10px;
+	//top: -10px;
 	vertical-align: top;
 	background: #E5EEF0;
 	//min-height:950px;
 	width: 500px;
-	margin: 0px 5px;
+	margin: 20px auto;
 	box-shadow: -10px 0px 28px rgba(0,0,0,0.3), 10px 0px 28px rgba(0,0,0,0.3);
 	clear: inherit;
 }
@@ -1068,6 +1070,8 @@ text-decoration: none;
 .breadcrumbs {
 	display: block;
 	position: relative;
+	margin: 0 auto;
+	padding-bottom: 10px;
 	top: 5px;
 	font-size: 17px;
 	font-family: Arial, Helvetica, sans-serif; 
@@ -1075,6 +1079,7 @@ text-decoration: none;
 	//text-align: left;
 	font-weight: bold;
 	color: #000000;
+	width: 500px;
 	
 }
 .breadcrumbs a{
@@ -1218,7 +1223,7 @@ border-radius: 2px;
     h1, h2, p {
      color: #000; /* Черный цвет текста */
 	}
-	.showany{
+.showany{
 	
 	font-family: Arial, Helvetica, sans-serif; 
 	

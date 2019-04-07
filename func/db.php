@@ -434,7 +434,7 @@ function Delete_Customer($connection, $var)
 function Show_Projects($connection, $var) 
 {
 
-	$search = "SELECT * FROM projects WHERE id_customer='$var'";
+	$search = "SELECT * FROM projects WHERE id_customer='$var' ORDER BY projectname, status ASC";
 
     //$search = "SELECT * FROM Users";
     $result = $connection->query ($search);

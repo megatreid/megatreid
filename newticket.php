@@ -209,7 +209,7 @@ if( isset($data['new_ticket']))
 
 	<div class="showany">
 	
-	<p class="breadcrumbs"> <a href="showtickets.php">Заявки</a> / Новая заявка:</p>
+	<div class="breadcrumbs"> <a href="showtickets.php">Заявки</a> / Новая заявка:</div>
 		<?php if($err==TRUE){?>
 		<h1><div class="error-message"><?=array_shift($errors)?></div></h1>
 	<?php }?>

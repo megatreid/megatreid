@@ -114,7 +114,7 @@
 					<ul>
 						<li><a href="showusers.php">Пользователи</a></li>
 						<li><a href="geo_update.php">Редактирование географических объектов</a></li>
-						<li><a href="cron.php">Тестирование</a></li>
+						<li><a href="backup_db.php">Резервирование БД</a></li>
 					</ul>
 				</li>
 					<?php }?>

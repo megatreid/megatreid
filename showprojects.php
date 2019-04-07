@@ -19,9 +19,9 @@ if(isset($_GET['id_customer']))
 </head>
 <body>
 	<div class="showcustomer">
-			<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Проекты (<?=$customers['customer_name'];?>):</p>
+			<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Проекты (<?=$customers['customer_name'];?>):</div>
 			<?php if($_SESSION['userlevel']<3){ ?>
-				<div class="newcustomer">
+				<div class="newticket">
 					<a href='/newproject.php?id_customer=<?=$data?>'><button class="button-new">Добавить новый проект</button></a>
 				</div>
 			<?php }?>

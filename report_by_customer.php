@@ -294,7 +294,7 @@ $xls->setActiveSheetIndex(0);
 		<link rel="stylesheet" href="css/index.css">
 	</head>
 	<body>
-		<div class="showany">
+		<div class="showany"><p>
 		<p class="breadcrumbs">Отчет по заказчику</p>
 		<div class="reg_sel_object">
 			<?php if($err==TRUE){?>
@@ -398,6 +398,9 @@ $xls->setActiveSheetIndex(0);
 			</form>
 			</table>
 		</div>
+		</p>
+		<div id="footer">&copy; ООО "МегаТрейд"</div>
 		</div>
+		
 	</body>
 </html>

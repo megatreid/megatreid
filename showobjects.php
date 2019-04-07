@@ -21,9 +21,9 @@ if(isset($_SESSION['userlevel']))
 	</head>
 	<body>
 		<div class="showcustomer">
-			<p class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > <a href='showprojects.php?id_customer=<?= $customers['id_customer'] ?>'>Проекты (<?=$customers['customer_name'];?>)</a> > Объекты (<?=$projects['projectname'];?></a>):</p>
+			<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > <a href='showprojects.php?id_customer=<?= $customers['id_customer'] ?>'>Проекты (<?=$customers['customer_name'];?>)</a> > Объекты (<?=$projects['projectname'];?></a>):</div>
 			<?php if($_SESSION['userlevel']<3){ ?>	
-				<div class="newcustomer">
+				<div class="newticket">
 					<a href='/newobject.php?id_project=<?=$data?>'><button class="button-new">Добавить новый объект</button></a>
 				</div>
 			<?php }?>	

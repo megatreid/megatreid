@@ -75,15 +75,16 @@ $contrs = Show_Contractor($link, $condition);
 </head>
 
 <body>
-	<div class="showcontr">
-			<p class="breadcrumbs">Подрядчики:</p>
+	<div class="showcustomer">
+			
 			
 			<?php
 			if($_SESSION['userlevel'] < 3) { ?>
-				<div class="newcontr">
+				<div class="newticket">
 					<a href='/newcontr.php' ><button class="button-new">Добавить нового подрядчика</button></a>
 				</div>
 			<?php }?>
+			<div class="breadcrumbs">Подрядчики:</div>
 				<!--
 				<div class="searchcontr">
 				<form action="showcontractor.php" method="POST">
