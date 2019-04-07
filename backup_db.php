@@ -20,7 +20,7 @@ $config = [
 ];
  
 $ip = !empty($config['ip']) ? "-h $config[ip]" : '';
-$filename = str_replace('<date>', date('d-m-Y'), $config['filenamePattern']);
+$filename = str_replace('<date>', date('Y-m-d_H-i-s'), $config['filenamePattern']);
 $command = "mysqldump $ip -u {$config['db']['user']} -p{$config['db']['password']} --extended-insert=false {$config['db']['name']} > {$config['path']}/$filename";
 
 //exec($command);
@@ -69,7 +69,7 @@ function cleanDirectory($dir, $maxFilesCount)
 <body>
 <div class="main">
 <div>
-	Резервная копия базы данных "megatreid" сохранена в папке <b>/backup/</b> корневого каталога. Имя файла: <b><?=$filename;?></b>.
+	Резервная копия базы данных "megatreid" сохранена в папке <a href="/backup/" title="открыть каталог" target="_blank"><b>/backup/</b></a> корневого каталога системы.<br>Имя файла:  <a href="backup/<?=$filename;?>" title="скачать файл"><b><?=$filename;?></b></a>.
 	
 </div>
 			<div>
