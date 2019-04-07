@@ -48,9 +48,9 @@ if(isset($_GET['look']))
 </head>
 <body>
 		<div class="showany">
-		<div class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Просмотр:</div>
+		
 			<div class="contr_registr">
-				
+			<div class="breadcrumbs"><a href='/showcontractor.php'>Подрядчики</a> > Просмотр:</div>	
 
 					<table>
 
