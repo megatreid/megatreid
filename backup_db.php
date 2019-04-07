@@ -4,6 +4,7 @@ require_once 'blocks/header.php';
 $data = $_POST;
 if( isset($data['backup']))
 {
+	
 	$config = [
 		// ip адрес сервера, с которого будем копировать базу
 		'ip'              => 'localhost',
