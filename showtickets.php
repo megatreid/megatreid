@@ -115,6 +115,13 @@ if( isset($data['method_payment']))
 		}
 	}	
 
+if( isset($data['year_select']))
+	{		
+		$_SESSION['year_select'] = trim(filter_input(INPUT_POST, 'year_select'));
+		
+	}
+if(!isset($_SESSION['year_select'])) $_SESSION['year_select'] = date('Y');
+
 switch($method_payment_table)
 	{
 		case '0':	
@@ -129,7 +136,10 @@ switch($method_payment_table)
 		default:		
 			$method_payment_select = "";	
 	}
-	$_SESSION['method_payment_select'] = $method_payment_select;
+	
+	
+	
+	$_SESSION['method_payment_select'] = $method_payment_select." AND year = ".$_SESSION['year_select']." ";
 
 	$tickets = Show_Tickets($link, $_SESSION['ticket_status'], $_SESSION['pay_status_select'], $_SESSION['method_payment_select'] , $current_month, $implementer);
 	if($tickets){
@@ -190,7 +200,11 @@ switch($method_payment_table)
 								<input class="reg_input_filter" type="text"/><!--Дата заведения-->
 							</td>
 							<td>
-								<input class="reg_input_filter" type="text"/><!--Год-->
+								<select class="reg_select_filter" name="year_select" id="year" onchange="this.form.submit()">
+									<?php for($i = 2015; $i < 2071; $i++) { ?>
+										<option  value="<?=$i;?>" <?= ($i == $_SESSION['year_select']) ? 'selected' : ''?>><?=$i;?></option>
+									<?php } ?>
+								</select>
 							</td>							
 							<td>
 								<input class="reg_input_filter" type="text"/><!--Месяц-->
