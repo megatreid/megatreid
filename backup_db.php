@@ -38,7 +38,7 @@ if( isset($data['backup']))
 	 * @param string $dir
 	 * @param string $maxFilesCount
 	 */
-	function cleanDirectory($dir, $maxFilesCount)
+function cleanDirectory($dir, $maxFilesCount)
 	{
 		$filenames = [];
 	 
