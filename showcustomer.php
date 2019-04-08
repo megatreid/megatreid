@@ -15,7 +15,7 @@ $customer = Show_Customer($link);
 <body>
 	<div class="showcustomer">
 		<div class="breadcrumbs">Заказчики:</div>
-		<?php if($_SESSION['userlevel']<3){ ?>
+		<?php if($_SESSION['userlevel']<=3){ ?>
 			<div class="newticket">
 				<a href='/newcustomer.php'><button class="button-new">Добавить нового заказчика</button></a>
 			</div>
@@ -30,7 +30,7 @@ $customer = Show_Customer($link);
 					<th>Контактный<br>телефон</th>							
 					<th>E-Mail</th>
 					<th  width=1%>Статус</th>
-					<th width="1" <?php if($_SESSION['userlevel'] < 3){ ?> colspan="2"<?php }?>>Действие</th>
+					<th width="1" <?php if($_SESSION['userlevel'] <= 3){ ?> colspan="2"<?php }?>>Действие</th>
 					<th width="1">Проекты</th>
 				</tr>
 				<tr class='table-filters'>
@@ -104,7 +104,7 @@ $customer = Show_Customer($link);
 					<?php }}?>
 				</td>
 				<td align="center"><?=$statusedit[$customers['status']];?></td>
-				<?php if($_SESSION['userlevel']<3){ ?>
+				<?php if($_SESSION['userlevel']<=3){ ?>
 				<td align="center" width="1">
 					<a href='/editcustomer.php?edit=<?= $customers['id_customer'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a>
 				</td>

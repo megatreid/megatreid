@@ -1,6 +1,6 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2)
+if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 {
 require_once 'blocks/header.php';
 require '/func/arrays.php';
@@ -369,6 +369,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 
 						<input class="button" value="Сохранить" type="submit" name="do_editcustomer"/>
 						<input class="button" value="К списку заказчиков" type="button" onclick="location.href='showcustomer.php'"/>
+						<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>
 						<a href="#delete_customer" class="button-delete">Удалить заказчика</a>
 						<div id="delete_customer" class="modalDialog">
 							<div>
@@ -381,7 +382,7 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 
 							</div>
 						</div>				
-						
+						<?php }?>
 					</form>
 					</div>
 				</div>

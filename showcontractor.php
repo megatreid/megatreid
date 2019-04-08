@@ -79,7 +79,7 @@ $contrs = Show_Contractor($link, $condition);
 			
 			
 			<?php
-			if($_SESSION['userlevel'] < 3) { ?>
+			if($_SESSION['userlevel'] <= 3) { ?>
 				<div class="newticket">
 					<a href='/newcontr.php' ><button class="button-new">Добавить нового подрядчика</button></a>
 				</div>
@@ -201,7 +201,7 @@ setTimeout(function(){
 						<td><?=$statusedit[$contr['status']];?></td>
 						<!-- <td align="center"><?=$contrs['system_no']?></td> -->
 						<?php
-							if($_SESSION['userlevel'] < 3) { ?>
+							if($_SESSION['userlevel'] <= 3) { ?>
 							<td align="center"><a href='/editcontr.php?edit=<?= $contr['id_contractor'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a></td>
 						<?php	} ?>
 						<td align="center"><a href='/lookcontr.php?look=<?= $contr['id_contractor'] ?>' title = 'Посмотреть'><img src='/images/lupa.png' width='20' height='20'></a></td>

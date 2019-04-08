@@ -22,7 +22,7 @@ if(isset($_SESSION['userlevel']))
 	<body>
 		<div class="showcustomer">
 			<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > <a href='showprojects.php?id_customer=<?= $customers['id_customer'] ?>'>Проекты (<?=$customers['customer_name'];?>)</a> > Объекты (<?=$projects['projectname'];?></a>):</div>
-			<?php if($_SESSION['userlevel']<3){ ?>	
+			<?php if($_SESSION['userlevel']<=3){ ?>	
 				<div class="newticket">
 					<a href='/newobject.php?id_project=<?=$data?>'><button class="button-new">Добавить новый объект</button></a>
 				</div>
@@ -38,7 +38,7 @@ if(isset($_SESSION['userlevel']))
 							<th>Адрес</th>
 							<th width=1%>Статус</th>
 							<th width="1">Абонентская<br>плата (руб.)</th>
-							<?php if($_SESSION['userlevel']<3){ ?>	
+							<?php if($_SESSION['userlevel']<=3){ ?>	
 							<th width=1%>Действие</th>
 							<?php }?>
 						</tr>
@@ -81,7 +81,7 @@ if(isset($_SESSION['userlevel']))
 						<td align="center"><?=$object['address']?></td>
 						<td align="center"><?=$statusedit[$object['status']];?></td>
 						<td align="center"width="1"><?=$object['abon_plata']?></td>
-						<?php if($_SESSION['userlevel']<3){ ?>
+						<?php if($_SESSION['userlevel']<=3){ ?>
 						<td align="center" width="1"><a href='/editobject.php?edit_object=<?= $object['id_object'] ?>' title = 'Редактировать'>
 						<img src='/images/edit.png' width='20' height='20'></td>
 						<?php }?>

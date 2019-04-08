@@ -1,7 +1,7 @@
 <?php
 require '/connection/config.php';
 //ini_set('display_errors', '1');
-if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']==1) OR $_SESSION['userlevel']==2)
+if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<=3)
 {
 require_once 'blocks/header.php'; 
 require '/func/arrays.php';
@@ -356,6 +356,7 @@ if( isset($data_update['do_editcontr']))
 			</table>
 			<input class="button" value="Сохранить" type="submit" name="do_editcontr"/>
 			<input class="button" value="К списку подрядчиков" type="button" onclick="location.href='showcontractor.php'"/>
+			<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>
 			<a href="#delete_contr" class="button-delete">Удалить подрядчика</a>
 			<div id="delete_contr" class="modalDialog">
 			<div>
@@ -368,6 +369,7 @@ if( isset($data_update['do_editcontr']))
 			<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
 			</div>
 			</div>
+			<?php }?>
 		</form>
 	</div>
 <div id="footer">&copy; ООО "МегаТрейд"</div>			

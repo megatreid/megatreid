@@ -1,7 +1,7 @@
 <?php
 require '/connection/config.php';
 
-if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<3)
+if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 {
 	require_once '/blocks/header.php';
 	require '/func/arrays.php';
@@ -236,6 +236,7 @@ if( isset($data_post['edit_object']))
 					
 					<input class="button" value="Сохранить" type="submit" name="edit_object"/>
 					<input class="button" value="К списку объектов" type="button" onclick="location.href='showobjects.php?id_project=<?=$id_project;?>'"/>
+					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>
 				<a href="#delete_object" class="button-delete">Удалить объект</a>
 					<div id="delete_object" class="modalDialog">
 						<div>
@@ -248,7 +249,7 @@ if( isset($data_post['edit_object']))
 						<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
 						</div>
 					</div>
-
+					<?php }?>
 				</div>
 			</form>
 		</div>	

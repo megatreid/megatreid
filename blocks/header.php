@@ -96,7 +96,7 @@
 					</ul>
 				</li>
 				<?php }?>
-				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] == 1) {?>
+				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <= 3) {?>
 				<li><a href="showcustomer.php">Заказчики</a></li>
 				<li><a href="showcontractor.php">Подрядчики</a></li>
 				<li><a href="">Отчеты</a>
@@ -112,9 +112,13 @@
 				</li>
 				<li><a href="">Администрирование</a>
 					<ul>
+					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>
 						<li><a href="showusers.php">Пользователи</a></li>
+					<?php }?>
 						<li><a href="geo_update.php">Редактирование географических объектов</a></li>
+					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>	
 						<li><a href="backup_db.php">Резервирование БД</a></li>
+					<?php }?>	
 					</ul>
 				</li>
 					<?php }?>

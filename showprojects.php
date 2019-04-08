@@ -20,7 +20,7 @@ if(isset($_GET['id_customer']))
 <body>
 	<div class="showcustomer">
 			<div class="breadcrumbs"><a href='/showcustomer.php'>Заказчики</a> > Проекты (<?=$customers['customer_name'];?>):</div>
-			<?php if($_SESSION['userlevel']<3){ ?>
+			<?php if($_SESSION['userlevel']<=3){ ?>
 				<div class="newticket">
 					<a href='/newproject.php?id_customer=<?=$data?>'><button class="button-new">Добавить новый проект</button></a>
 				</div>
@@ -35,7 +35,7 @@ if(isset($_GET['id_customer']))
 							<th  width="1" rowspan="2">Почасовой<br>тариф</th>
 							<th width="1" colspan="4">Стоимость инцидентов</th>
 							<!-- <th>Транспортные<br>расходы</th> -->
-							<?php if($_SESSION['userlevel']<3){ ?>
+							<?php if($_SESSION['userlevel']<=3){ ?>
 							<th width="1" rowspan="2">Действие</th>
 							<?php }?>
 							<th width="1" rowspan="2">Объекты</th>
@@ -78,7 +78,7 @@ if(isset($_GET['id_customer']))
 						<td  width="1" align="center"><?=$project['cost_incident_high']?></td>
 						<td  width="1" align="center"><?=$project['cost_incident_medium']?></td>
 						<td  width="1" align="center"><?=$project['cost_incident_low']?></td>
-						<?php if($_SESSION['userlevel']<3){ ?>
+						<?php if($_SESSION['userlevel']<=3){ ?>
 						<td width="1" align="center"><a href='/editproject.php?edit_project=<?= $project['id_project'] ?>' title = 'Редактировать'>
 						<img src='/images/edit.png' width='20' height='20'></td>
 						<?php }?>
