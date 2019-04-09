@@ -1,6 +1,6 @@
 <?php
 require '/connection/config.php';
-if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']<=3))
+if(isset($_SESSION['userlevel']) AND ($_SESSION['userlevel']<=4))
 {
 require_once 'blocks/header.php'; 
 require '/func/arrays.php';
@@ -503,7 +503,9 @@ if( isset($data['edit_ticket']))
 					<td align="right">
 						<div>
 							<!-- <button name="edit_ticket" class="button">Сохранить</button> -->
+							<?php if($_SESSION['userlevel']<3){ ?>
 							<input class="button" value="Сохранить" name="edit_ticket" type="submit" />
+							<?php }?>
 							<a href="showtickets.php#<?=$get_data?>" class="button"> Назад</a>
 							<!-- <input class="button" value="Назад" type="button" onclick="location.href='showtickets.php#'.<?=$get_data?>.'" /> -->
 						</div>

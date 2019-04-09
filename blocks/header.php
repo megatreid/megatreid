@@ -92,8 +92,10 @@
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=4) {?>
 				<li><a href="showtickets.php">Заявки</a>
 				<ul>
+				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=3) {?>
 						<li><a href="newticket.php">Создать заявку</a></li>
-					</ul>
+				<?php }?>
+				</ul>
 				</li>
 				<?php }?>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <= 3) {?>
