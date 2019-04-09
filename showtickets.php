@@ -25,6 +25,7 @@ header('Refresh: '.$_SESSION['delay'].'; url=' .$_SERVER['PHP_SELF']);
 else {
 	$_SESSION['delay'] = 0;
 	unset($_SESSION['delay']);
+	$implementer = "";
 }
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=4)
 {
