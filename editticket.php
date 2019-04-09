@@ -449,7 +449,7 @@ if( isset($data['edit_ticket']))
 						</tr>							
 						<tr>
 							<td class="reg_dohod_td"><label for="comment">Примечание:</label></td>
-							<td><textarea class="reg_textarea" id="comment" name="comment" title="Поле должно содержать не более 100 символов!" ><?= @$tickets['comment'];?></textarea></td>
+							<td><textarea class="reg_textarea" id="comment" name="comment" maxlength="500" title="Поле должно содержать не более 500 символов!" ><?= @$tickets['comment'];?></textarea></td>
 						</tr>
 						<tr>
 							<td class="reg_dohod_td"><label for="implementer">Исполнитель:</label></td>
@@ -642,7 +642,7 @@ if( isset($data['edit_ticket']))
 			</tr>
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_comment">Примечание:</label></td>
-				<td><textarea class="reg_textarea" id="contr_comment" name="contr_comment" title="Поле должно содержать не более 100 символов!" ><?= @$tickets['contr_comment'];?></textarea></td>
+				<td><textarea class="reg_textarea" id="contr_comment" name="contr_comment" maxlength="500" title="Поле должно содержать не более 500 символов!" ><?= @$tickets['contr_comment'];?></textarea></td>
 			</tr>
 			<tr id="contr_select">
 				<td class="reg_dohod_td_itogo">
@@ -704,7 +704,9 @@ if( isset($data['edit_ticket']))
 			</tr>
 			<tr>
 				<td class="reg_post_td"><label for="supplier_comment">Примечание:</label></td>
-				<td><textarea class="reg_textarea" id="supplier_comment" name="supplier_comment" title="Поле должно содержать не более 100 символов!" ><?= @$tickets['supplier_comment']; ?></textarea></td>
+				<td>
+					<textarea class="reg_textarea" id="supplier_comment" name="supplier_comment" maxlength="500" title="Поле должно содержать не более 500 символов!" ><?= @$tickets['supplier_comment']; ?></textarea>
+				</td>
 			</tr>
 			</form>
 			<tr>
