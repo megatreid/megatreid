@@ -503,7 +503,7 @@ if( isset($data['edit_ticket']))
 					<td align="right">
 						<div>
 							<!-- <button name="edit_ticket" class="button">Сохранить</button> -->
-							<?php if($_SESSION['userlevel']<3){ ?>
+							<?php if($_SESSION['userlevel']<=3){ ?>
 							<input class="button" value="Сохранить" name="edit_ticket" type="submit" />
 							<?php }?>
 							<a href="showtickets.php#<?=$get_data?>" class="button"> Назад</a>
