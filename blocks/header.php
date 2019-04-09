@@ -86,7 +86,7 @@
 			<ul>
 				<li><a href="/">Главная</a>
 					<ul>
-						<li><a href="screen_update.php#openModal">Настройка обновления экрана</a></li>
+						<li><a href="screen_update.php">Настройка обновления экрана</a></li>
 					</ul>
 				</li>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=4) {?>
