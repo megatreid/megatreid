@@ -20,10 +20,11 @@ else {
 }
 
 if(isset($_SESSION['delay']) AND $_SESSION['delay']>=10){
-header('Refresh: '.$_SESSION['delay'].'; url=' .$_SERVER['PHP_SELF']);	
+header('Refresh: '.$_SESSION['delay'].'; url=' .$_SERVER['PHP_SELF']);
 }
 else {
 	$_SESSION['delay'] = 0;
+	unset($_SESSION['delay']);
 }
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=4)
 {
@@ -161,7 +162,13 @@ switch($method_payment_table)
 
 </head>
 <body>
-
+<?php if(isset($_SESSION['delay'])) { ?>
+	<div class="update_screen">
+		<label title="Для отключения зайдите в меню 'Главная/Настройка обновления экрана' и выберите 'Отключить'">Включено обновление экрана с интервалом <?=$_SESSION['delay']?> секунд.</label>
+	</div>
+	
+	
+<?php }?>
 	<div class="showcustomer">
 		<div class="newticket">
 			<a href='newticket.php'><button class="button-new">Создать новую заявку</button></a>

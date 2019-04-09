@@ -46,7 +46,7 @@ if( isset($data['backup']))
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title>Контрагенты</title>
+	<title>Бэкап БД</title>
 </head>
 <body>
 <div class="main">

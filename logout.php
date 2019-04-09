@@ -11,6 +11,7 @@
 	unset($_SESSION['user_id']);
 	unset($_SESSION['ticket_status']);
 	unset($_SESSION['pay_status_select']);
+	unset($_SESSION['delay']);
 	//echo $wwwlink;
 	//header('location: '.$wwwlink.'');
 	header('location: /');

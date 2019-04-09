@@ -1084,13 +1084,22 @@ text-decoration: none;
 }
 .breadcrumbs a{
 	color:#0020BF;
-	
-	
 }
 .breadcrumbs a:hover{
 	color:red;
 	text-decoration: none;
 
+}
+.update_screen{
+	display: block;
+	position: absolute;
+	top: 90px;
+	left: 10;
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;	
+	color:#AF0000;
+	font-weight: bold;
+	z-index: 3;
 }
 .reg_input_filter{
 	width: 100%;
