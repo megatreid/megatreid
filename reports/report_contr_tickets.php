@@ -24,7 +24,8 @@ $sheet->getColumnDimension('L')->setWidth(14);
 $sheet->getColumnDimension('M')->setWidth(14);
 $sheet->getColumnDimension('N')->setWidth(14);
 $sheet->getColumnDimension('O')->setWidth(14);
-$sheet->getColumnDimension('P')->setAutoSize(true);
+$sheet->getColumnDimension('P')->setWidth(14);
+$sheet->getColumnDimension('Q')->setAutoSize(true);
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
@@ -61,18 +62,17 @@ $sheet->mergeCells('J6:J7');
 $sheet->setCellValue('J6', 'Статус платежа');
 $sheet->mergeCells('K6:K7');
 $sheet->setCellValue('K6', 'Дата платежа');
-
-
-
-$sheet->mergeCells('L6:O6');
-$sheet->setCellValue('L6', 'Расходы по заявке');
-$sheet->setCellValue('L7', 'Стоимость');
-$sheet->setCellValue('M7', 'Смета');
-$sheet->setCellValue('N7', 'Транспорт');
-$sheet->setCellValue('O7', 'Материалы');
-$sheet->mergeCells('P6:P7');
-$sheet->setCellValue('P6', 'Сумма');
-$sheet->getStyle('A6:P7')->getAlignment()->setWrapText(true);
+$sheet->mergeCells('L6:L7');
+$sheet->setCellValue('L6', 'Номер счета');
+$sheet->mergeCells('M6:P6');
+$sheet->setCellValue('M6', 'Расходы по заявке');
+$sheet->setCellValue('M7', 'Стоимость');
+$sheet->setCellValue('N7', 'Смета');
+$sheet->setCellValue('O7', 'Транспорт');
+$sheet->setCellValue('P7', 'Материалы');
+$sheet->mergeCells('Q6:Q7');
+$sheet->setCellValue('Q6', 'Сумма');
+$sheet->getStyle('A6:Q7')->getAlignment()->setWrapText(true);
 $row_start = 8;
 $rowplus = 0;
 $contr_cost_itog = 0;
@@ -119,11 +119,12 @@ foreach($_POST['id_contractors'] as $id_contractor)
 							$ticketdate = '';
 						}
 			$sheet->setCellValue('K'.($row_next), $ticketdate);
-			$sheet->setCellValue('L'.($row_next), $contr_cost_work);
-			$sheet->setCellValue('M'.($row_next), $contr_cost_smeta);
-			$sheet->setCellValue('N'.($row_next), $contr_cost_transport);
-			$sheet->setCellValue('O'.($row_next), $contr_cost_material);
-			$sheet->setCellValue('P'.($row_next), $contr_cost_summ);
+			$sheet->setCellValue('L'.($row_next), $ticket['contr_account_number']);
+			$sheet->setCellValue('M'.($row_next), $contr_cost_work);
+			$sheet->setCellValue('N'.($row_next), $contr_cost_smeta);
+			$sheet->setCellValue('O'.($row_next), $contr_cost_transport);
+			$sheet->setCellValue('P'.($row_next), $contr_cost_material);
+			$sheet->setCellValue('Q'.($row_next), $contr_cost_summ);
 
 			$rowplus++;
 			$contr_cost_itog += $contr_cost_summ;
@@ -139,15 +140,15 @@ foreach($_POST['id_contractors'] as $id_contractor)
 $sheet->setCellValue('O'.($row_next + 1),"ИТОГО:");
 $sheet->setCellValue('P'.($row_next + 1), $contr_cost_itog);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
-$sheet->getStyle('A6:P'.($row_next))->applyFromArray($style_wrap);
-$sheet->getStyle('A6:P7')->applyFromArray($style_header);
+$sheet->getStyle('A6:Q'.($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:Q7')->applyFromArray($style_header);
 $sheet->getStyle('A'.($row_next + 1))->applyFromArray($style_right);
-$sheet->getStyle('A6:P7')->applyFromArray($style_center);
+$sheet->getStyle('A6:Q7')->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
-$sheet->getStyle('O'.($row_next + 1).':P'.($row_next + 1))->applyFromArray($style_header);
-$sheet->getStyle('O'.($row_next + 1).':P'.($row_next + 1))->applyFromArray($style_wrap);
-$sheet->getStyle('A7:K'.($row_next))->applyFromArray($style_left);
-$sheet->getStyle('L8:P'.($row_next+1))->applyFromArray($style_center);
+$sheet->getStyle('P'.($row_next + 1).':Q'.($row_next + 1))->applyFromArray($style_header);
+$sheet->getStyle('P'.($row_next + 1).':Q'.($row_next + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('A7:L'.($row_next))->applyFromArray($style_left);
+$sheet->getStyle('M8:Q'.($row_next+1))->applyFromArray($style_center);
 //$sheet->getStyle('J8:N'.($row_next + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-$sheet->getStyle('L8:P'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle('M8:Q'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
 ?>
