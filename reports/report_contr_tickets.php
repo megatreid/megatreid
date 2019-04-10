@@ -32,7 +32,7 @@ $sheet->setCellValue('A2','Отчетный год:');
 $sheet->setCellValue('A3','Отчетный период:');
 $sheet->setCellValue('A4','Кол-во месяцев:');
 $sheet->setCellValue('A5','Способ оплаты:');
-$sheet->setCellValue('B5',$methodpaymentedit[$method_payment+1]);
+$sheet->setCellValue('B5',$methodpaymentedit[$method_payment]);
 //$sheet->mergeCells('A6:C6');
 $sheet->setCellValue('B2',$year);
 $sheet->setCellValue('B3',($month_start_name." - ".$month_end_name));
