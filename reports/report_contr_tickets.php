@@ -22,7 +22,9 @@ $sheet->getColumnDimension('J')->setWidth(14);
 $sheet->getColumnDimension('K')->setWidth(12);
 $sheet->getColumnDimension('L')->setWidth(14);
 $sheet->getColumnDimension('M')->setWidth(14);
-$sheet->getColumnDimension('N')->setAutoSize(true);
+$sheet->getColumnDimension('N')->setWidth(14);
+$sheet->getColumnDimension('O')->setWidth(14);
+$sheet->getColumnDimension('P')->setAutoSize(true);
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
@@ -55,15 +57,22 @@ $sheet->mergeCells('H6:H7');
 $sheet->setCellValue('H6', 'Задача');
 $sheet->mergeCells('I6:I7');
 $sheet->setCellValue('I6', 'Решение');
-$sheet->mergeCells('J6:M6');
-$sheet->setCellValue('J6', 'Расходы по заявке');
-$sheet->setCellValue('J7', 'Стоимость');
-$sheet->setCellValue('K7', 'Смета');
-$sheet->setCellValue('L7', 'Транспорт');
-$sheet->setCellValue('M7', 'Материалы');
-$sheet->mergeCells('N6:N7');
-$sheet->setCellValue('N6', 'Сумма');
-$sheet->getStyle('A6:N7')->getAlignment()->setWrapText(true);
+$sheet->mergeCells('J6:J7');
+$sheet->setCellValue('J6', 'Статус платежа');
+$sheet->mergeCells('K6:K7');
+$sheet->setCellValue('K6', 'Дата платежа');
+
+
+
+$sheet->mergeCells('L6:O6');
+$sheet->setCellValue('L6', 'Расходы по заявке');
+$sheet->setCellValue('L7', 'Стоимость');
+$sheet->setCellValue('M7', 'Смета');
+$sheet->setCellValue('N7', 'Транспорт');
+$sheet->setCellValue('O7', 'Материалы');
+$sheet->mergeCells('P6:P7');
+$sheet->setCellValue('P6', 'Сумма');
+$sheet->getStyle('A6:P7')->getAlignment()->setWrapText(true);
 $row_start = 8;
 $rowplus = 0;
 $contr_cost_itog = 0;
@@ -101,11 +110,20 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$sheet->setCellValue('G'.($row_next), $address);
 			$sheet->setCellValue('H'.($row_next), html_entity_decode($ticket['ticket_task'], ENT_QUOTES));
 			$sheet->setCellValue('I'.($row_next), html_entity_decode($ticket['ticket_solution'], ENT_QUOTES));
-			$sheet->setCellValue('J'.($row_next), $contr_cost_work);
-			$sheet->setCellValue('K'.($row_next), $contr_cost_smeta);
-			$sheet->setCellValue('L'.($row_next), $contr_cost_transport);
-			$sheet->setCellValue('M'.($row_next), $contr_cost_material);
-			$sheet->setCellValue('N'.($row_next), $contr_cost_summ);
+			$sheet->setCellValue('J'.($row_next), $paymentstatus_array[$ticket['contr_payment_status']]);
+			if($ticket['contr_date_payment'] != 0){
+							$convertticketdate = strtotime($ticket['contr_date_payment']);
+							$ticketdate = date( 'd-m-Y', $convertticketdate );
+						}
+						else{
+							$ticketdate = '';
+						}
+			$sheet->setCellValue('K'.($row_next), $ticketdate);
+			$sheet->setCellValue('L'.($row_next), $contr_cost_work);
+			$sheet->setCellValue('M'.($row_next), $contr_cost_smeta);
+			$sheet->setCellValue('N'.($row_next), $contr_cost_transport);
+			$sheet->setCellValue('O'.($row_next), $contr_cost_material);
+			$sheet->setCellValue('P'.($row_next), $contr_cost_summ);
 
 			$rowplus++;
 			$contr_cost_itog += $contr_cost_summ;
@@ -118,18 +136,18 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	}
 	
 }
-$sheet->setCellValue('M'.($row_next + 1),"ИТОГО:");
-$sheet->setCellValue('N'.($row_next + 1), $contr_cost_itog);
+$sheet->setCellValue('O'.($row_next + 1),"ИТОГО:");
+$sheet->setCellValue('P'.($row_next + 1), $contr_cost_itog);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
-$sheet->getStyle('A6:N'.($row_next))->applyFromArray($style_wrap);
-$sheet->getStyle('A6:N7')->applyFromArray($style_header);
+$sheet->getStyle('A6:P'.($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:P7')->applyFromArray($style_header);
 $sheet->getStyle('A'.($row_next + 1))->applyFromArray($style_right);
-$sheet->getStyle('A6:N7')->applyFromArray($style_center);
+$sheet->getStyle('A6:P7')->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
-$sheet->getStyle('M'.($row_next + 1).':N'.($row_next + 1))->applyFromArray($style_header);
-$sheet->getStyle('M'.($row_next + 1).':N'.($row_next + 1))->applyFromArray($style_wrap);
-$sheet->getStyle('A7:I'.($row_next))->applyFromArray($style_left);
-$sheet->getStyle('I8:N'.($row_next+1))->applyFromArray($style_center);
+$sheet->getStyle('O'.($row_next + 1).':P'.($row_next + 1))->applyFromArray($style_header);
+$sheet->getStyle('O'.($row_next + 1).':P'.($row_next + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('A7:K'.($row_next))->applyFromArray($style_left);
+$sheet->getStyle('L8:P'.($row_next+1))->applyFromArray($style_center);
 //$sheet->getStyle('J8:N'.($row_next + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-$sheet->getStyle('J8:N'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle('L8:P'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
 ?>
