@@ -53,7 +53,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$object_city_name = $object['city_name'];
 			$shop_number = html_entity_decode($object['shop_number'], ENT_QUOTES);
 			$address = html_entity_decode($object['address'], ENT_QUOTES);
-			$abon_plata_contr = intval($object['abon_plata_contr']);
+			$abon_plata_contr = floatval($object['abon_plata_contr']);
 			$abon_plata_contr_period = $abon_plata_contr * $month_period;
 			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name['name'].')');
 			$sheet->setCellValue('B'.($row_next), html_entity_decode($customer_info['customer_name'], ENT_QUOTES));
