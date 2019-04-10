@@ -559,7 +559,7 @@ display: block;
 	text-shadow: rgba(0,0,0,.4) 0 1px 0;
 	color: #000000;
 	display: inline;
-
+	min-width: 90px;
 	font-size: 14px;
 	font-family: Georgia, Serif;
 	text-decoration: none;
@@ -633,6 +633,7 @@ display: block;
    text-decoration: none;
    vertical-align: middle;
    cursor: pointer;
+   min-width: 90px;
 }
 .button-delete:hover {
    border-top-color: #a8a8a8;
