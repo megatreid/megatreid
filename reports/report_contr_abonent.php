@@ -22,7 +22,7 @@ $sheet->setCellValue('A2','Отчетный год:');
 $sheet->setCellValue('A3','Отчетный период:');
 $sheet->setCellValue('A4','Кол-во месяцев:');
 $sheet->setCellValue('A5','Способ оплаты:');
-$sheet->setCellValue('B5',$methodpaymentedit[$method_payment+1]);
+$sheet->setCellValue('B5',$methodpaymentedit[$method_payment]);
 $sheet->setCellValue('B2',$year);
 $sheet->setCellValue('B3',($month_start_name." - ".$month_end_name));
 $sheet->setCellValue('B4',($month_period));
@@ -53,7 +53,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$object_city_name = $object['city_name'];
 			$shop_number = html_entity_decode($object['shop_number'], ENT_QUOTES);
 			$address = html_entity_decode($object['address'], ENT_QUOTES);
-			$abon_plata_contr = intval($object['abon_plata_contr']);
+			$abon_plata_contr = floatval($object['abon_plata_contr']);
 			$abon_plata_contr_period = $abon_plata_contr * $month_period;
 			$sheet->setCellValue('A'.($row_next), $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name['name'].')');
 			$sheet->setCellValue('B'.($row_next), html_entity_decode($customer_info['customer_name'], ENT_QUOTES));

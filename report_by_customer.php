@@ -104,7 +104,7 @@ if(isset($_POST['customer_report']))
 
 						//$abon_plata = (int)$abon_plata;
 						$cash_abplata_month = $abon_plata * $month_period;
-						$cash_abplata_month_summ += intval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
+						$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
 						$rep_tickets = Show_Rep_Tickets ($link, $odject_arr, $year, $ticket_status, $month_start, $month_end);
 						
 						$k=0;
@@ -119,16 +119,16 @@ if(isset($_POST['customer_report']))
 								switch ($rep_ticket['ticket_sla'])
 								{
 									case 0:
-										$cost_incident = intval($projects['cost_incident_critical']);
+										$cost_incident = floatval($projects['cost_incident_critical']);
 										break;
 									case 1:
-										$cost_incident = intval($projects['cost_incident_high']);
+										$cost_incident = floatval($projects['cost_incident_high']);
 										break;
 									case 2:
-										$cost_incident = intval($projects['cost_incident_medium']);
+										$cost_incident = floatval($projects['cost_incident_medium']);
 										break;
 									case 3:
-										$cost_incident = intval($projects['cost_incident_low']);
+										$cost_incident = floatval($projects['cost_incident_low']);
 										break;
 								}
 							}
@@ -137,10 +137,10 @@ if(isset($_POST['customer_report']))
 							}
 								$hours = intval($rep_ticket['hours']);
 								$sla = intval($rep_ticket['ticket_sla']);
-								$cost_hour = $hours * intval($projects['cost_hour']);
-								$cost_smeta = intval($rep_ticket['cost_smeta']);
-								$cost_material = intval($rep_ticket['cost_material']);
-								$cost_transport = intval($rep_ticket['cost_transport']);
+								$cost_hour = $hours * floatval($projects['cost_hour']);
+								$cost_smeta = floatval($rep_ticket['cost_smeta']);
+								$cost_material = floatval($rep_ticket['cost_material']);
+								$cost_transport = floatval($rep_ticket['cost_transport']);
 								$all_cost_in_project += ($cost_incident + $cost_hour + $cost_smeta + $cost_material + $cost_transport);
 								$k++;
 								//echo $k.".".$cost_incident."+".$cost_hour."+".$cost_smeta."+".$cost_material."+".$cost_transport."=".$all_cost_in_project."<br>";
