@@ -220,7 +220,7 @@ function Show_Contr($connection, $geo_table, $geo_row, $geo_search, $art, $kol)
 function Show_Contr_for_select($connection) 
 {
 
-	$search = "SELECT DISTINCT city_id, status  FROM contractor ORDER BY city_id ASC";
+	$search = "SELECT DISTINCT city_id  FROM contractor WHERE status='1' ORDER BY city_id ASC";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
