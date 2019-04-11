@@ -154,10 +154,10 @@ if(empty($errors))
 						<select class="reg_select" name="id_contractors[]" id="id_contractors"  multiple size="<?=$contractors_count?>">
 							<?php foreach($contractors as $i => $contractor)  { 
 							$city_name = get_geo($link, $contractor['city_id'], 'city', 'city_id');
-							if($contractor['status']==0){
+							/*if($contractor['status']==0){
 								$selected = 'disabled selected';
 							}
-							else $selected = '';
+							else*/ $selected = '';
 							?>
 								<option  value="<?= $contractor['id_contractor']; ?>" <?=$selected;?>><?= $contractor['org_name'].' '.$contractor['ownership'].' ('.$city_name['name'].')'; ?></option>
 							<?php  } ?>
