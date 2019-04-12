@@ -260,23 +260,18 @@ function Show_Contractor($connection, $var)
     return $array; 
 }
 
-
-
-
 function Add_Contr($connection, $country_id, $region_id, $city_id, $org_name, $status, $dogovor, $method_payment, $card_number, $anketa, $ownership, $system_no, $contact_name, $passport, $mobile, $phone, $email, $web, $comment)
 {
-
 		$add_query ="INSERT INTO contractor VALUES(NULL, '$country_id', '$region_id', '$city_id', '$org_name', '$status', '$dogovor', '$method_payment', '$card_number', '$anketa', '$ownership', '$system_no', '$contact_name', '$passport', '$mobile', '$phone', '$email', '$web', '$comment')";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
         else
             die ($connection->error);
-    
 }
 function Get_Geo($connection, $id, $geo_table, $geo_row)
 {
-	$get_geo = "SELECT name FROM $geo_table WHERE $geo_row='$id'";
+	$get_geo = "SELECT * FROM $geo_table WHERE $geo_row='$id'";
     $result = $connection->query ($get_geo);
     if ($result)
     {
@@ -724,7 +719,6 @@ function Show_Region($connection, $country_id)
 
 	$search = "SELECT region_id, name FROM region WHERE country_id = '$country_id' ORDER BY name ASC";
 
-    //$search = "SELECT * FROM Users";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;
@@ -741,6 +735,71 @@ function Show_Region($connection, $country_id)
     }
     return $array; 
 }
+function Show_Citys($connection, $country_id) 
+{
+
+	$search = "SELECT city_id, region_id, name FROM city WHERE country_id = '$country_id' ORDER BY name ASC";
+
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
+/*
+function geo_search($connection, $what_search, $country) 
+{
+
+	$search = "SELECT city_id, region_id, name FROM city WHERE country_id = '$country_id' ORDER BY name ASC";
+
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}*/
+
+function geo_search($connection, $city_name, $region_name, $country_id)
+{
+
+	$search = "SELECT * FROM city WHERE (`country_id`='$country_id' AND `name` LIKE '%$city_name%') AND `region_id` IN (SELECT region_id FROM `region` WHERE `name` LIKE '%$region_name%' ORDER BY name ASC) ORDER BY name ASC";
+
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 	
+}
 
 function Add_City($connection, $country_id, $region_id, $city_name)
 {
@@ -753,7 +812,58 @@ function Add_City($connection, $country_id, $region_id, $city_name)
             die ($connection->error);
     
 }
-
+function City_Exist($connection, $cityname, $region_id)
+{
+    $checkuser = "SELECT * FROM city WHERE name='$cityname' AND region_id='$region_id'";
+    $result = $connection->query ($checkuser);
+    $rows = $result->fetch_array(MYSQLI_ASSOC);
+    if ($rows) return $rows;
+    else
+        return 0;
+}
+function Update_City($connection, $id_city, $id_region, $city_name)
+{
+	$update = "UPDATE `city` SET `region_id`='$id_region', `name`='$city_name' WHERE `city_id`='$id_city'";
+    $result = $connection->query ($update);
+    if ($result) return true;
+    else
+        die ($connection->error);
+	mysqli_close($link);
+}
+function Delete_City($connection, $id_city, $region_id, $country_id)
+{
+	$delete_object = "DELETE FROM city WHERE city_id = '$id_city' AND region_id = '$region_id' AND country_id = '$country_id'";
+    $result = $connection->query ($delete_object);
+    if ($result) return true;
+    else
+        die ($connection->error);
+}
+function New_Region($connection, $country_id, $region_name)
+{
+	$add_query ="INSERT INTO region VALUES(NULL, '$country_id', '0', '$region_name')";
+	$result = $connection->query($add_query); 
+	if ($result) 
+		return true;
+	else
+		die ($connection->error);
+}
+function Update_Region($connection, $country_id, $id_region, $region_name)
+{
+	$update = "UPDATE `region` SET `name`='$region_name' WHERE `region_id`='$id_region' AND `country_id` = '$country_id'";
+    $result = $connection->query ($update);
+    if ($result) return true;
+    else
+        die ($connection->error);
+	mysqli_close($link);
+}
+function Delete_Region($connection, $region_id, $country_id)
+{
+	$delete_object = "DELETE FROM region WHERE region_id = '$region_id' AND country_id = '$country_id'";
+    $result = $connection->query ($delete_object);
+    if ($result) return true;
+    else
+        die ($connection->error);
+}
 /***********************************ОТЧЕТЫ***************************************/
 
 function Show_Rep_Tickets($connection, $var, $year, $ticket_status, $month_start, $month_end) 
