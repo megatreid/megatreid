@@ -97,9 +97,9 @@ if( isset($data['new_city']))
 
 	<body>
 <div class="showany">
-<br>
+<p class="breadcrumbs"> Редактирование географических объектов:</p>
 	<div class="reg_sel_object">
-	<p class="breadcrumbs"> Редактирование географических объектов:</p>
+	
 
 		<!--<form action="" method="POST">
 		
@@ -116,6 +116,9 @@ if( isset($data['new_city']))
 				-->
 			<form action="" method="POST">
 				<table>
+				<tr colspan="2">
+					<p>Поиск в базе данных:</p>
+				</tr>
 				<tr>
 				<td class="rowt_left">
 					<input align="center" type="search" name="city_name" placeholder="Город..."> 
@@ -202,7 +205,7 @@ if(empty($citys) AND $searching==TRUE) { ?>
 				<td class="rowt">Регион РФ:</td>
 				<td>
 				<select name="region_id" class="StyleSelectBox">
-					<option value="0">- выберите регион -</option>
+					<option disabled selected>- выберите регион -</option>
 					<?php foreach($regions as $i => $region)  { ?>
 						<option  value="<?= $region['region_id']; ?>"><?= $region['name']; ?></option>
 					<?php } ?>
