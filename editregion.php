@@ -58,9 +58,9 @@ if(isset($_GET['id_region']))
 </head>
 <body>
 	<div class="showany">
-		<br>
+
+		<div class="breadcrumbs"><a href="geo_update.php">Редактирование географических объектов</a> > <a href="showregion.php">Регионы</a> > Редактирование: </div>
 		<div class="reg_sel_object">
-		<p class="breadcrumbs">Редактирование:</p>
 		<?php if($err==TRUE){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
 		<?php }?>
