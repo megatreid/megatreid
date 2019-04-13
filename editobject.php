@@ -16,6 +16,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 	$id_customer = $projects['id_customer'];
 	$customers = Edit_Customer($link, $id_customer); //массив по заказчику
 	$contractors = Show_Contr_for_select ($link);
+	$show_city_names = Show_City_Name($link);
 	$projectname = $projects['projectname'];
 	$country_id = $objects['country_id'];
 	
@@ -207,14 +208,21 @@ if( isset($data_post['edit_object']))
 				</tr>
 				<td  class="rowt">Город:</td>
 				<td>
-					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox" >
+					<!--<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox" >
 						<option value="0">- выберите город -</option>
 						<?php foreach($contractors as $i => $contractor)  {
-							
 							$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );?>
 							<option  value="<?= $contractor['city_id'];?>" <?= ($contractor['city_id'] == $contractor_select['city_id']) ? 'selected' : ''?>><?= $citys['name']; ?></option>
 						<?php } ?>
-					</select>
+					</select> -->
+					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
+						<option value="0">- Выберите город -</option>
+						<?php foreach($show_city_names as $i => $show_city_name)  { 
+						//$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );
+						?>
+							<option  value="<?= $show_city_name['city_id']; ?>"<?= ($show_city_name['city_id'] == $contractor_select['city_id']) ? 'selected' : ''?>><?= $show_city_name['name']; ?></option>
+						<?php } ?>
+					</select>					
 				</td>
 			</tr>
 			<tr>

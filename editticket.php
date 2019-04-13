@@ -186,6 +186,7 @@ if( isset($data['edit_ticket']))
 	$cost_material = $tickets['cost_material'];
 	$cost_transport = $tickets['cost_transport'];
 	$contractors = Show_Contr_for_select ($link);
+	$show_city_names = Show_City_Name($link);
 	$summ_contr = $tickets['contr_cost_work'] + $tickets['contr_cost_smeta'] + $tickets['contr_cost_transport'] + $tickets['contr_cost_material'];
 	$summ_supplier = $tickets['supplier_cost_work'] + $tickets['supplier_cost_material'];
 	if($work_type == 0) //если выбран режим "Абонентская плата"
@@ -566,13 +567,31 @@ if( isset($data['edit_ticket']))
 			<tr id="contr_select">
 				<td  class="reg_contr_td">Город:</td>
 				<td>
-					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
+					<!--<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
 						<option value="0">- выберите город -</option>
 						<?php foreach($contractors as $i => $contractor)  { 
 							$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );?>
 							<option  value="<?= $contractor['city_id'];?>" <?= ($contractor['city_id'] == $contractor_select['city_id']) ? 'selected' : ''?>><?= $citys['name']; ?></option>
 						<?php } ?>
-					</select>
+					</select> -->
+					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
+						<option value="0">- Выберите город -</option>
+						<?php foreach($show_city_names as $i => $show_city_name)  { 
+						//$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );
+						
+						?>
+							<option  value="<?= $show_city_name['city_id']; ?>"<?= ($show_city_name['city_id'] == $contractor_select['city_id']) ? 'selected' : ''?>><?= $show_city_name['name']; ?></option>
+						<?php } ?>
+					</select>					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				</td>
 			</tr>
 			<tr id="contr_select">

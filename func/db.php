@@ -238,6 +238,27 @@ function Show_Contr_for_select($connection)
     }
     return $array; 
 }
+function Show_City_Name($connection) 
+{
+
+	$search = "SELECT  name, city_id FROM city WHERE city_id IN (SELECT city_id FROM contractor WHERE status='1') ORDER BY name ASC"; 
+    
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
 function Show_Contractor($connection, $var) 
 {
 
@@ -377,7 +398,6 @@ function Add_Customer($connection, $customer, $jur_address, $post_address, $ogrn
             return true;
         else
             die ($connection->error);
-    
 }
 function Edit_Customer($connection, $var)
 {
@@ -393,7 +413,6 @@ function Edit_Customer($connection, $var)
 function Update_Customer($connection, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment)
 {
 	$update = "UPDATE `customer` SET `customer_name`='$customer_name',`jur_address`='$jur_address',`post_address`='$post_address',`ogrn`='$ogrn', `inn`='$inn', `kpp`='$kpp', `dogovor_number`='$dogovor_number', `status`='$status',`bank_name`='$bank_name',`bank_bik`='$bank_bik',`korr_schet`='$korr_schet',`rasch_schet`='$rasch_schet',`recipient`='$recipient',`phone`='$phone',`email`='$email', `comment`='$comment' WHERE `id_customer`='$id_customer'";
-
     $result = $connection->query ($update);
     if ($result) return true;
     else
@@ -404,12 +423,12 @@ function Delete_Customer($connection, $var)
 {
 	$delete_object = "DELETE FROM object WHERE id_customer = '$var'";
 	$result_del_obj = $connection->query ($delete_object);
-	
+
 	if ($result_del_obj)
 	{
 		$delete_project = "DELETE FROM projects WHERE id_customer = '$var'";
 		$result_del_proj = $connection->query ($delete_project);
-		
+
 		if ($result_del_proj)
 		{
 			$delete_customer = "DELETE FROM customer WHERE id_customer = '$var'";

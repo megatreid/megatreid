@@ -33,6 +33,8 @@ if(isset($_POST['select_object'])){
 }
 
 $contractors = Show_Contr_for_select ($link);
+$show_city_names = Show_City_Name($link);
+
 $data = $_POST;
 $err=FALSE;
 $ticket_number = trim(filter_input(INPUT_POST, 'ticket_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -47,7 +49,6 @@ if(empty($id_object))
 	$project_name = trim(filter_input(INPUT_POST, 'project_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	$city_name = trim(filter_input(INPUT_POST, 'city_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	$object_full = trim(filter_input(INPUT_POST, 'object_full', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-	
 }
 //$ticket_date = trim(filter_input(INPUT_POST, 'ticket_date'));
 $ticket_task = trim(filter_input(INPUT_POST, 'ticket_task', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -462,6 +463,7 @@ if( isset($data['new_ticket']))
 					
 				<td  class="reg_contr_td">Город:</td>
 				<td>
+				<!--
 					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
 						<option value="0">- Выберите город -</option>
 						<?php foreach($contractors as $i => $contractor)  { 
@@ -469,6 +471,16 @@ if( isset($data['new_ticket']))
 						
 						?>
 							<option  value="<?= $contractor['city_id']; ?>"><?= $citys['name']; ?></option>
+						<?php } ?>
+					</select>
+				-->
+					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
+						<option value="0">- Выберите город -</option>
+						<?php foreach($show_city_names as $i => $show_city_name)  { 
+						//$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );
+						
+						?>
+							<option  value="<?= $show_city_name['city_id']; ?>"><?= $show_city_name['name']; ?></option>
 						<?php } ?>
 					</select>
 				</td>
