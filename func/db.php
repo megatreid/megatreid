@@ -877,11 +877,19 @@ function Update_Region($connection, $country_id, $id_region, $region_name)
 }
 function Delete_Region($connection, $region_id, $country_id)
 {
-	$delete_object = "DELETE FROM region WHERE region_id = '$region_id' AND country_id = '$country_id'";
-    $result = $connection->query ($delete_object);
-    if ($result) return true;
-    else
+	$delete_city = "DELETE FROM city WHERE region_id = '$region_id' AND country_id = '$country_id'";
+	$result_city = $connection->query ($delete_city);
+    if ($result_city){
+		$delete_region = "DELETE FROM region WHERE region_id = '$region_id' AND country_id = '$country_id'";
+		$result_region = $connection->query ($delete_region);
+	}
+	else
         die ($connection->error);
+	if ($result_region) return true;
+	else
+        die ($connection->error);
+	
+
 }
 /***********************************ОТЧЕТЫ***************************************/
 
