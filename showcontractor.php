@@ -221,7 +221,7 @@ setTimeout(function(){
     <img src="/images/up.png" alt="Top" border="none" title="Наверх">
 </a>		
 
-<div id="footer">&copy; ООО "МегаТрейд"</div>
+<div id="footer">&copy; ООО "МегаТрейд"&trade;</div>
 </body>
 </html>
 <?php

@@ -1,5 +1,6 @@
 <?php
 require '/connection/config.php';
+
 //ini_set('display_errors', '1');
 if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<=3)
 {

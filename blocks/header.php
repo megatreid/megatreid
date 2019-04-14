@@ -11,7 +11,7 @@
 		<script type="text/javascript" src='jquery.js'></script>
 		<script type="text/javascript" src='selects.js'></script>
 		<script type="text/javascript" src="js/jquery.maskedinput.js"></script>
-		<link rel="stylesheet" href="../css/index.css">
+		<link rel="stylesheet" href="/css/index.css">
 		<link rel='shortcut icon' href='/images/favicon.ico' type='image/x-icon'>
 		<script type="text/javascript">
 		  function digitalWatch() {
@@ -27,7 +27,7 @@
 			if (hours < 10) hours = "0" + hours;
 			if (minutes < 10) minutes = "0" + minutes;
 			if (seconds < 10) seconds = "0" + seconds;
-			document.getElementById("digital_watch").innerHTML =day+"-"+month+"-"+ year +"   "+ hours + ":" + minutes + ":" + seconds;
+			document.getElementById("digital_watch").innerHTML ="	&#8986; "+day+"-"+month+"-"+ year +"   "+ hours + ":" + minutes + ":" + seconds;
 			setTimeout("digitalWatch()", 1000);
 		  }
 		</script>
