@@ -5,7 +5,7 @@ $id_project = @intval($_GET['id_project']);
 //$id_project = 5;
 
 
-$regs=mysql_query("SELECT shop_number, id_object, address FROM object WHERE city_id = '$city_id' AND id_project='$id_project' AND status = '1' "); 
+$regs=mysql_query("SELECT shop_number, id_object, address FROM object WHERE city_id = '$city_id' AND id_project='$id_project' AND status = '1' ORDER BY shop_number ASC"); 
 
 if ($regs) {
     $num = mysql_num_rows($regs);      

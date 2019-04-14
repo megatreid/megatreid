@@ -1,5 +1,7 @@
 <?php
 require '/connection/config.php';
+if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
+{
 require_once '/blocks/header.php';
 $country_id = "3159";//Россия
 
@@ -59,7 +61,7 @@ if(isset($_GET['id_region']))
 <body>
 	<div class="showany">
 
-		<div class="breadcrumbs"><a href="geo_update.php">Редактирование географических объектов</a> > <a href="showregion.php">Регионы</a> > Редактирование: </div>
+		<span class="breadcrumbs"><a href="geo_update.php">Редактирование географических объектов</a> > <a href="showregion.php">Регионы</a> > Редактирование: </span>
 		<div class="reg_sel_object">
 		<?php if($err==TRUE){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
@@ -73,12 +75,15 @@ if(isset($_GET['id_region']))
 				</td>				
 			
 			</table>
-			<p>Вы можете изменить название региона или удалить его из базы данных.</p>
+			<p class="showusers">Вы можете изменить название региона
+<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel'] == 1) { ?>
+			или удалить его из базы данных.</p>
+			<?php }?>		
 				<div>
 					<input class="button" value="Сохранить" type="submit" name="edit_region_submit"/>
 					<input class="button" value="Назад" type="button" onclick="location.href='showregion.php'"/>
-					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>
-				<a href="#delete_object" class="button-delete">Удалить</a>
+					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel'] == 1) { ?>
+					<a href="#delete_object" class="button-delete">Удалить</a>
 					<div id="delete_object" class="modalDialog">
 						<div>
 							<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
@@ -97,3 +102,10 @@ if(isset($_GET['id_region']))
 	</div>
 </body>
 </html>
+<?php
+}
+	else
+	{
+		header('Location: /');
+	}
+?>

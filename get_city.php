@@ -3,7 +3,7 @@ include_once '/connection/config.php';
 $region_id = @intval($_GET['region_id']);
 //$region_id = 4312;
 
-$regs=mysql_query("SELECT name, city_id FROM city WHERE region_id=$region_id"); 
+$regs=mysql_query("SELECT name, city_id FROM city WHERE region_id=$region_id ORDER BY name ASC"); 
 
 if ($regs) {
     $num = mysql_num_rows($regs);      

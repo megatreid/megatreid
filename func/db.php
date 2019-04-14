@@ -536,7 +536,7 @@ function Show_Objects($connection, $var)
 }
 function Show_Objects_for_search($connection, $var)
 {
-	$search = "SELECT DISTINCT city_id, city_name FROM object WHERE id_project='$var' AND status='1'";
+	$search = "SELECT DISTINCT city_id, city_name FROM object WHERE id_project='$var' AND status='1' ORDER BY city_name ASC";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;
@@ -556,7 +556,7 @@ function Show_Objects_for_search($connection, $var)
 }
 function Show_Objects_abon($connection)
 {
-	$search = "SELECT * FROM object WHERE (abon_plata > '0') OR (abon_plata_contr > '0') ORDER BY id_customer ASC" ;
+	$search = "SELECT * FROM object WHERE (abon_plata > '0') OR (abon_plata_contr > '0') ORDER BY id_customer, id_project, city_id, shop_number ASC" ;
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;

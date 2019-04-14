@@ -3,7 +3,7 @@ include_once 'connection/config.php';
 $id_customer = @intval($_GET['id_customer']);
 //$country_id = 3159;
 
-$regs=mysql_query("SELECT projectname, id_project  FROM projects WHERE id_customer=$id_customer AND status='1'" );
+$regs=mysql_query("SELECT projectname, id_project  FROM projects WHERE id_customer=$id_customer AND status='1' ORDER BY projectname ASC" );
  
 if ($regs) {
     $num = mysql_num_rows($regs);      

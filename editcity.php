@@ -1,5 +1,7 @@
 <?php
 require '/connection/config.php';
+if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
+{
 require_once '/blocks/header.php';
 $country_id = "3159";//Россия
 $regions = Show_Region ($link, $country_id);
@@ -33,22 +35,24 @@ if(isset($_GET['id_city']))
 			}	
 		}
 	}
-	if(isset($data_post['delete_city']))
-	{
-		$delete_city = Delete_City($link, $id_city, $region_id, $country_id);
-		if($delete_city)
+	if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']==1){
+		if(isset($data_post['delete_city']))
 		{
+			$delete_city = Delete_City($link, $id_city, $region_id, $country_id);
+			if($delete_city)
+			{
+				
+				?>
+					<script>
+						setTimeout(function() {window.location.href = 'geo_update.php';}, 0);
+					</script>
+				<?php		
+			}
 			
-			?>
-				<script>
-					setTimeout(function() {window.location.href = 'geo_update.php';}, 0);
-				</script>
-			<?php		
-		}
-		
-		
-		
-	}	
+			
+			
+		}	
+	}
 }
 
 ?>
@@ -98,7 +102,7 @@ if(isset($_GET['id_city']))
 				<div>
 					<input class="button" value="Сохранить" type="submit" name="edit_city"/>
 					<input class="button" value="Назад" type="button" onclick="location.href='geo_update.php'"/>
-					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']<3) { ?>
+					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel'] == 1) { ?>
 				<a href="#delete_object" class="button-delete">Удалить</a>
 					<div id="delete_object" class="modalDialog">
 						<div>
@@ -118,3 +122,10 @@ if(isset($_GET['id_city']))
 	</div>
 </body>
 </html>
+<?php
+}
+	else
+	{
+		header('Location: /');
+	}
+?>
