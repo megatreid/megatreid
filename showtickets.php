@@ -377,7 +377,7 @@ switch($method_payment_table)
 <a id="upbutton" href="#" onclick="smoothJumpUp(); return false;">
     <img src="/images/up.png" alt="Top" border="none" title="Наверх">
 </a>	
-<div id="footer">&copy; ООО "МегаТрейд"</div>
+<div id="footer">Created by Sergey Skirko &copy; ООО "МегаТрейд" </div>
 </body>
 </html>
 <?php
