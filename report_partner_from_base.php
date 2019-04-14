@@ -20,6 +20,7 @@ if(isset($_POST['report_contr_net']))
 		$select_country = false;
 		$select_region = false;
 		$select_city = false;
+		/*
 		if(isset($country_id) AND $country_id>0){
 			$request = "WHERE country_id=".$country_id;
 			$select_country = true;
@@ -52,10 +53,35 @@ if(isset($_POST['report_contr_net']))
 			$request .= "status = ".$status;
 		}
 		elseif($status == 2) {$request .= "";}
-		
-		
+		*/
+		switch($status)
+		{
+			case '0':	
+				$contr_status = "status='0' AND ";
+			break;	
+			case '1':	
+				$contr_status = "status='1' AND ";
+			break;	
+			case '2':	
+				$contr_status = "";
+			break;	
+		}
 
+		if(isset($country_id) AND $country_id>0){
+			$request = "WHERE ".$contr_status." city_id IN (SELECT city_id FROM city WHERE country_id=".$country_id.")";
+			$select_country = true;
+		}
+		if(isset($region_id) AND $region_id>0){
+			$request = "WHERE ".$contr_status." city_id IN (SELECT city_id FROM city WHERE region_id=".$region_id.")";
+			$region_id = true;
+		}		
+		if(isset($city_id) AND $city_id>0){
+			$request = "WHERE ".$contr_status." city_id = ".$city_id;
+			$city_id = true;
+		}
+		
 	$contractors = Show_Contractor($link, $request);
+	
 	if($contractors){
 	$style_wrap = array(
 	//рамки

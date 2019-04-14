@@ -15,21 +15,24 @@ if(isset($_GET['edit']))
 	$country_id_edit = $contractors['country_id'];
 	$region_id_edit = $contractors['region_id'];
 	$city_id_edit = $contractors['city_id'];
-	$org_name_edit = $contractors['org_name'];
+	$org_name_edit = html_entity_decode($contractors['org_name'], ENT_QUOTES);
 	$status_edit = $contractors['status'];
-	$dogovor_edit = $contractors['dogovor'];
-	$card_number_edit = $contractors['card_number'];
+	$dogovor_edit = html_entity_decode($contractors['dogovor'], ENT_QUOTES);
+	$card_number_edit = html_entity_decode($contractors['card_number'], ENT_QUOTES);
 	$anketa_edit = $contractors['anketa'];
-	$contact_name_edit = $contractors['contact_name'];
-	$passport_edit = $contractors['passport'];
+	$contact_name_edit = html_entity_decode($contractors['contact_name'], ENT_QUOTES);
+	$passport_edit = html_entity_decode($contractors['passport'], ENT_QUOTES);
 	$methodpayment_edit = $contractors['method_payment'];
 	$ownership_edit = $contractors['ownership'];
 	$system_no_edit = $contractors['system_no'];
-	$mobile_edit = $contractors['mobile'];
-	$phone_edit = $contractors['phone'];
-	$email_edit = $contractors['email'];
-	$web_edit = $contractors['web'];
-	$comment_edit = $contractors['comment'];
+	$mobile_edit = html_entity_decode($contractors['mobile'], ENT_QUOTES);
+	$phone_edit = html_entity_decode($contractors['phone'], ENT_QUOTES);
+	$email_edit = html_entity_decode($contractors['email'], ENT_QUOTES);
+	$web_edit = html_entity_decode($contractors['web'], ENT_QUOTES);
+	$comment_edit = html_entity_decode($contractors['comment'], ENT_QUOTES);
+	$cityname = Get_Geo($link, $city_id_edit, 'city', 'city_id');
+	$regionname = Get_Geo($link, $cityname['region_id'], 'region', 'region_id');
+	$countryname = Get_Geo($link, $regionname['country_id'], 'country', 'country_id');
 }
 $data_update = $_POST;
 $err=FALSE;
@@ -220,8 +223,8 @@ if( isset($data_update['do_editcontr']))
 				<tr>
 					<td class="rowt">Страна:*</td>
 					<td>
-					<?php $geo1 = Get_Geo($link, $country_id_edit, $geo_table[0],  $geo_row[0]);?>
-					<select name="country_id" id="country_id" class="StyleSelectBox" title="Текущее значение: <?=$geo1['name']?>">
+					
+					<select name="country_id" id="country_id" class="StyleSelectBox" title="Текущее значение: <?=$countryname['name'];?>">
 						<option value="0">- выберите страну -</option>
 						<option value="3159" selected>Россия</option>
 						<!--<option value="9908">Украина</option>
@@ -232,20 +235,20 @@ if( isset($data_update['do_editcontr']))
 				<tr>
 					<td class="rowt">Регион:*</td>
 					<td>
-						<?php $geo2 = Get_Geo($link, $region_id_edit, $geo_table[1],  $geo_row[1]);?>
-						<select name="region_id" id="region_id" class="StyleSelectBox" title="Текущее значение: <?=$geo2['name']?>">
+						
+						<select name="region_id" id="region_id" class="StyleSelectBox" title="Текущее значение: <?=$regionname['name'];?>">
 							<option value="0">- выберите регион -</option>
-							<option value="<?=$region_id_edit?>" selected><?=$geo2['name']?></option>
+							<option value="<?=$regionname['region_id'];?>" selected><?=$regionname['name'];?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td class="rowt">Населенный пункт:*</td>
 					<td>
-						<?php $geo3 = Get_Geo($link, $city_id_edit, $geo_table[2],  $geo_row[2]);?>
-						<select name="city_id" id="city_id" class="StyleSelectBox" title="Текущее значение: <?=$geo3['name']?>">
+						
+						<select name="city_id" id="city_id" class="StyleSelectBox" title="Текущее значение: <?=$cityname['name'];?>">
 							<option value="0">- выберите город -</option>
-							<option value="<?=$city_id_edit?>" selected><?=$geo3['name']?></option>
+							<option value="<?=$city_id_edit?>" selected><?=$cityname['name'];?></option>
 						</select>
 					</td>
 				</tr>

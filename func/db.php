@@ -262,7 +262,7 @@ function Show_City_Name($connection)
 function Show_Contractor($connection, $var) 
 {
 
-	$search = "SELECT *  FROM contractor $var ORDER BY country_id, region_id, city_id, status ASC";
+	$search = "SELECT * FROM contractor $var ORDER BY city_id, status ASC";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);

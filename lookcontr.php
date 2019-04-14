@@ -30,6 +30,9 @@ if(isset($_GET['look']))
 	$email_edit = $contractors['email'];
 	$web_edit = $contractors['web'];
 	$comment_edit = $contractors['comment'];
+	$cityname = Get_Geo($link, $city_id, 'city', 'city_id');
+	$regionname = Get_Geo($link, $cityname['region_id'], 'region', 'region_id');
+	$countryname = Get_Geo($link, $regionname['country_id'], 'country', 'country_id');
 }
 
 ?>
@@ -57,15 +60,15 @@ if(isset($_GET['look']))
 						<tr>
 							<td class="rowt">Регион:</td>
 							<td>
-							<?php $geo = Get_Geo($link, $region_id, $geo_table[1],  $geo_row[1]);
-							echo $geo['name'];?>
+							
+							<?=$regionname['name'];?>
 							</td>
 						</tr>
 						<tr>
 							<td class="rowt">Населенный пункт:</td>
 							<td>
-							<?php $geo = Get_Geo($link, $city_id, $geo_table[2],  $geo_row[2]);
-							echo $geo['name'];?>
+							
+							<?= $cityname['name'];?>
 							</td>
 						</tr>
 						<tr>

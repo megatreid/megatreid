@@ -160,12 +160,13 @@ setTimeout(function(){
 				?>
 					<tr class="reg_text_show_tickets">
 						<td align="center"><?=$i + 1?></td>
+						<?php $cityname = Get_Geo($link, $contr['city_id'], 'city',  'city_id');?>
 						<?php /* $geo = Get_Geo($link, $contrs['country'], $geo_table[0],  $geo_row[0]);*/?>
 						<!-- <td align="center"><?= $geo['name'] ?></td> -->
-						<?php $geo = Get_Geo($link, $contr['region_id'], $geo_table[1],  $geo_row[1]);?>
-						<td align="center"><?= $geo['name'] ?></td>
-						<?php $geo = Get_Geo($link, $contr['city_id'], $geo_table[2],  $geo_row[2]);?>
-						<td align="center"><?= $geo['name'] ?></td>
+						<?php $regionname = Get_Geo($link, $cityname['region_id'], 'region',  'region_id');?>
+						
+						<td align="center"><?= $regionname['name'] ?></td><!--Регион-->
+						<td align="center"><?= $cityname['name'] ?></td><!--Город-->
 						<td align="center"><?=$contr['org_name']?></td>
 						<td align="center">
 						<?php
@@ -185,7 +186,7 @@ setTimeout(function(){
 						</td>
 						<td align="center">
 						<?php
-							$mobile_exp = explode(";", $contr['mobile']);
+							$mobile_exp = explode(";", html_entity_decode($contr['mobile'], ENT_QUOTES));
 							$count_mobile = count($mobile_exp);
 							if($count_mobile<2){
 								echo $mobile_exp[0];
