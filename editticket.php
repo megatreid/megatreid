@@ -347,13 +347,13 @@ if( isset($data['edit_ticket']))
 						<tr>
 							<td class="reg_dohod_td"><label for="ticket_task">Задача по заявке:</label></td>
 							<td>
-								<textarea class="reg_textarea" id="ticket_task" name="ticket_task" maxlength="150"><?= @$tickets['ticket_task'];?></textarea>
+								<textarea class="reg_textarea" id="ticket_task" name="ticket_task" maxlength="500"><?= @$tickets['ticket_task'];?></textarea>
 							</td>
 						</tr>
 						<tr>
 							<td class="reg_dohod_td"><label for="ticket_solution">Решение по заявке:</label></td>
 							<td>
-								<textarea class="reg_textarea" id="ticket_solution" name="ticket_solution" maxlength="150"><?= @$tickets['ticket_solution'];?></textarea>
+								<textarea class="reg_textarea" id="ticket_solution" name="ticket_solution" maxlength="500"><?= @$tickets['ticket_solution'];?></textarea>
 							</td>
 						</tr>
 						<tr>
