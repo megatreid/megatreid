@@ -75,9 +75,9 @@ if( isset($data['edit_ticket']))
 		{
 			$errors[] = 'Укажите задачу по заявке!';
 		}
-			if(mb_strlen($ticket_task_edit,'UTF-8')>200 or mb_strlen($ticket_task_edit,'UTF-8')<3)
+			if(mb_strlen($ticket_task_edit,'UTF-8')>500 or mb_strlen($ticket_task_edit,'UTF-8')<3)
 		{
-			$errors[] = 'Текст задачи должен содержать не менее 3 и не более 200 символов!';
+			$errors[] = 'Текст задачи должен содержать не менее 3 и не более 500 символов!';
 		}	
 
 
