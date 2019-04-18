@@ -49,7 +49,7 @@ $sheet->setCellValue('A6', 'Проект');
 $sheet->mergeCells('B6:B7');
 $sheet->setCellValue('B6', '№ заявки');
 $sheet->mergeCells('C6:C7');
-$sheet->setCellValue('C6', 'Дата заведения заявки');
+$sheet->setCellValue('C6', 'Дата принятия в работу');
 $sheet->mergeCells('D6:D7');
 $sheet->setCellValue('D6', 'Город');
 $sheet->mergeCells('E6:E7');
