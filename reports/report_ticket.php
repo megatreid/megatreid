@@ -11,8 +11,8 @@ $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4)
 $sheet->setTitle('Отчет по заявкам');
 $sheet->getColumnDimension('A')->setAutoSize(true);
 $sheet->getColumnDimension('B')->setAutoSize(true);
-$sheet->getColumnDimension('C')->setAutoSize(true);
-$sheet->getColumnDimension('D')->setWidth(12);
+$sheet->getColumnDimension('C')->setWidth(18);
+$sheet->getColumnDimension('D')->setAutoSize(true);
 $sheet->getColumnDimension('E')->setAutoSize(true);
 $sheet->getColumnDimension('F')->setWidth(35);
 $sheet->getColumnDimension('G')->setWidth(35);
@@ -20,15 +20,15 @@ $sheet->getColumnDimension('G')->setWidth(35);
 //$ispolnitel
 if(isset($ispolnitel) AND $ispolnitel=="yes"){
 	$move = 1;
-	$sheet->getColumnDimension($row[7])->setAutoSize(true);
+	$sheet->getColumnDimension($row[7])->setWidth(35);
 }
-$sheet->getColumnDimension($row[7+$move])->setWidth(15);
+$sheet->getColumnDimension($row[7+$move])->setWidth(35);
 $sheet->getColumnDimension($row[8+$move])->setWidth(15);
 $sheet->getColumnDimension($row[9+$move])->setWidth(15);
 $sheet->getColumnDimension($row[10+$move])->setWidth(15);
 $sheet->getColumnDimension($row[11+$move])->setWidth(15);
-$sheet->getColumnDimension($row[12+$move])->setWidth(12);
-
+$sheet->getColumnDimension($row[12+$move])->setWidth(15);
+$sheet->getColumnDimension($row[13+$move])->setWidth(14);
 //$sheet->mergeCells('A2:C2');
 $sheet->setCellValue('A2','Заказчик:');
 //$sheet->mergeCells('A3:C3');
@@ -49,42 +49,44 @@ $sheet->setCellValue('A6', 'Проект');
 $sheet->mergeCells('B6:B7');
 $sheet->setCellValue('B6', '№ заявки');
 $sheet->mergeCells('C6:C7');
-$sheet->setCellValue('C6', 'Город');
+$sheet->setCellValue('C6', 'Дата заведения заявки');
 $sheet->mergeCells('D6:D7');
-$sheet->setCellValue('D6', 'Объект');
+$sheet->setCellValue('D6', 'Город');
 $sheet->mergeCells('E6:E7');
-$sheet->setCellValue('E6', 'Адрес');
+$sheet->setCellValue('E6', 'Объект');
 $sheet->mergeCells('F6:F7');
-$sheet->setCellValue('F6', 'Задача');
+$sheet->setCellValue('F6', 'Адрес');
 $sheet->mergeCells('G6:G7');
-$sheet->setCellValue('G6', 'Решение');
+$sheet->setCellValue('G6', 'Задача');
+$sheet->mergeCells('H6:H7');
+$sheet->setCellValue('H6', 'Решение');
 if(isset($ispolnitel) AND $ispolnitel=="yes"){
-	$sheet->mergeCells('H6:H7');
-	$sheet->setCellValue('H6', 'Исполнитель');
+	$sheet->mergeCells('I6:I7');
+	$sheet->setCellValue('I6', 'Исполнитель');
 }
-$sheet->mergeCells($row[7 + $move].'6:'.$row[11 + $move].'6');
-$sheet->setCellValue($row[7+$move].'6', 'Расходы по заявке');
-$sheet->setCellValue($row[7+$move].'7', 'Инцидентная');
-$sheet->setCellValue($row[8+$move].'7', 'Почасовая');
-$sheet->setCellValue($row[9+$move].'7', 'Смета');
-$sheet->setCellValue($row[10+$move].'7', 'Материалы');
-$sheet->setCellValue($row[11+$move].'7', 'Транспорт');
-$sheet->mergeCells($row[12 + $move].'6:'.$row[12 + $move].'7');
-$sheet->setCellValue($row[12+$move].'6', 'Сумма');
+$sheet->mergeCells($row[8 + $move].'6:'.$row[12 + $move].'6');
+$sheet->setCellValue($row[8+$move].'6', 'Расходы по заявке');
+$sheet->setCellValue($row[8+$move].'7', 'Инцидентная');
+$sheet->setCellValue($row[9+$move].'7', 'Почасовая');
+$sheet->setCellValue($row[10+$move].'7', 'Смета');
+$sheet->setCellValue($row[11+$move].'7', 'Материалы');
+$sheet->setCellValue($row[12+$move].'7', 'Транспорт');
+$sheet->mergeCells($row[13 + $move].'6:'.$row[13 + $move].'7');
+$sheet->setCellValue($row[13+$move].'6', 'Сумма');
 
 if(isset($paystatus) AND $paystatus=="yes"){
 	$movepay = 3;
-	$sheet->mergeCells($row[13 + $move].'6:'.$row[13 + $move].'7');
-	$sheet->setCellValue($row[13+$move].'6', 'Номер счета');
 	$sheet->mergeCells($row[14 + $move].'6:'.$row[14 + $move].'7');
-	$sheet->setCellValue($row[14+$move].'6', 'Дата платежа');	
+	$sheet->setCellValue($row[14+$move].'6', 'Номер счета');
 	$sheet->mergeCells($row[15 + $move].'6:'.$row[15 + $move].'7');
-	$sheet->setCellValue($row[15+$move].'6', 'Статус платежа');
-	$sheet->getColumnDimension($row[13+$move])->setWidth(15);
-	$sheet->getColumnDimension($row[14+$move])->setWidth(15);
-	$sheet->getColumnDimension($row[15+$move])->setWidth(15);
+	$sheet->setCellValue($row[15+$move].'6', 'Дата платежа');	
+	$sheet->mergeCells($row[16 + $move].'6:'.$row[16 + $move].'7');
+	$sheet->setCellValue($row[16+$move].'6', 'Статус платежа');
+	$sheet->getColumnDimension($row[14+$move])->setWidth(16);
+	$sheet->getColumnDimension($row[15+$move])->setWidth(16);
+	$sheet->getColumnDimension($row[16+$move])->setWidth(14);
 
-	$sheet->getStyle('A6:'.$row[12 + $move].'7')->getAlignment()->setWrapText(true);
+	$sheet->getStyle('A6:'.$row[13 + $move].'7')->getAlignment()->setWrapText(true);
 }
 
 $all_cost_in_project = 0;
@@ -155,15 +157,17 @@ foreach($_POST['id_projects'] as $id_project)
 					$cost_material = floatval($rep_ticket['cost_material']);
 					$cost_transport = floatval($rep_ticket['cost_transport']);
 					$summ = ($cost_incident + $cost_hour + $cost_smeta + $cost_material + $cost_transport);
-					
+					$ticketdate = strtotime($rep_ticket['ticket_date']);
+					$ticketdate = date( 'd-m-Y', $ticketdate );
 					//Вывод на страницу в Excel
 					$sheet->setCellValue('A'.$row_next, $projects['projectname']);
 					$sheet->setCellValue('B'.$row_next, $ticket_number);
-					$sheet->setCellValue('C'.$row_next, $city_name);
-					$sheet->setCellValue('D'.$row_next, $shop_number);
-					$sheet->setCellValue('E'.$row_next, $address);
-					$sheet->setCellValue('F'.$row_next, $ticket_task);
-					$sheet->setCellValue('G'.$row_next, $ticket_solution);
+					$sheet->setCellValue('C'.$row_next, $ticketdate);
+					$sheet->setCellValue('D'.$row_next, $city_name);
+					$sheet->setCellValue('E'.$row_next, $shop_number);
+					$sheet->setCellValue('F'.$row_next, $address);
+					$sheet->setCellValue('G'.$row_next, $ticket_task);
+					$sheet->setCellValue('H'.$row_next, $ticket_solution);
 					if(isset($ispolnitel) AND $ispolnitel=="yes"){
 						if($implementer==1){
 							$implementer_new = "Мега Трейд ООО (Нижний Новгород)";
@@ -174,18 +178,18 @@ foreach($_POST['id_projects'] as $id_project)
 								$implementer_new = $contr_info['org_name'].' '.$contr_info['ownership'].' ('.$city_name_contr['name'].')';
 							}
 						}
-						$sheet->setCellValue('H'.$row_next, $implementer_new);
+						$sheet->setCellValue('I'.$row_next, $implementer_new);
 					}
-					$sheet->setCellValue($row[7 + $move].$row_next, $cost_incident);
-					$sheet->setCellValue($row[8 + $move].$row_next, $cost_hour);
-					$sheet->setCellValue($row[9 + $move].$row_next, $cost_smeta);
-					$sheet->setCellValue($row[10 + $move].$row_next, $cost_material);
-					$sheet->setCellValue($row[11 + $move].$row_next, $cost_transport);
-					$sheet->setCellValue($row[12 + $move].$row_next, $summ);
+					$sheet->setCellValue($row[8 + $move].$row_next, $cost_incident);
+					$sheet->setCellValue($row[9 + $move].$row_next, $cost_hour);
+					$sheet->setCellValue($row[10 + $move].$row_next, $cost_smeta);
+					$sheet->setCellValue($row[11 + $move].$row_next, $cost_material);
+					$sheet->setCellValue($row[12 + $move].$row_next, $cost_transport);
+					$sheet->setCellValue($row[13 + $move].$row_next, $summ);
 					$rowplus++;
 					$all_cost_in_project += $summ;
 					if(isset($paystatus) AND $paystatus=="yes"){
-						$sheet->setCellValue($row[13 + $move].$row_next, $rep_ticket['customer_account_number']);
+						$sheet->setCellValue($row[14 + $move].$row_next, $rep_ticket['customer_account_number']);
 						if($rep_ticket['customer_date_payment'] != 0){
 							$convertticketdate = strtotime($rep_ticket['customer_date_payment']);
 							$ticketdate = date( 'd-m-Y', $convertticketdate );
@@ -194,8 +198,8 @@ foreach($_POST['id_projects'] as $id_project)
 							$ticketdate = '';
 						}
 						
-						$sheet->setCellValue($row[14 + $move].$row_next, $ticketdate);
-						$sheet->setCellValue($row[15 + $move].$row_next, $paymentstatus_array[$rep_ticket['customer_payment_status']]);
+						$sheet->setCellValue($row[15 + $move].$row_next, $ticketdate);
+						$sheet->setCellValue($row[16 + $move].$row_next, $paymentstatus_array[$rep_ticket['customer_payment_status']]);
 						
 					}
 				
@@ -204,20 +208,20 @@ foreach($_POST['id_projects'] as $id_project)
 		}
 	}
 }
-$sheet->setCellValue($row[11 + $move].($row_next + 1), "ИТОГО:");
-$sheet->setCellValue($row[12 + $move].($row_next + 1), $all_cost_in_project);
-$sheet->getStyle($row[12 + $move].($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
-$sheet->getStyle('A6:'.$row[12 + $move + $movepay].'7')->applyFromArray($style_header);
-$sheet->getStyle('A7:'.$row[6 + $move].($row_next))->applyFromArray($style_left);
-$sheet->getStyle('A6:'.$row[12 + $move + $movepay].'7')->applyFromArray($style_center);
-$sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->applyFromArray($style_center);
-$sheet->getStyle('A6:'.$row[12 + $move + $movepay].($row_next))->applyFromArray($style_wrap);
-
+$sheet->setCellValue($row[12 + $move].($row_next + 1), "ИТОГО:");
+$sheet->setCellValue($row[13 + $move].($row_next + 1), $all_cost_in_project);
+$sheet->getStyle($row[13 + $move].($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle('A6:'.$row[13 + $move + $movepay].'7')->applyFromArray($style_header);
+$sheet->getStyle('A7:'.$row[7 + $move].($row_next))->applyFromArray($style_left);
+$sheet->getStyle('A6:'.$row[13 + $move + $movepay].'7')->applyFromArray($style_center);
+$sheet->getStyle($row[8 + $move].'8:'.$row[13 + $move].($row_next))->applyFromArray($style_center);
+$sheet->getStyle('A6:'.$row[13 + $move + $movepay].($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A8:E'.($row_next))->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
-$sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_header);
-$sheet->getStyle($row[11 + $move].($row_next + 1).':'.$row[12 + $move].($row_next + 1))->applyFromArray($style_wrap);
-$sheet->getStyle('A6:'.$row[12 + $move + $movepay].'7')->getAlignment()->setWrapText(true);
-$sheet->getStyle($row[7 + $move].'8:'.$row[12 + $move].($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle($row[12 + $move].($row_next + 1).':'.$row[13 + $move].($row_next + 1))->applyFromArray($style_header);
+$sheet->getStyle($row[12 + $move].($row_next + 1).':'.$row[13 + $move].($row_next + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:'.$row[13 + $move + $movepay].'7')->getAlignment()->setWrapText(true);
+$sheet->getStyle($row[8 + $move].'8:'.$row[13 + $move].($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
 
-$sheet->getStyle($row[14 + $move].'8:'.$row[14 + $move].($row_next))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
+$sheet->getStyle($row[15 + $move].'8:'.$row[15 + $move].($row_next))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_DDMMYYYY);
 ?>
