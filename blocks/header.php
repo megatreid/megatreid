@@ -106,7 +106,7 @@
 						<li><a href="report_by_customer.php">Отчет по заказчикам</a></li> 
 						<li><a href="report_by_contractor.php">Отчет по подрядчикам</a>
 						<ul>
-							<li><a href="report_partner_from_base.php">Партнерская сеть</a>
+							<li><a href="report_partner_from_base.php">Партнерская сеть</a></li>
 						</ul>
 						</li>
 						<li><a href="objects_with_abon.php">Объекты с абонентской платой</a></li> 
