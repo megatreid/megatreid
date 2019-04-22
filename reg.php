@@ -1,7 +1,5 @@
 <?php
-	require '/connection/config.php';
-	//require '/func/db.php';
-	//$link = mysqli_connect($host, $login, $pswrd, $db_name) or die("Ошибка " . mysqli_error($link)); 
+require '/connection/config.php';
 	$data = $_POST;
 	$email = $_SESSION['email'];
 	$mobile = $_SESSION['mobile'];
@@ -18,12 +16,6 @@
 	unset($_SESSION['surname']);
 	unset($_SESSION['th_name']);
 	unset($_SESSION['password']);
-	/*if($result)
-	{
-		mysqli_close($link);
-		header('location: /sign-up-success.php');
-		exit;
-	}*/
 
 ?><?php require_once '/blocks/header.php';?>
 <!DOCTYPE html>
