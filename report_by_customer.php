@@ -356,7 +356,6 @@ $xls->setActiveSheetIndex(0);
 							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
 						<?php } ?>
 					</select>
-					
 					по
 					<select name="month_end" id="month">
 						<?php for($i = 1; $i < 13; $i++) { ?>
@@ -365,8 +364,6 @@ $xls->setActiveSheetIndex(0);
 					</select>
 					</td>
 				</tr>
-
-
 				<tr>
 					<td class="rowt">Выберите проекты:</td>
 					<td colspan="2">
@@ -379,20 +376,14 @@ $xls->setActiveSheetIndex(0);
 						</select>
 					<?php } else { ?>
 						<span class="rowt">У данного заказчика нет проектов</span>
-						
 					<?php }?>
 					</td>
-
 				</tr>
-				
 				<tr>
 				<td><p><button name="customer_report" class="button-new">Создать отчет</button></p></td>
 				<td colspan="2"><p class="rowt_left"><input type="checkbox" name="ispolnitel" value="yes">Добавить исполнителей в отчет по заявкам</p>
 				<p class="rowt_left"><input type="checkbox" name="paystatus" value="yes">Добавить статус платежа в отчет по заявкам</p>
-				
-				
 				</td>
-				
 				</tr>
 				<?php }?>
 			</form>
