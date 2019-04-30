@@ -70,7 +70,7 @@ $sheet->setCellValue($row[8+$move].'7', 'Инцидентная');
 $sheet->setCellValue($row[9+$move].'7', 'Почасовая');
 $sheet->setCellValue($row[10+$move].'7', 'Смета');
 $sheet->setCellValue($row[11+$move].'7', 'Материалы');
-$sheet->setCellValue($row[12+$move].'7', 'Транспорт');
+$sheet->setCellValue($row[12+$move].'7', 'Доставка');
 $sheet->mergeCells($row[13 + $move].'6:'.$row[13 + $move].'7');
 $sheet->setCellValue($row[13+$move].'6', 'Сумма');
 

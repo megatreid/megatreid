@@ -934,9 +934,9 @@ function Show_Contr_in_object($connection, $id_contractor)
     }
     return $array; 
 }
-function Show_Rep_Contr_Tickets($connection, $var, $year, $ticket_status, $month_start, $month_end) 
+function Show_Rep_Contr_Tickets($connection, $var, $year, $ticket_status, $paystatus, $month_start, $month_end) 
 {
-	$search = "SELECT * FROM tickets WHERE id_contractor='$var' AND year='$year' AND ticket_status='$ticket_status' AND month BETWEEN '$month_start' AND '$month_end'";
+	$search = "SELECT * FROM tickets WHERE $paystatus id_contractor='$var' AND year='$year' AND ticket_status='$ticket_status' AND month BETWEEN '$month_start' AND '$month_end'";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;

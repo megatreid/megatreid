@@ -23,13 +23,33 @@ if(isset($_POST['contractor_report']))
 	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
 	$year = trim(filter_input(INPUT_POST, 'year'));
 	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
+	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
 	//echo $month_start;
 	$month_start_name = $months[$month_start-1];
 	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
 	//echo $month_end;
 	$month_end_name = $months[$month_end-1];
 	$month_period = ($month_end - $month_start) + 1;
+	switch($payment_status)
+	{
+		case '0':	
+			$paystatus = "contr_payment_status = '0' AND ";
+		break;	
+		case '1':	
+			$paystatus = "contr_payment_status = '1' AND ";
+		break;	
+		case '2':	
+			$paystatus = "";
+		break;	
+
+	}	
+	
+	
+	
+	
+	
 	$errors=array();//массив сообшений ошибок
+	
 	if(empty($_POST['id_contractors']))
 	{
 		$errors[] = 'Не выбран ни один подрядчик!';
@@ -174,6 +194,16 @@ if(empty($errors))
 						<option value="0">В работе</option>
 						<option selected value="1">Закрыта</option>
 						<option value="2">На согласовании</option>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="rowt">Статус платежа:</td>
+					<td colspan="2">
+					<select class="reg_select" name="payment_status" id="payment_status">
+						<option value="0">Неоплачено</option>
+						<option selected value="1">Оплачено</option>
+						<option value="2">Любой</option>
 					</select>
 					</td>
 				</tr>
