@@ -150,7 +150,8 @@ if( isset($data['new_ticket']))
 		}
 		
 		
-		if($implementer == 1){
+		if($implementer == 1)
+		{
 			$id_contractor = 0;
 			$contr_cost_work = 0;
 			$contr_cost_smeta = 0;
