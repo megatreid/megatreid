@@ -893,9 +893,9 @@ function Delete_Region($connection, $region_id, $country_id)
 }
 /***********************************ОТЧЕТЫ***************************************/
 
-function Show_Rep_Tickets($connection, $var, $year, $ticket_status, $month_start, $month_end) 
+function Show_Rep_Tickets($connection, $var, $year, $ticket_status, $custompaystatus, $month_start, $month_end) 
 {
-	$search = "SELECT * FROM tickets WHERE id_object='$var' AND year='$year' AND ticket_status='$ticket_status' AND month BETWEEN '$month_start' AND '$month_end'";
+	$search = "SELECT * FROM tickets WHERE $custompaystatus id_object='$var' AND year='$year' AND ticket_status='$ticket_status' AND month BETWEEN '$month_start' AND '$month_end'";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;

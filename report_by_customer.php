@@ -50,6 +50,7 @@ if(isset($_POST['customer_report']))
 	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
 	$year = trim(filter_input(INPUT_POST, 'year'));
 	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
+	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
 	//echo $month_start;
 	$month_start_name = $months[$month_start-1];
 	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
@@ -59,6 +60,19 @@ if(isset($_POST['customer_report']))
 	$ispolnitel = trim(filter_input(INPUT_POST, 'ispolnitel'));
 	$paystatus = trim(filter_input(INPUT_POST, 'paystatus'));
 	$errors=array();//массив сообшений ошибок
+	switch($payment_status)
+	{
+		case '0':	
+			$custompaystatus = "customer_payment_status = '0' AND ";
+		break;	
+		case '1':	
+			$custompaystatus = "customer_payment_status = '1' AND ";
+		break;	
+		case '2':	
+			$custompaystatus = "";
+		break;	
+
+	}	
 	if($month_start > $month_end)
 		{
 			$errors[] = 'Неправильно выбран отчетный период!';
@@ -105,7 +119,7 @@ if(isset($_POST['customer_report']))
 						//$abon_plata = (int)$abon_plata;
 						$cash_abplata_month = $abon_plata * $month_period;
 						$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
-						$rep_tickets = Show_Rep_Tickets ($link, $odject_arr, $year, $ticket_status, $month_start, $month_end);
+						$rep_tickets = Show_Rep_Tickets ($link, $odject_arr, $year, $ticket_status, $custompaystatus, $month_start, $month_end);
 						
 						$k=0;
 						if($rep_tickets)
@@ -337,7 +351,16 @@ $xls->setActiveSheetIndex(0);
 					</select>
 					</td>
 				</tr>
-
+				<tr>
+					<td class="rowt">Статус платежа:</td>
+					<td colspan="2">
+					<select class="reg_select" name="payment_status" id="payment_status">
+						<option selected value="0">Неоплачено</option>
+						<option value="1">Оплачено</option>
+						<option value="2">Любой</option>
+					</select>
+					</td>
+				</tr>
 				<tr>
 					<td class="rowt">Отчетный год:</td>
 					<td colspan="2">

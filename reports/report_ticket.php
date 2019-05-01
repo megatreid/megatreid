@@ -44,25 +44,25 @@ $sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT
 $sheet->setCellValue('B3',$year);
 $sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
 $sheet->setCellValue('B5',($month_period));
-$sheet->mergeCells('A6:A7');
-$sheet->setCellValue('A6', 'Проект');
-$sheet->mergeCells('B6:B7');
-$sheet->setCellValue('B6', '№ заявки');
-$sheet->mergeCells('C6:C7');
-$sheet->setCellValue('C6', 'Дата принятия в работу');
-$sheet->mergeCells('D6:D7');
-$sheet->setCellValue('D6', 'Город');
-$sheet->mergeCells('E6:E7');
-$sheet->setCellValue('E6', 'Объект');
-$sheet->mergeCells('F6:F7');
-$sheet->setCellValue('F6', 'Адрес');
-$sheet->mergeCells('G6:G7');
-$sheet->setCellValue('G6', 'Задача');
-$sheet->mergeCells('H6:H7');
-$sheet->setCellValue('H6', 'Решение');
+//$sheet->mergeCells('A6:A7');
+$sheet->setCellValue('A7', 'Проект');
+//$sheet->mergeCells('B6:B7');
+$sheet->setCellValue('B7', '№ заявки');
+//$sheet->mergeCells('C6:C7');
+$sheet->setCellValue('C7', 'Дата принятия в работу');
+//$sheet->mergeCells('D6:D7');
+$sheet->setCellValue('D7', 'Город');
+//$sheet->mergeCells('E6:E7');
+$sheet->setCellValue('E7', 'Объект');
+//$sheet->mergeCells('F6:F7');
+$sheet->setCellValue('F7', 'Адрес');
+//$sheet->mergeCells('G6:G7');
+$sheet->setCellValue('G7', 'Задача');
+$sheet->mergeCells('A6:H6');
+$sheet->setCellValue('H7', 'Решение');
 if(isset($ispolnitel) AND $ispolnitel=="yes"){
-	$sheet->mergeCells('I6:I7');
-	$sheet->setCellValue('I6', 'Исполнитель');
+	
+	$sheet->setCellValue('I7', 'Исполнитель');
 }
 $sheet->mergeCells($row[8 + $move].'6:'.$row[12 + $move].'6');
 $sheet->setCellValue($row[8+$move].'6', 'Расходы по заявке');
@@ -71,17 +71,17 @@ $sheet->setCellValue($row[9+$move].'7', 'Почасовая');
 $sheet->setCellValue($row[10+$move].'7', 'Смета');
 $sheet->setCellValue($row[11+$move].'7', 'Материалы');
 $sheet->setCellValue($row[12+$move].'7', 'Доставка');
-$sheet->mergeCells($row[13 + $move].'6:'.$row[13 + $move].'7');
-$sheet->setCellValue($row[13+$move].'6', 'Сумма');
+//$sheet->mergeCells($row[13 + $move].'6:'.$row[13 + $move].'7');
+$sheet->setCellValue($row[13+$move].'7', 'Сумма');
 
 if(isset($paystatus) AND $paystatus=="yes"){
 	$movepay = 3;
-	$sheet->mergeCells($row[14 + $move].'6:'.$row[14 + $move].'7');
-	$sheet->setCellValue($row[14+$move].'6', 'Номер счета');
-	$sheet->mergeCells($row[15 + $move].'6:'.$row[15 + $move].'7');
-	$sheet->setCellValue($row[15+$move].'6', 'Дата платежа');	
-	$sheet->mergeCells($row[16 + $move].'6:'.$row[16 + $move].'7');
-	$sheet->setCellValue($row[16+$move].'6', 'Статус платежа');
+	$sheet->mergeCells($row[14 + $move].'6:'.$row[16 + $move].'6');
+	$sheet->setCellValue($row[14+$move].'7', 'Номер счета');
+	//$sheet->mergeCells($row[15 + $move].'6:'.$row[15 + $move].'7');
+	$sheet->setCellValue($row[15+$move].'7', 'Дата платежа');	
+	//$sheet->mergeCells($row[16 + $move].'6:'.$row[16 + $move].'7');
+	$sheet->setCellValue($row[16+$move].'7', 'Статус платежа');
 	$sheet->getColumnDimension($row[14+$move])->setWidth(16);
 	$sheet->getColumnDimension($row[15+$move])->setWidth(16);
 	$sheet->getColumnDimension($row[16+$move])->setWidth(14);
@@ -114,7 +114,7 @@ foreach($_POST['id_projects'] as $id_project)
 			$abon_plata = $object['abon_plata'];
 			$cash_abplata_month = $abon_plata * $month_period;
 			$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
-			$rep_tickets = Show_Rep_Tickets ($link, $id_odject, $year, $ticket_status, $month_start, $month_end);
+			$rep_tickets = Show_Rep_Tickets ($link, $id_odject, $year, $ticket_status, $custompaystatus, $month_start, $month_end);
 			if($rep_tickets)
 			{
 				foreach($rep_tickets as $rep_ticket)
