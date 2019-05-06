@@ -74,7 +74,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
 	$row_next = $row_start3 + $rowplus;
 	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status, $paystatus, $month_start, $month_end);
-	$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' '.$contr_info['status'].' ('.$city_name['name'].')');
+	$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
 	$contr_cost_summ = 0;
 	if($tickets){
 		foreach($tickets as $ticket)
