@@ -711,7 +711,17 @@ function Update_Ticket($connection, $id_ticket, $ticket_number, $year, $month, $
     if ($result) return true;
     else
         die ($connection->error);
-	mysqli_close($link);
+	mysqli_close($connection);
+}
+function Update_Ticket_Select($connection, $id_ticket, $id_object, $user_id, $currentdatetime)
+{
+	$update = "UPDATE `tickets` SET `id_object`='$id_object', `last_edit_datetime`='$currentdatetime', `last_edit_user_id`='$user_id' WHERE `id_ticket`='$id_ticket'";
+
+    $result = $connection->query ($update);
+    if ($result) return true;
+    else
+        die ($connection->error);
+	mysqli_close($connection);
 }
 function Delete_Ticket($connection, $var)
 {

@@ -12,7 +12,6 @@ $id_engineers_array = "";
 $selected = "";
 $data = $_POST;
 $err=FALSE;
-
 $ticket_number_edit = trim(filter_input(INPUT_POST, 'ticket_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $year_edit = trim(filter_input(INPUT_POST, 'year', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $month_edit = trim(filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -167,12 +166,17 @@ if( isset($data['edit_ticket']))
 	$customers = Edit_Customer ($link, $objects['id_customer']);
 	$contractor_select = Edit_Contr ($link, $tickets['id_contractor']);
 	
+	$customer_name = $customers['customer_name'];
+	$project_name = $projects['projectname'];
+		
+
+	
 	$id_object = $objects['id_object'];
 	$id_project = $projects['id_project'];
 	$object_full = $objects['shop_number'].". Адрес: ".$objects['address'];
 	$city_name = $objects['city_name'];
-	$project_name = $projects['projectname'];
-	$customer_name = $customers['customer_name'];
+	
+	
 	$convertticketdate = strtotime($tickets['ticket_date']);
 	$ticketdate = date( 'd-m-Y H:i:s', $convertticketdate );
 	$convertlast_edit_datetime = strtotime($tickets['last_edit_datetime']);
@@ -257,10 +261,11 @@ if( isset($data['edit_ticket']))
 	<div class="reg_up_table">
 	<p><b>Доходная часть</p>
 		<table> <!-- Доходная часть  -->
-						<!-- <tr>
-							<a href="select_object.php"><button autofocus class="button-new">Выбрать объект</button></a>
-						</tr> -->
-			
+		<?php if($_SESSION['userlevel']<3){ ?>
+						<tr>
+							<a href="select_object_for_edit.php?id_ticket=<?=$get_data;?>"><button autofocus class="button-new">Выбрать объект</button></a>
+						</tr>
+		<?php } ?>	
 						<form action="editticket.php?id_ticket=<?=$get_data;?>" method="POST">
 						<input name="id_object" type="hidden" value=<?=$id_object?>> 
 						<!--<input name="last_edit_datetime" type="hidden" value=<?=$currnetdatetime?>> 
