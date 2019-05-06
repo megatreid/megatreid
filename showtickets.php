@@ -1,5 +1,5 @@
 <?php
-require '/connection/config.php';
+require 'connection/config.php';
 $data = $_POST;
 
 if( isset($data['delay']))
