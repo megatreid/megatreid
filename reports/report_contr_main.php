@@ -38,7 +38,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
 	$row_next = $row_start + $rowplus;
 	$objects = Show_Contr_in_object ($link, $id_contractor);
-	$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' '.$contr_info['status'].' ('.$city_name['name'].')');
+	$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
 	$abon_plata_contr_summ = 0;
 	if($objects){
 		foreach($objects as $object)
