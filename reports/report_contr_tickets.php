@@ -27,6 +27,7 @@ $sheet->getColumnDimension('O')->setWidth(14);
 $sheet->getColumnDimension('P')->setWidth(14);
 $sheet->getColumnDimension('Q')->setWidth(14);
 $sheet->getColumnDimension('R')->setAutoSize(true);
+$sheet->getColumnDimension('S')->setWidth(45);
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
@@ -75,7 +76,8 @@ $sheet->setCellValue('P7', 'Доставка');
 $sheet->setCellValue('Q7', 'Материалы');
 //$sheet->mergeCells('R7:R7');
 $sheet->setCellValue('R7', 'Сумма');
-$sheet->getStyle('A6:R7')->getAlignment()->setWrapText(true);
+$sheet->setCellValue('S7', 'Комментарий');
+$sheet->getStyle('A6:S7')->getAlignment()->setWrapText(true);
 $sheet->mergeCells('A6:M6');
 $row_start = 8;
 $rowplus = 0;
@@ -132,7 +134,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$sheet->setCellValue('P'.($row_next), $contr_cost_transport);
 			$sheet->setCellValue('Q'.($row_next), $contr_cost_material);
 			$sheet->setCellValue('R'.($row_next), $contr_cost_summ);
-
+			$sheet->setCellValue('S'.($row_next), $ticket['contr_comment']);
 			$rowplus++;
 			$contr_cost_itog += $contr_cost_summ;
 		}
@@ -147,10 +149,10 @@ foreach($_POST['id_contractors'] as $id_contractor)
 $sheet->setCellValue('Q'.($row_next + 1),"ИТОГО:");
 $sheet->setCellValue('R'.($row_next + 1), $contr_cost_itog);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
-$sheet->getStyle('A6:R'.($row_next))->applyFromArray($style_wrap);
-$sheet->getStyle('A6:R7')->applyFromArray($style_header);
+$sheet->getStyle('A6:S'.($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:S7')->applyFromArray($style_header);
 $sheet->getStyle('A'.($row_next + 1))->applyFromArray($style_right);
-$sheet->getStyle('A6:R7')->applyFromArray($style_center);
+$sheet->getStyle('A6:S7')->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle('Q'.($row_next + 1).':R'.($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle('Q'.($row_next + 1).':R'.($row_next + 1))->applyFromArray($style_wrap);
