@@ -34,26 +34,32 @@ $row_start = 7;
 $rowplus = 0;
 foreach($_POST['id_contractors'] as $id_contractor)
 {
+
+	$objects = Show_Contr_in_object ($link, $id_contractor);
+
+
+	if($objects){
 	$contr_info = edit_contr($link, $id_contractor);
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-	$row_next = $row_start + $rowplus;
-	$objects = Show_Contr_in_object ($link, $id_contractor);
-	$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
-	$abon_plata_contr_summ = 0;
-	if($objects){
+	$row_next = $row_start + $rowplus;		
+	$abon_plata_contr_summ = 0;		
+		
+		
+		$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
 		foreach($objects as $object)
 		{
 			$abon_plata_contr = $object['abon_plata_contr'];
 			$abon_plata_contr_summ += $abon_plata_contr;
 		}
 		$abon_plata_contr_summ *= $month_period;
+		
 		$sheet->setCellValue('B'.($row_next), $abon_plata_contr_summ);
 		$abon_plata_contr_itog += $abon_plata_contr_summ;
+		$rowplus++;
 	}
-	else {
-		$sheet->setCellValue('B'.($row_next), $abon_plata_contr_summ);
-	}
-	$rowplus++;
+
+		
+	
 }
 $sheet->setCellValue('A'.($row_next + 1),"ИТОГО:");
 $sheet->setCellValue('B'.($row_next + 1), $abon_plata_contr_itog);
@@ -72,11 +78,12 @@ foreach($_POST['id_contractors'] as $id_contractor)
 {
 	$contr_info = edit_contr($link, $id_contractor);
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-	$row_next = $row_start3 + $rowplus;
+	
 	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status, $paystatus, $month_start, $month_end);
-	$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
+	
 	$contr_cost_summ = 0;
 	if($tickets){
+		
 		foreach($tickets as $ticket)
 		{
 			$contr_cost_work = floatval($ticket['contr_cost_work']);
@@ -85,13 +92,14 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$contr_cost_material = floatval($ticket['contr_cost_material']);
 			$contr_cost_summ += ($contr_cost_work + $contr_cost_smeta + $contr_cost_transport + $contr_cost_material);
 		}
+		$row_next = $row_start3 + $rowplus;
+		$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
 		$sheet->setCellValue('B'.($row_next), $contr_cost_summ);
 		$contr_cost_itog += $contr_cost_summ;
+		$rowplus++;
 	}
-	else {
-		$sheet->setCellValue('B'.($row_next), $contr_cost_summ);
-	}
-	$rowplus++;
+
+	
 }
 
 
