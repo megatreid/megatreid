@@ -18,7 +18,7 @@ $payment_status = trim(filter_input(INPUT_POST, 'payment_status', FILTER_SANITIZ
 if(isset($data['save_to_object']))
 	{
 		$errors=array();//массив сообшений ошибок
-
+		$object_exist = Object_Exist($link, $id_object, $year, $month);
 		if(empty($id_object) OR $id_object == 0)
 		{
 			$errors[] = 'Выберите объект!';
@@ -46,6 +46,10 @@ if(isset($data['save_to_object']))
 		else
 		{
 			$date_payment_result = "`paydate`= '".$date_payment."',";
+		}
+		if($object_exist)
+		{
+			$errors[] = 'Такой объект уже добавлен на '.$months[$month - 1].' '.$year.' года!';
 		}
 		
 		if(empty($errors))
@@ -96,9 +100,7 @@ if(isset($data['save_to_object']))
 								<?php } ?>
 							</select>
 							</td>
-							
 						</tr>
-
 						<tr>
 							<td class="rowt">Проект:</td>
 							<td>

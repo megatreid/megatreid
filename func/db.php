@@ -74,7 +74,7 @@ function Login_Exist($connection, $var)
     if ($rows) return $rows;
     else
        return 0;
-	mysqli_close($link);
+	mysqli_close($connection);
 }
 
 function Email_Exist($connection, $var)
@@ -573,25 +573,7 @@ function Show_Objects_abon($connection)
     return $array; 		
     }
 }
-function Show_Objects_Contr_abon($connection, $year, $month)
-{
-	$search = "SELECT * FROM contr_objects_abonent WHERE year = '$year' AND month = '$month'" ;
-    $result = $connection->query ($search);
-    if (!$result) die ($connection->error);
-    $rows = $result->num_rows;
-    if (!$rows) return false;
-    else
-    {
-        $array = array ();
-        for ($i=0; $i<$rows; $i++)
-        {
-            $result->data_seek ($i);
-            $row =$result->fetch_array (MYSQLI_ASSOC);
-            $array["$i"] = $row;
-        } 
-    return $array; 		
-    }
-}	
+	
 function Add_Object($connection, $id_project, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status, $abon_plata, $id_contractor, $abon_plata_contr)
 {
 		$city = Get_Geo ($connection, $city_id, "city", "city_id" );
@@ -1100,7 +1082,7 @@ function Edit_Object_with_abon($connection, $var)
 }
 function Update_Object_with_abon($connection, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus)
 {
-    $update = "UPDATE contr_objects_abonent SET id_project='$id_project', id_customer='$id_customer', country_id='$country_id', region_id='$region_id', city_id='$city_id', shop_number='$shop_number', address='$address', status='$status', abon_plata='$abon_plata', city_name='$city_name', id_contractor=$id_contractor, abon_plata_contr=$abon_plata_contr  WHERE id_object='$id_object'";
+    $update = "UPDATE contr_objects_abonent SET id_project='$id_project', id_customer='$id_customer', country_id='$country_id', region_id='$region_id', city_id='$city_id', shop_number='$shop_number', address='$address', status='$status', abon_plata='$abon_plata', city_name='$city_name', id_contractor=$id_contractor, abon_plata_contr=$abon_plata_contr  WHERE id_record='$id_object'";
     $result = $connection->query ($update);
     if ($result) return true;
     else
@@ -1109,14 +1091,40 @@ function Update_Object_with_abon($connection, $id_contractor, $id_object, $summ,
 }
 function Delete_Object_with_abon($connection, $var)
 {
-	$delete_object = "DELETE FROM contr_objects_abonent WHERE id_object = '$var'";
+	$delete_object = "DELETE FROM contr_objects_abonent WHERE id_record = '$var'";
     $result = $connection->query ($delete_object);
     if ($result) return true;
     else
         die ($connection->error);
 }
-
-
+function Show_Objects_Contr_abon($connection, $year, $month)
+{
+	$search = "SELECT * FROM contr_objects_abonent WHERE year = '$year' AND month = '$month'" ;
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        } 
+    return $array; 		
+    }
+}
+function Object_Exist($connection, $id_object, $year, $month)
+{
+	$check_object = "SELECT id_record FROM contr_objects_abonent WHERE id_object = '$id_object' AND year = '$year' AND month =  '$month'";
+	$result = $connection->query ($check_object);
+    $rows = $result->fetch_array(MYSQLI_ASSOC);
+    if ($rows) return $rows;
+    else
+        return 0;
+}
 
 
 

@@ -1,8 +1,8 @@
 <?php
-require '/connection/config.php';
+require 'connection/config.php';
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<4){
-require_once '/blocks/header.php';
-require '/func/arrays.php';
+require_once 'blocks/header.php';
+require 'func/arrays.php';
 $customer = Show_Customer($link);
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ $customer = Show_Customer($link);
 		<div class="breadcrumbs">Заказчики:</div>
 		<?php if($_SESSION['userlevel']<=3){ ?>
 			<div class="newticket">
-				<a href='/newcustomer.php'><button class="button-new">Добавить нового заказчика</button></a>
+				<a href='newcustomer.php'><button class="button-new">Добавить нового заказчика</button></a>
 			</div>
 		<?php }?>
 		<table border="1">
@@ -51,7 +51,7 @@ $customer = Show_Customer($link);
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Статус-->
 					</td>						
-					<td colspan="3">
+					<td colspan="5">
 
 					</td>
 				</tr>
@@ -106,15 +106,15 @@ $customer = Show_Customer($link);
 				<td align="center"><?=$statusedit[$customers['status']];?></td>
 				<?php if($_SESSION['userlevel']<=3){ ?>
 				<td align="center" width="1">
-					<a href='/editcustomer.php?edit=<?= $customers['id_customer'] ?>' title = 'Изменить'><img src='/images/edit.png' width='20' height='20'></a>
+					<a href='editcustomer.php?edit=<?= $customers['id_customer'] ?>' title = 'Изменить'><img src='images/edit.png' width='20' height='20'></a>
 				</td>
 				<?php }?>
 				<td align="center" width="1">
-					<a href='/lookcustomer.php?look=<?= $customers['id_customer'] ?>' title = 'Посмотреть'><img src='/images/lupa.png' width='20' height='20'></a>
+					<a href='lookcustomer.php?look=<?= $customers['id_customer'] ?>' title = 'Посмотреть'><img src='images/lupa.png' width='20' height='20'></a>
 				</td>
 				
 				<td align="center" width="1">
-					<a href='showprojects.php?id_customer=<?= $customers['id_customer'] ?>' title = 'Проекты'><img src='/images/projects.png' width='20' height='20'></a>
+					<a href='showprojects.php?id_customer=<?= $customers['id_customer'] ?>' title = 'Проекты'><img src='images/projects.png' width='20' height='20'></a>
 				</td>	
 			</tr>
 <?php }} else { ?>
