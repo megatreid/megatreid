@@ -399,7 +399,7 @@ if( isset($data['new_ticket']))
 									<option value="1">Оплачено</option>
 								</select>
 							</td>
-						</tr>						
+						</tr>
 						<tr>
 							<td class="reg_dohod_td"><label for="comment">Примечание:</label></td>
 							<td><textarea class="reg_textarea" id="comment" name="comment" maxlength="500" title="Поле должно содержать не более 500 символов!" ><?= @$data['comment'];?></textarea></td>

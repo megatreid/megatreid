@@ -73,7 +73,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 				$result = Add_Object ($link, $data, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status, $abon_plata, $id_contractor, $abon_plata_contr); 
 				?>		
 				<script>
-					setTimeout(function() {window.location.href = '/showobjects.php?id_project=<?=$data?>';}, 0);
+					setTimeout(function() {window.location.href = 'showobjects.php?id_project=<?=$data?>';}, 0);
 				</script>	
 				<?php		
 			}

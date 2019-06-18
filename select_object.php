@@ -35,12 +35,7 @@ $customers = Show_Customer_Active($link, '1');
 							</td>
 							
 						</tr>
-						<tr >
-							
-							<td colspan="2" align="center">
-								<span  class="reg_link"><a href="newcustomer.php">Добавить заказчика?</a></span>
-							</td>
-						</tr>
+
 						<tr>
 							<td class="rowt">Проект:</td>
 							<td>
