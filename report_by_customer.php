@@ -339,7 +339,7 @@ $xls->setActiveSheetIndex(0);
 					</td>
 				</tr>
 				<?php if(isset($id_customer_selected) AND $id_customer_selected!=0){
-					$projects = Show_Projects ($link, $id_customer_selected);
+					$projects = Show_Active_Projects($link, $id_customer_selected);
 				?>
 				<tr>
 					<td class="rowt">Статус заявки:</td>

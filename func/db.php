@@ -466,7 +466,29 @@ function Show_Projects($connection, $var)
         }   
     }
     return $array; 
-}	
+}
+function Show_Active_Projects($connection, $var) 
+{
+
+	$search = "SELECT * FROM projects WHERE id_customer='$var' AND status ='1'  ORDER BY projectname, status ASC";
+
+    //$search = "SELECT * FROM Users";
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
 function Add_Project($connection, $id_customer, $projectname, $status, $cost_hour, $cost_incident_critical, $cost_incident_high, $cost_incident_medium, $cost_incident_low)
 {
 
@@ -1059,9 +1081,9 @@ function cleanDirectory($dir, $maxFilesCount)
 
 
 /*********************************************************************/
-function Add_Object_with_abon($connection, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus)
+function Add_Object_with_abon($connection, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus, $pay_account)
 {
-		$add_query ="INSERT INTO contr_objects_abonent SET `id_contractor`='$id_contractor', `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', $paydate `paystatus`='$paystatus'";
+		$add_query ="INSERT INTO contr_objects_abonent SET `id_contractor`='$id_contractor', `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', `pay_account` = '$pay_account', $paydate `paystatus`='$paystatus'";
 		$result = $connection->query($add_query); 
         if ($result) 
             return true;
@@ -1080,9 +1102,9 @@ function Edit_Object_with_abon($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Object_with_abon($connection, $id_record, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus)
+function Update_Object_with_abon($connection, $id_record, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus, $pay_account)
 {
-    $update = "UPDATE contr_objects_abonent SET `id_contractor`='$id_contractor', `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', $paydate `paystatus`='$paystatus' WHERE id_record='$id_record'";
+    $update = "UPDATE contr_objects_abonent SET `id_contractor`='$id_contractor', `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', `pay_account` = '$pay_account', $paydate `paystatus`='$paystatus' WHERE id_record='$id_record'";
     $result = $connection->query ($update);
     if ($result) return true;
     else

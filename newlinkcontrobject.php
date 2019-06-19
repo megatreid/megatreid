@@ -12,6 +12,7 @@ $id_object = trim(filter_input(INPUT_POST, 'id_object', FILTER_SANITIZE_FULL_SPE
 $abon_plata_contr = trim(filter_input(INPUT_POST, 'abon_plata_contr', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $year = trim(filter_input(INPUT_POST, 'year', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $month = trim(filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$pay_account = trim(filter_input(INPUT_POST, 'pay_account', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $date_payment = trim(filter_input(INPUT_POST, 'date_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $payment_status = trim(filter_input(INPUT_POST, 'payment_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
@@ -54,7 +55,7 @@ if(isset($data['save_to_object']))
 		
 		if(empty($errors))
 		{  
-			$result = Add_Object_with_abon($link, $id_contractor, $id_object, $abon_plata_contr, $year, $month, $date_payment_result, $payment_status); 
+			$result = Add_Object_with_abon($link, $id_contractor, $id_object, $abon_plata_contr, $year, $month, $date_payment_result, $payment_status, $pay_account ); 
 		?>		
 			<script>
 				setTimeout(function() {window.location.href = 'object_contr_abon.php';}, 0);
@@ -215,6 +216,13 @@ if(isset($data['save_to_object']))
 				<tr>
 					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
 					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" value="<?=$abon_plata_contr;?>"/></td>
+				</tr>
+				<!-- НОМЕР СЧЕТА --> 
+				<tr>
+					<td class="rowt"><label for="pay_account">Номер счета:</label></td>
+					<td>
+						<input id="pay_account" class="StyleSelectBox" name="pay_account"  type="text" value="<?= @$data['pay_account'];?>"/>
+					</td>
 				</tr>
 				<!-- ДАТА ПЛАТЕЖА -->
 				<tr>

@@ -18,6 +18,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 		$month = $object_info['month'];
 		$date_payment = $object_info['paydate'];
 		$payment_status = $object_info['paystatus'];
+		$pay_account = $object_info['pay_account'];
 		
 		$customers = Show_Customer_Active($link, '1');
 		$contractors = Show_Contr_for_select($link);
@@ -38,6 +39,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 		$month_update = trim(filter_input(INPUT_POST, 'month', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 		$date_payment_update = trim(filter_input(INPUT_POST, 'date_payment', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 		$payment_status_update = trim(filter_input(INPUT_POST, 'payment_status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+		$pay_account_update = trim(filter_input(INPUT_POST, 'pay_account', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 		
 		if(isset($data['save_to_object']))
 		{
@@ -71,14 +73,15 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 			{
 				$date_payment_result = "`paydate`= '".$date_payment_update."',";
 			}
-			if($object_exist)
+			if($object_exist AND $id_contractor == $id_contractor_update AND $abon_plata_contr == $abon_plata_contr_update AND $date_payment == $date_payment_update AND $year == $year_update AND $month == $month_update AND 
+			$date_payment == $date_payment_update AND $payment_status == $payment_status_update AND $pay_account == $pay_account_update)
 			{
 				$errors[] = 'Такой объект уже добавлен на '.$months[$month_update - 1].' '.$year_update.' года!';
 			}
 			
 			if(empty($errors))
 			{  
-				$update = Update_Object_with_abon($link, $id_record, $id_contractor_update, $id_object_update, $abon_plata_contr_update, $year_update, $month_update, $date_payment_result, $payment_status_update);
+				$update = Update_Object_with_abon($link, $id_record, $id_contractor_update, $id_object_update, $abon_plata_contr_update, $year_update, $month_update, $date_payment_result, $payment_status_update, $pay_account_update);
 				if($update) { ?>		
 				<script>
 					setTimeout(function() {window.location.href = 'object_contr_abon.php';}, 0);
@@ -88,6 +91,19 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 			else
 			{
 				$err=TRUE;
+			}
+			
+		}
+		if(isset($data['delete_record']))
+		{
+			$delete_record = Delete_Object_with_abon($link, $id_record);
+			if($delete_record)
+			{
+				?>
+				<script>
+					setTimeout(function() {window.location.href = 'object_contr_abon.php';}, 0);
+				</script>
+				<?php		
 			}
 		}
 	}
@@ -231,6 +247,13 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
 					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" value="<?=$abon_plata_contr;?>"/></td>
 				</tr>
+				<!-- НОМЕР СЧЕТА --> 
+				<tr>
+					<td class="rowt"><label for="pay_account">Номер счета:</label></td>
+					<td>
+						<input id="pay_account" class="StyleSelectBox" name="pay_account"  type="text" value="<?= $pay_account;?>"/>
+					</td>
+				</tr>
 				<!-- ДАТА ПЛАТЕЖА -->
 				<tr>
 					<td class="rowt"><label for="date_payment">Дата платежа:</label></td>
@@ -249,9 +272,24 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 					</td>
 				</tr>				
 			</table>			
-						<div>
-							<p><button name="save_to_object">Сохранить</button></p>
-						</div>
+						
+							<button class="button" name="save_to_object">Сохранить запись</button>
+						
+						<a href="#delete_customer" class="button-delete">Удалить запись</a>
+						<div id="delete_customer" class="modalDialog">
+							<div>
+								<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
+							<h2>Удаление записи </h2>
+							<p>Вы уверены, что хотите удалить эту запись?</p>
+							<p>Это может привести к потери данных в других разделах системы!</p>
+							<input class="button-delete" value="Да" name="delete_record" type="submit"/>
+							<a href="#close"  title="Отменить" class="button">Нет</a>
+
+							</div>
+						</div>	
+
+
+					
 					</form>
 					</div>
 	<!-- <div id="footer">&copy; ООО "МегаТрейд"</div> -->
