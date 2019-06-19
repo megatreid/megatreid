@@ -1080,14 +1080,14 @@ function Edit_Object_with_abon($connection, $var)
     if ($rows) return $rows;
     else return 0;
 }
-function Update_Object_with_abon($connection, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus)
+function Update_Object_with_abon($connection, $id_record, $id_contractor, $id_object, $summ, $year, $month, $paydate, $paystatus)
 {
-    $update = "UPDATE contr_objects_abonent SET id_project='$id_project', id_customer='$id_customer', country_id='$country_id', region_id='$region_id', city_id='$city_id', shop_number='$shop_number', address='$address', status='$status', abon_plata='$abon_plata', city_name='$city_name', id_contractor=$id_contractor, abon_plata_contr=$abon_plata_contr  WHERE id_record='$id_object'";
+    $update = "UPDATE contr_objects_abonent SET `id_contractor`='$id_contractor', `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', $paydate `paystatus`='$paystatus' WHERE id_record='$id_record'";
     $result = $connection->query ($update);
     if ($result) return true;
     else
         die ($connection->error);
-	mysqli_close($link);
+	mysqli_close($connection);
 }
 function Delete_Object_with_abon($connection, $var)
 {

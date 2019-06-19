@@ -88,7 +88,7 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 					<th>Город</th>
 					<th>Объект</th>	
 					<th>Подрядчик</th>
-					<th rowspan="2">Абонентская плата</th>
+					<th rowspan="2">Абонентская<br>плата, руб.</th>
 					<th colspan="2" rowspan="2">Действие</th>
 					<!-- <th>Скопировать<br>на следующий месяц</th> -->
 				</tr>
