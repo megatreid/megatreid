@@ -215,7 +215,7 @@ if(isset($data['save_to_object']))
 				</tr>
 				<tr>
 					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" value="<?=$abon_plata_contr;?>"/></td>
+					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" step="any" type="number" min="0" value="<?=$abon_plata_contr;?>"/></td>
 				</tr>
 				<!-- НОМЕР СЧЕТА --> 
 				<tr>

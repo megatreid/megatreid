@@ -954,7 +954,10 @@ display: block;
 	//color: #FF0000;
 	word-wrap: break-word;
 }
-
+.show_green{
+	background: #CDFFC6;
+	
+}
 
 .reg_text_show_tickets_red{
 	color: #C10000;

@@ -22,11 +22,14 @@ if(isset($_POST['contractor_report']))
 {
 	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
 	$year = trim(filter_input(INPUT_POST, 'year'));
-	$month = trim(filter_input(INPUT_POST, 'month'));
+	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
 	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
 	//echo $month_start;
-	$month_name = $months[$month-1];
-	//$month_period = ($month_end - $month_start) + 1;
+	$month_start_name = $months[$month_start-1];
+	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
+	//echo $month_end;
+	$month_end_name = $months[$month_end-1];
+	$month_period = ($month_end - $month_start) + 1;
 	switch($payment_status)
 	{
 		case '0':	
@@ -51,12 +54,10 @@ if(isset($_POST['contractor_report']))
 	{
 		$errors[] = 'Не выбран ни один подрядчик!';
 	}
-	/*
 	if($month_start > $month_end)
 	{
 		$errors[] = 'Неправильно выбран отчетный период!';
 	}
-	*/
 if(empty($errors))
 	{
 		$style_wrap = array(
@@ -217,14 +218,21 @@ if(empty($errors))
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Отчетный месяц:</td>
-					<td><select name="month" id="month" >
+					<td class="rowt">Отчетный период:</td>
+					<td> с
+					<select name="month_start" id="month" >
 						<?php for($i = 1; $i < 13; $i++) { ?>
 							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1]; ?></option>
 						<?php } ?>
 					</select>
 					</td>
-					
+					<td>по
+					<select name="month_end" id="month" >
+						<?php for($i = 1; $i < 13; $i++) { ?>
+							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1]; ?></option>
+						<?php } ?>
+					</select>
+					</td>
 				</tr>
 				<tr>
 				<td><button name="contractor_report" class="button-new">Создать отчет</button></td>

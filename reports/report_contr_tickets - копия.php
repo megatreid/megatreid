@@ -34,14 +34,14 @@ $sheet->setCellValue('B1', $date);
 //$sheet->mergeCells('A3:C3');
 $sheet->setCellValue('A2','Отчетный год:');
 //$sheet->mergeCells('A4:C4');
-$sheet->setCellValue('A3','Отчетный месяц:');
-//$sheet->setCellValue('A4','Кол-во месяцев:');
+$sheet->setCellValue('A3','Отчетный период:');
+$sheet->setCellValue('A4','Кол-во месяцев:');
 $sheet->setCellValue('A5','Способ оплаты:');
 $sheet->setCellValue('B5',$methodpaymentedit[$method_payment]);
 //$sheet->mergeCells('A6:C6');
 $sheet->setCellValue('B2',$year);
-$sheet->setCellValue('B3',($month_name));
-//$sheet->setCellValue('B4',($month_period));
+$sheet->setCellValue('B3',($month_start_name." - ".$month_end_name));
+$sheet->setCellValue('B4',($month_period));
 //$sheet->mergeCells('A6:A7');
 $sheet->setCellValue('A7', 'Подрядчик');
 //$sheet->mergeCells('B6:B7');
@@ -87,7 +87,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	$contr_info = edit_contr($link, $id_contractor);
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
 	
-	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status,$paystatus, $month);
+	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status,$paystatus, $month_start, $month_end);
 	
 	$contr_cost_summ = 0;
 	if($tickets){

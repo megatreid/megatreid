@@ -2,10 +2,17 @@
 require 'connection/config.php';
 if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3){
 require_once 'blocks/header.php';
-require '/func/arrays.php';
+require 'func/arrays.php';
 $yearnow = date('Y');
 $monthnow = date('n');
-
+$newmonth = $monthnow + 1;
+	if($monthnow == 12){
+		$newyear = $yearnow + 1;
+		$newmonth = 1;
+	}
+	else {
+		$newyear = $yearnow;
+	}
 $err = FALSE;
 $data_post = $_POST;
 $id_record = trim(filter_input(INPUT_POST, 'recordcopy', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -19,19 +26,18 @@ if(isset($data_post['recordcopy']))
 	$object_abon_contr = Edit_Object_with_abon($link, $id_record);
 	$date_payment_result = "`paydate`= NULL,";
 	$payment_status = "";
-	$newmonth = $monthnow + 1;
-	if($monthnow == 12){
-		$newyear = $yearnow + 1;
-		$newmonth = 1;
-	}
-	else {
-		$newyear = $yearnow;
-	}
+	$pay_account = "";
+	
 	$object_exist = Object_Exist($link, $object_abon_contr['id_object'], $newyear, $newmonth);
 	if(!$object_exist)
 	{
 		$err = false;
-		$new_link = Add_Object_with_abon($link, $object_abon_contr['id_contractor'], $object_abon_contr['id_object'], $object_abon_contr['summ'], $newyear, $newmonth, $date_payment_result, $payment_status);
+		$new_link = Add_Object_with_abon($link, $object_abon_contr['id_contractor'], $object_abon_contr['id_object'], $object_abon_contr['summ'], $newyear, $newmonth, $date_payment_result, $payment_status, $pay_account);
+		?>		
+			<script>
+				setTimeout(function() {window.location.href = 'object_contr_abon.php';}, 0);
+			</script>	
+		<?php		
 	}
 	else 
 	{
@@ -74,7 +80,7 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 		<?php }?>		
 		<?php if($_SESSION['userlevel']<=3){ ?>
 			<div class="newticket">
-				<a href='/newlinkcontrobject.php'><button class="button-new">Добавить новый объект</button></a>
+				<a href='newlinkcontrobject.php'><button class="button-new">Добавить новый объект</button></a>
 			</div>
 		<?php }?>
 		<form action="" method="POST">
@@ -89,6 +95,7 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 					<th>Объект</th>	
 					<th>Подрядчик</th>
 					<th rowspan="2">Абонентская<br>плата, руб.</th>
+					<th rowspan="2">Статус<br>оплаты</th>
 					<th colspan="2" rowspan="2">Действие</th>
 					<!-- <th>Скопировать<br>на следующий месяц</th> -->
 				</tr>
@@ -138,21 +145,32 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 					$city_info_contr = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
 					$contractor_info = $contr_info['org_name']." ".$contr_info['ownership']." (".$city_info_contr['name'].")";					
 				
+				
+				if($objects_abon['paystatus'] == 1)
+				{
+					$class = "show_green";
+				}
+				else $class = "";
 				?>
+				
+				
 					<tr class="reg_text_show_tickets">
-						<td align="center"><?=$objects_abon['year'];?></td>
-						<td align="center"><?=$months[$objects_abon['month'] - 1];?></td>
-						<td align="center"><?=$customer_info['customer_name'];?></td>
-						<td align="center"><?=$project_info['projectname'];?></td>
-						<td align="center"><?=$city_info['name'];?></td>
-						<td align="center"><?=$object_info['shop_number']."<br>".$object_info['address'];?></td>
-						<td align="center"><?=$contractor_info;?></td>
-						<td align="center"><?=$objects_abon['summ'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$objects_abon['year'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$months[$objects_abon['month'] - 1];?></td>
+						<td align="center" class="<?=$class;?>"><?=$customer_info['customer_name'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$project_info['projectname'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$city_info['name'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$object_info['shop_number']."<br>".$object_info['address'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$contractor_info;?></td>
+						<td align="center" class="<?=$class;?>"><?=$objects_abon['summ'];?></td>
+						<td align="center" class="<?=$class;?>"><?=$paymentstatus_array[$objects_abon['paystatus']];?></td>
 						
-						
-						<td align="center"><a href='edit_object_contr_abon.php?id_record=<?= $objects_abon['id_record']; ?>' title = 'Изменить'>
+						<td align="center" class="<?=$class;?>"><a href='edit_object_contr_abon.php?id_record=<?= $objects_abon['id_record']; ?>' title = 'Изменить'>
 						<img src='images/edit.png' width='20' height='20'></td>
-						<td align="center"><input type="image" name = "recordcopy" value = "<?= $objects_abon['id_record']; ?>" src="images/copy.png" width='20' height='20' title = 'Копировать на следующий календарный месяц'></td>
+						<td align="center" class="<?=$class;?>">
+
+						<input type="image" name = "recordcopy" value = "<?= $objects_abon['id_record']; ?>" src="images/copy.png" width='20' height='20' title = 'Копировать на <?=$months[$newmonth-1];?> <?=$newyear;?> года!'>
+						</td>
 					</tr>
 				<?php }}?>
 			</tbody>

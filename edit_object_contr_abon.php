@@ -245,7 +245,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 				</tr>
 				<tr>
 					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" value="<?=$abon_plata_contr;?>"/></td>
+					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" step="any" min="0" value="<?=$abon_plata_contr;?>"/></td>
 				</tr>
 				<!-- НОМЕР СЧЕТА --> 
 				<tr>
@@ -275,8 +275,8 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 						
 							<button class="button" name="save_to_object">Сохранить запись</button>
 						
-						<a href="#delete_customer" class="button-delete">Удалить запись</a>
-						<div id="delete_customer" class="modalDialog">
+						<a href="#delete_record" class="button-delete">Удалить запись</a>
+						<div id="delete_record" class="modalDialog">
 							<div>
 								<!-- <a href="#close"  title="Закрыть" class="close">X</a> -->
 							<h2>Удаление записи </h2>
