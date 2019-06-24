@@ -15,12 +15,13 @@ $newmonth = $monthnow + 1;
 	}
 $err = FALSE;
 $data_post = $_POST;
-$id_record = trim(filter_input(INPUT_POST, 'recordcopy', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+//$id_record = trim(filter_input(INPUT_POST, 'recordcopy', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $year_select = trim(filter_input(INPUT_POST, 'year_select', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 $month_select = trim(filter_input(INPUT_POST, 'month_select', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+$id_record = trim(filter_input(INPUT_GET, 'id_record', FILTER_SANITIZE_NUMBER_INT));
 
 
-if(isset($data_post['recordcopy']))
+if(isset($_GET['id_record']) AND $_GET['statuscopy'] == "copy")
 {
 	$errors=array();//массив сообшений ошибок
 	$object_abon_contr = Edit_Object_with_abon($link, $id_record);
@@ -164,12 +165,15 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 						<td align="center" class="<?=$class;?>"><?=$contractor_info;?></td>
 						<td align="center" class="<?=$class;?>"><?=$objects_abon['summ'];?></td>
 						<td align="center" class="<?=$class;?>"><?=$paymentstatus_array[$objects_abon['paystatus']];?></td>
-						
 						<td align="center" class="<?=$class;?>"><a href='edit_object_contr_abon.php?id_record=<?= $objects_abon['id_record']; ?>' title = 'Изменить'>
 						<img src='images/edit.png' width='20' height='20'></td>
 						<td align="center" class="<?=$class;?>">
-
-						<input type="image" name = "recordcopy" value = "<?= $objects_abon['id_record']; ?>" src="images/copy.png" width='20' height='20' title = 'Копировать на <?=$months[$newmonth-1];?> <?=$newyear;?> года!'>
+						<!-- <input type="image" name = "recordcopy" value = "<?= $objects_abon['id_record']; ?>" src="images/copy.png" width='20' height='20' title = 'Копировать на <?=$months[$newmonth-1];?> <?=$newyear;?> года!'> -->
+						<a href='object_contr_abon.php?id_record=<?= $objects_abon['id_record']; ?>&statuscopy=copy' title = 'Изменить'>
+						<img src='images/copy.png' width='20' height='20'>
+						
+						
+						
 						</td>
 					</tr>
 				<?php }}?>

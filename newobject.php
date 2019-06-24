@@ -158,43 +158,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 					<td class="rowt"><label for="abon_plata">Абонентская плата, руб.:</label></td>
 					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" size="11" value="0"/></td>
 				</tr>
-		<!--------------------------------------------------------------------------------------------->		
-				<tr>
-					<td colspan="2" align="center"><b>Выбор подрядчика с абонентским обслуживанием</td>
-				</tr>
-				<td  class="rowt">Город:</td>
-				<td>
-					<!--<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox" >
-						<option value="0">- выберите город -</option>
-						<?php foreach($contractors as $i => $contractor)  { 
-						$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );
-						
-						?>
-							<option  value="<?= $contractor['city_id']; ?>"><?= $citys['name']; ?></option>
-						<?php } ?>
-					</select>-->
-					<select name="city_id_contr" id="city_id_contr" class="StyleSelectBox">
-						<option value="0">- Выберите город -</option>
-						<?php foreach($show_city_names as $i => $show_city_name)  { 
-						//$citys= Get_Geo ($link, $contractor['city_id'], "city", "city_id" );
-						
-						?>
-							<option  value="<?= $show_city_name['city_id']; ?>"><?= $show_city_name['name']; ?></option>
-						<?php } ?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td  class="rowt">Контрагент:</td>
-				<td>
-					<select name="id_contractor" id="id_contractor" disabled="disabled" class="StyleSelectBox">
-						<option value="0">- выберите подрядчика -</option>
-					</select>
-				</td>				
-				<tr>
-					<td class="rowt"><label for="abon_plata_contr">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata_contr" name="abon_plata_contr" type="number" min="0" size="11" value="<?php echo @$abon_plata_contr;?>"/></td>
-				</tr>				
+		
 				</table>
 				<div>
 					<p><button name="new_object" class="button-new">Добавить</button></p>

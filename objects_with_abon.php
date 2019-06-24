@@ -22,8 +22,10 @@ $objects_abon = Show_Objects_abon($link);
 					<th>Город</th>
 					<th>Объект</th>	
 					<th>Абонентская плата<br>от заказчика</th>
+					<!--
 					<th>Подрядчик</th>							
 					<th>Абонентская плата<br>для подрядчика</th>
+					-->
 				</tr>
 				<tr class='table-filters'>
 					<td>
@@ -41,11 +43,7 @@ $objects_abon = Show_Objects_abon($link);
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Абонентская плата от заказчика-->
 					</td>							
-					<td>
-						<input class="reg_input_filter" type="text" placeholder="..."/><!--Подрядчик-->
-					</td>
-					<td></td>
-				</tr>
+					</tr>
 			</thead>	
 <?php if($objects_abon){
 		foreach($objects_abon as $i => $object_abon) {
@@ -68,9 +66,10 @@ $objects_abon = Show_Objects_abon($link);
 				<td align="center"><?=$object_abon['city_name'];?></td>
 				<td align="center"><a href="editobject.php?edit_object=<?=$object_abon['id_object'];?>"><?=$object_abon['shop_number']."<br>".$object_abon['address'];?></a></td>
 				<td align="center"><?=$object_abon['abon_plata'];?></td>
+				<!--
 				<td align="center"><?=$contractor_info;?></td>
 				<td align="center"><?=$object_abon['abon_plata_contr'];?></td>
-				
+				-->
 	
 			</tr>
 <?php }} else { ?>
