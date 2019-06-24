@@ -13,6 +13,8 @@ $sheet->getColumnDimension('E')->setAutoSize(true);
 $sheet->getColumnDimension('F')->setAutoSize(true);
 $sheet->getColumnDimension('G')->setAutoSize(true);
 $sheet->getColumnDimension('H')->setAutoSize(true);
+$sheet->getColumnDimension('I')->setAutoSize(true);
+$sheet->getColumnDimension('J')->setAutoSize(true);
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
@@ -82,14 +84,14 @@ foreach($_POST['id_contractors'] as $id_contractor)
 $sheet->setCellValue('F'.($row_next + 1),"ИТОГО:");
 $sheet->setCellValue('G'.($row_next + 1), $abon_plata_contr_itog);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
-$sheet->getStyle('A6:H'.($row_next))->applyFromArray($style_wrap);
-$sheet->getStyle('A6:H6')->applyFromArray($style_header);
+$sheet->getStyle('A6:J'.($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:J6')->applyFromArray($style_header);
 $sheet->getStyle('F'.($row_next + 1).':G'.($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle('F'.($row_next + 1).':G'.($row_next + 1))->applyFromArray($style_wrap);
 $sheet->getStyle('F'.($row_next + 1))->applyFromArray($style_right);
-$sheet->getStyle('A6:H6')->applyFromArray($style_center);
+$sheet->getStyle('A6:J6')->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle('A7:F'.($row_next))->applyFromArray($style_left);
-$sheet->getStyle('F7:H'.($row_next+1))->applyFromArray($style_center);
+$sheet->getStyle('F7:J'.($row_next+1))->applyFromArray($style_center);
 $sheet->getStyle('F7:G'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
 ?>

@@ -21,8 +21,8 @@ $sheet->setCellValue('A2','Отчетный год:');
 //$sheet->mergeCells('A4:C4');
 $sheet->setCellValue('A3','Отчетный месяц:');
 //$sheet->setCellValue('A4','Кол-во месяцев:');
-$sheet->setCellValue('A5','Форма оплаты:');
-$sheet->setCellValue('B5',$methodpaymentedit[$method_payment]);
+$sheet->setCellValue('A4','Форма оплаты:');
+$sheet->setCellValue('B4',$methodpaymentedit[$method_payment]);
 //$sheet->mergeCells('A6:C6');
 $sheet->setCellValue('A6','1.Абонентская плата:');
 
