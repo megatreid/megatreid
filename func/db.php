@@ -1150,7 +1150,7 @@ function Object_Exist($connection, $id_object, $year, $month)
 function Show_objects_contr($connection, $id_contractor, $year, $month)
 {
 
-	$search = "SELECT * FROM contr_objects_abonent WHERE id_contractor = '$id_contractor' AND year = '$year' AND month = '$month'";
+	$search = "SELECT * FROM contr_objects_abonent WHERE id_contractor = '$id_contractor' AND year = '$year' AND month = '$month' AND paystatus = 0";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
