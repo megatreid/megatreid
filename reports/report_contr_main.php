@@ -36,9 +36,8 @@ $abon_plata_contr_itog = 0;
 
 foreach($_POST['id_contractors'] as $id_contractor)
 {
-
-	$objects = Show_objects_contr ($link, $id_contractor, $year, $month);
-
+	$paystatusabon = "AND paystatus = 0";
+	$objects = Show_objects_contr ($link, $id_contractor, $year, $month, $paystatusabon);
 
 	if($objects){
 	$contr_info = edit_contr($link, $id_contractor);

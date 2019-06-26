@@ -44,9 +44,10 @@ $rowplus = 0;
 $abon_plata_contr_itog = 0;
 foreach($_POST['id_contractors'] as $id_contractor)
 {
+	$paystatusabon = "";
 	$contr_info = edit_contr($link, $id_contractor);
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-	$objects = Show_objects_contr ($link, $id_contractor, $year, $month);
+	$objects = Show_objects_contr ($link, $id_contractor, $year, $month, $paystatusabon);
 	$abon_plata_contr = 0;
 	if($objects){
 		foreach($objects as $object)
