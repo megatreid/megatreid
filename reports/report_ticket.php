@@ -88,6 +88,8 @@ if(isset($paystatus) AND $paystatus=="yes"){
 
 	$sheet->getStyle('A6:'.$row[13 + $move].'7')->getAlignment()->setWrapText(true);
 }
+$sheet->getColumnDimension($row[14 + $move + $movepay])->setWidth(50);
+$sheet->setCellValue($row[14 + $move + $movepay].'7', 'Комментарий');
 
 $all_cost_in_project = 0;
 $row_start = 8;
@@ -156,6 +158,7 @@ foreach($_POST['id_projects'] as $id_project)
 					$cost_smeta = floatval($rep_ticket['cost_smeta']);
 					$cost_material = floatval($rep_ticket['cost_material']);
 					$cost_transport = floatval($rep_ticket['cost_transport']);
+					$ticket_comment = html_entity_decode($rep_ticket['comment'], ENT_QUOTES);
 					$summ = ($cost_incident + $cost_hour + $cost_smeta + $cost_material + $cost_transport);
 					$ticketdate = strtotime($rep_ticket['ticket_date']);
 					$ticketdate = date( 'd-m-Y', $ticketdate );
@@ -186,6 +189,7 @@ foreach($_POST['id_projects'] as $id_project)
 					$sheet->setCellValue($row[11 + $move].$row_next, $cost_material);
 					$sheet->setCellValue($row[12 + $move].$row_next, $cost_transport);
 					$sheet->setCellValue($row[13 + $move].$row_next, $summ);
+					
 					$rowplus++;
 					$all_cost_in_project += $summ;
 					if(isset($paystatus) AND $paystatus=="yes"){
@@ -202,6 +206,7 @@ foreach($_POST['id_projects'] as $id_project)
 						$sheet->setCellValue($row[16 + $move].$row_next, $paymentstatus_array[$rep_ticket['customer_payment_status']]);
 						
 					}
+					$sheet->setCellValue($row[14 + $move + $movepay].$row_next, $ticket_comment);
 				
 				}
 			}
@@ -211,11 +216,11 @@ foreach($_POST['id_projects'] as $id_project)
 $sheet->setCellValue($row[12 + $move].($row_next + 1), "ИТОГО:");
 $sheet->setCellValue($row[13 + $move].($row_next + 1), $all_cost_in_project);
 $sheet->getStyle($row[13 + $move].($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
-$sheet->getStyle('A6:'.$row[13 + $move + $movepay].'7')->applyFromArray($style_header);
+$sheet->getStyle('A6:'.$row[13 + $move + $movepay + 1].'7')->applyFromArray($style_header);
 $sheet->getStyle('A7:'.$row[7 + $move].($row_next))->applyFromArray($style_left);
 $sheet->getStyle('A6:'.$row[13 + $move + $movepay].'7')->applyFromArray($style_center);
 $sheet->getStyle($row[8 + $move].'8:'.$row[13 + $move].($row_next))->applyFromArray($style_center);
-$sheet->getStyle('A6:'.$row[13 + $move + $movepay].($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:'.$row[13 + $move + $movepay +1].($row_next))->applyFromArray($style_wrap);
 $sheet->getStyle('A8:E'.($row_next))->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
 $sheet->getStyle($row[12 + $move].($row_next + 1).':'.$row[13 + $move].($row_next + 1))->applyFromArray($style_header);
