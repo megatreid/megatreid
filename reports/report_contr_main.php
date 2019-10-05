@@ -44,8 +44,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
 	$row_next = $row_start + $rowplus;		
 	$abon_plata_contr_summ = 0;		
-	
-		
+
 		$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
 		foreach($objects as $object)
 		{
@@ -81,9 +80,7 @@ foreach($_POST['id_contractors'] as $id_contractor)
 {
 	$contr_info = edit_contr($link, $id_contractor);
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-	
 	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status, $paystatus, $month);
-	
 	$contr_cost_summ = 0;
 	if($tickets){
 		
