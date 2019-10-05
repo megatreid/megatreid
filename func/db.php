@@ -556,6 +556,28 @@ function Show_Objects($connection, $var)
     }
 
 }
+
+function Show_Objects_report($connection, $var) 
+{
+	$search = "SELECT * FROM object WHERE id_project='$var' AND status='1'";
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        } 
+    return $array; 		
+    }
+
+}
+
 function Show_Objects_for_search($connection, $var)
 {
 	$search = "SELECT DISTINCT city_id, city_name FROM object WHERE id_project='$var' AND status='1' ORDER BY city_name ASC";
@@ -927,7 +949,7 @@ function Delete_Region($connection, $region_id, $country_id)
 
 function Show_Rep_Tickets($connection, $var, $year, $ticket_status, $custompaystatus, $month_start, $month_end) 
 {
-	$search = "SELECT * FROM tickets WHERE $custompaystatus id_object='$var' AND year='$year' AND ticket_status='$ticket_status' AND month BETWEEN '$month_start' AND '$month_end'";
+	$search = "SELECT * FROM tickets WHERE $custompaystatus id_object='$var' AND year='$year' AND (`ticket_status` LIKE '%$ticket_status%') AND month BETWEEN '$month_start' AND '$month_end'";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;
@@ -968,7 +990,7 @@ function Show_Contr_in_object($connection, $id_contractor)
 }
 function Show_Rep_Contr_Tickets($connection, $var, $year, $ticket_status, $paystatus, $month) 
 {
-	$search = "SELECT * FROM tickets WHERE $paystatus id_contractor='$var' AND year='$year' AND ticket_status='$ticket_status' AND month = '$month'";
+	$search = "SELECT * FROM tickets WHERE $paystatus id_contractor='$var' AND year='$year' AND (`ticket_status` LIKE '%$ticket_status%') AND month = '$month'";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;

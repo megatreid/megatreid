@@ -51,7 +51,7 @@ $sheet->setCellValue('F6', 'Абон.плата за период');
 			{
 				$row_next = $row_start + $rowplus;
 				$projects = Edit_Project ($link, $id_project);
-				$objects = Show_Objects ($link, $id_project);
+				$objects = Show_Objects_report ($link, $id_project);
 
 				if($objects)
 				{

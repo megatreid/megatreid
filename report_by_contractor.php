@@ -21,6 +21,7 @@ $err = FALSE;
 if(isset($_POST['contractor_report']))
 {
 	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
+	if($ticket_status == 3) $ticket_status = "";
 	$year = trim(filter_input(INPUT_POST, 'year'));
 	$month = trim(filter_input(INPUT_POST, 'month'));
 	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
@@ -193,6 +194,7 @@ if(empty($errors))
 						<option value="0">В работе</option>
 						<option selected value="1">Закрыта</option>
 						<option value="2">На согласовании</option>
+						<option value="3">Все заявки</option>
 					</select>
 					</td>
 				</tr>

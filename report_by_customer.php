@@ -48,6 +48,7 @@ if(isset($_POST['id_customer']))
 if(isset($_POST['customer_report']))
 {
 	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
+	if ($ticket_status == 3) $ticket_status = "";
 	$year = trim(filter_input(INPUT_POST, 'year'));
 	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
 	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
@@ -101,7 +102,7 @@ if(isset($_POST['customer_report']))
 				
 				
 				$projects = Edit_Project ($link, $id_project);
-				$objects = Show_Objects ($link, $id_project);
+				$objects = Show_Objects_report ($link, $id_project);
 
 				//echo "Проект: ".$projects['projectname'];
 
@@ -348,6 +349,7 @@ $xls->setActiveSheetIndex(0);
 						<option  value="0">В работе</option>
 						<option selected value="1">Закрыта</option>
 						<option value="2">На согласовании</option>
+						<option value="3">Все заявки</option>
 					</select>
 					</td>
 				</tr>
