@@ -59,29 +59,29 @@ if(isset($_GET['look']))
 
 			<table>
 				<tr>
-					<td class="rowt" width=40%>Страна:*</td>
+					<td class="rowt" width=40%>Страна:</td>
 					<td class="reg_text">
 						<?=$countryname['name'];?>
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Регион:*</td>
+					<td class="rowt">Регион:</td>
 					<td class="reg_text">
 						<?=$regionname['name'];?>
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Населенный пункт:*</td>
+					<td class="rowt">Населенный пункт:</td>
 					<td class="reg_text">
 						<?=$cityname['name'];?>
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Организация / исполнитель:*</td>
+					<td class="rowt">Организация / исполнитель:</td>
 					<td class="reg_text"><?= $org_name_edit ?></td>
 				</tr>
 				<tr>
-					<td class="rowt">Статус подрядчика:*</td>
+					<td class="rowt">Статус подрядчика:</td>
 					<td class="reg_text">
 						<?= $statusedit[$status_edit] ?>
 					</td>
@@ -91,7 +91,7 @@ if(isset($_GET['look']))
 					<td class="reg_text"><?=$dogovor_edit?></td>
 				</tr>
 				<tr>
-					<td class="rowt">Форма расчета:*</td>
+					<td class="rowt">Форма расчета:</td>
 					<td class="reg_text">								
 						<?= $methodpaymentedit[$methodpayment_edit] ?>
 					</td>
@@ -107,19 +107,19 @@ if(isset($_GET['look']))
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Форма собственности:*</td>
+					<td class="rowt">Форма собственности:</td>
 					<td class="reg_text">
 						<?= $ownership_edit ?>
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Система налогообложения:*</td>
+					<td class="rowt">Система налогообложения:</td>
 					<td class="reg_text">
 						<?= $system_no_edit ?>
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Контактное лицо:*</td>
+					<td class="rowt">Контактное лицо:</td>
 					<td class="reg_text"><?=$contact_name_edit?></td>
 				</tr>
 				<tr>
@@ -127,7 +127,7 @@ if(isset($_GET['look']))
 					<td class="reg_text"><?=$passport_edit?></td>
 				</tr>
 				<tr>
-					<td class="rowt">Мобильный телефон:*</td>
+					<td class="rowt">Мобильный телефон:</td>
 					<td class="reg_text">
 					<?=$mobile_edit?>
 					</td>

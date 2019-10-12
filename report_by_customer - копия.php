@@ -120,47 +120,6 @@ if(isset($_POST['customer_report']))
 						//$abon_plata = (int)$abon_plata;
 						$cash_abplata_month = $abon_plata * $month_period;
 						$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
-
-					}
-				
-					$all_cost_in_project_summ += $all_cost_in_project;
-
-					$cash_summ += $cash_abplata_month_summ;
-					
-				}
-				if($cash_abplata_month_summ > 0) {
-				$sheet->setCellValue('A'.$row_next, "1.".($rowplus + 1)." ".html_entity_decode($projects['projectname'], ENT_QUOTES));
-				$sheet->setCellValue('B'.$row_next, $cash_abplata_month_summ);
-				
-				$rowplus++;
-				}
-				$cash_abplata_month_summ = 0;
-
-			}
-			$row_next_cost = $row_next + 3;
-			foreach($_POST['id_projects'] as $id_project)
-			{
-				//$row_next = $row_start + $rowplus;
-				
-				
-				$projects = Edit_Project ($link, $id_project);
-				$objects = Show_Objects_report ($link, $id_project);
-
-				//echo "Проект: ".$projects['projectname'];
-
-				if($objects)
-				{
-					$cash_abplata_month = 0; //Месячная абонплата
-					
-					$all_cost_in_project = 0;
-					foreach($objects as $object)
-					{
-						
-						$odject_arr = $object['id_object'];
-
-
-						//$abon_plata = (int)$abon_plata;
-
 						$rep_tickets = Show_Rep_Tickets ($link, $odject_arr, $year, $ticket_status, $custompaystatus, $month_start, $month_end);
 						
 						//$k=0;
@@ -198,33 +157,57 @@ if(isset($_POST['customer_report']))
 								$cost_material = floatval($rep_ticket['cost_material']);
 								$cost_transport = floatval($rep_ticket['cost_transport']);
 								$all_cost_in_project += ($cost_incident + $cost_hour + $cost_smeta + $cost_material + $cost_transport);
+								//$k++;
+								//echo $k.".".$cost_incident."+".$cost_hour."+".$cost_smeta."+".$cost_material."+".$cost_transport."=".$all_cost_in_project."<br>";
+							
 							}
+							
 						}
 					}
+				
 					$all_cost_in_project_summ += $all_cost_in_project;
+					//echo "ИТОГО: ".$all_cost_in_project_summ;
+
 					if($all_cost_in_project > 0) {
-					$sheet->setCellValue('A'.($row_next_cost + 1 + $counter), '2. '.$counter.' '.html_entity_decode($projects['projectname'], ENT_QUOTES));
-					$sheet->setCellValue('B'.($row_next_cost + 1 + $counter), $all_cost_in_project);
+					$sheet->setCellValue('A'.($row_incident + $counter), '2. '.$counter.' '.html_entity_decode($projects['projectname'], ENT_QUOTES));
+					$sheet->setCellValue('B'.($row_incident + $counter), $all_cost_in_project);
 					$counter++;	
 					}
+					$cash_summ += $cash_abplata_month_summ;
+					
 				}
+				if($cash_abplata_month_summ > 0) {
+				$sheet->setCellValue('A'.$row_next, "1.".($rowplus + 1)." ".html_entity_decode($projects['projectname'], ENT_QUOTES));
+				$sheet->setCellValue('B'.$row_next, $cash_abplata_month_summ);
+				
+				$rowplus++;
+				}
+				$cash_abplata_month_summ = 0;
+				//echo ". Абонентская плата: ".$cash_abplata_month." руб. за ".$month_period." месяцев.";
+				//echo "<br>";
 			}
+			//$row_incident = $row_itog + 6;
 			$row_itog = $row_next + 1;
 			$sheet->setCellValue('A'.($row_itog),'ИТОГО:');
 			$sheet->setCellValue('B'.($row_itog), $cash_summ);
-			$sheet->setCellValue('A'.($row_next_cost + $counter + 1 ),'ИТОГО:');
-			$sheet->setCellValue('B'.($row_next_cost + $counter + 1), $all_cost_in_project_summ);
+
+			$sheet->setCellValue('A'.($row_incident + $counter),'ИТОГО:');
+			$sheet->setCellValue('B'.($row_incident + $counter), $all_cost_in_project_summ);
+			
 			$to_pay = $cash_summ + $all_cost_in_project_summ;
-			$sheet->setCellValue('A'.($row_next_cost + $counter + 2),'К ОПЛАТЕ:');
-			$sheet->setCellValue('B'.($row_next_cost + $counter + 2), $to_pay);
+			$sheet->setCellValue('A'.($row_incident + $counter + 2),'К ОПЛАТЕ:');
+			$sheet->setCellValue('B'.($row_incident + $counter + 2), $to_pay);
+			
+			//echo "ИТОГО: ". $cash_summ. " рублей.";
 		}
 		$sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT_QUOTES));
 		$sheet->setCellValue('B3',$year);
 		$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
 		$sheet->setCellValue('B5',($month_period));
-		$sheet->setCellValue('A'.($row_next_cost), '2. Затраты по заявкам');
-
-	$style_wrap = array(
+		$sheet->setCellValue('A'.($row_incident), '2. Затраты по заявкам');
+		//$sheet->setCellValueByColumnAndRow(0, 1, $customer_name['customer_name']);
+		//массив стилей
+$style_wrap = array(
 	//рамки
 	'borders'=>array(
 	//внешняя рамка
@@ -241,7 +224,7 @@ if(isset($_POST['customer_report']))
 	)
 );
 //применяем массив стилей к ячейкам 
-$sheet->getStyle('A6:B'.($row_next_cost + $counter + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:B'.($row_incident + $counter))->applyFromArray($style_wrap);
 $style_header = array(
  //Шрифт
  'font'=>array(
@@ -283,15 +266,15 @@ $style_number_00 = array(
 	'code' => PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00,
 );
 $sheet->getStyle('A'.($row_itog).':B'.($row_itog))->applyFromArray($style_header);
-$sheet->getStyle('A'.($row_next_cost + $counter + 1 ).':B'.($row_next_cost + $counter + 1))->applyFromArray($style_header);
+$sheet->getStyle('A'.($row_incident + $counter).':B'.($row_incident + $counter))->applyFromArray($style_header);
 $sheet->getStyle('A'.($row_itog).':A'.($row_itog))->applyFromArray($style_right);
-$sheet->getStyle('A'.($row_next_cost + $counter + 1).':A'.($row_next_cost + $counter + 1))->applyFromArray($style_right);
-$sheet->getStyle('A'.($row_next_cost + $counter + 2).':A'.($row_next_cost + $counter + 2))->applyFromArray($style_right);
-$sheet->getStyle('B1:B'.($row_next_cost + $counter + 2))->applyFromArray($style_center);
-$sheet->getStyle('A'.($row_next_cost + $counter + 2).':B'.($row_next_cost + $counter + 2))->applyFromArray($style_header);
-$sheet->getStyle('A'.($row_next_cost + $counter + 2).':B'.($row_next_cost + $counter + 2))->applyFromArray($style_wrap);
+$sheet->getStyle('A'.($row_incident + $counter).':A'.($row_incident + $counter))->applyFromArray($style_right);
+$sheet->getStyle('A'.($row_incident + $counter + 2).':A'.($row_incident + $counter + 2))->applyFromArray($style_right);
+$sheet->getStyle('B1:B'.($row_incident + $counter + 2))->applyFromArray($style_center);
+$sheet->getStyle('A'.($row_incident + $counter + 2).':B'.($row_incident + $counter + 2))->applyFromArray($style_header);
+$sheet->getStyle('A'.($row_incident + $counter + 2).':B'.($row_incident + $counter + 2))->applyFromArray($style_wrap);
 
-$sheet->getStyle('B6:B'.($row_next_cost + $counter + 2))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle('B6:B'.($row_incident + $counter + 2))->getNumberFormat()->setFormatCode('# ### ##0.00');
 require_once 'reports/report_abonent.php';
 require_once 'reports/report_ticket.php';
 $xls->setActiveSheetIndex(0);

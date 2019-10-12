@@ -63,19 +63,16 @@ foreach($_POST['id_contractors'] as $id_contractor)
 		
 	
 }
-$sheet->setCellValue('A'.($row_next + 1),"ИТОГО:");
-$sheet->setCellValue('B'.($row_next + 1), $abon_plata_contr_itog);
-/* ПРИМЕНЕНИЕ СТИЛЕЙ */
+$sheet->setCellValue('A'.($row_next+1),"ИТОГО:");
+$sheet->setCellValue('B'.($row_next+1), $abon_plata_contr_itog);
 $sheet->getStyle('A7:B'.($row_next + 1))->applyFromArray($style_wrap);
 $sheet->getStyle('A'.($row_next + 1).':B'.($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle('A'.($row_next + 1))->applyFromArray($style_right);
-//$sheet->getStyle('B7:B'.($row_next + 1))->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
-/* ПОДСЧЕТ ЗАТРАТ ПО ЗАЯВКАМ */
-$row_start2 = $row_next + 3;
+$row_start2 = $row_next + 2;
 $sheet->setCellValue('A'.$row_start2,'2.Затраты по заявкам:');
-$row_start3 = $row_next + 4;
+$row_start3 = $row_next + 3;
 $rowplus = 0;
-
+$row_next4 = $row_start3;
 foreach($_POST['id_contractors'] as $id_contractor)
 {
 	$contr_info = edit_contr($link, $id_contractor);
@@ -92,32 +89,30 @@ foreach($_POST['id_contractors'] as $id_contractor)
 			$contr_cost_material = floatval($ticket['contr_cost_material']);
 			$contr_cost_summ += ($contr_cost_work + $contr_cost_smeta + $contr_cost_transport + $contr_cost_material);
 		}
-		$row_next = $row_start3 + $rowplus;
-		$sheet->setCellValue('A'.($row_next), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
-		$sheet->setCellValue('B'.($row_next), $contr_cost_summ);
+		
+		$row_next4 = $row_start3 + $rowplus;
+		$sheet->setCellValue('A'.($row_next4), html_entity_decode($contr_info['org_name'], ENT_QUOTES).' ('.$city_name['name'].')');
+		$sheet->setCellValue('B'.($row_next4), $contr_cost_summ);
 		$contr_cost_itog += $contr_cost_summ;
 		$rowplus++;
-	}
-	else {
-
-	}
 	
+	}
 }
 
-$sheet->setCellValue('A'.($row_next + 1),"ИТОГО:");
-$sheet->setCellValue('B'.($row_next + 1), $contr_cost_itog);
+$sheet->setCellValue('A'.($row_next4+1),"ИТОГО:");
+$sheet->setCellValue('B'.($row_next4+1), $contr_cost_itog);
 
 $to_pay = $abon_plata_contr_itog + $contr_cost_itog;
 
-$sheet->setCellValue('A'.($row_next + 3),"К ОПЛАТЕ:".$hidden);
-$sheet->setCellValue('B'.($row_next + 3), $to_pay);
+$sheet->setCellValue('A'.($row_next4 + 3),"К ОПЛАТЕ:".$hidden);
+$sheet->setCellValue('B'.($row_next4 + 3), $to_pay);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
-$sheet->getStyle('A'.($row_start2+1).':B'.($row_next + 1))->applyFromArray($style_wrap);
-$sheet->getStyle('A'.($row_next + 1).':B'.($row_next + 1))->applyFromArray($style_header);
-$sheet->getStyle('A'.($row_next + 1).':A'.($row_next + 3))->applyFromArray($style_right);
-$sheet->getStyle('A'.($row_next + 3).':B'.($row_next + 3))->applyFromArray($style_wrap);
-$sheet->getStyle('A'.($row_next + 3).':B'.($row_next + 3))->applyFromArray($style_header);
-$sheet->getStyle('B7:B'.($row_next + 3))->applyFromArray($style_center);
+$sheet->getStyle('A'.($row_start2+1).':B'.($row_next4 + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('A'.($row_next4 + 1).':B'.($row_next4+ 1))->applyFromArray($style_header);
+$sheet->getStyle('A'.($row_next4+3).':A'.($row_next4+3))->applyFromArray($style_right);
+$sheet->getStyle('A'.($row_next4+3).':B'.($row_next4+3))->applyFromArray($style_wrap);
+$sheet->getStyle('A'.($row_next4+3).':B'.($row_next4+3))->applyFromArray($style_header);
+$sheet->getStyle('B7:B'.($row_next4 + 3))->applyFromArray($style_center);
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
-$sheet->getStyle('B7:B'.($row_next + 3))->getNumberFormat()->setFormatCode('# ### ##0.00');
+$sheet->getStyle('B7:B'.($row_next4 +3))->getNumberFormat()->setFormatCode('# ### ##0.00');
 ?>
