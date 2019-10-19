@@ -23,19 +23,19 @@ $id_record = trim(filter_input(INPUT_GET, 'id_record', FILTER_SANITIZE_NUMBER_IN
 if(isset($_GET['id_record']) AND $_GET['statuscopy'] == "copy")
 {
 	$errors=array();//массив сообшений ошибок
-	$object_abon_contr = Edit_Object_with_abon($link, $id_record);
+	$object_abon_customer = Edit_Object_customabont($link, $id_record);
 	$date_payment_result = "`paydate`= NULL,";
 	$payment_status = "";
 	$pay_account = "";
 	
-	$object_exist = Object_Exist($link, $object_abon_contr['id_object'], $newyear, $newmonth);
+	$object_exist = Object_customer_Exist($link, $object_abon_customer['id_object'], $newyear, $newmonth);
 	if(!$object_exist)
 	{
 		$err = false;
-		$new_link = Add_Object_with_abon($link, $object_abon_contr['id_contractor'], $object_abon_contr['id_object'], $object_abon_contr['summ'], $newyear, $newmonth, $date_payment_result, $payment_status, $pay_account);
+		$new_link = Add_Object_customabont($link, $object_abon_customer['id_object'], $object_abon_customer['summ'], $newyear, $newmonth, $date_payment_result, $payment_status, $pay_account);
 		?>		
 			<script>
-				setTimeout(function() {window.location.href = 'object_contr_abon.php';}, 0);
+				setTimeout(function() {window.location.href = 'object_customer_abon.php';}, 0);
 			</script>	
 		<?php		
 	}
@@ -62,25 +62,25 @@ else
 	$monthselect = $monthnow;
 }	
 
-$objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
+$objects_abons = Show_Objects_customabont($link, $yearselect, $monthselect);
 
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title>Объекты с абонентской платой</title>
+	<title>Объекты с абонентской платой от заказчиков</title>
 	<script type="text/javascript" src='js/jquery.js'></script>
 </head>
 <body>
 	<div class="showcustomer">
-		<p class="breadcrumbs">Объекты с абонентской платой у подрядчиков:</p>
+		<p class="breadcrumbs">Объекты с абонентской платой от заказчиков:</p>
 		<?php if($err==TRUE){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
 		<?php }?>		
 		<?php if($_SESSION['userlevel']<=3){ ?>
 			<div class="newticket">
-				<a href='newlinkcontrobject.php'><button class="button-new">Добавить новый объект</button></a>
+				<a href='newcustabobject.php'><button class="button-new">Добавить новый объект</button></a>
 			</div>
 		<?php }?>
 		<form action="" method="POST">
@@ -93,7 +93,6 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 					<th>Проект</th>
 					<th>Город</th>
 					<th>Объект</th>	
-					<th>Подрядчик</th>
 					<th rowspan="2">Абонентская<br>плата, руб.</th>
 					<th rowspan="2">Статус<br>оплаты</th>
 					<th colspan="2" rowspan="2">Действие</th>
@@ -127,7 +126,7 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Город-->
 					</td>					
 					<td>
-						<input class="reg_input_filter" type="text" placeholder="..."/><!--Абонентская плата от заказчика-->
+						
 					</td>							
 
 				</tr>
@@ -140,10 +139,9 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 					$object_info = Edit_Object($link, $objects_abon['id_object']);
 					$project_info = Edit_Project($link, $object_info['id_project']);
 					$customer_info = Edit_Customer($link, $object_info['id_customer']);
-					$contr_info = Edit_Contr($link, $objects_abon['id_contractor']);
 					$city_info = get_geo($link, $object_info['city_id'], 'city', 'city_id');
-					$city_info_contr = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-					$contractor_info = $contr_info['org_name']." ".$contr_info['ownership']." (".$city_info_contr['name'].")";					
+					//$city_info_contr = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
+			
 				
 				
 				if($objects_abon['paystatus'] == 1)
@@ -159,14 +157,13 @@ $objects_abons = Show_Objects_Contr_abon($link, $yearselect, $monthselect);
 						<td align="center" class="<?=$class;?>"><?=$project_info['projectname'];?></td>
 						<td align="center" class="<?=$class;?>"><?=$city_info['name'];?></td>
 						<td align="center" class="<?=$class;?>"><?=$object_info['shop_number']."<br>".$object_info['address'];?></td>
-						<td align="center" class="<?=$class;?>"><?=$contractor_info;?></td>
 						<td align="center" class="<?=$class;?>"><?=$objects_abon['summ'];?></td>
 						<td align="center" class="<?=$class;?>"><?=$paymentstatus_array[$objects_abon['paystatus']];?></td>
-						<td align="center" class="<?=$class;?>"><a href='edit_object_contr_abon.php?id_record=<?= $objects_abon['id_record']; ?>' title = 'Изменить'>
+						<td align="center" class="<?=$class;?>"><a href='edit_object_customer_abon.php?id_record=<?= $objects_abon['id_record']; ?>' title = 'Изменить'>
 						<img src='images/edit.png' width='20' height='20'></td>
 						<td align="center" class="<?=$class;?>">
 						<!-- <input type="image" name = "recordcopy" value = "<?= $objects_abon['id_record']; ?>" src="images/copy.png" width='20' height='20' title = 'Копировать на <?=$months[$newmonth-1];?> <?=$newyear;?> года!'> -->
-						<a href='object_contr_abon.php?id_record=<?= $objects_abon['id_record']; ?>&statuscopy=copy' title = 'Скопировать на следующий месяц'>
+						<a href='object_customer_abon.php?id_record=<?= $objects_abon['id_record']; ?>&statuscopy=copy' title = 'Скопировать на следующий месяц'>
 						<img src='images/copy.png' width='20' height='20'>
 
 						</td>

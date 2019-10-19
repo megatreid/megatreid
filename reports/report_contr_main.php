@@ -18,17 +18,21 @@ $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
 //$sheet->mergeCells('A3:C3');
 $sheet->setCellValue('A2','Отчетный год:');
+$sheet->setCellValue('B2',$year);
 //$sheet->mergeCells('A4:C4');
-$sheet->setCellValue('A3','Отчетный месяц:');
+$sheet->setCellValue('A3','Отчетный период:');
+$sheet->setCellValue('B3',($months[$month_start-1].' - '.$months[$month_end-1].' ('.$month_period.'мес.)'));
+
 //$sheet->setCellValue('A4','Кол-во месяцев:');
 $sheet->setCellValue('A4','Форма оплаты:');
 $sheet->setCellValue('B4',$methodpaymentedit[$method_payment]);
 //$sheet->mergeCells('A6:C6');
-$sheet->setCellValue('A6','1.Абонентская плата:');
+$sheet->getStyle('A6')->applyFromArray($style_zagolovok);
+$sheet->setCellValue('A6','1.Абонентская плата (отображается сумма за неоплаченные счета):');
 
 /* ПОДСЧЕТ АБОНЕНТСКИХ ПЛАТ */
-$sheet->setCellValue('B2',$year);
-$sheet->setCellValue('B3',($month_name));
+
+//$sheet->setCellValue('C3',($months[$month_end-1]));
 //$sheet->setCellValue('B4',($month_period));
 $row_start = 7;
 $rowplus = 0;
@@ -37,7 +41,8 @@ $abon_plata_contr_itog = 0;
 foreach($_POST['id_contractors'] as $id_contractor)
 {
 	$paystatusabon = "AND paystatus = 0";
-	$objects = Show_objects_contr ($link, $id_contractor, $year, $month, $paystatusabon);
+	//$paystatusabon = "";
+	$objects = Show_objects_contr ($link, $id_contractor, $year, $month_start, $month_end, $paystatusabon);
 
 	if($objects){
 	$contr_info = edit_contr($link, $id_contractor);
@@ -69,6 +74,7 @@ $sheet->getStyle('A7:B'.($row_next + 1))->applyFromArray($style_wrap);
 $sheet->getStyle('A'.($row_next + 1).':B'.($row_next + 1))->applyFromArray($style_header);
 $sheet->getStyle('A'.($row_next + 1))->applyFromArray($style_right);
 $row_start2 = $row_next + 2;
+$sheet->getStyle('A'.$row_start2)->applyFromArray($style_zagolovok);
 $sheet->setCellValue('A'.$row_start2,'2.Затраты по заявкам:');
 $row_start3 = $row_next + 3;
 $rowplus = 0;
@@ -77,8 +83,9 @@ foreach($_POST['id_contractors'] as $id_contractor)
 {
 	$contr_info = edit_contr($link, $id_contractor);
 	$city_name = get_geo($link, $contr_info['city_id'], 'city', 'city_id');
-	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status, $paystatus, $month);
+	$tickets = Show_Rep_Contr_Tickets ($link, $id_contractor, $year, $ticket_status, $paystatus, $month_start, $month_end);
 	$contr_cost_summ = 0;
+
 	if($tickets){
 		
 		foreach($tickets as $ticket)
@@ -104,7 +111,7 @@ $sheet->setCellValue('B'.($row_next4+1), $contr_cost_itog);
 
 $to_pay = $abon_plata_contr_itog + $contr_cost_itog;
 
-$sheet->setCellValue('A'.($row_next4 + 3),"К ОПЛАТЕ:".$hidden);
+$sheet->setCellValue('A'.($row_next4 + 3),"К ОПЛАТЕ:");
 $sheet->setCellValue('B'.($row_next4 + 3), $to_pay);
 /* ПРИМЕНЕНИЕ СТИЛЕЙ */
 $sheet->getStyle('A'.($row_start2+1).':B'.($row_next4 + 1))->applyFromArray($style_wrap);

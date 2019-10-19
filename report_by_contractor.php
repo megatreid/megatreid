@@ -23,10 +23,17 @@ if(isset($_POST['contractor_report']))
 	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
 	if($ticket_status == 3) $ticket_status = "";
 	$year = trim(filter_input(INPUT_POST, 'year'));
-	$month = trim(filter_input(INPUT_POST, 'month'));
+	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
 	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
 	//echo $month_start;
-	$month_name = $months[$month-1];
+	$month_start_name = $months[$month_start-1];
+	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
+	//echo $month_end;
+	$month_end_name = $months[$month_end-1];
+	$month_period = ($month_end - $month_start) + 1;
+	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
+	//echo $month_start;
+	//$month_name = $months[$month-1];
 	//$month_period = ($month_end - $month_start) + 1;
 	switch($payment_status)
 	{
@@ -91,6 +98,18 @@ if(empty($errors))
 		'color'=>array(
 		'rgb' => 'CFCFCF'
 		)));
+		$style_zagolovok = array(
+		//Шрифт
+		'font'=>array(
+		'bold' => true,
+		'name' => 'Times New Roman',
+		'size' => 11
+		),
+		//Выравнивание
+		'alignment' => array(
+		'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+		'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
+		));
 		$style_right = array(
 		//Выравнивание
 		'alignment' => array(
@@ -219,10 +238,17 @@ if(empty($errors))
 					</td>
 				</tr>
 				<tr>
-					<td class="rowt">Отчетный месяц:</td>
-					<td><select name="month" id="month" >
+					<td class="rowt">Отчетный период:</td>
+					<td colspan='2'> с
+					<select name="month_start" id="month" >
 						<?php for($i = 1; $i < 13; $i++) { ?>
-							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1]; ?></option>
+							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
+						<?php } ?>
+					</select>
+					по
+					<select name="month_end" id="month">
+						<?php for($i = 1; $i < 13; $i++) { ?>
+							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
 						<?php } ?>
 					</select>
 					</td>

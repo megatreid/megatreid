@@ -36,15 +36,14 @@ $sheet->setCellValue('A2','Заказчик:');
 $sheet->setCellValue('A3','Отчетный год:');
 //$sheet->mergeCells('A4:C4');
 $sheet->setCellValue('A4','Отчетный период:');
-$sheet->setCellValue('A5','Кол-во месяцев:');
+$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name.' ('.$month_period.'мес.)'));
 //$sheet->mergeCells('A6:C6');
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
 $sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT_QUOTES));
 $sheet->setCellValue('B3',$year);
-$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
-$sheet->setCellValue('B5',($month_period));
+
 //$sheet->mergeCells('A6:A7');
 $sheet->setCellValue('A7', 'Проект');
 //$sheet->mergeCells('B6:B7');

@@ -19,26 +19,26 @@ $sheet->setCellValue('A2','Заказчик:');
 $sheet->setCellValue('A3','Отчетный год:');
 //$sheet->mergeCells('A4:C4');
 $sheet->setCellValue('A4','Отчетный период:');
-$sheet->setCellValue('A5','Кол-во месяцев:');
+
 //$sheet->mergeCells('A6:C6');
 $date = date('d-m-Y');
 $sheet->setCellValue('A1', 'Дата: ');
 $sheet->setCellValue('B1', $date);
 $sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT_QUOTES));
 $sheet->setCellValue('B3',$year);
-$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
-$sheet->setCellValue('B5',($month_period));
+$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name.' ('.$month_period.'мес.)'));
 $sheet->setCellValue('A6', 'Проект');
 $sheet->setCellValue('B6', 'Город');
 $sheet->setCellValue('C6', 'Объект');
 $sheet->setCellValue('D6', 'Адрес');
-$sheet->setCellValue('E6', 'Абонентская плата');
-$sheet->setCellValue('F6', 'Абон.плата за период');
+$sheet->setCellValue('E6', 'Месяц');
+$sheet->setCellValue('F6', 'Абонентская плата');
+$sheet->setCellValue('G6', 'Статус платежа');
 
 		if(isset($_POST['id_projects']))
 		{
 			$cash_summ = 0;
-			$all_cost_in_project = 0;
+			//$all_cost_in_project = 0;
 			$row_start = 7;
 			$rowplus = 0;
 			$row_inc_plus = 0;
@@ -55,29 +55,41 @@ $sheet->setCellValue('F6', 'Абон.плата за период');
 
 				if($objects)
 				{
-					$all_cost_in_project = 0;
+					//$all_cost_in_project = 0;
 					foreach($objects as $object)
 					{
-						$row_next = $row_start + $rowplus;
+						
 						$city_name = $object['city_name'];
 						$shop_number = html_entity_decode($object['shop_number'], ENT_QUOTES);
 						$address = html_entity_decode($object['address'], ENT_QUOTES);
-						$abon_plata_1 = intval($object['abon_plata']);
-						$abon_plata_period = $abon_plata_1 * $month_period;
-						$sheet->setCellValue('A'.$row_next, html_entity_decode($projects['projectname'], ENT_QUOTES));
-						$sheet->setCellValue('B'.$row_next, $city_name);
-						$sheet->setCellValue('C'.$row_next, $shop_number);
-						$sheet->setCellValue('D'.$row_next, $address);
-						$sheet->setCellValue('E'.$row_next, $abon_plata_1);
-						$sheet->setCellValue('F'.$row_next, $abon_plata_period);
-						$rowplus++;
-						$cash_abplata_month_1 += $abon_plata_period;
+						//$object_customer_abonent = Like_Object_customabont($link, $object['id_object']);
+						$paystatusabon = "";
+						$id_object_ab = $object['id_object'];
+						$object_customer_abonents = Show_objects_customer($link, $id_object_ab, $year, $month_start, $month_end, $paystatusabon);
+						if($object_customer_abonents)
+						{
+							foreach($object_customer_abonents as $object_customer_abonent)
+							{
+								$row_next = $row_start + $rowplus;
+								$abon_plata_1 = intval($object_customer_abonent['summ']);
+								//$abon_plata_period = $abon_plata_1 * $month_period;
+								$sheet->setCellValue('A'.$row_next, html_entity_decode($projects['projectname'], ENT_QUOTES));
+								$sheet->setCellValue('B'.$row_next, $city_name);
+								$sheet->setCellValue('C'.$row_next, $shop_number);
+								$sheet->setCellValue('D'.$row_next, $address);
+								$sheet->setCellValue('E'.$row_next, $months[$object_customer_abonent['month']-1]);
+								$sheet->setCellValue('F'.$row_next, $abon_plata_1);
+								$sheet->setCellValue('G'.$row_next, $paymentstatus_array[$object_customer_abonent['paystatus']]);
+								$rowplus++;
+								$cash_abplata_month_1 += $abon_plata_1;
+							}
+						}
 					}
 				}
 			}
-			$sheet->setCellValue('E'.($row_next + 1), "ИТОГО:");
-			$sheet->setCellValue('F'.($row_next + 1), $cash_abplata_month_1);
-			$sheet->getStyle('F'.($row_next + 1))->getNumberFormat()->setFormatCode('# ### ##0.00');
+			$sheet->setCellValue('E'.($row_next), "ИТОГО:");
+			$sheet->setCellValue('F'.($row_next), $cash_abplata_month_1);
+			$sheet->getStyle('F'.($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
 		}
 /*		
 $style_wrap = array(
@@ -98,7 +110,7 @@ $style_wrap = array(
 );
 */
 //применяем массив стилей к ячейкам 
-$sheet->getStyle('A6:F'.($row_next))->applyFromArray($style_wrap);
+$sheet->getStyle('A6:G'.($row_next-1))->applyFromArray($style_wrap);
 
 $style_header = array(
  //Шрифт
@@ -144,11 +156,11 @@ $style_center = array(
 
 
 
-$sheet->getStyle('A6:F6')->applyFromArray($style_header);
+$sheet->getStyle('A6:G6')->applyFromArray($style_header);
 $sheet->getStyle('A7:D'.($row_next))->applyFromArray($style_left);
-$sheet->getStyle('E7:F'.($row_next))->applyFromArray($style_center);
+$sheet->getStyle('E7:G'.($row_next))->applyFromArray($style_center);
 $sheet->getStyle('E7:F'.($row_next))->getNumberFormat()->setFormatCode('# ### ##0.00');
 $sheet->getStyle('B1:B5')->applyFromArray($style_left);
-$sheet->getStyle('E'.($row_next + 1).':F'.($row_next + 1))->applyFromArray($style_header);
-$sheet->getStyle('E'.($row_next + 1).':F'.($row_next + 1))->applyFromArray($style_wrap);
+$sheet->getStyle('E'.($row_next).':F'.($row_next))->applyFromArray($style_header);
+$sheet->getStyle('E'.($row_next).':F'.($row_next))->applyFromArray($style_wrap);
 ?>

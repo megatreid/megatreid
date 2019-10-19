@@ -99,10 +99,14 @@
 				</li>
 				<?php }?>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <= 3) {?>
-				<li><a href="showcustomer.php">Заказчики</a></li>
+				<li><a href="showcustomer.php">Заказчики</a>
+					<ul>
+						<li><a href="object_customer_abon.php">Объекты с абонентской<br>платой от заказчиков</a></li>
+					</ul>				
+				</li>
 				<li><a href="showcontractor.php">Подрядчики</a>
 					<ul>
-						<li><a href="object_contr_abon.php">Объекты с абонентской платой</a></li>
+						<li><a href="object_contr_abon.php">Объекты с абонентской<br>платой у подрядчиков</a></li>
 					</ul>
 				</li>
 				<li><a href="">Отчеты</a>

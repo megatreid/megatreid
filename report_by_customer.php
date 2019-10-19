@@ -32,7 +32,7 @@ $sheet->setCellValue('A2','Заказчик:');
 $sheet->setCellValue('A3','Отчетный год:');
 //$sheet->mergeCells('A4:C4');
 $sheet->setCellValue('A4','Отчетный период:');
-$sheet->setCellValue('A5','Кол-во месяцев:');
+//$sheet->setCellValue('A5','Кол-во месяцев:');
 //$sheet->mergeCells('A6:C6');
 $sheet->setCellValue('A6','1.Абонентская плата:');
 $date = date('d-m-Y');
@@ -114,12 +114,17 @@ if(isset($_POST['customer_report']))
 					foreach($objects as $object)
 					{
 						
-						$odject_arr = $object['id_object'];
-						$abon_plata = $object['abon_plata'];
-
+						$id_object_for = $object['id_object'];
+						$paystatusabon = "AND paystatus = 0";
+						$customer_abonents = Show_objects_customer($link, $id_object_for, $year, $month_start, $month_end, $paystatusabon);
+						foreach($customer_abonents as $customer_abonent)
+						{
+							$abon_plata = $customer_abonent['summ'];
+							$cash_abplata_month_summ += floatval($abon_plata);
+						}
 						//$abon_plata = (int)$abon_plata;
-						$cash_abplata_month = $abon_plata * $month_period;
-						$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
+						//$cash_abplata_month = $abon_plata * $month_period;
+						//$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
 
 					}
 				
@@ -141,35 +146,23 @@ if(isset($_POST['customer_report']))
 			foreach($_POST['id_projects'] as $id_project)
 			{
 				//$row_next = $row_start + $rowplus;
-				
-				
 				$projects = Edit_Project ($link, $id_project);
 				$objects = Show_Objects_report ($link, $id_project);
-
 				//echo "Проект: ".$projects['projectname'];
-
 				if($objects)
 				{
 					$cash_abplata_month = 0; //Месячная абонплата
-					
 					$all_cost_in_project = 0;
 					foreach($objects as $object)
 					{
-						
 						$odject_arr = $object['id_object'];
-
-
 						//$abon_plata = (int)$abon_plata;
-
 						$rep_tickets = Show_Rep_Tickets ($link, $odject_arr, $year, $ticket_status, $custompaystatus, $month_start, $month_end);
-						
 						//$k=0;
 						if($rep_tickets)
 						{
-							
 							foreach($rep_tickets as $rep_ticket)
 							{
-								
 							if($rep_ticket['work_type'] == 1) //если выбран вид работы "Инцидентное обслуживание"
 							{	
 								switch ($rep_ticket['ticket_sla'])
@@ -203,8 +196,8 @@ if(isset($_POST['customer_report']))
 					}
 					$all_cost_in_project_summ += $all_cost_in_project;
 					if($all_cost_in_project > 0) {
-					$sheet->setCellValue('A'.($row_next_cost + 1 + $counter), '2. '.$counter.' '.html_entity_decode($projects['projectname'], ENT_QUOTES));
-					$sheet->setCellValue('B'.($row_next_cost + 1 + $counter), $all_cost_in_project);
+					$sheet->setCellValue('A'.($row_next_cost + $counter), '2. '.$counter.' '.html_entity_decode($projects['projectname'], ENT_QUOTES));
+					$sheet->setCellValue('B'.($row_next_cost + $counter), $all_cost_in_project);
 					$counter++;	
 					}
 				}
@@ -212,7 +205,7 @@ if(isset($_POST['customer_report']))
 			$row_itog = $row_next + 1;
 			$sheet->setCellValue('A'.($row_itog),'ИТОГО:');
 			$sheet->setCellValue('B'.($row_itog), $cash_summ);
-			$sheet->setCellValue('A'.($row_next_cost + $counter + 1 ),'ИТОГО:');
+			$sheet->setCellValue('A'.($row_next_cost + $counter + 1),'ИТОГО:');
 			$sheet->setCellValue('B'.($row_next_cost + $counter + 1), $all_cost_in_project_summ);
 			$to_pay = $cash_summ + $all_cost_in_project_summ;
 			$sheet->setCellValue('A'.($row_next_cost + $counter + 2),'К ОПЛАТЕ:');
@@ -220,8 +213,8 @@ if(isset($_POST['customer_report']))
 		}
 		$sheet->setCellValue('B2',html_entity_decode($customer_sel['customer_name'], ENT_QUOTES));
 		$sheet->setCellValue('B3',$year);
-		$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name));
-		$sheet->setCellValue('B5',($month_period));
+		$sheet->setCellValue('B4',($month_start_name." - ".$month_end_name.' ('.$month_period.'мес.)'));
+		//$sheet->setCellValue('B5',($month_period));
 		$sheet->setCellValue('A'.($row_next_cost), '2. Затраты по заявкам');
 
 	$style_wrap = array(
@@ -258,6 +251,18 @@ $style_header = array(
  )
  )
 );
+$style_zagolovok = array(
+//Шрифт
+'font'=>array(
+'bold' => true,
+'name' => 'Times New Roman',
+'size' => 11
+),
+//Выравнивание
+'alignment' => array(
+'horizontal' => PHPExcel_STYLE_ALIGNMENT::HORIZONTAL_LEFT,
+'vertical' => PHPExcel_STYLE_ALIGNMENT::VERTICAL_CENTER,
+));
 $style_right = array(
 //Выравнивание
  'alignment' => array(

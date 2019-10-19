@@ -988,9 +988,9 @@ function Show_Contr_in_object($connection, $id_contractor)
     }
     return $array; 
 }
-function Show_Rep_Contr_Tickets($connection, $var, $year, $ticket_status, $paystatus, $month) 
+function Show_Rep_Contr_Tickets($connection, $var, $year, $ticket_status, $paystatus, $month_start, $month_end) 
 {
-	$search = "SELECT * FROM tickets WHERE $paystatus id_contractor='$var' AND year='$year' AND (`ticket_status` LIKE '%$ticket_status%') AND month = '$month'";
+	$search = "SELECT * FROM tickets WHERE $paystatus id_contractor='$var' AND year='$year' AND (`ticket_status` LIKE '%$ticket_status%') AND month BETWEEN '$month_start' AND '$month_end'";
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
     $rows = $result->num_rows;
@@ -1169,10 +1169,10 @@ function Object_Exist($connection, $id_object, $year, $month)
     else
         return 0;
 }
-function Show_objects_contr($connection, $id_contractor, $year, $month, $paystatus)
+function Show_objects_contr($connection, $id_contractor, $year, $month_start, $month_end, $paystatus)
 {
 
-	$search = "SELECT * FROM contr_objects_abonent WHERE id_contractor = '$id_contractor' AND year = '$year' AND month = '$month' $paystatus";
+	$search = "SELECT * FROM contr_objects_abonent WHERE id_contractor = '$id_contractor' AND year = '$year' AND (month BETWEEN $month_start AND $month_end) $paystatus";
     
     $result = $connection->query ($search);
     if (!$result) die ($connection->error);
@@ -1191,10 +1191,106 @@ function Show_objects_contr($connection, $id_contractor, $year, $month, $paystat
     return $array; 
 }
 
+/************************************************************************************************************************/
+function Add_Object_customabont($connection, $id_object, $summ, $year, $month, $paydate, $paystatus, $pay_account)
+{
+		$add_query ="INSERT INTO customerobjectsabonent SET `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', `pay_account` = '$pay_account', $paydate `paystatus`='$paystatus'";
+		$result = $connection->query($add_query); 
+        if ($result) 
+            return true;
+        else
+            die ($connection->error);
+    
+}
+function Edit_Object_customabont($connection, $var)
+{
+    $search = "SELECT * FROM customerobjectsabonent WHERE id_record = '$var'";
+    $result = $connection->query ($search);
+    if ($result)
+    {
+        $rows = $result->fetch_array (MYSQLI_ASSOC);
+    }
+    if ($rows) return $rows;
+    else return 0;
+}
+function Update_Object_customabont($connection, $id_record, $id_object, $summ, $year, $month, $paydate, $paystatus, $pay_account)
+{
+    $update = "UPDATE customerobjectsabonent SET `id_object`='$id_object', `summ`='$summ', `year`='$year', `month`='$month', `pay_account` = '$pay_account', $paydate `paystatus`='$paystatus' WHERE id_record='$id_record'";
+    $result = $connection->query ($update);
+    if ($result) return true;
+    else
+        die ($connection->error);
+	mysqli_close($connection);
+}
+function Delete_Object_customabont($connection, $var)
+{
+	$delete_object = "DELETE FROM customerobjectsabonent WHERE id_record = '$var'";
+    $result = $connection->query ($delete_object);
+    if ($result) return true;
+    else
+        die ($connection->error);
+}
 
+function Show_Objects_customabont($connection, $year, $month)
+{
+	$search = "SELECT * FROM customerobjectsabonent WHERE year = '$year' AND month = '$month'" ;
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        } 
+    return $array; 		
+    }
+}
+function Object_customer_Exist($connection, $id_object, $year, $month)
+{
+	$check_object = "SELECT id_record FROM customerobjectsabonent WHERE id_object = '$id_object' AND year = '$year' AND month =  '$month'";
+	$result = $connection->query ($check_object);
+    $rows = $result->fetch_array(MYSQLI_ASSOC);
+    if ($rows) return $rows;
+    else
+        return 0;
+}
+function Show_objects_customer($connection, $id_object, $year, $month_start, $month_end, $paystatus)
+{
 
-
-
+	$search = "SELECT * FROM customerobjectsabonent WHERE id_object = '$id_object' AND year = '$year' AND (month BETWEEN $month_start AND $month_end) $paystatus";
+    
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
+function Like_Object_customabont($connection, $var)
+{
+    $search = "SELECT * FROM customerobjectsabonent WHERE id_object = '$var'";
+    $result = $connection->query ($search);
+    if ($result)
+    {
+        $rows = $result->fetch_array (MYSQLI_ASSOC);
+    }
+    if ($rows) return $rows;
+    else return 0;
+}
 
 
 
