@@ -1162,13 +1162,24 @@ function Show_Objects_Contr_abon($connection, $year, $month)
 }
 function Object_Exist($connection, $id_object, $year, $month)
 {
-	$check_object = "SELECT id_record FROM customerobjectsabonent WHERE id_object = '$id_object' AND year = '$year' AND month =  '$month'";
+	$check_object = "SELECT id_record FROM contr_objects_abonent WHERE id_object = '$id_object' AND year = '$year' AND month =  '$month'";
 	$result = $connection->query ($check_object);
     $rows = $result->fetch_array(MYSQLI_ASSOC);
     if ($rows) return $rows;
     else
         return 0;
 }
+function Object_Exist_Customer($connection, $id_object, $year, $month)
+{
+	$check_object = "SELECT id_record FROM customerobjectsabonent WHERE id_object = '$id_object' AND year = '$year' AND month = '$month'";
+	$result = $connection->query ($check_object);
+    $rows = $result->fetch_array(MYSQLI_ASSOC);
+    if ($rows) return $rows;
+    else
+        return 0;
+}
+
+
 function Show_objects_contr($connection, $id_contractor, $year, $month_start, $month_end, $paystatus)
 {
 

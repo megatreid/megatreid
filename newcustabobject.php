@@ -17,7 +17,7 @@ $payment_status = trim(filter_input(INPUT_POST, 'payment_status', FILTER_SANITIZ
 if(isset($data['save_to_object']))
 	{
 		$errors=array();//массив сообшений ошибок
-		$object_exist = Object_Exist($link, $id_object, $year, $month);
+		$object_exist = Object_Exist_Customer($link, $id_object, $year, $month);
 		if(empty($id_object) OR $id_object == 0)
 		{
 			$errors[] = 'Выберите объект!';
