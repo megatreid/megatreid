@@ -103,7 +103,7 @@ $all_cost_in_project_summ = 0;
 foreach($_POST['id_projects'] as $id_project)
 {
 	$projects = Edit_Project ($link, $id_project);
-	$objects = Show_Objects ($link, $id_project);
+	$objects = Show_Objects_report ($link, $id_project);
 
 	if($objects)
 	{
@@ -114,9 +114,10 @@ foreach($_POST['id_projects'] as $id_project)
 			$id_odject = $object['id_object'];
 			$shop_number = html_entity_decode($object['shop_number'], ENT_QUOTES);
 			$address = html_entity_decode($object['address'], ENT_QUOTES);
-			$abon_plata = $object['abon_plata'];
+			/*$abon_plata = $object['abon_plata'];
 			$cash_abplata_month = $abon_plata * $month_period;
 			$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
+			*/
 			$rep_tickets = Show_Rep_Tickets ($link, $id_odject, $year, $ticket_status, $custompaystatus, $month_start, $month_end);
 			if($rep_tickets)
 			{
