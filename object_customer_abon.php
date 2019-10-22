@@ -64,6 +64,69 @@ else
 
 $objects_abons = Show_Objects_customabont($link, $yearselect, $monthselect);
 
+if(isset($data_post['copy']))
+{
+	$newmonth = $monthnow + 1;
+	if($monthnow == 12){
+		$newyear = $yearnow + 1;
+		$newmonth = 1;
+	}
+	else {
+		$newyear = $yearnow;
+	}	
+	if($objects_abons) {
+		$new_link = "";
+		$s  = 0;
+		foreach($objects_abons as $k => $objects_abon)
+		{
+			
+			
+			$object_abon_customer = Edit_Object_customabont($link, $objects_abon['id_record']);
+			$date_payment_result = "`paydate`= NULL,";
+			$payment_status = "";
+			$pay_account = "";
+			$object_exist = Object_customer_Exist($link, $object_abon_customer['id_object'], $newyear, $newmonth);
+			
+			if(!$object_exist)
+			{
+				$s ++;
+				$new_link = Add_Object_customabont($link, $object_abon_customer['id_object'], $object_abon_customer['summ'], $newyear, $newmonth, $date_payment_result, $payment_status, $pay_account);
+			}			
+		}
+		if($new_link)
+		{
+			?>
+
+				<div id="copy_objects" class="modalDialog">
+				<div>
+				<a href="#close"  title="Закрыть" class="close">X</a>
+				<h2><?="Записи (".$s." из ". ($k + 1) .") скопированы на ".$months[$newmonth-1]." ".$newyear." года.";?></h2>
+				</div>
+				</div>	
+			
+			
+			<?php
+		}
+		else 
+		{
+			?>
+				<div id="copy_objects" class="modalDialog">
+				<div>
+				<a href="#close"  title="Закрыть" class="close">X</a>
+				<h2><?="Все записи с текущего месяца уже скопированы на ".$months[$newmonth-1]." ".$newyear." года.";?></h2>
+				</div>
+				</div>	
+			<?php
+		}
+	}
+}
+
+
+
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -82,6 +145,11 @@ $objects_abons = Show_Objects_customabont($link, $yearselect, $monthselect);
 			<div class="newticket">
 				<a href='newcustabobject.php'><button class="button-new">Добавить новый объект</button></a>
 			</div>
+		<form action="object_customer_abon.php#copy_objects" method="POST">	
+			<div class="newcustomer">
+				<button class="button-new" name = "copy">Копировать все объекты</button>
+			</div>
+		</form>
 		<?php }?>
 		<form action="" method="POST">
 		<table border="1">
