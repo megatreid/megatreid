@@ -4,7 +4,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 {
 		require_once '/blocks/header.php';
 		require '/func/arrays.php';
-		$contractors = Show_Contr_for_select ($link);
+
 		$show_city_names = Show_City_Name($link);
 		if(isset($_GET['id_project']))
 	{
@@ -22,9 +22,6 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 		$shop_number = trim(filter_input(INPUT_POST, 'shop_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 		$address = trim(filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 		$status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-		$abon_plata = trim(filter_input(INPUT_POST, 'abon_plata', FILTER_SANITIZE_FULL_SPECIAL_CHARS));		
-		$id_contractor = trim(filter_input(INPUT_POST, 'id_contractor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
-		$abon_plata_contr = trim(filter_input(INPUT_POST, 'abon_plata_contr', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
 		
 		$err=FALSE;	
 
@@ -70,7 +67,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 
 			if(empty($errors)){  
 				
-				$result = Add_Object ($link, $data, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status, $abon_plata, $id_contractor, $abon_plata_contr); 
+				$result = Add_Object ($link, $data, $id_customer, $country_id, $region_id, $city_id, $shop_number, $address, $status); 
 				?>		
 				<script>
 					setTimeout(function() {window.location.href = 'showobjects.php?id_project=<?=$data?>';}, 0);
@@ -154,11 +151,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 						</select>
 					</td>
 				</tr>	
-				<tr>
-					<td class="rowt"><label for="abon_plata">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" size="11" value="0"/></td>
-				</tr>
-		
+	
 				</table>
 				<div>
 					<p><button name="new_object" class="button-new">Добавить</button></p>

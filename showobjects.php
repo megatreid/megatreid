@@ -37,9 +37,10 @@ if(isset($_SESSION['userlevel']))
 							<th width=10%>Объект</th>
 							<th>Адрес</th>
 							<th width=1%>Статус</th>
-							<th width="1">Абонентская<br>плата (руб.)</th>
+							<th rowspan="2" width="1">Абонентская плата от заказчика</th>
+							<th rowspan="2" width="1">Абонентская плата для подрядчика</th>
 							<?php if($_SESSION['userlevel']<=3){ ?>	
-							<th width=1%>Действие</th>
+							<th rowspan="2" width=1%>Действие</th>
 							<?php }?>
 						</tr>
 						<tr class='table-filters'>
@@ -67,9 +68,29 @@ if(isset($_SESSION['userlevel']))
 					</thead>
 				<?php
 				if($objects){
-				foreach($objects as $i => $object) { ?>
+				foreach($objects as $i => $object) {
+					
+					$object_info = Object_customabont_info($link, $object['id_object']);
+					if(!$object_info){
+						$ab_summ = "-";
+					}
+					else
+					{
+						$ab_summ = $object_info['summ'];
+					}
+					$controbject_info = Info_contrab_by_object($link, $object['id_object']);
+					if(!$controbject_info){
+						$contrab_summ = "-";
+					}
+					else
+					{
+						$contrab_summ = $controbject_info['summ'];
+					}
+				?>
 				<tbody>
-					<tr class="reg_text_show_tickets">
+					
+					<tr title = 'Редактировать' class="reg_text_show_tickets" onclick="window.location.href='/editobject.php?edit_object=<?= $object['id_object'] ?>'; return false">
+					
 						<td align="center" width="1"><?=$i+1?></td>
 						<td align="center" width="1"><?=$customers['customer_name'];?></td>
 						<td align="center" width="1"><?=$projects['projectname'];?></td>
@@ -80,12 +101,15 @@ if(isset($_SESSION['userlevel']))
 						<td align="center" width="1"><?=$object['shop_number']?></td>
 						<td align="center"><?=$object['address']?></td>
 						<td align="center"><?=$statusedit[$object['status']];?></td>
-						<td align="center"width="1"><?=$object['abon_plata']?></td>
+						<td align="center"width="1"><?=$ab_summ;?></td>
+						<td align="center"width="1"><?=$contrab_summ;?></td>
 						<?php if($_SESSION['userlevel']<=3){ ?>
 						<td align="center" width="1"><a href='/editobject.php?edit_object=<?= $object['id_object'] ?>' title = 'Редактировать'>
-						<img src='/images/edit.png' width='20' height='20'></td>
+						<img src='/images/edit.png' width='20' height='20'></a></td>
 						<?php }?>
+						
 					</tr>
+					
 				</tbody>
 				<?php }} else { ?>
 				<tbody>

@@ -90,7 +90,7 @@ if(isset($_GET['id_region']))
 						<h2>Удаление объекта</h2>
 						<p>Вы уверены, что хотите удалить этот объект?</p>
 						<p>Это может привести к потери данных в других разделах системы!</p>
-						<input class="button-delete" value="Да" name="delete_region" type="submit"/>
+						<input class="button-delete" value="  Да   " name="delete_region" type="submit"/>
 						<a href="#close"  title="Отменить" class="button">Нет</a>
 						<!-- <button class="button-delete" onclick='return confirm("Вы уверены, что хотите удалить эту заявку?")' name="delete_ticket">Удалить заявку</button> -->
 						</div>

@@ -15,7 +15,7 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 	$projects = Edit_Project($link, $id_project);// массив по проекту
 	$id_customer = $projects['id_customer'];
 	$customers = Edit_Customer($link, $id_customer); //массив по заказчику
-	$contractors = Show_Contr_for_select ($link);
+
 	$show_city_names = Show_City_Name($link);
 	$projectname = $projects['projectname'];
 	$country_id = $objects['country_id'];
@@ -25,12 +25,12 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 	$country = Get_Geo ($link, $country_id, "country", "country_id");
 	$region = Get_Geo ($link, $region_id, "region", "region_id");
 	$city = Get_Geo ($link, $city_id, "city", "city_id" );
-	$contractor_select = Edit_Contr ($link, $objects['id_contractor']);
+
 	$shop_number = $objects['shop_number'];
 	$address = $objects['address'];
 	$status = $objects['status'];
-	$abon_plata = $objects['abon_plata'];
-	$abon_plata_contr = $objects['abon_plata_contr'];
+
+
 	/*********************************/
 	$data_post = $_POST;
 	$country_id_edit = trim(filter_input(INPUT_POST, 'country_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
@@ -39,11 +39,15 @@ if(isset($_SESSION['userlevel']) AND $_SESSION['userlevel']<=3)
 	$shop_number_edit = trim(filter_input(INPUT_POST, 'shop_number', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	$address_edit = trim(filter_input(INPUT_POST, 'address', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 	$status_edit = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-	$abon_plata_edit = trim(filter_input(INPUT_POST, 'abon_plata', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-	$id_contractor_edit = trim(filter_input(INPUT_POST, 'id_contractor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
-	$abon_plata_contr_edit = trim(filter_input(INPUT_POST, 'abon_plata_contr', FILTER_SANITIZE_FULL_SPECIAL_CHARS));	
 	$err=FALSE;	
-
+	$object_info = Object_customabont_info($link, $data);
+	if(!$object_info){
+		$ab_summ = 0;
+	}
+	else
+	{
+		$ab_summ = $object_info['summ'];
+	}
 if( isset($data_post['edit_object']))
 		{
 			$errors=array();//массив сообшений ошибок
@@ -79,18 +83,10 @@ if( isset($data_post['edit_object']))
 			{
 				$errors[] = 'Адрес объекта должен содержать не менее 2 и не более 200 символов!';
 			}
-			if(empty($abon_plata_edit))
-			{
-				$abon_plata_edit = 0;
-			}
-			if(empty($id_contractor_edit))
-			{
-				$id_contractor_edit="0";
-				$abon_plata_contr_edit="0";
-			}
+
 	if(empty($errors)){  
 		
-		$result = Update_Object ($link, $data, $id_project, $id_customer, $country_id_edit, $region_id_edit, $city_id_edit, $shop_number_edit, $address_edit, $status_edit, $abon_plata_edit, $id_contractor_edit, $abon_plata_contr_edit);
+		$result = Update_Object ($link, $data, $id_project, $id_customer, $country_id_edit, $region_id_edit, $city_id_edit, $shop_number_edit, $address_edit, $status_edit);
 		if(isset($result)){
 		unset($_SESSION['id_customer']);
 		?>		
@@ -188,8 +184,8 @@ if( isset($data_post['edit_object']))
 					<td><input class="StyleSelectBox" id="address" name="address" maxlength="200" type="text" value="<?= @$address;?>"/></td>
 				</tr>
 				<tr>
-					<td class="rowt"><label for="abon_plata">Абонентская плата, руб.:</label></td>
-					<td><input class="StyleSelectBox" id="abon_plata" name="abon_plata" type="number" min="0" value="<?=$abon_plata;?>"/></td>
+					<td class="rowt"><a href="object_customer_abon.php" title = "Ссылка на страницу с объектами с абонентской платой от заказчика">Абонентская плата, руб.:</a></td>
+					<td><span class="text_show"><?=$ab_summ;?></span></td>
 				</tr>
 				<tr class="status">
 					<td class="rowt">Статус объекта: *</td>

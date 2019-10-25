@@ -117,7 +117,7 @@
 							<li><a href="report_partner_from_base.php">Партнерская сеть</a></li>
 						</ul>
 						</li>
-						<li><a href="objects_with_abon.php">Объекты с абонентской платой</a></li> 
+						
 					</ul>
 				</li>
 				<li><a href="">Администрирование</a>

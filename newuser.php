@@ -151,6 +151,7 @@ if( isset($data['new_user']))
 	</script>
 </head>
 <body>
+<br>
 	<div class="showany">
 
 		<div class="reg_sel_object">
