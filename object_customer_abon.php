@@ -193,9 +193,7 @@ if(isset($data_post['copy']))
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Город-->
 					</td>					
-					<td>
 						
-					</td>							
 
 				</tr>
 			</thead>

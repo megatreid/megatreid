@@ -1,11 +1,11 @@
 <?php
 
-$host = "megatreid"; // ЗДЕСТЬ сменить megatreid на ip-адрес сервера без номера порта!
+$host = "megatreid"; // ЗДЕСЬ сменить megatreid на ip-адрес сервера без номера порта!
 $db_name = "megatreid";
-$login = "baseuser";
+$login_db = "baseuser";
 $pswrd = "qazwsxedc";
 //$connect = @mysql_connect ("$host", "$login", "$pswrd");
-$link = mysqli_connect($host, $login, $pswrd, $db_name) or die("Ошибка " . mysqli_error($link));
+$link = mysqli_connect($host, $login_db, $pswrd, $db_name) or die("Ошибка " . mysqli_error($link));
 if(!$link) {
 	header('Location: /errors/404.htm');
 }  
@@ -19,7 +19,7 @@ else
 	
 	//$user = "admin";
 	//$userpassword = "qwerty";
-	include 'd:/openserver/domains/megatreid/func/db.php';
+	include "../../domains/megatreid/func/db.php";
 
 	
 }

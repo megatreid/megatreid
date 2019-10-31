@@ -23,19 +23,18 @@ $customer = Show_Customer($link);
 		<table border="1">
 			<thead>
 				<tr class="hdr">
-					<th width="1">№</th>
+					<th rowspan="2" width="1">№</th>
 					<!--<th>Страна</th>-->
-					<th>Название<br>организации</th>
-					<th>Контактное<br>лицо</th>
-					<th>Контактный<br>телефон</th>							
+					<th>Название организации</th>
+					<th>Контактное лицо</th>
+					<th>Контактный телефон</th>							
 					<th>E-Mail</th>
-					<th  width=1%>Статус</th>
-					<th width="1" <?php if($_SESSION['userlevel'] <= 3){ ?> colspan="2"<?php }?>>Действие</th>
-					<th width="1">Проекты</th>
+					<th  rowspan="2" width=1%>Статус</th>
+					<th  rowspan="2" width="1" <?php if($_SESSION['userlevel'] <= 3){ ?> colspan="2"<?php }?>>Действие</th>
+					<th  rowspan="2" width="1">Проекты</th>
 				</tr>
 				<tr class='table-filters'>
-					<td>
-					</td>
+
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--Название организации-->
 					</td>
@@ -48,12 +47,7 @@ $customer = Show_Customer($link);
 					<td>
 						<input class="reg_input_filter" type="text" placeholder="..."/><!--E-Mail.-->
 					</td>							
-					<td>
-						<input class="reg_input_filter" type="text" placeholder="..."/><!--Статус-->
-					</td>						
-					<td colspan="5">
 
-					</td>
 				</tr>
 			</thead>	
 	<?php if($customer){

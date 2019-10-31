@@ -5,9 +5,9 @@ if($_SESSION['userlevel']==1)
 {
 //require_once '/blocks/header.php';
 	
-	if(isset($_GET['edit']))
+	if(isset($_GET['user_id']))
 	{
-		$data = $_GET['edit'];
+		$data = $_GET['user_id'];
 		$_SESSION['id_edit'] = $data;
 		$users = Edit_User($link, $data);
 		$surname = $users['surname'];
@@ -184,13 +184,14 @@ if($_SESSION['userlevel']==1)
 <body>
 	<div class="showany">
 		
-		<div class="reg_sel_object">
-		<h2>Редактирование данных пользователя:</h2>
+		<div class="contr_registr">
+		<h3>Редактирование данных пользователя:</h3>
 		<?php if($err==1){?>
 			<div class="error-message"><?=array_shift($errors)?></div>
 		<?php }?>
-		<form action="/edituser.php?edit=<?= $_SESSION['id_edit'];?>" method="POST">
-			<p style = "font-size: 8pt">Все поля являются обязательными</p>
+		<p style = "font-size: 8pt">*Все поля являются обязательными</p>
+		<form action="/edituser.php?user_id=<?= $data;?>" method="POST">
+			
 				<!--<input type="hidden" name="user_id" value="<?= $data ?>"> -->
 			
 			<table class="add-edit-user-table">

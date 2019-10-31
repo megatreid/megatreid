@@ -195,27 +195,22 @@ $comment = trim(filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL
 ?>
 <br>
 <?php
-		$id_customer = $_SESSION['id_edit'];
-		
-		$update_customer = Update_Customer ($link, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment);
-		
-		
-		if($update_customer)
-		{
-			if($status==0){
-				$Update_Status_Customer = Update_Status_Customer($link, $id_customer, $status);
-			}
-			unset($_SESSION['id_edit']);?>				
-			<script>
-				setTimeout(function() {window.location.href = '/showcustomer.php';}, 0);
-			</script>
-			<?php	
+	$id_customer = $_SESSION['id_edit'];
+	$update_customer = Update_Customer ($link, $id_customer, $customer_name, $jur_address, $post_address, $ogrn, $inn, $kpp, $dogovor_number, $status, $bank_name, $bank_bik, $korr_schet, $rasch_schet, $recipient, $phone, $email, $contact_name, $comment);
+	if($update_customer)
+	{
+		if($status==0){
+			$Update_Status_Customer = Update_Status_Customer($link, $id_customer, $status);
 		}
-		
+		unset($_SESSION['id_edit']);?>				
+		<script>
+			setTimeout(function() {window.location.href = '/showcustomer.php';}, 0);
+		</script>
+		<?php	
+	}
 	}
 	else
 		{
-
 			$err=TRUE;
 		}
 	}

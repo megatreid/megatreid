@@ -120,7 +120,7 @@ setTimeout(function(){
 							<!--<th>Наличие<br>анкеты</th>
 							<th>Статус</th>
 							<th>Система<br>НО</th> -->
-							<th colspan="2" width=1%>Действие</th>
+							<th  rowspan="2" colspan="2" width=1%>Действие</th>
 						</tr>
 						<tr class='table-filters'>
 							<td>
@@ -149,9 +149,7 @@ setTimeout(function(){
 								</select>
 							</td>
 							</form>
-							<td colspan="2">
 
-							</td>
 						</tr>						
 					</thead>	
 			<?php if($contrs){

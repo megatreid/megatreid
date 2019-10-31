@@ -45,7 +45,7 @@ require '/func/arrays.php';
 						<td align="center"><?=$users['mobile']?></td>
 						<td align="center"><?=$users['login']?></td>
 						<td align="center"><?=$user_level[$users['userlevel']-1]?></td>
-						<td align="center"><a href='/edituser.php?edit=<?= $users['id_users'] ?>' title = 'Изменить'>
+						<td align="center"><a href='/edituser.php?user_id=<?= $users['id_users'] ?>' title = 'Изменить'>
 						<img src='/images/edit.png' width='20' height='20'></td>
 					</tr>
 				<?php }?>
