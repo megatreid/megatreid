@@ -355,7 +355,7 @@ if( isset($data['new_ticket']))
 						<div>
 							<tr id="work_type_select">
 								<td class="reg_dohod_td"><label for="hours">Часы (количество):</label></td>
-								<td><input id="hours" class="StyleSelectBox" name="hours" type="number" value="<?= @$data['hours'];?>"/></td>
+								<td><input id="hours" class="StyleSelectBox" name="hours" type="number" step='0.01' value="<?= @$data['hours'];?>"/></td>
 							</tr>
 						</div>
 						<div>							
