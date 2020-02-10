@@ -750,6 +750,7 @@ if( isset($data['edit_ticket']))
 </body>
 
 <?php
+//добавлен комментарий
 	}
 	else
 	{
