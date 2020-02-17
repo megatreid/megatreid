@@ -29,7 +29,7 @@ if(isset($_POST['select_object'])){
 	$id_object = trim(filter_input(INPUT_POST, 'id_object'));
 	$objects = Edit_Object($link, $id_object);
 	$city_name = $objects['city_name'];
-	$object_full = $objects['shop_number'].". Адрес: ".$objects['address'];
+	$object_full = $objects['shop_number'].".<b> Адрес: </b>".$objects['address'];
 }
 
 $contractors = Show_Contr_for_select ($link);
@@ -149,6 +149,14 @@ if( isset($data['new_ticket']))
 			$hours = 0;
 		}
 		
+		if(!empty($cost_material) AND $cost_material > 0)
+		{
+			$summa_matcost = $contr_cost_material + $supplier_cost_material;
+			if($summa_matcost == 0)
+			{
+				$errors[] = 'Укажите стоимость материалов в расходной части!';
+			}
+		}
 		
 		if($implementer == 1)
 		{

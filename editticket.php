@@ -98,7 +98,14 @@ if( isset($data['edit_ticket']))
 		{ 
 			$hours_edit = 0;
 		}
-		
+		if(!empty($cost_material_edit) AND $cost_material_edit > 0)
+		{
+			$summa_matcost = $contr_cost_material_edit + $supplier_cost_material_edit;
+			if($summa_matcost == 0)
+			{
+				$errors[] = 'Укажите стоимость материалов в расходной части!';
+			}
+		}		
 		
 		if($implementer_edit == 1){ //Если в качестве исполнителя выбрано МегаТрейд, по подрядчику всё обнуляется
 			$id_contractor_edit = 0;
@@ -173,7 +180,7 @@ if( isset($data['edit_ticket']))
 	
 	$id_object = $objects['id_object'];
 	$id_project = $projects['id_project'];
-	$object_full = $objects['shop_number'].". Адрес: ".$objects['address'];
+	$object_full = $objects['shop_number'].".<b> Адрес: </b>".$objects['address'];
 	$city_name = $objects['city_name'];
 	
 	
