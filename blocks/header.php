@@ -86,53 +86,53 @@
 			<ul>
 				<li><a href="/">Главная</a>
 					<ul>
-						<li><a href="screen_update.php">Настройка обновления экрана</a></li>
+						<li><a href="/screen_update.php">Настройка обновления экрана</a></li>
 					</ul>
 				</li>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=4) {?>
-				<li><a href="showtickets.php">Заявки</a>
+				<li><a href="/showtickets.php">Заявки</a>
 				<ul>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <=3) {?>
-						<li><a href="newticket.php">Создать заявку</a></li>
+						<li><a href="/newticket.php">Создать заявку</a></li>
 				<?php }?>
 				</ul>
 				</li>
 				<?php }?>
 				<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] <= 3) {?>
-				<li><a href="showcustomer.php">Заказчики</a>
+				<li><a href="/showcustomer.php">Заказчики</a>
 					<ul>
-						<li><a href="object_customer_abon.php">Объекты с абонентской<br>платой от заказчиков</a></li>
+						<li><a href="/object_customer_abon.php">Объекты с абонентской<br>платой от заказчиков</a></li>
 					</ul>				
 				</li>
-				<li><a href="showcontractor.php">Подрядчики</a>
+				<li><a href="/showcontractor.php">Подрядчики</a>
 					<ul>
-						<li><a href="object_contr_abon.php">Объекты с абонентской<br>платой у подрядчиков</a></li>
+						<li><a href="/object_contr_abon.php">Объекты с абонентской<br>платой у подрядчиков</a></li>
 					</ul>
 				</li>
 				<li><a href="">Отчеты</a>
 					<ul>
-						<li><a href="report_by_customer.php">Отчет по заказчикам</a></li> 
-						<li><a href="report_by_contractor.php">Отчет по подрядчикам</a>
+						<li><a href="/report_by_customer.php">Отчет по заказчикам</a></li> 
+						<li><a href="/report_by_contractor.php">Отчет по подрядчикам</a>
 						<ul>
-							<li><a href="report_partner_from_base.php">Партнерская сеть</a></li>
+							<li><a href="/report_partner_from_base.php">Партнерская сеть</a></li>
 						</ul>
-						</li>
+						<li><a href="/report_profitability.php">Отчет рентабельности</a></li>
 						
 					</ul>
 				</li>
 				<li><a href="">Администрирование</a>
 					<ul>
 					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']==1) { ?>
-						<li><a href="showusers.php">Пользователи</a></li>
+						<li><a href="/showusers.php">Пользователи</a></li>
 					<?php }?>
-						<li><a href="geo_update.php">Редактирование географических объектов</a></li>
+						<li><a href="/geo_update.php">Редактирование географических объектов</a></li>
 					<?php if(isset($_SESSION['userlevel']) AND  $_SESSION['userlevel']==1) { ?>	
-						<li><a href="backup_db.php">Резервирование БД</a></li>
+						<li><a href="/backup_db.php">Резервирование БД</a></li>
 					<?php }?>	
 					</ul>
 				</li>
 					<?php }?>
-				<li><a href="about.php">О компании</a></li>
+				<li><a href="/about.php">О компании</a></li>
 			</ul>
 		</nav>
 	</body>

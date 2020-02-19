@@ -66,7 +66,7 @@ if(isset($_GET['id_customer']))
 					
 				<?php
 				if($projects){
-				foreach($projects as $i => $project) { ?>
+					foreach($projects as $i => $project) { ?>
 				<tbody>
 					<tr class="reg_text_show_tickets">
 						<td align="center" width="1"><?=$i+1?></td>
