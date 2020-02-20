@@ -38,7 +38,7 @@ if(isset($_POST['id_customer']))
 			<?php }?>
 			<br>
 			<form action="" method="POST"  enctype="multipart/form-data">
-			<table>
+			<table border="1">
 				<tr>
 					<td class="rowt">Выберите заказчика:</td>
 					<td colspan="2">
@@ -133,7 +133,7 @@ if(isset($_POST['id_customer']))
 					</td>
 				</tr>
 				<tr>
-				<td><button name="customer_report" class="button-new">Создать отчет</button></td>
+				<td colspan="2"><button name="customer_report" class="button-new">Создать отчет</button></td>
 				
 				</tr>
 				<?php }?>
@@ -143,7 +143,34 @@ if(isset($_POST['id_customer']))
 		</p>
 <?php
 if(isset($_POST['customer_report']))
-{ ?>		
+{
+	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
+	if ($ticket_status == 3) $ticket_status = "";
+	$year = trim(filter_input(INPUT_POST, 'year'));
+	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
+	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
+	//echo $month_start;
+	$month_start_name = $months[$month_start-1];
+	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
+	//echo $month_end;
+	$month_end_name = $months[$month_end-1];
+	$month_period = ($month_end - $month_start) + 1;
+	switch($payment_status)
+	{
+		case '0':	
+			$custompaystatus = "customer_payment_status = '0' AND ";
+		break;	
+		case '1':	
+			$custompaystatus = "customer_payment_status = '1' AND ";
+		break;	
+		case '2':	
+			$custompaystatus = "";
+		break;	
+
+	}
+
+
+	?>		
 
 		<table border="1" cellspacing="0">
 			<thead>
@@ -172,23 +199,98 @@ if(isset($_POST['customer_report']))
 					</tr>
 				</tbody>
 			<?php }}} else {
-	
+			$cash_abplata_month_summ = 0;
+			$all_cost_in_project_summ = 0;
+			$cash_summ = 0;
+			$all_cost_in_project = 0;
 				foreach($customers as $i => $customer_t)  { 
 				$projects_t = Show_Projects ($link, $customer_t['id_customer']);
 				$customer_name_t = Edit_Customer ($link, $customer_t['id_customer']);
-				foreach($projects_t as $i => $project_t)  { 
-				$projects_info = Edit_Project ($link, $project_t['id_project']);
-				?>
-				<tbody>
-					<tr class="reg_text_show_tickets">
-						<td align="center"><?=$customer_name_t['customer_name'];?></td>
-						<td align="center"><?=$projects_info['projectname'];?></td>
-						<td align="center"><?= "test" ?></td>
-						<td  width="1" align="center"><?= "test"?></td>
-						<td  width="1" align="center"><?= "test"?></td>
-					</tr>
-				</tbody>				
-			<?php }}} ?>				
+					foreach($projects_t as $i => $project_t)  
+					{						
+					$projects_info = Edit_Project ($link, $project_t['id_project']);
+					$objects = Show_Objects_report ($link, $projects_info['id_project']);
+						if($objects)
+						{
+							$cash_abplata_month = 0; //Месячная абонплата
+							$all_cost_in_project = 0;
+							foreach($objects as $object)
+							{
+								$id_object_for = $object['id_object'];
+								$paystatusabon = "AND paystatus = 0";
+								$customer_abonents = Show_objects_customer($link, $id_object_for, $year, $month_start, $month_end, $paystatusabon);
+								if($customer_abonents)
+								{
+								foreach($customer_abonents as $customer_abonent)
+								{
+									$abon_plata = $customer_abonent['summ'];
+									$cash_abplata_month_summ += floatval($abon_plata);
+								}
+								//$abon_plata = (int)$abon_plata;
+								//$cash_abplata_month = $abon_plata * $month_period;
+								//$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
+								}
+							}
+							$all_cost_in_project_summ += $all_cost_in_project;
+							$cash_summ += $cash_abplata_month_summ;
+							$cash_abplata_month = 0; //Месячная абонплата
+							$all_cost_in_project = 0;
+							foreach($objects as $object)
+							{
+								$odject_arr = $object['id_object'];
+								//$abon_plata = (int)$abon_plata;
+								$rep_tickets = Show_Rep_Tickets ($link, $odject_arr, $year, $ticket_status, $custompaystatus, $month_start, $month_end);
+								//$k=0;
+								if($rep_tickets)
+								{
+									foreach($rep_tickets as $rep_ticket)
+									{
+									if($rep_ticket['work_type'] == 1) //если выбран вид работы "Инцидентное обслуживание"
+									{	
+										switch ($rep_ticket['ticket_sla'])
+										{
+											case 0:
+												$cost_incident = floatval($projects['cost_incident_critical']);
+												break;
+											case 1:
+												$cost_incident = floatval($projects['cost_incident_high']);
+												break;
+											case 2:
+												$cost_incident = floatval($projects['cost_incident_medium']);
+												break;
+											case 3:
+												$cost_incident = floatval($projects['cost_incident_low']);
+												break;
+										}
+									}
+									else {
+										$cost_incident = 0;
+									}
+										$hours = intval($rep_ticket['hours']);
+										$sla = intval($rep_ticket['ticket_sla']);
+										$cost_hour = $hours * floatval($projects['cost_hour']);
+										$cost_smeta = floatval($rep_ticket['cost_smeta']);
+										$cost_material = floatval($rep_ticket['cost_material']);
+										$cost_transport = floatval($rep_ticket['cost_transport']);
+										$all_cost_in_project += ($cost_incident + $cost_hour + $cost_smeta + $cost_material + $cost_transport);
+									}
+								}
+							}							
+						}
+						$profit = $cash_abplata_month_summ  + $all_cost_in_project;
+						?>
+						<tbody>
+							<tr class="reg_text_show_tickets">
+								<td align="center"><?=$customer_name_t['customer_name'];?></td>
+								<td align="center"><?=$projects_info['projectname'];?></td>
+								<td align="center"><?= $profit ?></td>
+								<td  width="1" align="center"><?= "..." ?></td>
+								<td  width="1" align="center"><?= "test"?></td>
+							</tr>
+						</tbody>				
+					<?php 
+					$cash_abplata_month_summ = 0;
+					}}} ?>				
 				
 				
 			</table>
