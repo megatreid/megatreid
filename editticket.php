@@ -371,7 +371,7 @@ if( isset($data['edit_ticket']))
 						<tr>
 							<td class="reg_dohod_td"><label for="ticket_material">Материалы и оборудование <br>(и их стоимость):</label></td>
 							<td>
-								<textarea class="reg_textarea" id="ticket_material" name="ticket_material" maxlength="200"><?= @$tickets['ticket_material'];?></textarea>
+								<textarea class="reg_textarea" id="ticket_material" name="ticket_material" maxlength="500"><?= @$tickets['ticket_material'];?></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -641,7 +641,7 @@ if( isset($data['edit_ticket']))
 			<tr id="contr_select">
 				<td class="reg_contr_td"><label for="contr_material">Материалы и оборудование <br>(и их стоимость):</label></td>
 				<td>
-					<textarea class="reg_textarea" id="contr_material" name="contr_material" maxlength="100"><?= @$tickets['contr_material'];?></textarea>
+					<textarea class="reg_textarea" id="contr_material" name="contr_material" maxlength="500"><?= @$tickets['contr_material'];?></textarea>
 				</td>
 			</tr>
 			<tr id="contr_select">
@@ -704,7 +704,7 @@ if( isset($data['edit_ticket']))
 			<tr>
 				<td class="reg_post_td"><label for="supplier_contr_material">Материалы и оборудование <br>(и их стоимость):</label></td>
 				<td>
-					<textarea class="reg_textarea" id="supplier_contr_material" name="supplier_contr_material" maxlength="100"><?= @$tickets['supplier_contr_material'];?></textarea>
+					<textarea class="reg_textarea" id="supplier_contr_material" name="supplier_contr_material" maxlength="500"><?= @$tickets['supplier_contr_material'];?></textarea>
 				</td>
 			</tr>
 			<tr>
