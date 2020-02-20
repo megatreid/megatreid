@@ -81,9 +81,9 @@ if(isset($_POST['id_customer']))
 					<td class="rowt">Статус платежа:</td>
 					<td colspan="2">
 					<select class="reg_select" name="payment_status" id="payment_status">
-						<option selected value="0">Неоплачено</option>
+						<option  value="0">Неоплачено</option>
 						<option value="1">Оплачено</option>
-						<option value="2">Любой</option>
+						<option selected value="2">Любой</option>
 					</select>
 					</td>
 				</tr>
