@@ -6,6 +6,7 @@ require '/func/arrays.php';
 
 $date = date('d-m-Y');
 $customers = Show_Customer ($link);
+$profitsumm = 0;
 $id_customer_selected = "0";
 $err = FALSE;
 if(isset($_POST['id_customer']))
@@ -289,10 +290,17 @@ if(isset($_POST['customer_report']))
 							</tr>
 						</tbody>				
 					<?php 
+					
 					$cash_abplata_month_summ = 0;
-					}}} ?>				
-				
-				
+					$profitsumm += $profit;
+					}}}?>
+							<tr class="reg_text_show_tickets">
+								<td align="center"></td>
+								<td align="center"><?="ИТОГО:"?></td>
+								<td align="center"><?= $profitsumm; ?></td>
+								<td  width="1" align="center"><?= "..." ?></td>
+								<td  width="1" align="center"><?= "test"?></td>
+							</tr>
 			</table>
 <?php } ?>		
 		<div id="footer">&copy; ООО "МегаТрейд"</div>
