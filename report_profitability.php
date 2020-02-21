@@ -50,17 +50,17 @@ if(isset($_POST['id_customer']))
 									$customer_sel = Edit_Customer($link, $id_customer_selected);
 									$customer_name = Edit_Customer($link, $customer['id_customer']);
 									?>
-									<option  value="<?= $customer['id_customer']; ?>"<?= ($customer['id_customer'] == $customer_sel['id_customer']) ? 'selected' : ''?>>
+									<!-- <option  value="<?= $customer['id_customer']; ?>"<?= ($customer['id_customer'] == $customer_sel['id_customer']) ? 'selected' : ''?>>
 										<?= $customer_name['customer_name']; ?>
-									</option>
+									</option> -->
 								<?php }?>
 								<?php if(!$id_customer_selected){?>
-									<option  value="<?= $customer['id_customer']; ?>"><?= $customer['customer_name']; ?></option>
+									<!--<option  value="<?= $customer['id_customer']; ?>"><?= $customer['customer_name']; ?></option> -->
 									
 								<?php }?>									
 							<?php } ?>
 							
-							<option  value="all" <?= ($id_customer_selected == "all") ? 'selected' : ''?>><?= "Все заказчики" ?></option>
+							<option value="all" <?= ($id_customer_selected == "all") ? 'selected' : ''?>><?= "Все заказчики" ?></option>
 						</select>
 					</td>
 				</tr>
@@ -175,7 +175,7 @@ if(isset($_POST['customer_report']))
 
 		<table border="1" cellspacing="0">
 			<thead>
-				<tr class="hdr">
+				<tr class="hdr_size">
 					<th >Заказчик</th>
 					<th >Проект</th>
 					<th >Доход</th>
@@ -191,7 +191,7 @@ if(isset($_POST['customer_report']))
 				$customer_table = Edit_Customer ($link, $projects_table['id_customer']);
 				?>
 				<tbody>
-					<tr class="reg_text_show_tickets">
+					<tr class="reports_table">
 						<td align="center"><?=$customer_table['customer_name'];?></td>
 						<td align="center"><?=$projects_table['projectname'];?></td>
 						<td align="center"><?= "test" ?></td>
@@ -209,8 +209,8 @@ if(isset($_POST['customer_report']))
 				$customer_name_t = Edit_Customer ($link, $customer_t['id_customer']);
 					foreach($projects_t as $i => $project_t)  
 					{						
-					$projects_info = Edit_Project ($link, $project_t['id_project']);
-					$objects = Show_Objects_report ($link, $projects_info['id_project']);
+					$projects = Edit_Project ($link, $project_t['id_project']);
+					$objects = Show_Objects_report ($link, $projects['id_project']);
 						if($objects)
 						{
 							$cash_abplata_month = 0; //Месячная абонплата
@@ -279,12 +279,15 @@ if(isset($_POST['customer_report']))
 							}							
 						}
 						$profit = $cash_abplata_month_summ  + $all_cost_in_project;
+						$profitprint = number_format($profit, 2, ',', ' ');
+						$cash_abplata_month_summ_print = number_format($cash_abplata_month_summ, 2, ',', ' ');
+						$all_cost_in_project_print = number_format($all_cost_in_project, 2, ',', ' ');
 						?>
 						<tbody>
-							<tr class="reg_text_show_tickets">
+							<tr class="reports_table">
 								<td align="center"><?=$customer_name_t['customer_name'];?></td>
-								<td align="center"><?=$projects_info['projectname'];?></td>
-								<td align="center"><?= $profit ?></td>
+								<td align="center"><?=$projects['projectname'];?></td>
+								<td align="center" title = "<?= "Аренда: ".$cash_abplata_month_summ_print."р. + Заявки: ".$all_cost_in_project_print."р." ?>"><?= $profitprint." р."?></td>
 								<td  width="1" align="center"><?= "..." ?></td>
 								<td  width="1" align="center"><?= "test"?></td>
 							</tr>
@@ -293,11 +296,12 @@ if(isset($_POST['customer_report']))
 					
 					$cash_abplata_month_summ = 0;
 					$profitsumm += $profit;
+					$profitsummprint = number_format($profitsumm, 2, ',', ' ');
 					}}}?>
-							<tr class="reg_text_show_tickets">
+							<tr class="reports_table">
 								<td align="center"></td>
 								<td align="center"><?="ИТОГО:"?></td>
-								<td align="center"><?= $profitsumm; ?></td>
+								<td align="center"><?= $profitsummprint." р."; ?></td>
 								<td  width="1" align="center"><?= "..." ?></td>
 								<td  width="1" align="center"><?= "test"?></td>
 							</tr>

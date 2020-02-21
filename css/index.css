@@ -805,7 +805,13 @@ display: block;
 	font-size: 12px;
 	
 }
-
+.hdr_size {
+	background:#ADD8E6;
+	font-family: Arial, Helvetica, sans-serif; 
+	border: 1px solid #EDFAEC;
+	font-size: 14px;
+	
+}
 .newcustomer {
 	display: block;
 	position: absolute;
@@ -954,6 +960,19 @@ display: block;
 	//color: #FF0000;
 	word-wrap: break-word;
 }
+.reports_table{
+	//background: green;
+	//font-size: calc(0.2vw + 0.2vh + 1vmin);
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif; 
+	vertical-align: middle;
+	text-align: center;
+	font-weight: normal;
+	width: 250px;
+	//color: #FF0000;
+	word-wrap: break-word;
+}
+
 .show_green{
 	background: #CDFFC6;
 	
