@@ -20,6 +20,48 @@ if(isset($_POST['id_customer']))
 	}
 }
 
+if(isset($_POST['customer_report']))
+{
+	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
+	if ($ticket_status == 3) $ticket_status = "";
+	$year = trim(filter_input(INPUT_POST, 'year'));
+	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
+	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
+	//echo $month_start;
+	$month_start_name = $months[$month_start-1];
+	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
+	//echo $month_end;
+	$month_end_name = $months[$month_end-1];
+	$month_period = ($month_end - $month_start) + 1;
+	switch($payment_status)
+	{
+		case '0':	
+			$custompaystatus = "customer_payment_status = '0' AND ";
+		break;	
+		case '1':	
+			$custompaystatus = "customer_payment_status = '1' AND ";
+		break;	
+		case '2':	
+			$custompaystatus = "";
+		break;	
+
+	}
+	if($month_start > $month_end)
+	{
+		$errors[] = 'Неправильно выбран отчетный период!';
+	}
+	
+	if($month_end > date('n') AND $year == date('Y'))
+	{
+		$errors[] = 'Нельзя делать отчеты за будущие месяцы!';
+	}
+	if($year > date('Y'))
+	{
+		$errors[] = 'Нельзя делать отчеты за будущие месяцы!';
+	}	
+	
+	
+}	
 
 ?>
 <!DOCTYPE html>
@@ -36,10 +78,7 @@ if(isset($_POST['id_customer']))
 <div class="showcustomer">
 		<p class="breadcrumbs">Отчет рентабельности</p>
 		<div class="reg_sel_object">
-			<?php if($err==TRUE){?>
-			<div class="error-message"><?=array_shift($errors)?></div>
-			<?php }?>
-			<br>
+
 			<form action="" method="POST"  enctype="multipart/form-data">
 			<table>
 				<tr>
@@ -84,7 +123,7 @@ if(isset($_POST['id_customer']))
 					<td class="rowt">Статус платежа:</td>
 					<td colspan="2">
 					<select class="reg_select" name="payment_status" id="payment_status">
-						<option  value="0">Неоплачено</option>
+						<option value="0">Неоплачено</option>
 						<option value="1">Оплачено</option>
 						<option selected value="2">Любой</option>
 					</select>
@@ -94,9 +133,14 @@ if(isset($_POST['id_customer']))
 					<td class="rowt">Отчетный год:</td>
 					<td colspan="2">
 						<select class="reg_select" name="year" id="year" >
-						<?php for($i = 2015; $i < 2050; $i++) { ?>
+						<?php for($i = 2015; $i < 2050; $i++) { 
+						if(isset($_POST['customer_report']))
+						{
+						?>
+						<option  value="<?=$i;?>" <?= ($i == $year) ? 'selected' : ''?>><?=$i;?></option>
+						<?php } else { ?>
 						<option  value="<?=$i;?>" <?= ($i == date('Y')) ? 'selected' : ''?>><?=$i;?></option>
-						<?php } ?>
+						<?php }} ?>
 						</select>
 					</td>
 				</tr>
@@ -104,15 +148,26 @@ if(isset($_POST['id_customer']))
 					<td class="rowt">Отчетный период:</td> <!-- **********************ВЫБОР МЕСЯЦА***********************-->
 					<td colspan='2'> с
 					<select name="month_start" id="month" >
-						<?php for($i = 1; $i < 13; $i++) { ?>
+						<?php for($i = 1; $i < 13; $i++) {
+						if(isset($_POST['customer_report']))
+						{
+						?>
+							<option  value="<?= $i ?>" <?= ($i == $month_start) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
+						<?php } else { ?>	
 							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
-						<?php } ?>
+						<?php }
+						} ?>
 					</select>
 					по
 					<select name="month_end" id="month">
-						<?php for($i = 1; $i < 13; $i++) { ?>
+						<?php for($i = 1; $i < 13; $i++) { 
+						if(isset($_POST['customer_report']))
+						{ ?>
+							<option  value="<?= $i ?>" <?= ($i == $month_end) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
+						<?php } else { ?>	
 							<option  value="<?= $i ?>" <?= ($i == date('n')) ? 'selected' : ''?>><?= $months[$i-1] ?></option>
-						<?php } ?>
+						<?php }
+						} ?>
 					</select>
 					</td>
 				</tr>
@@ -145,45 +200,21 @@ if(isset($_POST['id_customer']))
 		</div>	
 		</p>
 <?php
-if(isset($_POST['customer_report']))
-{
-	$ticket_status = trim(filter_input(INPUT_POST, 'ticket_status'));
-	if ($ticket_status == 3) $ticket_status = "";
-	$year = trim(filter_input(INPUT_POST, 'year'));
-	$month_start = trim(filter_input(INPUT_POST, 'month_start'));
-	$payment_status = trim(filter_input(INPUT_POST, 'payment_status'));
-	//echo $month_start;
-	$month_start_name = $months[$month_start-1];
-	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
-	//echo $month_end;
-	$month_end_name = $months[$month_end-1];
-	$month_period = ($month_end - $month_start) + 1;
-	switch($payment_status)
-	{
-		case '0':	
-			$custompaystatus = "customer_payment_status = '0' AND ";
-		break;	
-		case '1':	
-			$custompaystatus = "customer_payment_status = '1' AND ";
-		break;	
-		case '2':	
-			$custompaystatus = "";
-		break;	
 
-	}
-
+if(isset($_POST['customer_report']) AND empty($errors))
+	{	
 
 	?>		
-
+	
 		<table border="1" cellspacing="0">
 			<thead>
 				<tr class="hdr_size">
 					<th >Заказчик</th>
 					<th >Проект</th>
 					<th >Доход</th>
-					<th >Расход</th>
-					<th >Материалы</th>
-					<th >Рентабельность<br></th>
+					<th   width="10%" >Расход</th>
+					<th   width="10%" >Материалы</th>
+					<th   width="10%" >Рентабельность<br></th>
 				</tr>
 			</thead>
 			<?php
@@ -353,7 +384,17 @@ if(isset($_POST['customer_report']))
 					$profit_contr_summ_print = number_format($profit_contr_summ, 2, ',', ' ');
 					$supplier_cost_summ2 += $supplier_cost_summ; 
 					$supplier_cost_summ2print = number_format($supplier_cost_summ2, 2, ',', ' ');
-
+					$rashod_all = $profit_contr_summ + $supplier_cost_summ2;
+					
+					if($rashod_all>0)
+					{
+						$profitability_all = ($profitsumm/$rashod_all)*100;
+					}
+					else
+					{
+						$profitability_all = 0;
+					}
+					$profitability_allprint = number_format($profitability_all, 2, ',', ' ');
 					$supplier_cost_summ = 0;
 
 					
@@ -364,10 +405,18 @@ if(isset($_POST['customer_report']))
 								<td align="center"><b><?= $profitsummprint." р."; ?></b></td>
 								<td align="center"><b><?= $profit_contr_summ_print." р."; ?></b></td>
 								<td align="center"><b><?= $supplier_cost_summ2print." р."; ?></b></td>
-								
+								<td align="center"><b><?= $profitability_allprint."%"; ?></b></td>								
 							</tr>
 			</table>
-<?php } ?>		
+<?php } 	else	{
+		$err=TRUE; ?>
+		<div class="error-message"><?=array_shift($errors)?></div>
+		<br>
+	<?php }	?>	
+
+
+
+	
 		<div id="footer">&copy; ООО "МегаТрейд"</div>
 		</div>
 		
