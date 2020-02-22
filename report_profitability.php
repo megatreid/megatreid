@@ -7,6 +7,8 @@ require '/func/arrays.php';
 $date = date('d-m-Y');
 $customers = Show_Customer ($link);
 $profitsumm = 0;
+$profit_contr_summ = 0;
+$supplier_cost_summ2 = 0; 
 $id_customer_selected = "0";
 $err = FALSE;
 if(isset($_POST['id_customer']))
@@ -39,7 +41,7 @@ if(isset($_POST['id_customer']))
 			<?php }?>
 			<br>
 			<form action="" method="POST"  enctype="multipart/form-data">
-			<table border="1">
+			<table>
 				<tr>
 					<td class="rowt">Выберите заказчика:</td>
 					<td colspan="2">
@@ -180,7 +182,8 @@ if(isset($_POST['customer_report']))
 					<th >Проект</th>
 					<th >Доход</th>
 					<th >Расход</th>
-					<th >Материалы<br></th>
+					<th >Материалы</th>
+					<th >Рентабельность<br></th>
 				</tr>
 			</thead>
 			<?php
@@ -197,10 +200,12 @@ if(isset($_POST['customer_report']))
 						<td align="center"><?= "test" ?></td>
 						<td  width="1" align="center"><?= "test"?></td>
 						<td  width="1" align="center"><?= "test"?></td>
+						<td  width="1" align="center"><?= "test"?></td>
 					</tr>
 				</tbody>
 			<?php }}} else {
 			$cash_abplata_month_summ = 0;
+			$cash_abplata_month_contr_summ = 0;
 			$all_cost_in_project_summ = 0;
 			$cash_summ = 0;
 			$all_cost_in_project = 0;
@@ -215,22 +220,36 @@ if(isset($_POST['customer_report']))
 						{
 							$cash_abplata_month = 0; //Месячная абонплата
 							$all_cost_in_project = 0;
+							$all_contr_cost = 0;
+							$supplier_cost_summ = 0;
 							foreach($objects as $object)
 							{
 								$id_object_for = $object['id_object'];
+								//$objaboninfo = Edit_Object_with_abon($link, $id_object_for);
 								$paystatusabon = "AND paystatus = 0";
 								$customer_abonents = Show_objects_customer($link, $id_object_for, $year, $month_start, $month_end, $paystatusabon);
 								if($customer_abonents)
 								{
-								foreach($customer_abonents as $customer_abonent)
-								{
-									$abon_plata = $customer_abonent['summ'];
-									$cash_abplata_month_summ += floatval($abon_plata);
-								}
+									foreach($customer_abonents as $customer_abonent)
+									{
+										$abon_plata = $customer_abonent['summ'];
+										$cash_abplata_month_summ += floatval($abon_plata);
+									}
 								//$abon_plata = (int)$abon_plata;
 								//$cash_abplata_month = $abon_plata * $month_period;
 								//$cash_abplata_month_summ += floatval($cash_abplata_month); //Сумма месячных абонплат со всех объектов одного проекта
 								}
+
+								$contr_objects_info = Show_objects_contr_object($link, $id_object_for, $year, $month_start, $month_end, $paystatusabon);
+								
+								if($contr_objects_info)
+								{
+									foreach($contr_objects_info as $contr_object_info)
+									{
+										$abon_plata_contr = $contr_object_info['summ'];
+										$cash_abplata_month_contr_summ += floatval($abon_plata_contr);
+									}
+								}								
 							}
 							$all_cost_in_project_summ += $all_cost_in_project;
 							$cash_summ += $cash_abplata_month_summ;
@@ -246,34 +265,47 @@ if(isset($_POST['customer_report']))
 								{
 									foreach($rep_tickets as $rep_ticket)
 									{
-									if($rep_ticket['work_type'] == 1) //если выбран вид работы "Инцидентное обслуживание"
-									{	
-										switch ($rep_ticket['ticket_sla'])
-										{
-											case 0:
-												$cost_incident = floatval($projects['cost_incident_critical']);
-												break;
-											case 1:
-												$cost_incident = floatval($projects['cost_incident_high']);
-												break;
-											case 2:
-												$cost_incident = floatval($projects['cost_incident_medium']);
-												break;
-											case 3:
-												$cost_incident = floatval($projects['cost_incident_low']);
-												break;
+										if($rep_ticket['work_type'] == 1) //если выбран вид работы "Инцидентное обслуживание"
+										{	
+											switch ($rep_ticket['ticket_sla'])
+											{
+												case 0:
+													$cost_incident = floatval($projects['cost_incident_critical']);
+													break;
+												case 1:
+													$cost_incident = floatval($projects['cost_incident_high']);
+													break;
+												case 2:
+													$cost_incident = floatval($projects['cost_incident_medium']);
+													break;
+												case 3:
+													$cost_incident = floatval($projects['cost_incident_low']);
+													break;
+											}
 										}
-									}
-									else {
-										$cost_incident = 0;
-									}
-										$hours = intval($rep_ticket['hours']);
+										else {
+											$cost_incident = 0;
+										}
+										
+										$contr_cost_work = floatval($rep_ticket['contr_cost_work']);
+										$contr_cost_smeta = floatval($rep_ticket['contr_cost_smeta']);
+										$contr_cost_transport = floatval($rep_ticket['contr_cost_transport']);
+										$all_contr_cost += ($contr_cost_work + $contr_cost_smeta + $contr_cost_transport);
+										
+										$supplier_cost_work = floatval($rep_ticket['supplier_cost_work']);
+										$supplier_cost_material = floatval($rep_ticket['supplier_cost_material']);
+										
+										$hours = floatval($rep_ticket['hours']);
 										$sla = intval($rep_ticket['ticket_sla']);
 										$cost_hour = $hours * floatval($projects['cost_hour']);
 										$cost_smeta = floatval($rep_ticket['cost_smeta']);
 										$cost_material = floatval($rep_ticket['cost_material']);
 										$cost_transport = floatval($rep_ticket['cost_transport']);
 										$all_cost_in_project += ($cost_incident + $cost_hour + $cost_smeta + $cost_material + $cost_transport);
+										$supplier_cost_summ += $supplier_cost_work + $supplier_cost_material;
+										
+										
+										
 									}
 								}
 							}							
@@ -282,28 +314,57 @@ if(isset($_POST['customer_report']))
 						$profitprint = number_format($profit, 2, ',', ' ');
 						$cash_abplata_month_summ_print = number_format($cash_abplata_month_summ, 2, ',', ' ');
 						$all_cost_in_project_print = number_format($all_cost_in_project, 2, ',', ' ');
+						$cash_abplata_month_contr_summ_print = number_format($cash_abplata_month_contr_summ, 2, ',', ' ');
+						$all_contr_cost_print = number_format($all_contr_cost, 2, ',', ' ');
+						$profit_contr = $cash_abplata_month_contr_summ + $all_contr_cost;
+						$profit_contr_print = number_format($profit_contr, 2, ',', ' ');
+						$supplier_cost_summ_print = number_format($supplier_cost_summ, 2, ',', ' ');
+						$rashod = $profit_contr + $supplier_cost_summ;
+
+						if($rashod>0)
+						{
+							$profitability = ($profit/$rashod)*100;
+						}
+						else
+						{
+							$profitability = 0;
+						}
+						$profitabilityprint = number_format($profitability, 2, ',', ' ');
 						?>
 						<tbody>
 							<tr class="reports_table">
 								<td align="center"><?=$customer_name_t['customer_name'];?></td>
 								<td align="center"><?=$projects['projectname'];?></td>
-								<td align="center" title = "<?= "Аренда: ".$cash_abplata_month_summ_print."р. + Заявки: ".$all_cost_in_project_print."р." ?>"><?= $profitprint." р."?></td>
-								<td  width="1" align="center"><?= "..." ?></td>
-								<td  width="1" align="center"><?= "test"?></td>
+								<td align="center" title = "<?= "Абонплата: ".$cash_abplata_month_summ_print."р. + Заявки: ".$all_cost_in_project_print."р." ?>"><?= $profitprint." р."?></td>
+								<td  width="1" align="center" title = "<?= "Абонплата: ".$cash_abplata_month_contr_summ_print."р. + Заявки: ".$all_contr_cost_print."р." ?>"><?= $profit_contr_print." р."?></td>
+								<td  width="1" align="center"><?= $supplier_cost_summ_print." р."; ?></td>
+								<td  width="1" align="center"><?= $profitabilityprint."%";?></td>
 							</tr>
 						</tbody>				
 					<?php 
 					
 					$cash_abplata_month_summ = 0;
+					$cash_abplata_month_contr_summ = 0;
+					$all_contr_cost = 0;
+					
 					$profitsumm += $profit;
 					$profitsummprint = number_format($profitsumm, 2, ',', ' ');
+					$profit_contr_summ += $profit_contr;
+					$profit_contr_summ_print = number_format($profit_contr_summ, 2, ',', ' ');
+					$supplier_cost_summ2 += $supplier_cost_summ; 
+					$supplier_cost_summ2print = number_format($supplier_cost_summ2, 2, ',', ' ');
+
+					$supplier_cost_summ = 0;
+
+					
 					}}}?>
 							<tr class="reports_table">
 								<td align="center"></td>
-								<td align="center"><?="ИТОГО:"?></td>
-								<td align="center"><?= $profitsummprint." р."; ?></td>
-								<td  width="1" align="center"><?= "..." ?></td>
-								<td  width="1" align="center"><?= "test"?></td>
+								<td align="center"><b><?="ИТОГО:"?></b></td>
+								<td align="center"><b><?= $profitsummprint." р."; ?></b></td>
+								<td align="center"><b><?= $profit_contr_summ_print." р."; ?></b></td>
+								<td align="center"><b><?= $supplier_cost_summ2print." р."; ?></b></td>
+								
 							</tr>
 			</table>
 <?php } ?>		

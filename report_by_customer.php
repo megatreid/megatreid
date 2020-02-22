@@ -184,7 +184,7 @@ if(isset($_POST['customer_report']))
 							else {
 								$cost_incident = 0;
 							}
-								$hours = intval($rep_ticket['hours']);
+								$hours = floatval($rep_ticket['hours']);
 								$sla = intval($rep_ticket['ticket_sla']);
 								$cost_hour = $hours * floatval($projects['cost_hour']);
 								$cost_smeta = floatval($rep_ticket['cost_smeta']);

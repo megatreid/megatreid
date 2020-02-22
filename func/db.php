@@ -1214,6 +1214,28 @@ function Show_objects_contr($connection, $id_contractor, $year, $month_start, $m
     return $array; 
 }
 
+function Show_objects_contr_object($connection, $id_object, $year, $month_start, $month_end, $paystatus)
+{
+
+	$search = "SELECT * FROM contr_objects_abonent WHERE id_object = '$id_object' AND year = '$year' AND (month BETWEEN $month_start AND $month_end) $paystatus";
+    
+    $result = $connection->query ($search);
+    if (!$result) die ($connection->error);
+    $rows = $result->num_rows;
+    if (!$rows) return false;
+    else
+    {
+        $array = array ();
+        for ($i=0; $i<$rows; $i++)
+        {
+            $result->data_seek ($i);
+            $row =$result->fetch_array (MYSQLI_ASSOC);
+            $array["$i"] = $row;
+        }   
+    }
+    return $array; 
+}
+
 /************************************************************************************************************************/
 function Add_Object_customabont($connection, $id_object, $summ, $year, $month, $paydate, $paystatus, $pay_account)
 {
