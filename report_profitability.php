@@ -11,6 +11,7 @@ $profit_contr_summ = 0;
 $supplier_cost_summ2 = 0; 
 $id_customer_selected = "0";
 $err = FALSE;
+$errors=array();
 if(isset($_POST['id_customer']))
 {
 	$id_customer_selected = trim(filter_input(INPUT_POST, 'id_customer'));
