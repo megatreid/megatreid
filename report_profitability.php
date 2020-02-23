@@ -10,6 +10,17 @@ $profitsumm = 0;
 $profit_contr_summ = 0;
 $supplier_cost_summ2 = 0; 
 $id_customer_selected = "0";
+$zarplata = 0;
+$zarnalog = 0;
+$nds = 0;
+$profit_tax = 0;
+$usn_tax = 0;
+$other_tax = 0;
+$banks = 0;
+$network = 0;
+$rent = 0;
+$own_expenses = 0;
+
 $err = FALSE;
 $errors=array();
 if(isset($_POST['id_customer']))
@@ -31,6 +42,21 @@ if(isset($_POST['customer_report']))
 	//echo $month_start;
 	$month_start_name = $months[$month_start-1];
 	$month_end = trim(filter_input(INPUT_POST, 'month_end'));
+	
+	$zarplata = trim(filter_input(INPUT_POST, 'zarplata'));
+	$zarnalog = trim(filter_input(INPUT_POST, 'zarnalog'));
+	$nds = trim(filter_input(INPUT_POST, 'nds'));
+	$profit_tax = trim(filter_input(INPUT_POST, 'profit_tax'));
+	$usn_tax = trim(filter_input(INPUT_POST, 'usn_tax'));
+	$other_tax = trim(filter_input(INPUT_POST, 'other_tax'));
+	$banks = trim(filter_input(INPUT_POST, 'banks'));
+	$network = trim(filter_input(INPUT_POST, 'network'));
+	$rent = trim(filter_input(INPUT_POST, 'rent'));
+	$own_expenses = trim(filter_input(INPUT_POST, 'own_expenses'));
+	
+	
+	
+	
 	//echo $month_end;
 	$month_end_name = $months[$month_end-1];
 	$month_period = ($month_end - $month_start) + 1;
@@ -78,8 +104,7 @@ if(isset($_POST['customer_report']))
 	<body>
 <div class="showcustomer">
 		<p class="breadcrumbs">Отчет рентабельности</p>
-		<div class="reg_sel_object">
-
+		<div class="reg_sel_object1">
 			<form action="" method="POST"  enctype="multipart/form-data">
 			<table>
 				<tr>
@@ -87,7 +112,7 @@ if(isset($_POST['customer_report']))
 					<td colspan="2">
 						<select name="id_customer" id="id_customer" class="StyleSelectBox"  onchange="this.form.submit()">
 							<option disabled selected>Выберите заказчика:</option>
-							<?php foreach($customers as $i => $customer)  { ?>
+							<?php foreach($customers as $i => $customer) { ?>
 								<?php if($id_customer_selected){
 									$customer_sel = Edit_Customer($link, $id_customer_selected);
 									$customer_name = Edit_Customer($link, $customer['id_customer']);
@@ -101,10 +126,17 @@ if(isset($_POST['customer_report']))
 									
 								<?php }?>									
 							<?php } ?>
-							
 							<option value="all" <?= ($id_customer_selected == "all") ? 'selected' : ''?>><?= "Все заказчики" ?></option>
 						</select>
 					</td>
+				<?php if(isset($id_customer_selected) AND $id_customer_selected!="0"){ ?>					
+					<td class="rowt"><label for="zarplata">Зарплата:</label></td>
+					<td><input id="zarplata" name="zarplata"   type="number" step="0.01" value="<?php echo @$zarplata;?>"/></td>
+					<td class="rowt"><label for="zarnalog">Зарплатные налоги:</label></td>
+					<td><input id="zarnalog" name="zarnalog"   type="number" step="0.01" value="<?php echo @$zarnalog;?>"/></td>
+					<td class="rowt"><label for="nds">НДС:</label></td>
+					<td><input id="nds" name="nds"  type="number" step="0.01" value="<?php echo @$nds;?>"/></td>
+				<?php } ?>
 				</tr>
 				<?php if(isset($id_customer_selected) AND $id_customer_selected!="0"){
 					$projects = Show_Active_Projects($link, $id_customer_selected);
@@ -119,6 +151,12 @@ if(isset($_POST['customer_report']))
 						<option value="3">Все заявки</option>
 					</select>
 					</td>
+					<td class="rowt"><label for="profit_tax">Налог на прибыль:</label></td>
+					<td><input id="profit_tax" name="profit_tax"  type="number" step="0.01" value="<?php echo @$profit_tax;?>"/></td>
+					<td class="rowt"><label for="usn_tax">Налог УСН:</label></td>
+					<td><input id="usn_tax" name="usn_tax"  type="number" step="0.01" value="<?php echo @$usn_tax;?>"/></td>
+					<td class="rowt"><label for="other_tax">Прочие налоги:</label></td>
+					<td><input id="other_tax" name="other_tax"  type="number" step="0.01" value="<?php echo @$other_tax;?>"/></td>				
 				</tr>
 				<tr>
 					<td class="rowt">Статус платежа:</td>
@@ -129,6 +167,12 @@ if(isset($_POST['customer_report']))
 						<option selected value="2">Любой</option>
 					</select>
 					</td>
+					<td class="rowt"><label for="banks">Услуги банка:</label></td>
+					<td><input id="banks" name="banks"  type="number" step="0.01" value="<?php echo @$banks;?>"/></td>
+					<td class="rowt"><label for="network">Связь, интернет:</label></td>
+					<td><input id="network" name="network"  type="number" step="0.01" value="<?php echo @$network;?>"/></td>
+					<td class="rowt"><label for="rent">Аренда:</label></td>
+					<td><input id="rent" name="rent"  type="number" step="0.01" value="<?php echo @$rent;?>"/></td>					
 				</tr>
 				<tr>
 					<td class="rowt">Отчетный год:</td>
@@ -144,6 +188,9 @@ if(isset($_POST['customer_report']))
 						<?php }} ?>
 						</select>
 					</td>
+
+					<td class="rowt"><label for="own_expenses">Собственные расходы:</label></td>
+					<td><input id="own_expenses" name="own_expenses"  type="number" step="0.01" value="<?php echo @$own_expenses;?>"/></td>					
 				</tr>
 				<tr>
 					<td class="rowt">Отчетный период:</td> <!-- **********************ВЫБОР МЕСЯЦА***********************-->
@@ -191,13 +238,15 @@ if(isset($_POST['customer_report']))
 					<?php }?>
 					</td>
 				</tr>
-				<tr>
-				<td colspan="2"><button name="customer_report" class="button-new">Создать отчет</button></td>
+
 				
-				</tr>
 				<?php }?>
-			</form>
+			
 			</table>
+			<?php if(isset($id_customer_selected) AND $id_customer_selected!="0"){ ?>
+			<button name="customer_report" class="button-new">Создать отчет</button>
+			<?php }?>
+			</form>
 		</div>	
 		</p>
 <?php
@@ -210,12 +259,14 @@ if(isset($_POST['customer_report']) AND empty($errors))
 		<table border="1" cellspacing="0">
 			<thead>
 				<tr class="hdr_size">
-					<th >Заказчик</th>
-					<th >Проект</th>
-					<th >Доход</th>
-					<th   width="10%" >Расход</th>
-					<th   width="10%" >Материалы</th>
-					<th   width="10%" >Рентабельность<br></th>
+					<th>Заказчик</th>
+					<th>Проект</th>
+					<th width="10%">Доход</th>
+					<th width="10%">Расход</th>
+					<th width="10%">Материалы</th>
+					<th width="10%">Прочие расходы<br></th>
+					<th width="10%">Рентабельность<br></th>
+					
 				</tr>
 			</thead>
 			<?php
@@ -370,6 +421,7 @@ if(isset($_POST['customer_report']) AND empty($errors))
 								<td align="center" title = "<?= "Абонплата: ".$cash_abplata_month_summ_print."р. + Заявки: ".$all_cost_in_project_print."р." ?>"><?= $profitprint." р."?></td>
 								<td  width="1" align="center" title = "<?= "Абонплата: ".$cash_abplata_month_contr_summ_print."р. + Заявки: ".$all_contr_cost_print."р." ?>"><?= $profit_contr_print." р."?></td>
 								<td  width="1" align="center"><?= $supplier_cost_summ_print." р."; ?></td>
+								<td></td>
 								<td  width="1" align="center"><?= $profitabilityprint."%";?></td>
 							</tr>
 						</tbody>				
@@ -385,7 +437,16 @@ if(isset($_POST['customer_report']) AND empty($errors))
 					$profit_contr_summ_print = number_format($profit_contr_summ, 2, ',', ' ');
 					$supplier_cost_summ2 += $supplier_cost_summ; 
 					$supplier_cost_summ2print = number_format($supplier_cost_summ2, 2, ',', ' ');
-					$rashod_all = $profit_contr_summ + $supplier_cost_summ2;
+						
+	
+	
+	
+	
+	
+	
+	
+					$other_exp = $zarplata + $zarnalog + $nds + $profit_tax + $usn_tax + $other_tax + $banks + $network + $rent + $own_expenses;
+					$rashod_all = $profit_contr_summ + $supplier_cost_summ2 + $other_exp;
 					
 					if($rashod_all>0)
 					{
@@ -396,6 +457,7 @@ if(isset($_POST['customer_report']) AND empty($errors))
 						$profitability_all = 0;
 					}
 					$profitability_allprint = number_format($profitability_all, 2, ',', ' ');
+					$other_expprint = number_format($other_exp, 2, ',', ' ');
 					$supplier_cost_summ = 0;
 
 					
@@ -406,6 +468,7 @@ if(isset($_POST['customer_report']) AND empty($errors))
 								<td align="center"><b><?= $profitsummprint." р."; ?></b></td>
 								<td align="center"><b><?= $profit_contr_summ_print." р."; ?></b></td>
 								<td align="center"><b><?= $supplier_cost_summ2print." р."; ?></b></td>
+								<td align="center"><b><?= $other_expprint." р."; ?></b></td>
 								<td align="center"><b><?= $profitability_allprint."%"; ?></b></td>								
 							</tr>
 			</table>
