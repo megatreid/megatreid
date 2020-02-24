@@ -406,7 +406,7 @@ if(isset($_POST['customer_report']) AND empty($errors))
 
 						if($rashod>0)
 						{
-							$profitability = ($profit/$rashod)*100;
+							$profitability = (($profit - $rashod)/$profit)*100;
 						}
 						else
 						{
@@ -448,9 +448,9 @@ if(isset($_POST['customer_report']) AND empty($errors))
 					$other_exp = $zarplata + $zarnalog + $nds + $profit_tax + $usn_tax + $other_tax + $banks + $network + $rent + $own_expenses;
 					$rashod_all = $profit_contr_summ + $supplier_cost_summ2 + $other_exp;
 					
-					if($rashod_all>0)
+					if($rashod_all>0 AND ($profitsumm-$rashod_all)>0)
 					{
-						$profitability_all = ($profitsumm/$rashod_all)*100;
+						$profitability_all = (($profitsumm-$rashod_all)/$profitsumm)*100;
 					}
 					else
 					{

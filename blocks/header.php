@@ -116,8 +116,9 @@
 						<ul>
 							<li><a href="/report_partner_from_base.php">Партнерская сеть</a></li>
 						</ul>
+						<?php if(isset($_SESSION['auch']) AND $_SESSION['auch'] == 1 AND $_SESSION['userlevel'] AND $_SESSION['userlevel'] == 1) {?>
 						<li><a href="/report_profitability.php">Отчет рентабельности</a></li>
-						
+						<?php } ?>
 					</ul>
 				</li>
 				<li><a href="">Администрирование</a>
