@@ -155,7 +155,7 @@ foreach($_POST['id_projects'] as $id_project)
 					$ticket_solution = html_entity_decode($rep_ticket['ticket_solution'], ENT_QUOTES);
 					$ticket_status_q = $ticket_status_array[$rep_ticket['ticket_status']];
 					$city_name = $object['city_name'];
-					$hours = intval($rep_ticket['hours']);
+					$hours = floatval($rep_ticket['hours']);
 					$sla = intval($rep_ticket['ticket_sla']);
 					$cost_hour = $hours * floatval($projects['cost_hour']);
 					$cost_smeta = floatval($rep_ticket['cost_smeta']);
