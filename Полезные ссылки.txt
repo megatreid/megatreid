@@ -3,7 +3,4 @@ http://jsbin.com/nodoqesala/edit?html,js,output
 https://jsfiddle.net/0y992bav/
 https://karmazzin.gitbooks.io/eloquentjavascript_ru/content/chapters/chapter18.html
 Добавил текст
-
-
-
 %progdir%\modules\php\%phpdriver%\php-win.exe -c %progdir%\modules\php\%phpdriver%\php.ini -q -f %sitedir%\megatreid\cron.php
